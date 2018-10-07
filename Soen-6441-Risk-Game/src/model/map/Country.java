@@ -1,5 +1,8 @@
 package model.map;
 
-public class Country {
+import java.util.ArrayList;
 
+public class Country {
+	
+	private ArrayList<Country> neighbours = new ArrayList<Country>();
 }

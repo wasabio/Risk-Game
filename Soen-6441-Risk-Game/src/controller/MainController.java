@@ -32,7 +32,7 @@ public class MainController {
 			new GameController();
 			break;
 		case 2:
-			new MapController();
+			new MapEditorController();
 			break;
 		}
 	}
