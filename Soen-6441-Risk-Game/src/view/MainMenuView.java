@@ -20,10 +20,6 @@ public class MainMenuView extends View {
 			{
 				return choice;
 			}
-			else
-			{
-				System.out.println("Error : Please enter the number of one of the listed options.");
-			}
 		}while(true);
 	}
 }
