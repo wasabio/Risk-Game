@@ -16,7 +16,7 @@ public class MainMenuView extends View {
 		{
 			choice = getInteger();
 			
-			if(isValueCorrect(choice, 1, 2))
+			if(isValueCorrect(choice, 2, 6))
 			{
 				return choice;
 			}
