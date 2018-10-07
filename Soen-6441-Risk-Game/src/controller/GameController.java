@@ -1,6 +1,8 @@
 package controller;
 
-public class GameController {
+import view.View;
+
+public class GameController extends View{
 
 	public GameController()
 	{
