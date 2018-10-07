@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import view.MainMenuView;
 
 /*
@@ -21,7 +23,7 @@ public class MainController {
 	 * controls the execution flow of the main menu and dispatch the work to other
 	 * controllers, depending on the user's choice.
 	 */
-	public static void mainMenu()
+	public static void mainMenu() 
 	{
 		MainMenuView mainMenu = new MainMenuView();
 		int choice = mainMenu.print();
