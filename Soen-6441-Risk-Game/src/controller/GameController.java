@@ -1,5 +1,7 @@
 package controller;
 
+import model.map.Map;
+
 public class GameController {
 
 	public GameController()
@@ -9,7 +11,9 @@ public class GameController {
 	
 	private void execute()
 	{
-		
+		Map map = new Map();
+		map.setName("world.map");
+		map.load();
 	}
 	
 	//private void 
