@@ -28,6 +28,7 @@ public abstract class View {
 	{
 		if(value < minimum || value > maximum)
 		{
+			System.out.println("Error : Number out of range");
 			return false;
 		}
 		
