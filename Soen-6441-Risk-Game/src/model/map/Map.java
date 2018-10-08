@@ -16,6 +16,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.utilities.FileHandler;
+import model.utilities.StringAnalyzer;
 
 public class Map {
 	
@@ -28,9 +29,10 @@ public class Map {
 	private String author;
 	private boolean warn;
 
-	public void load() throws IOException 
+	public void load(String mapFilePath) throws IOException 
 
-	{		
+	{	
+		this.mapFilePath = mapFilePath;
 		LineNumberReader in = new LineNumberReader(new FileReader(mapFilePath));
 		loadMapSection(in);
 		loadContinents(in);
@@ -91,7 +93,7 @@ public class Map {
 					throw new IOException("Invalid continent line: " + line);
 				}
 				String cname = line.substring(0, eqloc).trim();
-				int cbonus = Integer.parseInt(line.substring(eqloc + 1).trim(), -1);
+				int cbonus = StringAnalyzer.parseInt(line.substring(eqloc + 1).trim(), -1);
 				if ((cname.length() < 1) || (cbonus == -1)) {
 					throw new IOException("Invalid continent line: " + line);
 				}
@@ -113,13 +115,24 @@ public class Map {
 		}
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
-				for(Country n : c.neighbours) {
-					c.linkTo(n);
+				for(String n : c.neighboursNames) {
+					c.linkTo(findCountry(n));
 				}
 			}
 		}
 	}
 	
+	private Country findCountry(String name) throws IOException {
+		for(Continent ct : continents) {
+			for (Country c : ct.countries) {
+				if(c.name.equals(name)) {
+					return c;
+				}
+			}
+		}
+		throw new IOException("Incorrect map file (" + name + "," + ")");
+	}
+
 	private Country parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
@@ -170,33 +183,12 @@ public class Map {
 		return in.getLineNumber();
 	}
 
-	public void open() 
-	{
-		JFileChooser jf = new JFileChooser() {
-		
-		
-			protected JDialog createDialog(Component parent) throws HeadlessException {
-			JDialog jDialog = super.createDialog(parent);
-			jDialog.setAlwaysOnTop(true);
-			return jDialog;		
-			}
-			};
-			jf.showOpenDialog(null);
-			File path = jf.getSelectedFile();
-			if(checkType(path))
-				mapFilePath = path.getAbsolutePath();
-			else
-				open();	
-		}
-	private boolean checkType(File file)
-	{
-		if(file.getName().contains(".map"))
-			return true;
-		else
-		{
-			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
-			return false;
-		}
+	public String getImageFilePath() {
+		return imageFilePath;
+	}
+
+	public void setImageFilePath(String imageFilePath) {
+		this.imageFilePath = imageFilePath;
 	}
 		
 }

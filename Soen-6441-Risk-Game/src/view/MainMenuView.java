@@ -1,5 +1,9 @@
 package view;
 
+import java.io.File;
+
+import javax.swing.JFileChooser;
+
 public class MainMenuView extends View {
 		
 	public int print() 

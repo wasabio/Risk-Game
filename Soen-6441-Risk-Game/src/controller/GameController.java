@@ -28,14 +28,12 @@ public class GameController {
 	{
 		SetUpView setUpView = new SetUpView();
 		setUpView.print();
+		String mapFilePath = setUpView.selectMap();
+		
 		Map map = new Map();
-		map.open();
-		map.load();
+		map.load(mapFilePath);
 		
-	}
-	
-	
-		
+	}	
 }
 	
 

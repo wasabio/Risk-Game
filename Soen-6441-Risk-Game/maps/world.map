@@ -16,13 +16,13 @@ Oceania=2
 [Territories]
 Alaska,70,126,North America,Quebec,Ontario,China
 Ontario,199,167,North America,Alaska,Quebec,Central America
-Quebec,253,166,North America,Alaska,Ontario,Central America,Western Europ
+Quebec,253,166,North America,Alaska,Ontario,Central America,Western Europe
 Central America,183,262,North America,Quebec,Ontario,Venezuela
 
-Venezuala,259,303,South America,Central America,Brazil,Argentina
+Venezuela,259,303,South America,Central America,Brazil,Argentina
 Peru,262,349,South America,Brazil,Argentina,South Africa
 Argentina,263,407,South America,Peru,Brazil,Venezuela
-Brazil,308,337,South America,Venezuala,Peru,Argentina,North Africa
+Brazil,308,337,South America,Venezuela,Peru,Argentina,North Africa
 
 North Africa,420,264,Africa,Southern Europe,India,South Africa,Madagascar
 South Africa,483,371,Africa,Madagascar,North Africa,Peru
@@ -31,7 +31,7 @@ Madagascar,536,361,Africa,North Africa,South Africa
 Western Europe,423,202,Europe,Northern Europe,Russia,Southern Europe,Quebec
 Northern Europe,460,173,Europe,Western Europe,Russia
 Southern Europe,473,197,Europe,North Africa,Western Europe
-Russia,524,157,Europe,Northern Europe,Scandinavia
+Russia,524,157,Europe,Northern Europe
 
 Ural,613,136,Asia,China,Russia,India
 China,613,136,Asia,Ural,India,Alaska

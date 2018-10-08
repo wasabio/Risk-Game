@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 public class StringAnalyzer {
 	
@@ -28,7 +29,16 @@ public class StringAnalyzer {
 		return lineNb;
 	}
 	
-	
+	public static boolean checkMapType(File file)
+	{
+		if(file.getName().contains(".map"))
+			return true;
+		else
+		{
+			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
+			return false;
+		}
+	}
 		
 	
 }
