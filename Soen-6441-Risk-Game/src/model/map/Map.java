@@ -2,11 +2,16 @@ package model.map;
 
 import java.io.EOFException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import model.utilities.FileHandler;
 
 public class Map {
 	
@@ -19,10 +24,9 @@ public class Map {
 	private String author;
 	private boolean warn;
 
-	public void load(String mapFilePath) throws Exception
-	{
-		this.mapFilePath = mapFilePath;
-		
+	public void load() throws IOException 
+
+	{		
 		LineNumberReader in = new LineNumberReader(new FileReader(mapFilePath));
 		loadMapSection(in);
 		loadContinents(in);
@@ -162,4 +166,45 @@ public class Map {
 		return in.getLineNumber();
 	}
 
+	public void open() 
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		StringBuilder sb = new StringBuilder();
+		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File path = fileChooser.getSelectedFile();
+			
+			try {
+				Scanner input = new Scanner(path);
+			while(input.hasNext())
+			{
+				sb.append(input.nextLine());
+				sb.append("\n");
+			}
+			input.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} 
+			if(checkType(path))
+				mapFilePath = path.getAbsolutePath();
+			else
+				open();
+		}
+		else {
+			sb.append("No file was selected");
+		}
+		
+	}
+	private boolean checkType(File file)
+	{
+		if(file.getName().contains(".map"))
+			return true;
+		else
+		{
+			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
+			return false;
+		}
+	}
+		
 }
