@@ -1,5 +1,7 @@
 package model.map;
 
+import java.awt.Component;
+import java.awt.HeadlessException;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +11,8 @@ import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.Scanner;
+
+import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import model.utilities.FileHandler;
@@ -168,34 +172,24 @@ public class Map {
 
 	public void open() 
 	{
-		/*JFileChooser fileChooser = new JFileChooser();
-		StringBuilder sb = new StringBuilder();
-
-		*/
+		JFileChooser jf = new JFileChooser() {
 		
-		JFileChooser jf = new JFileChooser();
+		protected JDialog createDialog(Component parent) throws HeadlessException {
+			JDialog jDialog = super.createDialog(parent);
+			jDialog.setAlwaysOnTop(true);
+			return jDialog;		
+			}
+		};
+		
 		jf.showOpenDialog(null);
+		File path = jf.getSelectedFile();
 
-		
-		
-		
-		/*
-		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			File path = fileChooser.getSelectedFile();
-
-			if(checkType(path))
-				mapFilePath = path.getAbsolutePath();
-			else
-				open();
-		}
-		else {
-			System.out.println("jhg");
-
-			sb.append("No file was selected");
-		}*/
-		
+		if(checkType(path))
+			mapFilePath = path.getAbsolutePath();
+		else
+			open();			
 	}
-	
+
 	private boolean checkType(File file)
 	{
 		if(file.getName().contains(".map"))
