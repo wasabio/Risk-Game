@@ -132,7 +132,10 @@ public class Map {
 	}
 	private boolean checkType(File file)
 	{
-		return (true);
+		if(file.getName().contains(".map"))
+			return true;
+		else
+			return false;
 	}
 		
 }
