@@ -19,8 +19,7 @@ public class GameController {
 		setUpView.print();
 		
 		Map map = new Map();
-		map.setName("world.map");
-		map.load();
+		map.load(null);
 		
 		
 		
