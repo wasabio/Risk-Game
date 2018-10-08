@@ -1,10 +1,15 @@
 package model.map;
 
 import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import javax.swing.JFileChooser;
 
 import model.utilities.FileHandler;
 
@@ -98,4 +103,36 @@ public class Map {
 		return in.getLineNumber();
 	}
 
+	private void open() 
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		StringBuilder sb = new StringBuilder();
+		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File path = fileChooser.getSelectedFile();
+			//File dirf = path.getAbsolutePath();
+			String dif = path.getAbsolutePath();
+			System.out.println(dif);
+			try {
+				Scanner input = new Scanner(path);
+			while(input.hasNext())
+			{
+				sb.append(input.nextLine());
+				sb.append("\n");
+			}
+			input.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} 
+		}
+		else {
+			sb.append("No file was selected");
+		}
+	}
+	private boolean checkType(File file)
+	{
+		return (true);
+	}
+		
 }
