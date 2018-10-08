@@ -7,7 +7,7 @@ import view.View;
 import model.map.Map;
 
 public class GameController {
-
+	
 	public GameController() 
 	{
 		execute();
@@ -19,7 +19,7 @@ public class GameController {
 		setUpView.print();
 		
 		Map map = new Map();
-		map.load(null);
+		//map.load();
 		
 		
 		
