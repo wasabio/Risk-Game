@@ -57,10 +57,7 @@ public class Map {
 	 *         wise return false.
 	 */
 	public boolean isDisparateImageFileDirectory() {
-		if (this.imageFilePath == null) {
-			return false;
-		}
-		if (this.mapFilePath == null) {
+		if (this.imageFilePath == null || this.mapFilePath == null) {
 			return false;
 		}
 		File mapDir = new File(this.mapFilePath).getParentFile();
