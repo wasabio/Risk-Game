@@ -1,30 +1,40 @@
 package model.map;
 
 import java.io.EOFException;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
-
+import java.util.StringTokenizer;
+import java.util.Scanner;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import model.utilities.FileHandler;
 
 public class Map {
 	
 	private ArrayList<Continent> continents = new ArrayList<Continent>();
+	
 	private String mapFilePath;
+	private String imageFilePath;
+	private boolean wrap;
+	private String scroll;
+	private String author;
+	private boolean warn;
 
-	public void load(String mapFilePath) 
-	{
-		this.mapFilePath = mapFilePath;
-		
-		/*LineNumberReader in = new LineNumberReader(new FileReader(mapFilePath));
+	public void load() throws IOException 
+
+	{		
+		LineNumberReader in = new LineNumberReader(new FileReader(mapFilePath));
 		loadMapSection(in);
 		loadContinents(in);
-		loadTerritories(in);*/
+		loadCountries(in);
 	}
-	
+
 	private void loadMapSection(LineNumberReader in) throws IOException {
-		/*findSection(in, "Map");
+		reachSection(in, "Map");
 		while(true) {
 			String line = in.readLine();
 			if (line == null) {
@@ -48,7 +58,7 @@ public class Map {
 					} else if ("wrap".equals(prop)) {
 						this.wrap = val.equalsIgnoreCase("yes");
 					} else if ("scroll".equals(prop)) {
-						this.scroll = convertScrollOptionsString(val, ScrollOptions.NONE);
+						this.scroll = val;
 					} else if ("author".equals(prop)) {
 						this.author = val;
 					} else if ("warn".equals(prop)) {
@@ -56,11 +66,11 @@ public class Map {
 					}
 				}
 			}
-		}*/
+		}
 	}
 
 	private void loadContinents(LineNumberReader in) throws IOException {
-		/*while(true) {
+		while(true) {
 			String line = in.readLine();
 			if (line == null) {
 				throw new IOException("[Territories] Section expected; found EOF");
@@ -83,10 +93,68 @@ public class Map {
 				}
 				this.continents.add(new Continent(cname, cbonus));
 			}
-		}*/
+		}
 	}
 	
-	private int findSection(LineNumberReader in, String section) throws IOException {
+	private void loadCountries(LineNumberReader in) throws IOException {
+		Country ctry;
+		while(true) {
+			String line = in.readLine();
+			if (line == null) {
+				break;
+			}
+			if (!line.trim().equals("")) {
+				ctry = parseCountryLine(line);
+			}
+		}
+		for(Continent ct : continents) {
+			for (Country c : ct.countries) {
+				for(Country n : c.neighbours) {
+					c.linkTo(n);
+				}
+			}
+		}
+	}
+	
+	private Country parseCountryLine(String line) throws IOException {
+		try {
+			StringTokenizer st = new StringTokenizer(line, ",");
+			Country ctry = new Country();
+			ctry.name = st.nextToken().trim();
+			ctry.setCenter(Integer.parseInt(st.nextToken().trim()), Integer.parseInt(st.nextToken().trim()));
+
+			if (st.hasMoreTokens()) {
+				String name = st.nextToken().trim();
+				ctry.setContinent(findContinent(name));
+				if ((ctry.name == null) || (ctry.name.length() < 0)) {
+					throw new Exception("country name not found");
+				}
+				if ((ctry.getX() == -1) || (ctry.getY() == -1)) {
+					throw new Exception("invalid coordinates");
+				}
+				if (ctry.getContinent() != null && !name.equals("")) {
+					ctry.getContinent().countries.add(ctry);
+				}
+				while (st.hasMoreTokens()) {
+					ctry.neighboursNames.add(st.nextToken().trim());
+				}
+			}
+			return ctry;
+		} catch (Exception e) {
+			throw new IOException(" :Invalid country line (" + e + "): " + line);
+		}
+	}
+		
+	private Continent findContinent(String name) {
+		for (Continent cont : this.continents) {
+			if (name.equalsIgnoreCase(cont.getName())) {
+				return cont;
+			}
+		}
+		return null;
+	}
+
+	private int reachSection(LineNumberReader in, String section) throws IOException {
 		String head = "[" + section + "]";
 		String line;
 		do {
@@ -98,4 +166,45 @@ public class Map {
 		return in.getLineNumber();
 	}
 
+	public void open() 
+	{
+		JFileChooser fileChooser = new JFileChooser();
+		StringBuilder sb = new StringBuilder();
+		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			File path = fileChooser.getSelectedFile();
+			
+			try {
+				Scanner input = new Scanner(path);
+			while(input.hasNext())
+			{
+				sb.append(input.nextLine());
+				sb.append("\n");
+			}
+			input.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			} 
+			if(checkType(path))
+				mapFilePath = path.getAbsolutePath();
+			else
+				open();
+		}
+		else {
+			sb.append("No file was selected");
+		}
+		
+	}
+	private boolean checkType(File file)
+	{
+		if(file.getName().contains(".map"))
+			return true;
+		else
+		{
+			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
+			return false;
+		}
+	}
+		
 }
