@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 import model.utilities.FileHandler;
 
@@ -17,6 +18,7 @@ public class Map {
 	
 	private ArrayList<Continent> continents = new ArrayList<Continent>();
 	private String mapFilePath;
+
 
 	public void load(String mapFilePath) 
 	{
@@ -103,15 +105,14 @@ public class Map {
 		return in.getLineNumber();
 	}
 
-	private void open() 
+	public void open() 
 	{
 		JFileChooser fileChooser = new JFileChooser();
 		StringBuilder sb = new StringBuilder();
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File path = fileChooser.getSelectedFile();
 			//File dirf = path.getAbsolutePath();
-			String dif = path.getAbsolutePath();
-			System.out.println(dif);
+			
 			try {
 				Scanner input = new Scanner(path);
 			while(input.hasNext())
@@ -125,17 +126,25 @@ public class Map {
 				e.printStackTrace();
 				
 			} 
+			if(checkType(path))
+				mapFilePath = path.getAbsolutePath();
+			else
+				open();
 		}
 		else {
 			sb.append("No file was selected");
 		}
+		
 	}
 	private boolean checkType(File file)
 	{
 		if(file.getName().contains(".map"))
 			return true;
 		else
+		{
+			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
 			return false;
+		}
 	}
 		
 }

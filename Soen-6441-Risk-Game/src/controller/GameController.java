@@ -24,6 +24,7 @@ public class GameController {
 		SetUpView setUpView = new SetUpView();
 		setUpView.print();
 		Map map = new Map();
+		map.open();
 		map.load(null);
 		
 	}
