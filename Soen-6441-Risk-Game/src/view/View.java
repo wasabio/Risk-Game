@@ -14,7 +14,9 @@ public abstract class View {
 		 {
 			 if(input.hasNextInt())
 			 {
-				 return input.nextInt();
+				 int x = 1;//input.nextInt();
+				 input.close();
+				 return x;
 			 }
 			 else
 			 {

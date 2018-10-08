@@ -168,34 +168,34 @@ public class Map {
 
 	public void open() 
 	{
-		JFileChooser fileChooser = new JFileChooser();
+		/*JFileChooser fileChooser = new JFileChooser();
 		StringBuilder sb = new StringBuilder();
+
+		*/
+		
+		JFileChooser jf = new JFileChooser();
+		jf.showOpenDialog(null);
+
+		
+		
+		
+		/*
 		if(fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File path = fileChooser.getSelectedFile();
-			
-			try {
-				Scanner input = new Scanner(path);
-			while(input.hasNext())
-			{
-				sb.append(input.nextLine());
-				sb.append("\n");
-			}
-			input.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				
-			} 
+
 			if(checkType(path))
 				mapFilePath = path.getAbsolutePath();
 			else
 				open();
 		}
 		else {
+			System.out.println("jhg");
+
 			sb.append("No file was selected");
-		}
+		}*/
 		
 	}
+	
 	private boolean checkType(File file)
 	{
 		if(file.getName().contains(".map"))

@@ -32,10 +32,7 @@ public class GameController {
 		map.open();
 		map.load();
 		
-	}
-	
-	
-		
+	}	
 }
 	
 
