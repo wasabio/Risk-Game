@@ -80,8 +80,8 @@ public class Country
 				nameList.add(cont.getName());
 			}
 		}
-		return "Country= " + this.getName() + " player=" + player.getName();
-		
+		return "Country= " + this.getName() + " player=" ;
+		// player.getName()
 		//return "Territory [name=" + name + ", continent=" + cont + ", centerY=" + centerY + ", centerX=" + centerX
 		//+ ", linkes=" + linkNames + "]";
 	}
