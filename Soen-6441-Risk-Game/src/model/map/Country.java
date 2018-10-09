@@ -117,8 +117,8 @@ public class Country
 	/**
 	 * To add the troop to the country
 	 * 
-	 * @param addArmies
-	 *            the number of the Armies that need to be added with int type
+	 * @param addArmies : the number of the Armies that need to be added with int type
+	 *            
 	 */
 	public void addArmies(int newArmies) 
 	{
@@ -126,12 +126,11 @@ public class Country
 	}
 
 	/**
-	 * might need to do some changes, the Armies cannot be removed, only can be removed in move turn or defeated
+	 * might need to do some changes, the Armies cannot be removed by players, only can be removed in move turn or defeated
 	 * To remove the Armies from the country
 	 * 
-	 * @param RemovedArmies
-	 *            the number of the Armies that want to be removed from the
-	 *            country
+	 * @param RemovedArmies : the number of the Armies that want to be removed from the country
+	 *            
 	 */
 	public void removeArmies(int RemovedArmies) 
 	{
@@ -141,9 +140,8 @@ public class Country
 	/**
 	 * To set a name to the country
 	 * 
-	 * @param name
-	 *            the desired name that want to set to the country with String
-	 *            type
+	 * @param name : the desired name that want to set to the country with String type
+	 *            
 	 */
 	public void setName(String name) 
 	{
@@ -163,10 +161,11 @@ public class Country
 	/**
 	 * To set the x coordinate postion of the country
 	 * 
-	 * @param x
-	 *            the desired x coordinate postion of the country
+	 * @param x : the desired x coordinate postion of the country
+	 *            
 	 */
-	public void setXLocation(int x) {
+	public void setXLocation(int x) 
+	{
 		xLocation = x;
 	}
 
@@ -175,17 +174,18 @@ public class Country
 	 * 
 	 * @return the x coordinate location of the country with int type
 	 */
-	public int getXLocation() {
+	public int getXLocation() 
+	{
 		return xLocation;
 	}
 	
 	/**
 	 * To set the y coordinate location of the country
 	 * 
-	 * @param y
-	 *            the desired y coordinate location of the country
+	 * @param y : the desired y coordinate location of the country
 	 */
-	public void setYLocation(int y) {
+	public void setYLocation(int y) 
+	{
 		yLocation = y;
 	}
 
@@ -194,7 +194,8 @@ public class Country
 	 * 
 	 * @return the y coordinate location of the country with int type
 	 */
-	public int getYLocation() {
+	public int getYLocation() 
+	{
 		return yLocation;
 	}
 	
