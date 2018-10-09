@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import model.map.*;
 /**
 *
-* This class create methods to add/remove countries to Continents, get/set Continents names, extraArmies and color.
-* the toString method lists the countries on the continent.
+* This class create methods to add/remove countries, get/set Continents names, extraArmies and color to Continents.
+* the toString method lists the countries in each continent.
 *
 */
 
