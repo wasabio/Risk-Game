@@ -9,6 +9,7 @@ import model.map.*;
 *
 */
 
+<<<<<<< HEAD
 public class Continent 
 {
 	String name;
@@ -166,4 +167,21 @@ public class Continent
 
 	
 	
+=======
+public class Continent {
+
+	private String name;
+	private int bonus;
+	
+	public ArrayList<Country> countries = new ArrayList<Country>();
+	
+	public Continent(String new_name, int new_bonus) {
+		this.name = new_name;
+		this.bonus = new_bonus;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+>>>>>>> master
 }
