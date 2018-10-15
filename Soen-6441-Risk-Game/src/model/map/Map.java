@@ -1,60 +1,26 @@
 package model.map;
 
-import java.awt.Component;
-import java.awt.HeadlessException;
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
-import java.util.Scanner;
 
-import javax.swing.JDialog;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import model.utilities.FileHandler;
 import model.utilities.StringAnalyzer;
-
-import java.io.EOFException;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.LineNumberReader;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Observable;
-import java.util.Set;
-import java.util.StringTokenizer;
-
-
 
 public class Map {
 	
-	private ArrayList<Continent> continents = new ArrayList<Continent>();
-<<<<<<< HEAD
-	public ArrayList<Country> Countries = new ArrayList<Country>();
+	public ArrayList<Continent> continents = new ArrayList<Continent>();
+	public ArrayList<Country> countries = new ArrayList<Country>();
 	private String name;
-	private String mapFilePath;
-	private String imageFilePath;
-	
-	
-=======
-	
 	private String mapFilePath;
 	private String imageFilePath;
 	private boolean wrap;
 	private String scroll;
 	private String author;
 	private boolean warn;
->>>>>>> master
 
 	public void load(String mapFilePath) throws IOException 
 
@@ -152,7 +118,7 @@ public class Map {
 	private Country findCountry(String name) throws IOException {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
-				if(c.name.equals(name)) {
+				if(c.getName().equals(name)) {
 					return c;
 				}
 			}
@@ -164,16 +130,16 @@ public class Map {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
 			Country ctry = new Country();
-			ctry.name = st.nextToken().trim();
+			ctry.setName(st.nextToken().trim());
 			ctry.setCenter(Integer.parseInt(st.nextToken().trim()), Integer.parseInt(st.nextToken().trim()));
 
 			if (st.hasMoreTokens()) {
 				String name = st.nextToken().trim();
 				ctry.setContinent(findContinent(name));
-				if ((ctry.name == null) || (ctry.name.length() < 0)) {
+				if ((ctry.getName() == null) || (ctry.getName().length() < 0)) {
 					throw new Exception("country name not found");
 				}
-				if ((ctry.getX() == -1) || (ctry.getY() == -1)) {
+				if ((ctry.getXLocation() == -1) || (ctry.getYLocation() == -1)) {
 					throw new Exception("invalid coordinates");
 				}
 				if (ctry.getContinent() != null && !name.equals("")) {
@@ -209,33 +175,5 @@ public class Map {
 		} while (!line.equalsIgnoreCase(head));
 		return in.getLineNumber();
 	}
-
-<<<<<<< HEAD
-	/**
-	 * check whether a map contains two different format files including .map
-	 * text file and .bmp image file.
-	 * 
-	 * @return Return true if two different files are matched exactly, other
-	 *         wise return false.
-	 */
-	public boolean isDisparateImageFileDirectory() {
-		if (this.imageFilePath == null || this.mapFilePath == null) {
-			return false;
-		}
-		File mapDir = new File(this.mapFilePath).getParentFile();
-		File imgDir = new File(this.imageFilePath).getParentFile();
-		return (mapDir != null) && (imgDir != null) && (mapDir.compareTo(imgDir) != 0);
-	}
 	
 }
-=======
-	public String getImageFilePath() {
-		return imageFilePath;
-	}
-
-	public void setImageFilePath(String imageFilePath) {
-		this.imageFilePath = imageFilePath;
-	}
-		
-}
->>>>>>> master
