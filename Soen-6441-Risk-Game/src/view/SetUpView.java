@@ -14,7 +14,6 @@ public class SetUpView extends View {
 
 	public int print() 
 	{
-		System.out.print("\033[H\033[2J");
 		System.out.println("Choose the number of players (2-6): ");
 		int player_num;
 		boolean correctValue;
