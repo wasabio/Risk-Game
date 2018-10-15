@@ -21,6 +21,7 @@ public class Map {
 	private String scroll;
 	private String author;
 	private boolean warn;
+	private int playerNumber;
 
 	public void load(String mapFilePath) throws IOException 
 
@@ -30,6 +31,12 @@ public class Map {
 		loadMapSection(in);
 		loadContinents(in);
 		loadCountries(in);
+		check();
+	}
+
+	private void check() {
+		// Yueshuai implementation : 3 map correctness checking + check if map playable regarding playerNumber
+		
 	}
 
 	private void loadMapSection(LineNumberReader in) throws IOException {
@@ -174,6 +181,30 @@ public class Map {
 			}
 		} while (!line.equalsIgnoreCase(head));
 		return in.getLineNumber();
+	}
+
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
+
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
+	}
+
+	public void distributeCountries() {
+		switch(this.playerNumber) {
+		case 2:
+			break;
+		case 3:
+			break;
+		case 4:
+			break;
+		case 5:
+			break;
+		case 6:
+			break;
+		}
+		
 	}
 	
 }

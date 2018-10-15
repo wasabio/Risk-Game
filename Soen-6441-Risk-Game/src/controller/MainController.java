@@ -1,10 +1,5 @@
 package controller;
 
-import java.io.File;
-import java.io.IOException;
-
-import javax.swing.JFileChooser;
-
 import view.MainMenuView;
 
 /*
@@ -30,9 +25,6 @@ public class MainController {
 	{
 		MainMenuView mainMenu = new MainMenuView();
 		int choice = mainMenu.print();
-		
-		
-		
 		
 		switch(choice)
 		{
