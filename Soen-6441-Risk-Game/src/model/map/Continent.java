@@ -1,22 +1,16 @@
 package model.map;
 
 import java.util.ArrayList;
-import model.map.*;
-/**
-*
-* This class create methods to add/remove countries, get/set Continents names, extraArmies and color to Continents.
-* the toString method lists the countries in each continent.
-*
-*/
 
-<<<<<<< HEAD
+/**
+* This class holds informations and behaviors of a continent. 
+* It holds a list of its associated countries.
+*/
 public class Continent 
 {
-	String name;
+	private String name;
 	private int extraArmies;
-	private String color;
-	
-	private ArrayList<Country> countries = new ArrayList<Country>();
+	public ArrayList<Country> countries = new ArrayList<Country>();
 	
 	/**
 	 * constructor method.
@@ -27,18 +21,14 @@ public class Continent
 	}
 	
 	/**
-	 * Construction method with incoming parameters.
-	 * @param color : the continent color with Color type
-	 * @param name :  continent name with String type
-	 * @param extraArmies : extraArmies the player can get after conquest the continent
-	 * @param world : the world the players are in(not done yet)
+	 * Construction method with the following parameters.
+	 * @param new_name :  continent name with String type
+	 * @param new_extraArmies : extraArmies the player can get after conquest the continent
 	 */
-	public Continent(String color, String name, int extraArmies)
+	public Continent(String new_name, int new_extraArmies)
 	{
-		this.extraArmies = extraArmies;
-		this.color = color;
-		this.name = name;
-		//this.world = world;
+		this.name = new_name;
+		this.extraArmies = new_extraArmies;
 	}
 	
 	/**
@@ -121,30 +111,12 @@ public class Continent
 	}
 
 	/**
-	 * To get the number of the troop
-	 * @return the number of the troop with int type
+	 * To get the number of the bonus armies that a player should reveive if he holds the whole continent.
+	 * @return the number of the bonus armies with int type
 	 */
 	public int getExtraArmies()
 	{
 		return extraArmies;
-	}
-
-	/**
-	 * To set the color to the continent
-	 * @param col the color that want to be set to the continent with String type
-	 */
-	public void setColor(String col)
-	{
-		color = col;
-	}
-
-	/**
-	 * To get the color of the continent
-	 * @return the color of the continent with String type
-	 */
-	public String getColor()
-	{
-		return color;
 	}
 
 	/**
@@ -165,23 +137,4 @@ public class Continent
 		return name;
 	}
 
-	
-	
-=======
-public class Continent {
-
-	private String name;
-	private int bonus;
-	
-	public ArrayList<Country> countries = new ArrayList<Country>();
-	
-	public Continent(String new_name, int new_bonus) {
-		this.name = new_name;
-		this.bonus = new_bonus;
-	}
-
-	public String getName() {
-		return this.name;
-	}
->>>>>>> master
 }

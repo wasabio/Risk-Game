@@ -2,29 +2,21 @@ package model.map;
 
 import java.util.ArrayList;
 
-<<<<<<< HEAD
-
-import model.map.*;
-
-
-
 /**
- * This class is handling the information of country, army in the country and relationships with the country's neighbors
- * 
+ * This class is handling the information and the behavior of a country.
+ * It holds data about the army in the country and has relationships with the country's neighbors
  */
-
-public class Country 
-{
-	private Continent continent;
-	//private Player player;
-	private int armyNumber;
+public class Country {
+	
 	private String name;
+	private Continent continent;
+	private int armyNumber;
 	private int xLocation;
 	private int yLocation;
-	//private CountryButton button;
+	//private Player player;	
 	public boolean hasReached;
-	private ArrayList<String> neighborsNames = new ArrayList<>();
-	private ArrayList<Country> neighbors = new ArrayList<Country>();
+	public ArrayList<Country> neighbours = new ArrayList<Country>();
+	public ArrayList<String> neighboursNames = new ArrayList<String>();
 	
 	/**
 	 * Constructor method
@@ -37,87 +29,52 @@ public class Country
 	/**
 	 * Constructor method to initial the attributes
 	 * 
-	 * @param name : country name with String type
-	 * @param continent : 
-	 * @param xLocation :
-	 * @param yLocation :
-	 * @param
-	 * @param           
+	 * @param new_name : country name with String type
+	 *    
 	 */
-	public Country(String name) 
+	public Country(String new_name) 
 	{
 		this.continent = null;
 		//this.player = null;
-		this.name = name;
-		this.xLocation = 0;
-		this.yLocation = 0;
-		//this.button = null;
+		this.name = new_name;
+		this.xLocation = -1;
+		this.yLocation = -1;
 	}
 	
 	/**
-	 * To set the continent that will contain the country
+	 * To set the position of the country center
 	 * 
-	 * @param cont : the desired continent want to be set with Continent type
-	 *            
+	 * @return continent with Continent type
 	 */
-	public void setContinent(Continent cont) 
-	{
-		continent = cont;
+	public void setCenter(int x, int y) {
+		this.xLocation = x;
+		this.yLocation = y;
 	}
-	
-	/**
-	 * Override method to get country information in string layout
-	 * 
-	 * @return country information with String type
-	 */
-	@Override
-	public String toString() 
-	{
-		ArrayList<String> nameList = new ArrayList<>();
-		if (neighbors.size() > 0) 
-		{
-			for (Country cont : neighbors) 
-			{
-				nameList.add(cont.getName());
-			}
-		}
-		return "Country= " + this.getName() + " player=" ;
-		// player.getName()
-		//return "Territory [name=" + name + ", continent=" + cont + ", centerY=" + centerY + ", centerX=" + centerX
-		//+ ", linkes=" + linkNames + "]";
-	}
-	
+
 	/**
 	 * To get the continent
 	 * 
 	 * @return continent with Continent type
 	 */
-=======
-public class Country {
-	
-	public String name;
-	private Continent continent;
-	private int x = -1;
-	private int y = -1;
-	public ArrayList<Country> neighbours = new ArrayList<Country>();
-	public ArrayList<String> neighboursNames = new ArrayList<String>();
-	
-	public void setCenter(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-
->>>>>>> master
 	public Continent getContinent() {
 		return continent;
 	}
-
-<<<<<<< HEAD
+	
 	/**
-	 * To set the player to the continent
+	 * To set the continent associated to the country
 	 * 
-	 * @param p
-	 *            the player the want to set to the contient with Player type
+	 * @param continent : the continent that will be set
+	 *            
+	 */
+	public void setContinent(Continent continent) {
+		this.continent = continent;
+	}
+
+	/**
+	 * To set the player to the country
+	 * 
+	 * @param p : the player that owns the country
+	 *            
 	 */
 	//public void setPlayer(Player p) {
 	//	player = p;
@@ -177,9 +134,9 @@ public class Country {
 	}
 	
 	/**
-	 * To set the x coordinate postion of the country
+	 * To set the x coordinate position of the country
 	 * 
-	 * @param x : the desired x coordinate postion of the country
+	 * @param x : the desired x coordinate position of the country
 	 *            
 	 */
 	public void setXLocation(int x) 
@@ -207,40 +164,35 @@ public class Country {
 		yLocation = y;
 	}
 
-	/**
-	 * To get the y coordinate location of the country
-	 * 
-	 * @return the y coordinate location of the country with int type
-	 */
+	
 	public int getYLocation() 
 	{
 		return yLocation;
-	}
-	
-=======
-	public void setContinent(Continent continent) {
-		this.continent = continent;
-	}
-
-	public int getX() {
-		return x;
-	}
-
-	public int getY() {
-		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
-	}
-
-	public void setX(int x) {
-		this.x = x;
 	}
 
 	public void linkTo(Country neighbour) {
 		this.neighbours.add(neighbour);
 	}
-
->>>>>>> master
+	
+	/**
+	 * Override method to get country information in string layout
+	 * 
+	 * @return country information with String type
+	 */
+	@Override
+	public String toString() 
+	{
+		ArrayList<String> nameList = new ArrayList<>();
+		if (neighbours.size() > 0) 
+		{
+			for (Country c : neighbours) 
+			{
+				nameList.add(c.getName());
+			}
+		}
+		return "Country= " + this.getName() + " player=" ;
+		// player.getName()
+		//return "Territory [name=" + name + ", continent=" + cont + ", centerY=" + centerY + ", centerX=" + centerX
+		//+ ", linkes=" + linkNames + "]";
+	}
 }
