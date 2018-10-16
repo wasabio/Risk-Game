@@ -6,14 +6,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.StringTokenizer;
+
+
+
+import java.util.Comparator;
+import java.util.HashSet;
 
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
 
-public class Map extends Observable {
+
+/**
+ *  The class for dealing with map functions such as loading maps, map logics
+ * @author skyba, Yann
+ *
+ */
+
+public class Map extends Observable implements Comparator<Object> 
+{
 	
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
 	public ArrayList<Country> countries = new ArrayList<Country>();
@@ -27,7 +41,21 @@ public class Map extends Observable {
 	private boolean warn;
 	private int playerNumber;
 	
-
+	
+	/**
+	 * The method of observer pattern for updating
+	 */
+	public void changeState() 
+	{
+		setChanged();
+		notifyObservers();
+	}
+	
+	/**
+	 * The method that load the map file path and check the sytax of continents, countries suit or not.
+	 * @param mapFilePath
+	 * @throws IOException
+	 */
 	public void load(String mapFilePath) throws IOException 
 
 	{	
@@ -39,11 +67,17 @@ public class Map extends Observable {
 		check();
 	}
 
-	private void check() {
+	private void check() 
+	{
 		// Yueshuai implementation : 3 map correctness checking + check if map playable regarding playerNumber
 		
 	}
 
+	/**
+	 * Method for checking the loaded map is suit for the program or not
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadMapSection(LineNumberReader in) throws IOException {
 		reachSection(in, "Map");
 		while(true) {
@@ -80,6 +114,11 @@ public class Map extends Observable {
 		}
 	}
 
+	/**
+	 * The method checking continents suit or not to the program
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadContinents(LineNumberReader in) throws IOException {
 		while(true) {
 			String line = in.readLine();
@@ -107,6 +146,13 @@ public class Map extends Observable {
 		}
 	}
 	
+	
+	
+	/**
+	 * The method of checking countries is suit to the program or not
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadCountries(LineNumberReader in) throws IOException {
 		Country ctry;
 		while(true) {
@@ -126,7 +172,13 @@ public class Map extends Observable {
 		}
 	}
 	
-	private Country findCountry(String name) throws IOException {
+	/**
+	 * The method of finding countries in the map file
+	 * @param name country's name
+	 * @return return to the country
+	 * @throws IOException
+	 */
+	public Country findCountry(String name) throws IOException {
 		for (Country c : countries) {
 			if(c.getName().equals(name)) {
 				return c;
@@ -135,6 +187,54 @@ public class Map extends Observable {
 		throw new IOException("Incorrect map file (" + name + "," + ")");
 	}
 
+	/**
+	 * Count the number of current Countries in target continent.
+	 * 
+	 * @param cont
+	 *            The target continent.
+	 * @return The number of current territories.
+	 */
+		public int countCountries(Continent cont) {
+			int total = 0;
+			for (Country ctry : this.countries) {
+				if (ctry.getContinent() == cont) {
+					total++;
+				}
+			}
+			return total;
+		}
+	
+		/**
+		 * The override function for Comparator, designed to compare the order of
+		 * two countries.
+		 */
+		public int compare(Object o1, Object o2) {
+			if ((o1 == null) && (o2 == null)) {
+				return 0;
+			}
+			if (o1 == null) {
+				return -1;
+			}
+			if (o2 == null) {
+				return 1;
+			}
+			if (((o1 instanceof Country)) && ((o2 instanceof Country))) {
+				Country a = (Country) o1;
+				Country b = (Country) o2;
+				if (a.getContinent() != b.getContinent()) {
+					return compare(a.getContinent(), b.getContinent());
+				}
+				return a.getName().compareTo(b.getName());
+			}
+			return o1.toString().compareTo(o2.toString());
+		}	
+
+/**
+ * 		
+ * @param line
+ * @return
+ * @throws IOException
+ */
 	private Country parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
@@ -164,8 +264,14 @@ public class Map extends Observable {
 			throw new IOException(" :Invalid country line (" + e + "): " + line);
 		}
 	}
-		
-	private Continent findContinent(String name) {
+	
+	/**
+	 * find continents in the map file
+	 * @param name continent's name
+	 * @return
+	 */
+	
+	public Continent findContinent(String name) {
 		for (Continent cont : this.continents) {
 			if (name.equalsIgnoreCase(cont.getName())) {
 				return cont;
@@ -174,6 +280,8 @@ public class Map extends Observable {
 		return null;
 	}
 
+	
+	
 	private int reachSection(LineNumberReader in, String section) throws IOException {
 		String head = "[" + section + "]";
 		String line;
@@ -249,6 +357,225 @@ public class Map extends Observable {
 		
 		setChanged();
 		notifyObservers(this);
+	}
+	
+	/**
+	 * input the author of the edited map file, change the map information.
+	 * 
+	 * @param author
+	 */
+	public final void setAuthor(String author) 
+	{
+			this.author = author;
+			changeState();
+	}
+
+	/**
+	 * confirming if it is scroll.
+	 * 
+	 * @param scroll
+	 */
+	public final void setScroll(String scroll) 
+	{
+		if (this.scroll != scroll) 
+		{
+			this.scroll = scroll;
+			changeState();
+		}
+	}
+
+	/**
+	 * confirming if it is warn.
+	 * 
+	 * @param warn
+	 */
+	public final void setWarn(boolean warn) 
+	{
+		if (warn != this.warn) 
+		{
+			this.warn = warn;
+			changeState();
+		}
+	}
+
+	/**
+	 * confirming if it is warp.
+	 * 
+	 * @param wrap
+	 */
+	public final void setWrap(boolean wrap) 
+	{
+		if (wrap != this.wrap) 
+		{
+			this.wrap = wrap;
+			changeState();
+		}
+	}
+	
+	/**
+	 * input the Continent name, it can not be null, and change the map
+	 * information
+	 * 
+	 * @param cont
+	 * @param name
+	 */
+	public void setContinentName(Continent cont, String name) 
+	{
+		if (name != null) {
+			cont.setName(name);
+			changeState();
+		}
+	}
+
+	/**
+	 * input the Country name, it can not be null, and change the map
+	 * @param ctry
+	 * @param name
+	 */
+		public void setCountryName(Country ctry, String name) 
+		{
+			if (name != null) {
+				ctry.setName(name);
+				changeState();
+			}
+		}
+		
+		/**
+		 * save the image file in a path the user wants.
+		 * 
+		 * @param imageFilePath
+		 * 
+		 */
+		//public void setImageFilePath(String imageFilePath) 
+		//{
+		//		this.imageFilePath = imageFilePath;
+		//		changeState();
+		//}
+
+		/**
+		 * save the map file path in a path the user wants
+		 * 
+		 * @param mapFilePath
+		 */
+		public void setMapFilePath(String mapFilePath) 
+		{
+			this.mapFilePath = mapFilePath;
+		}
+
+	
+	
+	/**
+	 * Return the current Author.
+	 * 
+	 * @return The current Author.
+	 */
+	public final String getAuthor() {
+		return this.author;
+	}
+
+	/**
+	 * Return a unrepeated territory set of target continent.
+	 * 
+	 * @param cont
+	 *            The target continent.
+	 * @return Set of Countries in target continent.
+	 */
+	public HashSet<Country> getContinentCountries(Continent cont) {
+		HashSet<Country> Ctries = new HashSet<>();
+		for (Country Ctry : this.countries) {
+			if (Ctry.getContinent() == cont) {
+				Ctries.add(Ctry);
+			}
+		}
+		return Ctries;
+	}
+
+	/**
+	 * Return the current ImageFileName.
+	 * 
+	 * @return The current ImageFileName.
+	 */
+	//public String getImageFileName() {
+	//	if (this.imageFilePath == null) {
+	//		return "";
+	//	}
+	//	return new File(this.imageFilePath).getName();
+	//}
+
+	/**
+	 * Return the current ImageFilePath.
+	 * 
+	 * @return The current ImageFilePath.
+	 */
+	//public String getImageFilePath() {
+	//	return this.imageFilePath;
+	//}
+
+	/**
+	 * Return the current MapDirectory.
+	 * 
+	 * @return The current MapDirectory.
+	 */
+	public File getMapPathFile() {
+		if (this.mapFilePath == null) {
+			return null;
+		}
+		return new File(this.mapFilePath).getParentFile();
+	}
+
+	/**
+	 * Return the current MapFilePath.
+	 * 
+	 * @return The current MapFilePath.
+	 */
+	public String getMapFilePath() {
+		return this.mapFilePath;
+	}
+
+	/**
+	 * Return the current MapName.
+	 * 
+	 * @return The current MapName.
+	 */
+	public String getMapName() {
+		if (this.mapFilePath == null) {
+			return "Untitled Map";
+		}
+		return new File(this.mapFilePath).getName();
+	}
+
+	/**
+	 * Return the current SaveImageFilePath.
+	 * 
+	 * @return The current SaveImageFilePath.
+	 */
+	//public String getSaveImageFilePath() {
+	//	if (this.imageFilePath == null) {
+	//		return "";
+	//	}
+	//	return getImageFileName();
+	//}
+	
+	/**
+	 * sorting continents if continents list is not null or empty
+	 */
+	void sortContinentsCollection() 
+	{
+		if ((this.continents != null) && (!this.continents.isEmpty())) 
+		{
+			Collections.sort(this.continents, this);
+		}
+	}
+
+	/**
+	 * sorting the territories list if it is not null or empty
+	 */
+	void sortCountriesCollection() 
+	{
+		if ((this.countries != null) && (!this.countries.isEmpty())) 
+		{
+			Collections.sort(this.countries, this);
+		}
 	}
 	
 }
