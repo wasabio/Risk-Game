@@ -30,5 +30,12 @@ public class Player {
 		this.armies = armies;
 	}
 	
-	
+	public boolean owns(int countryNumber) {
+		for(Country c : ownedCountries) {
+			if(c.getNumber() == countryNumber) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

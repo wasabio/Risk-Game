@@ -28,9 +28,9 @@ public class MapView extends View implements Observer {
 			
 			for(Country ctry : c.countries) {
 				System.out.print("P" + ctry.getPlayer().getNumber() + " - " + countryNum++ +"  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
-				for(int i = 0; i < ctry.neighbours.size(); i++) {
-					System.out.print(ctry.neighbours.get(i).getName());
-					if(i != (ctry.neighbours.size() - 1)) {
+				for(int i = 0; i < ctry.neighbors.size(); i++) {
+					System.out.print(ctry.neighbors.get(i).getName());
+					if(i != (ctry.neighbors.size() - 1)) {
 						System.out.print(", ");
 					}
 				}
@@ -38,6 +38,8 @@ public class MapView extends View implements Observer {
 			}
 			System.out.println();			
 		}
+		
+		System.out.print("\n*****************************************\n\n");
 	}
 
 }

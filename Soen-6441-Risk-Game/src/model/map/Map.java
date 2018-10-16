@@ -57,8 +57,8 @@ public class Map extends Observable {
 		}
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
-				for(Country n : c.neighbours)
-					if(c.neighbours == null || c.neighbours.size() == 0 ){
+				for(Country n : c.neighbors)
+					if(c.neighbors == null || c.neighbors.size() == 0 ){
 						System.out.println("the country doesnt have neighbor");
 						return false;
 						}
@@ -74,7 +74,8 @@ public class Map extends Observable {
 			}
 		}
 		return true;
-}
+	}
+	
 	private void loadMapSection(LineNumberReader in) throws IOException {
 		reachSection(in, "Map");
 		while(true) {
@@ -146,12 +147,12 @@ public class Map extends Observable {
 				break;
 			}
 			if (!line.trim().equals("")) {
-				ctry = parseCountryLine(line);
+				parseCountryLine(line);
 			}
 		}
 		
 		for (Country c : countries) {
-			for(String n : c.neighboursNames) {
+			for(String n : c.neighborsNames) {
 				c.linkTo(findCountry(n));
 			}
 		}
@@ -166,7 +167,7 @@ public class Map extends Observable {
 		throw new IOException("Incorrect map file (" + name + "," + ")");
 	}
 
-	private Country parseCountryLine(String line) throws IOException {
+	private void parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
 			Country ctry = new Country();
@@ -183,14 +184,15 @@ public class Map extends Observable {
 					throw new Exception("invalid coordinates");
 				}
 				if (ctry.getContinent() != null && !name.equals("")) {
+					ctry.setNumber(++Country.Counter);
 					ctry.getContinent().countries.add(ctry);
 					countries.add(ctry);
 				}
 				while (st.hasMoreTokens()) {
-					ctry.neighboursNames.add(st.nextToken().trim());
+					ctry.neighborsNames.add(st.nextToken().trim());
 				}
 			}
-			return ctry;
+			
 		} catch (Exception e) {
 			throw new IOException(" :Invalid country line (" + e + "): " + line);
 		}
@@ -291,6 +293,12 @@ public class Map extends Observable {
 		}
 		
 		return true;
+	}
+
+	public void setCountry(int countryNumber, int armieNumber) {
+		countries.get(countryNumber).setArmyNumber(armieNumber);
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }

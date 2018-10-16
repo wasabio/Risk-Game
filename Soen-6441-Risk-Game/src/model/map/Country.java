@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.gameplay.Player;
 
@@ -8,17 +9,20 @@ import model.gameplay.Player;
  * This class is handling the information and the behavior of a country.
  * It holds data about the army in the country and has relationships with the country's neighbors
  */
-public class Country {
+public class Country extends Observable {
 	
 	private String name;
+	private int number;
 	private Continent continent;
 	private int xLocation;
 	private int yLocation;
 	private Player player;
 	private int armyNumber;
 	public boolean hasReached;
-	public ArrayList<Country> neighbours = new ArrayList<Country>();
-	public ArrayList<String> neighboursNames = new ArrayList<String>();
+	public ArrayList<Country> neighbors = new ArrayList<Country>();
+	public ArrayList<String> neighborsNames = new ArrayList<String>();
+	
+	public static int Counter = 0;
 	
 	/**
 	 * Constructor method
@@ -173,8 +177,8 @@ public class Country {
 		return yLocation;
 	}
 
-	public void linkTo(Country neighbour) {
-		this.neighbours.add(neighbour);
+	public void linkTo(Country neighbor) {
+		this.neighbors.add(neighbor);
 	}
 	
 	/**
@@ -186,17 +190,14 @@ public class Country {
 	public String toString() 
 	{
 		ArrayList<String> nameList = new ArrayList<>();
-		if (neighbours.size() > 0) 
+		if (neighbors.size() > 0) 
 		{
-			for (Country c : neighbours) 
+			for (Country c : neighbors) 
 			{
 				nameList.add(c.getName());
 			}
 		}
 		return "Country= " + this.getName() + " player=" ;
-		// player.getName()
-		//return "Territory [name=" + name + ", continent=" + cont + ", centerY=" + centerY + ", centerX=" + centerX
-		//+ ", linkes=" + linkNames + "]";
 	}
 
 	public int getArmyNumber() {
@@ -213,5 +214,13 @@ public class Country {
 
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void setNumber(int number) {
+		this.number = number;
 	}
 }
