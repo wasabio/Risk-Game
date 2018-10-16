@@ -38,7 +38,7 @@ public class MapSelectionView extends View {
 		};
 		
 		/*To open in current directory*/
-		File workingDirectory = new File(System.getProperty("user.dir") + System.getProperty("file.separator")+ "maps");
+		File workingDirectory = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "maps");
 		jf.setCurrentDirectory(workingDirectory);
 		
 		jf.showOpenDialog(null);

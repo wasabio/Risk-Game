@@ -10,13 +10,13 @@ import javax.swing.JOptionPane;
 public class StringAnalyzer {
 	
 	/**
-	 * method to reading contents in the .map file
+	 * method to read the content of .map files
 	 * 
 	 * @param str
-	 *            contents in the specific line
+	 *            content of a specific line
 	 * @param def
 	 *            line number
-	 * @return return the specific line number.
+	 * @return return the specific line number
 	 */
 	public static int parseInt(String str, int lineNb) {
 		if (str == null) {
@@ -39,6 +39,6 @@ public class StringAnalyzer {
 			return false;
 		}
 	}
-		
+	
 	
 }

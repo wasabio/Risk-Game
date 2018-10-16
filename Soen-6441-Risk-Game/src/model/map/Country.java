@@ -2,6 +2,8 @@ package model.map;
 
 import java.util.ArrayList;
 
+import model.gameplay.Player;
+
 /**
  * This class is handling the information and the behavior of a country.
  * It holds data about the army in the country and has relationships with the country's neighbors
@@ -10,10 +12,10 @@ public class Country {
 	
 	private String name;
 	private Continent continent;
-	private int armyNumber;
 	private int xLocation;
 	private int yLocation;
-	//private Player player;	
+	private Player player;
+	private int armyNumber;
 	public boolean hasReached;
 	public ArrayList<Country> neighbours = new ArrayList<Country>();
 	public ArrayList<String> neighboursNames = new ArrayList<String>();
@@ -35,12 +37,13 @@ public class Country {
 	public Country(String new_name) 
 	{
 		this.continent = null;
-		//this.player = null;
+		this.setPlayer(null);
 		this.name = new_name;
 		this.xLocation = -1;
 		this.yLocation = -1;
+		this.armyNumber = 0;
 	}
-	
+
 	/**
 	 * To set the position of the country center
 	 * 
@@ -97,7 +100,7 @@ public class Country {
 	 */
 	public void addArmies(int newArmies) 
 	{
-		this.armyNumber += newArmies;
+		this.setArmyNumber(this.getArmyNumber() + newArmies);
 	}
 
 	/**
@@ -109,7 +112,7 @@ public class Country {
 	 */
 	public void removeArmies(int RemovedArmies) 
 	{
-		this.armyNumber -= RemovedArmies;
+		this.setArmyNumber(this.getArmyNumber() - RemovedArmies);
 	}
 	
 	/**
@@ -194,5 +197,21 @@ public class Country {
 		// player.getName()
 		//return "Territory [name=" + name + ", continent=" + cont + ", centerY=" + centerY + ", centerX=" + centerX
 		//+ ", linkes=" + linkNames + "]";
+	}
+
+	public int getArmyNumber() {
+		return armyNumber;
+	}
+
+	public void setArmyNumber(int armyNumber) {
+		this.armyNumber = armyNumber;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }

@@ -1,5 +1,5 @@
 package view;
 
-public class PhaseView {
+public class PhaseView extends View {
 
 }

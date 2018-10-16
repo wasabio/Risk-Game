@@ -6,14 +6,18 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Observable;
 import java.util.StringTokenizer;
 
+import model.gameplay.Player;
+import model.utilities.Random;
 import model.utilities.StringAnalyzer;
 
-public class Map {
+public class Map extends Observable {
 	
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
 	public ArrayList<Country> countries = new ArrayList<Country>();
+	public ArrayList<Player> players = new ArrayList<Player>();
 	private String name;
 	private String mapFilePath;
 	private String imageFilePath;
@@ -22,6 +26,7 @@ public class Map {
 	private String author;
 	private boolean warn;
 	private int playerNumber;
+	
 
 	public void load(String mapFilePath) throws IOException 
 
@@ -113,21 +118,18 @@ public class Map {
 				ctry = parseCountryLine(line);
 			}
 		}
-		for(Continent ct : continents) {
-			for (Country c : ct.countries) {
-				for(String n : c.neighboursNames) {
-					c.linkTo(findCountry(n));
-				}
+		
+		for (Country c : countries) {
+			for(String n : c.neighboursNames) {
+				c.linkTo(findCountry(n));
 			}
 		}
 	}
 	
 	private Country findCountry(String name) throws IOException {
-		for(Continent ct : continents) {
-			for (Country c : ct.countries) {
-				if(c.getName().equals(name)) {
-					return c;
-				}
+		for (Country c : countries) {
+			if(c.getName().equals(name)) {
+				return c;
 			}
 		}
 		throw new IOException("Incorrect map file (" + name + "," + ")");
@@ -151,6 +153,7 @@ public class Map {
 				}
 				if (ctry.getContinent() != null && !name.equals("")) {
 					ctry.getContinent().countries.add(ctry);
+					countries.add(ctry);
 				}
 				while (st.hasMoreTokens()) {
 					ctry.neighboursNames.add(st.nextToken().trim());
@@ -190,21 +193,62 @@ public class Map {
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
 	}
+	
+	/**
+	 * The players are created and they are attributed an initial number of armies
+	 */
+	public void setPlayers(int playerNumber) {
+		setPlayerNumber(playerNumber);
+		
+		int armiesNumber = getInitialArmiesNumber();
+		
+		for(int i = 1; i <= playerNumber; i++) {
+			players.add(new Player(i, armiesNumber));
+		}
+	}
 
-	public void distributeCountries() {
+	/**
+	 * To generate an initial armies number depending on the number of players
+	 * 
+	 * @return the initial number of armies
+	 */
+	private int getInitialArmiesNumber() {
 		switch(this.playerNumber) {
 		case 2:
-			break;
+			return 40;
 		case 3:
-			break;
+			return 35;
 		case 4:
-			break;
+			return 30;
 		case 5:
-			break;
+			return 25;
 		case 6:
-			break;
+			return 20;
 		}
+		return 0;
+	}
+	
+	/**
+	 * This function will distribute the countries on the map between the players. It will put
+	 * 1 army by country until all the countries are occupied.
+	 */
+	public void distributeCountries() {
+		ArrayList<Country> freeCountries = new ArrayList<Country>(countries);
+
+		do {
+			for(Player p : players) {
+				if(freeCountries.size() > 0) {
+					int i = Random.getRandomIndex(0, freeCountries.size()-1); //Random assignment
+					Country c = freeCountries.remove(i);
+					c.setPlayer(p);
+					c.setArmyNumber(1);
+					p.ownedCountries.add(c);
+				}
+			}
+		}while(freeCountries.size() > 0);
 		
+		setChanged();
+		notifyObservers(this);
 	}
 	
 }

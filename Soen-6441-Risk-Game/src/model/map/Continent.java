@@ -2,6 +2,8 @@ package model.map;
 
 import java.util.ArrayList;
 
+import model.gameplay.Player;
+
 /**
 * This class holds informations and behaviors of a continent. 
 * It holds a list of its associated countries.
@@ -135,6 +137,17 @@ public class Continent
 	public String getName()
 	{
 		return name;
+	}
+	
+	public Player getOwner() {
+		Player p = countries.get(0).getPlayer();
+		for(Country c : countries) {
+			if(!c.getPlayer().equals(p)) {
+				return null;
+			}
+		}
+		
+		return p;
 	}
 
 }
