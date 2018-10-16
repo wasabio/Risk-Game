@@ -21,7 +21,7 @@ public class MapView extends View implements Observer {
 			System.out.print("Continent " + c.getName());
 			/*if(c.getOwner().getNumber() != null) {
 				System.out.println();
-			}*/
+			}*/ 
 
 			for(Country ctry : c.countries) {
 				System.out.print("P" + ctry.getPlayer().getNumber() + " - " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
