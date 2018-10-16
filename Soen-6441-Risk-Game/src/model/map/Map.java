@@ -39,11 +39,42 @@ public class Map extends Observable {
 		check();
 	}
 
-	private void check() {
+	/**
+	 * check if the map is valid by : check if the map is empty, 
+	 * check if the continent has any country,
+	 * check if a country has any neighbor
+	 * @author Yueshuai
+	 * @return true if the map is valid, otherwise false
+	 */
+	private boolean check() {
 		// Yueshuai implementation : 3 map correctness checking + check if map playable regarding playerNumber
-		
-	}
-
+		ArrayList<Continent> continents = new ArrayList<>();
+		ArrayList<Country> countries = new ArrayList<>();
+		if(this.countries == null || this.countries.size() == 0) 
+		{
+			System.out.println("There is no country in the map");
+			return false;
+		}
+		for(Continent ct : continents) {
+			for (Country c : ct.countries) {
+				for(String n : c.neighboursNames)
+					if(c.neighbours == null || c.neighbours.size() == 0 ){
+						System.out.println("the country doesnt have neighbor");
+						return false;
+						}
+				}
+		}
+		for(Continent ct : continents) {
+			for (Country c : ct.countries) {
+				if(ct.countries == null || ct.countries.size() == 0)
+				{
+					System.out.print("There is no country in the continent");
+					return false;
+				}
+			}
+		}
+		return true;
+}
 	private void loadMapSection(LineNumberReader in) throws IOException {
 		reachSection(in, "Map");
 		while(true) {
