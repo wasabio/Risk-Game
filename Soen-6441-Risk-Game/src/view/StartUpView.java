@@ -21,12 +21,12 @@ public class StartUpView extends View {
 			if(isValueCorrect(ctyCode,1,map.countries.size())) {
 				//to check if the player chose their own territory
 				if(p.getNumber() == map.countries.get(ctyCode).getPlayer().getNumber()) {
-					//deploy the 1 army to the territory the player chose
+					//deploy the 1 army to the territory the player chose 
 					int armyNum = map.countries.get(ctyCode).getArmyNumber();
 					map.countries.get(ctyCode).setArmyNumber(++armyNum);
 				}
 				else {
-					System.out.println("You have to choose your own territory!");
+					System.out.println("This country does not belong to you");
 				}
 				
 			}
