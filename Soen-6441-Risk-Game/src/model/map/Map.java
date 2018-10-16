@@ -10,6 +10,11 @@ import java.util.StringTokenizer;
 
 import model.utilities.StringAnalyzer;
 
+/**
+ *  The class for dealing with map functions such as loading maps, map logics
+ * @author skyba, Yann
+ *
+ */
 public class Map {
 	
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
@@ -22,6 +27,11 @@ public class Map {
 	private String author;
 	private boolean warn;
 
+	/**
+	 * The method that load the map file path and check the sytax of continents, countries suit or not.
+	 * @param mapFilePath
+	 * @throws IOException
+	 */
 	public void load(String mapFilePath) throws IOException 
 
 	{	
@@ -32,6 +42,11 @@ public class Map {
 		loadCountries(in);
 	}
 
+	/**
+	 * Method for checking the loaded map is suit for the program or not
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadMapSection(LineNumberReader in) throws IOException {
 		reachSection(in, "Map");
 		while(true) {
@@ -68,6 +83,11 @@ public class Map {
 		}
 	}
 
+	/**
+	 * The method checking continents suit or not to the program
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadContinents(LineNumberReader in) throws IOException {
 		while(true) {
 			String line = in.readLine();
@@ -95,6 +115,13 @@ public class Map {
 		}
 	}
 	
+	
+	
+	/**
+	 * The method of checking countries is suit to the program or not
+	 * @param in
+	 * @throws IOException
+	 */
 	private void loadCountries(LineNumberReader in) throws IOException {
 		Country ctry;
 		while(true) {
@@ -115,6 +142,12 @@ public class Map {
 		}
 	}
 	
+	/**
+	 * The method of finding countries in the map file
+	 * @param name country's name
+	 * @return return to the country
+	 * @throws IOException
+	 */
 	private Country findCountry(String name) throws IOException {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
@@ -126,6 +159,25 @@ public class Map {
 		throw new IOException("Incorrect map file (" + name + "," + ")");
 	}
 
+	/**
+	 * Count the number of current Countries in target continent.
+	 * 
+	 * @param cont
+	 *            The target continent.
+	 * @return The number of current territories.
+	 */
+		public int countCountries(Continent cont) {
+			int total = 0;
+			for (Country ctry : this.countries) {
+				if (ctry.getContinent() == cont) {
+					total++;
+				}
+			}
+			return total;
+		}
+	
+		
+		
 	private Country parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
@@ -154,7 +206,13 @@ public class Map {
 			throw new IOException(" :Invalid country line (" + e + "): " + line);
 		}
 	}
-		
+	
+	/**
+	 * find continents in the map file
+	 * @param name continent's name
+	 * @return
+	 */
+	
 	private Continent findContinent(String name) {
 		for (Continent cont : this.continents) {
 			if (name.equalsIgnoreCase(cont.getName())) {
@@ -164,6 +222,8 @@ public class Map {
 		return null;
 	}
 
+	
+	
 	private int reachSection(LineNumberReader in, String section) throws IOException {
 		String head = "[" + section + "]";
 		String line;
