@@ -544,6 +544,11 @@ public class Map extends Observable implements Comparator<Object>
 		return new File(this.mapFilePath).getName();
 	}
 
+	public boolean getWrap(boolean wrap) 
+	{
+		return wrap;
+	}
+	
 	/**
 	 * Return the current SaveImageFilePath.
 	 * 
