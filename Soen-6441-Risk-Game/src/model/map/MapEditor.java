@@ -44,9 +44,9 @@ public class MapEditor extends Observable{
 	 * Initial function of the class, normalize the local variables.
 	 */
 	public void clear() {
-		map.mapFilePath = null;
+		map.getMapFilePath() = null;
 		Map.imageFilePath = null;
-		Map.author = null;
+		map.getImageFileName() = null;
 		Map.scroll = ScrollOptions.HORIZONTAL;
 		Map.wrap = false;
 		Map.warn = true;

@@ -6,23 +6,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Observable;
 import java.util.StringTokenizer;
+
+
+
+import java.util.Comparator;
+import java.util.HashSet;
 
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
 
-<<<<<<< HEAD
+
 /**
  *  The class for dealing with map functions such as loading maps, map logics
  * @author skyba, Yann
  *
  */
-public class Map {
-=======
-public class Map extends Observable {
->>>>>>> master
+
+public class Map extends Observable implements Comparator<Object> 
+{
 	
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
 	public ArrayList<Country> countries = new ArrayList<Country>();
@@ -36,7 +41,16 @@ public class Map extends Observable {
 	private boolean warn;
 	private int playerNumber;
 	
-
+	
+	/**
+	 * The method of observer pattern for updating
+	 */
+	public void changeState() 
+	{
+		setChanged();
+		notifyObservers();
+	}
+	
 	/**
 	 * The method that load the map file path and check the sytax of continents, countries suit or not.
 	 * @param mapFilePath
@@ -53,7 +67,8 @@ public class Map extends Observable {
 		check();
 	}
 
-	private void check() {
+	private void check() 
+	{
 		// Yueshuai implementation : 3 map correctness checking + check if map playable regarding playerNumber
 		
 	}
@@ -189,8 +204,37 @@ public class Map extends Observable {
 			return total;
 		}
 	
-		
-		
+		/**
+		 * The override function for Comparator, designed to compare the order of
+		 * two countries.
+		 */
+		public int compare(Object o1, Object o2) {
+			if ((o1 == null) && (o2 == null)) {
+				return 0;
+			}
+			if (o1 == null) {
+				return -1;
+			}
+			if (o2 == null) {
+				return 1;
+			}
+			if (((o1 instanceof Country)) && ((o2 instanceof Country))) {
+				Country a = (Country) o1;
+				Country b = (Country) o2;
+				if (a.getContinent() != b.getContinent()) {
+					return compare(a.getContinent(), b.getContinent());
+				}
+				return a.getName().compareTo(b.getName());
+			}
+			return o1.toString().compareTo(o2.toString());
+		}	
+
+/**
+ * 		
+ * @param line
+ * @return
+ * @throws IOException
+ */
 	private Country parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
@@ -313,6 +357,229 @@ public class Map extends Observable {
 		
 		setChanged();
 		notifyObservers(this);
+	}
+	
+	/**
+	 * input the author of the edited map file, change the map information.
+	 * 
+	 * @param author
+	 */
+	public final void setAuthor(String author) 
+	{
+			this.author = author;
+			changeState();
+	}
+
+	/**
+	 * confirming if it is scroll.
+	 * 
+	 * @param scroll
+	 */
+	public final void setScroll(String scroll) 
+	{
+		if (this.scroll != scroll) 
+		{
+			this.scroll = scroll;
+			changeState();
+		}
+	}
+
+	/**
+	 * confirming if it is warn.
+	 * 
+	 * @param warn
+	 */
+	public final void setWarn(boolean warn) 
+	{
+		if (warn != this.warn) 
+		{
+			this.warn = warn;
+			changeState();
+		}
+	}
+
+	/**
+	 * confirming if it is warp.
+	 * 
+	 * @param wrap
+	 */
+	public final void setWrap(boolean wrap) 
+	{
+		if (wrap != this.wrap) 
+		{
+			this.wrap = wrap;
+			changeState();
+
+		}
+	}
+	
+	/**
+	 * input the Continent name, it can not be null, and change the map
+	 * information
+	 * 
+	 * @param cont
+	 * @param name
+	 */
+	public void setContinentName(Continent cont, String name) 
+	{
+		if (name != null) {
+			cont.setName(name);
+			changeState();
+		}
+	}
+
+	/**
+	 * input the Country name, it can not be null, and change the map
+	 * @param ctry
+	 * @param name
+	 */
+		public void setCountryName(Country ctry, String name) 
+		{
+			if (name != null) {
+				ctry.setName(name);
+				changeState();
+			}
+		}
+		
+		/**
+		 * save the image file in a path the user wants.
+		 * 
+		 * @param imageFilePath
+		 * 
+		 */
+		//public void setImageFilePath(String imageFilePath) 
+		//{
+		//		this.imageFilePath = imageFilePath;
+		//		changeState();
+		//}
+
+		/**
+		 * save the map file path in a path the user wants
+		 * 
+		 * @param mapFilePath
+		 */
+		public void setMapFilePath(String mapFilePath) 
+		{
+			this.mapFilePath = mapFilePath;
+		}
+
+	
+	
+	/**
+	 * Return the current Author.
+	 * 
+	 * @return The current Author.
+	 */
+	public final String getAuthor() {
+		return this.author;
+	}
+
+	/**
+	 * Return a unrepeated territory set of target continent.
+	 * 
+	 * @param cont
+	 *            The target continent.
+	 * @return Set of Countries in target continent.
+	 */
+	public HashSet<Country> getContinentCountries(Continent cont) {
+		HashSet<Country> Ctries = new HashSet<>();
+		for (Country Ctry : this.countries) {
+			if (Ctry.getContinent() == cont) {
+				Ctries.add(Ctry);
+			}
+		}
+		return Ctries;
+	}
+
+	/**
+	 * Return the current ImageFileName.
+	 * 
+	 * @return The current ImageFileName.
+	 */
+	//public String getImageFileName() {
+	//	if (this.imageFilePath == null) {
+	//		return "";
+	//	}
+	//	return new File(this.imageFilePath).getName();
+	//}
+
+	/**
+	 * Return the current ImageFilePath.
+	 * 
+	 * @return The current ImageFilePath.
+	 */
+	//public String getImageFilePath() {
+	//	return this.imageFilePath;
+	//}
+
+	/**
+	 * Return the current MapDirectory.
+	 * 
+	 * @return The current MapDirectory.
+	 */
+	public File getMapPathFile() {
+		if (this.mapFilePath == null) {
+			return null;
+		}
+		return new File(this.mapFilePath).getParentFile();
+	}
+
+	/**
+	 * Return the current MapFilePath.
+	 * 
+	 * @return The current MapFilePath.
+	 */
+	public String getMapFilePath() {
+		return this.mapFilePath;
+	}
+
+	/**
+	 * Return the current MapName.
+	 * 
+	 * @return The current MapName.
+	 */
+	public String getMapName() {
+		if (this.mapFilePath == null) {
+			return "Untitled Map";
+		}
+		return new File(this.mapFilePath).getName();
+	}
+
+	/**
+	 * Return the current SaveImageFilePath.
+	 * 
+	 * @return The current SaveImageFilePath.
+	 */
+	//public String getSaveImageFilePath() {
+	//	if (this.imageFilePath == null) {
+	//		return "";
+	//	}
+	//	return getImageFileName();
+	//}
+	
+	
+
+
+	/**
+	 * sorting continents if continents list is not null or empty
+	 */
+	void sortContinentsCollection() 
+	{
+		if ((this.continents != null) && (!this.continents.isEmpty())) 
+		{
+			Collections.sort(this.continents, this);
+		}
+	}
+
+	/**
+	 * sorting the territories list if it is not null or empty
+	 */
+	void sortCountriesCollection() 
+	{
+		if ((this.countries != null) && (!this.countries.isEmpty())) 
+		{
+			Collections.sort(this.countries, this);
+		}
 	}
 	
 }
