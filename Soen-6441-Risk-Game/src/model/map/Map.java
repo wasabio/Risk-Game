@@ -300,5 +300,22 @@ public class Map extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
+	/**
+	 * calculate number of countries the player owns, and calculate how many armies he should have left to deploy
+	 * @param p the current player
+	 * @return number of armies the player should have left to deploy
+	 */
+	public int calculateArmyNum(Player p) {
+		int numOfCty = 0;
+		// Search how many countries are owned by current player
+		for(Country c : countries) {
+			if(p.getNumber() == c.getPlayer().getNumber()) {
+				numOfCty++;
+			}
+		}
+		//calculate how many armies the player should have
+		int numOfArmy = numOfCty/3;
+		return numOfArmy;
+	}
 	
 }

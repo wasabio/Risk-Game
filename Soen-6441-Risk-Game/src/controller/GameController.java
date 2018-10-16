@@ -8,6 +8,7 @@ import view.MapView;
 import view.ReinforcementView;
 import view.StartUpView;
 import model.gameplay.Player;
+import model.map.Country;
 import model.map.Map;
 
 public class GameController {
@@ -63,6 +64,10 @@ public class GameController {
 	
 	private void reinforcementPhase(Player p) {
 		do {
+			
+			int armyNum = map.calculateArmyNum(p);
+			p.setArmies(armyNum);
+			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			int oldArmiesNumber = map.countries.get(countryNumber).getArmyNumber();
@@ -71,6 +76,7 @@ public class GameController {
 			p.setArmies(p.getArmies() - selectedArmies);
 		}while(p.getArmies() > 0);
 	}
+	
 	
 	private void fortificationPhase( Player p) {
 		// TODO Auto-generated method stub
