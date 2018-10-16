@@ -178,7 +178,7 @@ public class Map extends Observable implements Comparator<Object>
 	 * @return return to the country
 	 * @throws IOException
 	 */
-	private Country findCountry(String name) throws IOException {
+	public Country findCountry(String name) throws IOException {
 		for (Country c : countries) {
 			if(c.getName().equals(name)) {
 				return c;
@@ -271,7 +271,7 @@ public class Map extends Observable implements Comparator<Object>
 	 * @return
 	 */
 	
-	private Continent findContinent(String name) {
+	public Continent findContinent(String name) {
 		for (Continent cont : this.continents) {
 			if (name.equalsIgnoreCase(cont.getName())) {
 				return cont;
@@ -409,7 +409,6 @@ public class Map extends Observable implements Comparator<Object>
 		{
 			this.wrap = wrap;
 			changeState();
-
 		}
 	}
 	
@@ -557,9 +556,6 @@ public class Map extends Observable implements Comparator<Object>
 	//	return getImageFileName();
 	//}
 	
-	
-
-
 	/**
 	 * sorting continents if continents list is not null or empty
 	 */
