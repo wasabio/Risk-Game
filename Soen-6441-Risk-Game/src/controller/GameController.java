@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import model.utilities.StringAnalyzer;
+
 import javax.swing.JFileChooser;
 
 import view.SetUpView;

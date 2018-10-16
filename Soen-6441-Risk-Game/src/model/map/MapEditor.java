@@ -1,5 +1,78 @@
 package model.map;
 
+import java.io.EOFException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.LineNumberReader;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Observable;
+import java.util.Set;
+import java.util.StringTokenizer;
+
+import model.map.Map;
+import model.map.Country;
+import model.map.Continent;
+
+public class MapEditor extends Observable{
+	
+	/**
+	 * Create a new and empty map. If need to load existing map, please see
+	 * function load().
+	 */
+	public MapEditor() {
+		clear();
+	}
+
+	/**
+	 * If the data has been changed, call this function to notify observers.
+	 */
+	public void changeState() {
+		setChanged();
+		notifyObservers();
+	}
+	
+	private Map map;
+	
+	/**
+	 * Initial function of the class, normalize the local variables.
+	 */
+	public void clear() {
+		map.mapFilePath = null;
+		Map.imageFilePath = null;
+		Map.author = null;
+		Map.scroll = ScrollOptions.HORIZONTAL;
+		Map.wrap = false;
+		Map.warn = true;
+		Map.continents.clear();
+		Map.countries.clear();
+		changeState();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
 //
 ///**
 // * for functions such as add, delete continents and countries.
