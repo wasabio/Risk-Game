@@ -16,33 +16,33 @@ public class GameController {
 			map = new Map();
 			mapView = new MapView();
 			map.addObserver(mapView);
+			
 			execute();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-
 	
-	private void execute() throws IOException 
-	{
+	private void execute() throws IOException
+	{		
+		startUpPhase();
+		
+		/*do {
+			reinforcementPhase();
+			fortificationPhase();
+		}while(map.isOwned());*/
+		
+	}
+	
+	private void startUpPhase() throws IOException {
 		MapSelectionView mapSelectionView = new MapSelectionView();		
 		int playerNumber = mapSelectionView.print();
 		
 		map.setPlayers(playerNumber); 
 		
 		String mapFilePath = mapSelectionView.selectMap();		
-		map.load(mapFilePath);	//3 Checking functions should go inside this method. We also need to check if map is playable regarding the number of players.
+		map.load(mapFilePath);
 		
-		startUpPhase();
-		
-		do {
-			
-		}while();
-	}
-	
-	private void startUpPhase() {
 		map.distributeCountries();
 	}
 }
-	
-

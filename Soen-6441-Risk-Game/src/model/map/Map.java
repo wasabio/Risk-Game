@@ -250,5 +250,16 @@ public class Map extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
+
+	public boolean isOwned() {
+		Player owner = countries.get(0).getPlayer();
+		for(Country c : countries) {
+			if(c.getPlayer() != owner) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 	
 }
