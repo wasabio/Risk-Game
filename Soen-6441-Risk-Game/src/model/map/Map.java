@@ -57,7 +57,7 @@ public class Map extends Observable {
 		}
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
-				for(String n : c.neighboursNames)
+				for(Country n : c.neighbours)
 					if(c.neighbours == null || c.neighbours.size() == 0 ){
 						System.out.println("the country doesnt have neighbor");
 						return false;
