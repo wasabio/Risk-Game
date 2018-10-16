@@ -3,6 +3,7 @@ package controller;
 import java.io.IOException;
 import view.MapSelectionView;
 import view.MapView;
+import view.StartUpView;
 import model.map.Map;
 
 public class GameController {
@@ -44,5 +45,8 @@ public class GameController {
 		map.load(mapFilePath);
 		
 		map.distributeCountries();
+		
+		StartUpView startUpView = new StartUpView();
+		startUpView.print();
 	}
 }
