@@ -9,9 +9,8 @@ import javax.swing.JFileChooser;
 
 import model.utilities.StringAnalyzer;
 
-
-public class SetUpView extends View {
-
+public class MapSelectionView extends View {
+	
 	public int print() 
 	{
 		System.out.println("Choose the number of players (2-6): ");
@@ -39,7 +38,7 @@ public class SetUpView extends View {
 		};
 		
 		/*To open in current directory*/
-		File workingDirectory = new File(System.getProperty("user.dir") + System.getProperty("file.separator")+ "maps");
+		File workingDirectory = new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "maps");
 		jf.setCurrentDirectory(workingDirectory);
 		
 		jf.showOpenDialog(null);
@@ -52,6 +51,5 @@ public class SetUpView extends View {
 		
 		return null;
 	}
-	
-	
+
 }

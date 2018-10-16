@@ -1,12 +1,15 @@
 
 package model.utilities;
 
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * for dices and cards, the chances to get dice numbers and which card will get
- * 
- * 
+ * To generate all the random aspects of the game : dice, cards, countries assignment...
  */
 public class Random {
+
+	public static int getRandomIndex(int min, int max) {
+		return ThreadLocalRandom.current().nextInt(min, max + 1);
+	}
 
 }
