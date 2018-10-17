@@ -47,7 +47,7 @@ public class GameController {
 					fortificationPhase(p);
 				}
 			}
-		}while(map.isOwned()); /* End of the game */
+		}while(!map.isOwned()); /* End of the game */
 		
 	}
 
@@ -92,23 +92,24 @@ public class GameController {
 	
 	
 	private void fortificationPhase( Player p) {
+		/* Getting Origin countries */
 		int	originCountryId = fortificationView.chooseOriginCountry(p);
-		/* We can't move armies from a country that has only 1 army */
-		int selectedCountry = map.countries.get(originCountryId-1).getArmyNumber();
-		if(selectedCountry <= 1 && selectedCountry != 0) { 
-			do {
-				originCountryId = fortificationView.armyError(p);
-			}while(selectedCountry <= 1 && selectedCountry != 0);
-		}
-		/* 0 is the skip option */
-		if(originCountryId != 0) {
-			Country c = map.countries.get(originCountryId-1);
-			int destinationCountryId = fortificationView.chooseDestinationCountry(p);
-			int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber());
-			
-			map.addArmiesToCountry(originCountryId, -selectedArmies);
-			map.addArmiesToCountry(destinationCountryId, selectedArmies);
-		}
+		/* 0 to skip */
+		if(originCountryId == 0) return;
 		
-	}
+		int maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
+		/* We can't move armies from a country that has only 1 army */		
+		while(maxArmies <= 1) {
+			originCountryId = fortificationView.originError(p);
+			if(originCountryId == 0) return;
+			maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
+		}
+		/* Getting destination and armies number */
+		Country c = map.countries.get(originCountryId-1);
+		int destinationCountryId = fortificationView.chooseDestinationCountry(p);
+		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber());
+		/* Updating armies */
+		map.addArmiesToCountry(originCountryId, -selectedArmies);
+		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+	}	
 }

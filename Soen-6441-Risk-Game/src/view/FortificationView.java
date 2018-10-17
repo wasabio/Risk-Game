@@ -60,7 +60,7 @@ public class FortificationView extends View {
 		return armiesNumber;
 	}
 
-	public int armyError(Player p) {
+	public int originError(Player p) {
 		System.out.println("Error : You can't move armies from a country that has only 1 army.");
 		
 		int country_number;
