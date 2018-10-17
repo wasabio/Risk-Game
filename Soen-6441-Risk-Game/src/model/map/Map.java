@@ -56,19 +56,23 @@ public class Map extends Observable {
 	}
 	/**
 	 * check if there is any country and continent in the map 
-	 * @return true if the map is not empty, otherwise false
+	 * check if the total country number is more than total player number
+	 * @return true if the map is valid, otherwise false
 	 */
 	public boolean checkPlayableMap() {
-		/* You also have to check if the number of players is lower or equals than the number of 
-		 * countries on the map */
-		if(this.countries == null || this.countries.size() == 0 || this.continents == null
+		/* check does map have any country and continent */
+		if (this.countries == null || this.countries.size() == 0 || this.continents == null
 				||this.continents.size() == 0) 
 		{
 			System.out.println("There is no country or continent in the map");
 			return false;
 		}
-		
-		return true;
+		/*check if the total number of country is more than total number of player*/
+		else if (this.countries.size()<this.players.size()) {
+			System.out.println("There are not enough country for all players");
+			return false;
+		}
+		else return true;
 	}
 	/**
 	 * check if there is any disconnected country in the map which does not have any neighbor
