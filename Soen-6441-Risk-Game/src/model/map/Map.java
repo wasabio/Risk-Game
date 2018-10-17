@@ -55,19 +55,25 @@ public class Map extends Observable {
 		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
 	}
 	/**
-	 * check if the map is empty 
+	 * check if there is any country and continent in the map 
 	 * @return true if the map is not empty, otherwise false
 	 */
 	public boolean checkPlayableMap() {
-		/* You also have to check if the number of players is lower or equals than the number of countries on the map */
-		if(this.countries == null || this.countries.size() == 0) 
+		/* You also have to check if the number of players is lower or equals than the number of 
+		 * countries on the map */
+		if(this.countries == null || this.countries.size() == 0 || this.continents == null
+				||this.continents.size() == 0) 
 		{
-			System.out.println("There is no country in the map");
+			System.out.println("There is no country or continent in the map");
 			return false;
 		}
 		
 		return true;
 	}
+	/**
+	 * check if there is any disconnected country in the map which does not have any neighbor
+	 * @return false if such country exists, otherwise true
+	 */
 	
 	public boolean checkConnectedGraph() {
 		for(Continent ct : continents) {
@@ -82,7 +88,10 @@ public class Map extends Observable {
 		}
 		return true;
 	}
-	
+	/**
+	 * check if there is empty continent which does not have any country
+	 * @return false if sunch continent exists, otherwise false
+	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
 			if(ct.countries == null || ct.countries.size() == 0)
