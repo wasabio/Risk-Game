@@ -29,9 +29,10 @@ public class testCalculateArmyNum {
 	Continent con3 = new Continent("",6);
 	
 	Map map = new Map();
-	/**
-	 * test calculation of armies when player owns 1 whole continent and another country in a continent
-	 */
+	/*/**
+	 * test calculation of armies when a player owns 3 countries and 1 whole continent
+	 * and when a player owns 2 countries and 1 whole continent
+	*/
 	@Before 
 	public void before1() {
 	con1.addCountry(cty1);
@@ -54,16 +55,21 @@ public class testCalculateArmyNum {
 	map.continents.add(con1);
 	map.continents.add(con2);
 	map.continents.add(con3);
+	map.countries.add(cty1);
+	map.countries.add(cty2);
+	map.countries.add(cty3);
+	map.countries.add(cty4);
+	map.countries.add(cty5);
 	}
 	@Test
 	public void test1() {
-		assertEquals(6,map.calculateArmyNum(p1));
-		//assertEquals(6,map.calculateArmyNum(p2));
+		assertEquals(5,map.calculateArmyNum(p1));
+		assertEquals(6,map.calculateArmyNum(p2));
 	}
 	
 	/**
-	 * test when a player owns 4 countries in one continent
-	
+	 * test when a player owns 3 continents and 5 countries
+	*/
 	@Before 
 	public void before2() {
 	con1.addCountry(cty1);
@@ -71,7 +77,7 @@ public class testCalculateArmyNum {
 	con3.addCountry(cty3);
 	con1.addCountry(cty4);
 	con1.addCountry(cty5);
-	cty1.setNumber(1);    //didn't input number
+	cty1.setNumber(1);   
 	cty2.setNumber(2);
 	cty3.setNumber(3);
 	cty4.setNumber(4);
@@ -89,6 +95,11 @@ public class testCalculateArmyNum {
 	map.continents.add(con1);
 	map.continents.add(con2);
 	map.continents.add(con3);
+	map.countries.add(cty1);
+	map.countries.add(cty2);
+	map.countries.add(cty3);
+	map.countries.add(cty4);
+	map.countries.add(cty5);
 	
 	}
 	@Test
@@ -96,8 +107,9 @@ public class testCalculateArmyNum {
 		
 		assertEquals(18,map.calculateArmyNum(p1));
 		
-	} */
+	}
 	
+
 	
 
 }
