@@ -233,7 +233,6 @@ public class Map extends Observable {
 	 */
 	public void setPlayers(int playerNumber) {
 		setPlayerNumber(playerNumber);
-		
 		int armiesNumber = getInitialArmiesNumber();
 		
 		for(int i = 1; i <= playerNumber; i++) {

@@ -42,10 +42,12 @@ public class GameController {
 		
 		do {
 			for(Player p : map.players) {
-				reinforcementPhase(p);
-				fortificationPhase(p);
+				if(p.ownedCountries.size() > 0) {
+					reinforcementPhase(p);
+					fortificationPhase(p);
+				}
 			}
-		}while(map.isOwned()); //End of the game
+		}while(map.isOwned()); /* End of the game */
 		
 	}
 
@@ -58,7 +60,7 @@ public class GameController {
 		
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
-		map.distributeCountries();
+		map.distributeCountries(); /* Randomly split the countries between the players */
 		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 			
@@ -80,7 +82,6 @@ public class GameController {
 	
 	private void reinforcementPhase(Player p) {
 		do {
-			
 			int armyNum = map.calculateArmyNum(p);
 			p.setArmies(armyNum);
 			
@@ -94,7 +95,7 @@ public class GameController {
 	
 	
 	private void fortificationPhase( Player p) {
-		// TODO Auto-generated method stub
-		
+		int originCountryId = fortificationView.chooseOriginCountry(p);
+		int destinationCountryId = fortificationView.chooseDestinationCountry(p);
 	}
 }
