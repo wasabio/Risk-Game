@@ -309,13 +309,41 @@ public class Map extends Observable {
 		int numOfCty = 0;
 		// Search how many countries are owned by current player
 		for(Country c : countries) {
-			if(p.getNumber() == c.getPlayer().getNumber()) {
+			if(p.owns(c.getNumber())) {
 				numOfCty++;
 			}
 		}
 		//calculate how many armies the player should have
 		int numOfArmy = numOfCty/3;
-		return numOfArmy;
+		int bonusArmies = WholeContinentBonus(p);
+		return (numOfArmy + bonusArmies);
 	}
 	
+	/**
+	 * to check if the player take over the whole continent
+	 * @param current player
+	 * @return the number of bonus armies player get for taking whole continent
+	 */
+	public int WholeContinentBonus(Player p)
+	{
+		int bonusArmies = 0;
+		boolean wholeContinent;
+		//search continents
+		for(Continent conti: continents) {
+			 wholeContinent= true;
+			/*search countries, if a country is not owned by current player,
+			then the player doesn't own current continent*/
+			for(Country c : countries) {
+				if(c.getPlayer().getNumber() != p.getNumber()) {
+					wholeContinent = false;
+					break;
+				}
+			}
+			//if the player owns current continent, get bonus armies
+			if(wholeContinent) {
+				bonusArmies += conti.getExtraArmies();
+				}
+		}
+		return bonusArmies;
+	}
 }
