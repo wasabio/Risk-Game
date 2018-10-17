@@ -73,7 +73,6 @@ public class GameController {
 					int ctryId = startUpView.askCountry(p);
 					Country c = map.countries.get(ctryId-1);
 					map.setCountryArmies(ctryId, c.getArmyNumber() + 1);
-					p.setArmies(p.getArmies() - 1);
 				}
 			}
 		}while(remainingPlayers.size() != 0);
@@ -90,7 +89,6 @@ public class GameController {
 			int oldArmiesNumber = map.countries.get(countryNumber).getArmyNumber();
 			
 			map.setCountryArmies(countryNumber, oldArmiesNumber + selectedArmies);
-			p.setArmies(p.getArmies() - selectedArmies);
 		}while(p.getArmies() > 0);
 	}
 	

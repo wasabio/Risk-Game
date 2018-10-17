@@ -249,7 +249,7 @@ public class Map extends Observable {
 	private int getInitialArmiesNumber() {
 		switch(this.playerNumber) {
 		case 2:
-			return 4;
+			return 40;
 		case 3:
 			return 35;
 		case 4:
@@ -296,8 +296,10 @@ public class Map extends Observable {
 		return true;
 	}
 
-	public void setCountryArmies(int countryNumber, int armieNumber) {
-		countries.get(countryNumber-1).setArmyNumber(armieNumber);
+	public void setCountryArmies(int ctryId, int armieNumber) {
+		Player p = countries.get(ctryId).getPlayer();
+		p.setArmies(p.getArmies() - 1);
+		countries.get(ctryId-1).setArmyNumber(armieNumber);
 		setChanged();
 		notifyObservers(this);
 	}
