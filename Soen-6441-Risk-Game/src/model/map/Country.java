@@ -6,7 +6,7 @@ import model.gameplay.Player;
 
 /**
  * This class is handling the information and the behavior of a country.
- * It holds data about the army in the country and has relationships with the country's neighbors
+ * It holds data about the army in the country and has relationships with the country's neighbours
  */
 public class Country {
 	
@@ -175,6 +175,14 @@ public class Country {
 
 	public void linkTo(Country neighbour) {
 		this.neighbours.add(neighbour);
+	}
+	
+	public ArrayList<String> getNeighboursNames(){
+		return neighboursNames;
+	}
+	
+	public void setNeighboursNames(ArrayList<String> neighboursNames) {
+		this.neighboursNames = neighboursNames;
 	}
 	
 	/**
