@@ -1,12 +1,10 @@
 package view;
 
-import java.util.Scanner;
-
 import model.gameplay.Player;
 import model.map.Country;
-import model.map.Map;
 
 public class StartUpView extends View {
+	
 	public int askCountry(Player p) {
 		System.out.println("Startup phase of P" + p.getNumber() + " - "  + p.getArmies() + " armies available");
 		System.out.println("Enter the country number you want to deploy 1 army: ");
