@@ -96,6 +96,6 @@ public class GameController {
 	
 	private void fortificationPhase( Player p) {
 		int originCountryId = fortificationView.chooseOriginCountry(p);
-		int destinationCountryId = fortificationView.chooseDestinationCountry(p)
+		int destinationCountryId = fortificationView.chooseDestinationCountry(p);
 	}
 }

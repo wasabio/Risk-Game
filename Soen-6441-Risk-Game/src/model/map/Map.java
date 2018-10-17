@@ -276,6 +276,7 @@ public class Map extends Observable {
 					c.setPlayer(p);
 					c.setArmyNumber(1);
 					p.ownedCountries.add(c);
+					p.setArmies(p.getArmies()-1);
 				}
 			}
 		}while(freeCountries.size() > 0);
