@@ -59,7 +59,6 @@ public class GameController {
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
 		map.distributeCountries();
-		map.completeCountries();
 		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 			
@@ -71,9 +70,9 @@ public class GameController {
 				if(p.getArmies() == 0) {
 					i.remove();
 				} else {
-					int countryNumber = startUpView.askCountry(p);
-					Country c = map.countries.get(countryNumber-1);
-					map.setCountryArmies(countryNumber, c.getArmyNumber() + 1);
+					int ctryId = startUpView.askCountry(p);
+					Country c = map.countries.get(ctryId-1);
+					map.setCountryArmies(ctryId, c.getArmyNumber() + 1);
 					p.setArmies(p.getArmies() - 1);
 				}
 			}
@@ -82,6 +81,10 @@ public class GameController {
 	
 	private void reinforcementPhase(Player p) {
 		do {
+			
+			int armyNum = map.calculateArmyNum(p);
+			p.setArmies(armyNum);
+			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			int oldArmiesNumber = map.countries.get(countryNumber).getArmyNumber();
@@ -90,6 +93,7 @@ public class GameController {
 			p.setArmies(p.getArmies() - selectedArmies);
 		}while(p.getArmies() > 0);
 	}
+	
 	
 	private void fortificationPhase( Player p) {
 		// TODO Auto-generated method stub
