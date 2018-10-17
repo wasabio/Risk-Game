@@ -1,7 +1,8 @@
-package view;
+package view.gameplay;
 
 import model.gameplay.Player;
 import model.map.Country;
+import view.common.View;
 
 public class ReinforcementView extends View {
 

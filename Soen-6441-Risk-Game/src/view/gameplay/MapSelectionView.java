@@ -1,4 +1,4 @@
-package view;
+package view.gameplay;
 
 import java.awt.Component;
 import java.awt.HeadlessException;
@@ -8,6 +8,7 @@ import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 
 import model.utilities.StringAnalyzer;
+import view.common.View;
 
 public class MapSelectionView extends View {
 	

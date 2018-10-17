@@ -1,6 +1,6 @@
 package controller;
 
-import view.MainMenuView;
+import view.common.MainMenuView;
 
 /*
  * This class is the point of entry of the application. It controls the execution

@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import view.FortificationView;
-import view.MapSelectionView;
-import view.MapView;
-import view.ReinforcementView;
-import view.StartUpView;
+import view.common.MapView;
+import view.gameplay.FortificationView;
+import view.gameplay.MapSelectionView;
+import view.gameplay.ReinforcementView;
+import view.gameplay.StartUpView;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;

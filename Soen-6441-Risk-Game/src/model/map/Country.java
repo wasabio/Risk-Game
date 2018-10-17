@@ -29,7 +29,13 @@ public class Country extends Observable {
 	 */
 	public Country() 
 	{
-		
+		Counter++;
+		this.continent = null;
+		this.setPlayer(null);
+		this.name = "ctry" + Integer.toString(Counter);
+		this.xLocation = -1;
+		this.yLocation = -1;
+		this.armyNumber = 0;
 	}
 	
 	/**
@@ -40,6 +46,7 @@ public class Country extends Observable {
 	 */
 	public Country(String new_name) 
 	{
+		Counter++;
 		this.continent = null;
 		this.setPlayer(null);
 		this.name = new_name;

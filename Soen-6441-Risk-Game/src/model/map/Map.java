@@ -47,34 +47,47 @@ public class Map extends Observable {
 	 * @author Yueshuai
 	 * @return true if the map is valid, otherwise false
 	 */
-	private boolean check() {
-		// Yueshuai implementation : 3 map correctness checking + check if map playable regarding playerNumber
+	public boolean check() {		
+		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
+	}
+	
+	public boolean checkPlayableMap() {
+		/* You also have to check if the number of players is lower or equals than the number of countries on the map */
 		ArrayList<Continent> continents = new ArrayList<>();
 		ArrayList<Country> countries = new ArrayList<>();
+		
 		if(this.countries == null || this.countries.size() == 0) 
 		{
 			System.out.println("There is no country in the map");
 			return false;
 		}
+		
+		return true;
+	}
+	
+	public boolean checkConnectedGraph() {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
-				for(Country n : c.neighbors)
+				for(Country n : c.neighbors) {
 					if(c.neighbors == null || c.neighbors.size() == 0 ){
-						System.out.println("the country doesnt have neighbor");
+						System.out.println("A country doesnt have neighbor");
 						return false;
-						}
-				}
-		}
-		for(Continent ct : continents) {
-			for (Country c : ct.countries) {
-				if(ct.countries == null || ct.countries.size() == 0)
-				{
-					System.out.print("There is no country in the continent");
-					return false;
+					}
 				}
 			}
 		}
 		return true;
+	}
+	
+	public boolean checkNoEmptyContinent() {
+		for(Continent ct : continents) {
+			if(ct.countries == null || ct.countries.size() == 0)
+			{
+				System.out.print("There is no country in the continent");
+				return false;
+			}
+		}
+		return true; 
 	}
 	
 	private void loadMapSection(LineNumberReader in) throws IOException {
@@ -141,7 +154,6 @@ public class Map extends Observable {
 	}
 	
 	private void loadCountries(LineNumberReader in) throws IOException {
-		Country ctry;
 		while(true) {
 			String line = in.readLine();
 			if (line == null) {
@@ -185,7 +197,7 @@ public class Map extends Observable {
 					throw new Exception("invalid coordinates");
 				}
 				if (ctry.getContinent() != null && !name.equals("")) {
-					ctry.setNumber(++Country.Counter);
+					ctry.setNumber(Country.Counter);
 					ctry.getContinent().countries.add(ctry);
 					countries.add(ctry);
 				}
