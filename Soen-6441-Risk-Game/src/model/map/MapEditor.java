@@ -16,6 +16,7 @@ import java.util.Observable;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+
 import model.map.Map;
 import model.map.Country;
 import model.map.Continent;
@@ -25,7 +26,8 @@ import model.map.Continent;
  * @author skyba
  *
  */
-public class MapEditor extends Observable{
+public class MapEditor extends Observable
+{
 	
 	private Map map = new Map();
 	
@@ -33,14 +35,16 @@ public class MapEditor extends Observable{
 	 * Create a new and empty map. editing maps use load function
 	 *
 	 */
-	public MapEditor() {
+	public MapEditor() 
+	{
 		clear();
 	}
 
 	/**
 	 * If the data has been changed, call this function to notify observers.
 	 */
-	public void changeState() {
+	public void changeState() 
+	{
 		setChanged();
 		notifyObservers();
 	}
@@ -51,8 +55,10 @@ public class MapEditor extends Observable{
 	 * @param cont
 	 *            The input continent.
 	 */
-	public void addContinent(Continent cont) {
-		if (map.findContinent(cont.getName()) == null) {
+	public void addContinent(Continent cont) 
+	{
+		if (map.findContinent(cont.getName()) == null) 
+		{
 			map.continents.add(cont);
 			changeState();
 		}
@@ -83,18 +89,50 @@ public class MapEditor extends Observable{
 			changeState();
 		}
 	}
-	
+	/**
+	 * The method for deleting an input continent, the countries under the continent will also be deleted
+	 * @param cont
+	 */
 	public void deleteContinent(Continent cont) 
 	{
+		if (map.continents.contains(cont)) {
+			map.continents.remove(cont);
+			ArrayList<Country> dCtry = new ArrayList<>();
+			for (Country Ctry : map.countries) {
+				if (Ctry.getContinent() == cont) {
+					dCtry.add(Ctry);
+				}
+			}
+			for (Country Ctry : dCtry) {
+				Ctry.setContinent(null);
+			}
+			changeState();
+		}
 		
-		
+	}
+	/**
+	 * The method for deleting input country and the neighbour lists that contain the deleted country
+	 * @param Ctry
+	 * @throws IOException
+	 */
+	public void deleteCountry(Country Ctry) throws IOException
+	{
+		if (map.countries.contains(Ctry)) {
+			map.countries.remove(Ctry);
+			ArrayList<String> neighbourNames = Ctry.getNeighboursNames();
+			if (neighbourNames.size() > 0) {
+				for (String name : neighbourNames) {
+					Country neighbour = map.findCountry(name);
+					if (neighbour != null) {
+						neighbour.neighboursNames.remove(Ctry.getName());
+						buildCountryNeighbour(neighbour);
+					}
+				}
+			}
+		}
+		changeState();	
 	}
 	
-	public void deleteCountry(Country Crty)
-	{
-		
-		
-	}
 	/**
 	 * method building connections among territories, each territory has a
 	 * parameters of its linked territories
@@ -110,6 +148,7 @@ public class MapEditor extends Observable{
 					set.add(neighbourName);
 				}
 			}
+			
 			c.setNeighboursNames(new ArrayList<String>(set));
 
 			c.neighbours = new ArrayList<Country>();
@@ -118,7 +157,6 @@ public class MapEditor extends Observable{
 					Country neighbour = map.findCountry(NeighboursName);
 					c.getNeighboursNames().add(neighbour.getName());
 				}
-
 			}
 		}
 	}
@@ -127,7 +165,8 @@ public class MapEditor extends Observable{
 	/**
 	 * clear the variables in the file for new map to create, if need to edit map files, please use the load function
 	 */
-	public void clear() {
+	public void clear() 
+	{
 		map.setMapFilePath(null);
 		map.setAuthor(null);
 		map.setScroll(null);
@@ -173,6 +212,8 @@ public class MapEditor extends Observable{
 		country.setNeighboursNames(new ArrayList<String>());
 		changeState();
 	}
+
+
 	
 
 }
