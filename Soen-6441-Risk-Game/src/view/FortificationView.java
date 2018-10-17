@@ -51,9 +51,9 @@ public class FortificationView extends View {
 		do {
 			armiesNumber = getInteger();
 			correctValue = isValueCorrect(armiesNumber, 2, Country.Counter);
-			if(armiesNumber > armiesMaxNumber) {
+			if(armiesNumber > (armiesMaxNumber-1) || armiesNumber <= 0) {
 				correctValue = false;
-				System.out.println("Error : You don't have enough armies.");
+				System.out.println("Error : Wrong number of armies.");
 			}
 		}while(!correctValue);
 		

@@ -298,9 +298,9 @@ public class Map extends Observable {
 
 	public void addArmiesToCountry(int ctryId, int armieNumber) {
 		Player p = countries.get(ctryId-1).getPlayer();
+		System.out.println(p.getArmies());
 		p.setArmies(p.getArmies() - armieNumber);
 		int oldArmies = countries.get(ctryId-1).getArmyNumber();
-		
 		countries.get(ctryId-1).setArmyNumber(oldArmies + armieNumber);
 		setChanged();
 		notifyObservers(this);
@@ -313,15 +313,18 @@ public class Map extends Observable {
 	 */
 	public int calculateArmyNum(Player p) {
 		int numOfCty = 0;
-		// Search how many countries are owned by current player
+		/* Search how many countries are owned by current player */
 		for(Country c : countries) {
 			if(p.owns(c.getNumber())) {
 				numOfCty++;
 			}
 		}
-		//calculate how many armies the player should have
+		/* calculate how many armies the player should have */
 		int numOfArmy = numOfCty/3;
 		int bonusArmies = wholeContinentBonus(p);
+		if((numOfArmy + bonusArmies) < 3) {
+			return 3;
+		}
 		return (numOfArmy + bonusArmies);
 	}
 	
@@ -333,22 +336,12 @@ public class Map extends Observable {
 	public int wholeContinentBonus(Player p)
 	{
 		int bonusArmies = 0;
-		boolean wholeContinent;
-		//search continents
+		/* search continents */
 		for(Continent conti: continents) {
-			 wholeContinent= true;
-			/*search countries, if a country is not owned by current player,
-			then the player doesn't own current continent*/
-			for(Country c : countries) {
-				if(c.getPlayer().getNumber() != p.getNumber()) {
-					wholeContinent = false;
-					break;
-				}
-			}
-			//if the player owns current continent, get bonus armies
-			if(wholeContinent) {
-				bonusArmies += conti.getExtraArmies();
-				}
+			/* if the player owns current continent, get bonus armies */
+			 if(conti.ownedBy(p)) {
+				 bonusArmies += conti.getExtraArmies();
+			 }
 		}
 		return bonusArmies;
 	}

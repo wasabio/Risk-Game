@@ -81,13 +81,11 @@ public class GameController {
 	}
 	
 	private void reinforcementPhase(Player p) {
+		int armyNum = map.calculateArmyNum(p);
+		p.setArmies(armyNum);
 		do {
-			int armyNum = map.calculateArmyNum(p);
-			p.setArmies(armyNum);
-			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
-			
 			map.addArmiesToCountry(countryNumber, selectedArmies);
 		}while(p.getArmies() > 0);
 	}
@@ -96,10 +94,11 @@ public class GameController {
 	private void fortificationPhase( Player p) {
 		int	originCountryId = fortificationView.chooseOriginCountry(p);
 		/* We can't move armies from a country that has only 1 army */
-		if(map.countries.get(originCountryId-1).getArmyNumber() == 1) { 
+		int selectedCountry = map.countries.get(originCountryId-1).getArmyNumber();
+		if(selectedCountry <= 1 && selectedCountry != 0) { 
 			do {
 				originCountryId = fortificationView.armyError(p);
-			}while(map.countries.get(originCountryId-1).getArmyNumber() == 1);
+			}while(selectedCountry <= 1 && selectedCountry != 0);
 		}
 		/* 0 is the skip option */
 		if(originCountryId != 0) {

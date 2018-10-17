@@ -142,7 +142,7 @@ public class Continent
 	public Player getOwner() {
 		Player p = countries.get(0).getPlayer();
 		for(Country c : countries) {
-			if(!c.getPlayer().equals(p)) {
+			if(c.getPlayer().getNumber() != p.getNumber()) {
 				return null;
 			}
 		}
@@ -150,5 +150,13 @@ public class Continent
 		return p;
 	}
 	
-
+	public boolean ownedBy(Player p) {
+		for(Country c : countries) {
+			if(c.getPlayer().getNumber() != p.getNumber()) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
 }
