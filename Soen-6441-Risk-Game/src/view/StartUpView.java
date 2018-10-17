@@ -7,32 +7,22 @@ import model.map.Country;
 import model.map.Map;
 
 public class StartUpView extends View {
+	public int askCountry(Player p) {
+		System.out.println("Startup phase of P" + p.getNumber() + " - "  + p.getArmies() + " armies available");
+		System.out.println("Enter the country number you want to deploy 1 army: ");
 
-	public void print() {
-		//Yueshuai implementation
-		//Use input methods from the view (check other view to get integer)
+		int country_number;
+		boolean correctValue;
 		
-		Map map = new Map();
-		int ctyCode;
-		for(Player p : map.players) {
-			System.out.println("Enter the country code you want to deploy your army: ");
-			ctyCode=getInteger();
-			//to check if the player entered the country code within right range
-			if(isValueCorrect(ctyCode,1,map.countries.size())) {
-				//to check if the player chose their own territory
-				if(p.getNumber() == map.countries.get(ctyCode).getPlayer().getNumber()) {
-					//deploy the 1 army to the territory the player chose 
-					int armyNum = map.countries.get(ctyCode).getArmyNumber();
-					map.countries.get(ctyCode).setArmyNumber(++armyNum);
-				}
-				else {
-					System.out.println("This country does not belong to you");
-				}
-				
+		do {
+			country_number = getInteger();
+			correctValue = isValueCorrect(country_number, 1, Country.Counter);
+			if(!p.owns(country_number)) {
+				correctValue = false;
+				System.out.println("Error : This country does not belong you.");
 			}
-			else {
-				System.out.println("Country code out of range!");
-			}
-		}
-		}
+		}while(!correctValue);
+		
+		return country_number;
+	}
 }

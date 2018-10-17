@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.StringTokenizer;
 
@@ -295,11 +296,14 @@ public class Map extends Observable {
 		return true;
 	}
 
-	public void setCountry(int countryNumber, int armieNumber) {
-		countries.get(countryNumber).setArmyNumber(armieNumber);
+	public void setCountryArmies(int ctryId, int armieNumber) {
+		Player p = countries.get(ctryId).getPlayer();
+		p.setArmies(p.getArmies() - 1);
+		countries.get(ctryId-1).setArmyNumber(armieNumber);
 		setChanged();
 		notifyObservers(this);
 	}
+
 	/**
 	 * calculate number of countries the player owns, and calculate how many armies he should have left to deploy
 	 * @param p the current player
