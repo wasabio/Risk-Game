@@ -28,6 +28,7 @@ public class testCalculateArmyNum {
 	Continent con2 = new Continent("",4);
 	Continent con3 = new Continent("",6);
 	Map map = new Map();
+	
 	/*/**
 	 * initiating 3 continents, 5 countries, country 1,4,5 is in continent 1, country 2 in continent 2
 	 * country 3 in continent 3

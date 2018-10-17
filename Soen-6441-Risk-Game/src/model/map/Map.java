@@ -68,11 +68,15 @@ public class Map extends Observable {
 			return false;
 		}
 		/*check if the total number of country is more than total number of player*/
-		else if (this.countries.size()<this.players.size()) {
+		else if (this.players.size()>this.countries.size()) {
 			System.out.println("There are not enough country for all players");
 			return false;
 		}
 		else return true;
+	}
+	
+	public int test() {
+		return this.players.size();
 	}
 	/**
 	 * check if there is any disconnected country in the map which does not have any neighbor
@@ -94,7 +98,7 @@ public class Map extends Observable {
 	}
 	/**
 	 * check if there is empty continent which does not have any country
-	 * @return false if sunch continent exists, otherwise false
+	 * @return false if such continent exists, otherwise false
 	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
