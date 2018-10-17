@@ -327,7 +327,7 @@ public class Map extends Observable {
 		int numOfCty = 0;
 		/* Search how many countries are owned by current player */
 		for(Country c : countries) {
-			if(p.owns(c.getNumber())) {
+			if(p.getNumber() == c.getPlayer().getNumber()) {
 				numOfCty++;
 			}
 		}
@@ -337,7 +337,7 @@ public class Map extends Observable {
 		if((numOfArmy + bonusArmies) < 3) {
 			return 3;
 		}
-		return (numOfArmy + bonusArmies);
+		return (numOfCty/3+bonusArmies);
 	}
 	
 	/**
