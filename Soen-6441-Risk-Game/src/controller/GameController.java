@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import view.FortificationView;
 import view.MapSelectionView;
@@ -8,6 +10,7 @@ import view.MapView;
 import view.ReinforcementView;
 import view.StartUpView;
 import model.gameplay.Player;
+import model.map.Country;
 import model.map.Map;
 
 public class GameController {
@@ -47,18 +50,34 @@ public class GameController {
 	}
 
 	private void startUpPhase() throws IOException {
-		MapSelectionView mapSelectionView = new MapSelectionView();		
+		MapSelectionView mapSelectionView = new MapSelectionView();
+		StartUpView startUpView = new StartUpView();
+
 		int playerNumber = mapSelectionView.print();
-		
 		map.setPlayers(playerNumber); 
 		
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
-		
 		map.distributeCountries();
+		map.completeCountries();
 		
-		StartUpView startUpView = new StartUpView();
-		startUpView.print();
+		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
+			
+		do {
+			Iterator<Player> i = remainingPlayers.iterator();
+
+			while (i.hasNext()) {
+				Player p = i.next();
+				if(p.getArmies() == 0) {
+					i.remove();
+				} else {
+					int countryNumber = startUpView.askCountry(p);
+					Country c = map.countries.get(countryNumber-1);
+					map.setCountryArmies(countryNumber, c.getArmyNumber() + 1);
+					p.setArmies(p.getArmies() - 1);
+				}
+			}
+		}while(remainingPlayers.size() != 0);
 	}
 	
 	private void reinforcementPhase(Player p) {
@@ -67,7 +86,7 @@ public class GameController {
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			int oldArmiesNumber = map.countries.get(countryNumber).getArmyNumber();
 			
-			map.setCountry(countryNumber, oldArmiesNumber + selectedArmies);
+			map.setCountryArmies(countryNumber, oldArmiesNumber + selectedArmies);
 			p.setArmies(p.getArmies() - selectedArmies);
 		}while(p.getArmies() > 0);
 	}

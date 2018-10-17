@@ -83,18 +83,18 @@ public class Country extends Observable {
 	 * @param p : the player that owns the country
 	 *            
 	 */
-	//public void setPlayer(Player p) {
-	//	player = p;
-	//}
+	public void setPlayer(Player p) {
+		player = p;
+	}
 	
 	/**
 	 * To get the player
 	 * 
 	 * @return the player with Player type
 	 */
-	//public Player getPlayer() {
-	//	return player;
-	//}
+	public Player getPlayer() {
+		return player;
+	}
 	
 	/**
 	 * To add the troop to the country
@@ -206,14 +206,6 @@ public class Country extends Observable {
 
 	public void setArmyNumber(int armyNumber) {
 		this.armyNumber = armyNumber;
-	}
-
-	public Player getPlayer() {
-		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 
 	public int getNumber() {

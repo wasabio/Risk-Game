@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.StringTokenizer;
 
@@ -248,7 +249,7 @@ public class Map extends Observable {
 	private int getInitialArmiesNumber() {
 		switch(this.playerNumber) {
 		case 2:
-			return 40;
+			return 4;
 		case 3:
 			return 35;
 		case 4:
@@ -295,10 +296,24 @@ public class Map extends Observable {
 		return true;
 	}
 
-	public void setCountry(int countryNumber, int armieNumber) {
-		countries.get(countryNumber).setArmyNumber(armieNumber);
+	public void setCountryArmies(int countryNumber, int armieNumber) {
+		countries.get(countryNumber-1).setArmyNumber(armieNumber);
 		setChanged();
 		notifyObservers(this);
+	}
+
+	public boolean isFull() {
+		for(Country c : countries) {
+			if(c.getPlayer() == null) {
+				return false;
+			}
+		}
+		
+		return true;
+	}
+
+	public void completeCountries() {
+				
 	}
 	
 }
