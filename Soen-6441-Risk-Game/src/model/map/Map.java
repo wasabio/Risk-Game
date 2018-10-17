@@ -248,7 +248,7 @@ public class Map extends Observable {
 	private int getInitialArmiesNumber() {
 		switch(this.playerNumber) {
 		case 2:
-			return 40;
+			return 12;
 		case 3:
 			return 35;
 		case 4:
@@ -296,10 +296,12 @@ public class Map extends Observable {
 		return true;
 	}
 
-	public void setCountryArmies(int ctryId, int armieNumber) {
-		Player p = countries.get(ctryId).getPlayer();
-		p.setArmies(p.getArmies() - 1);
-		countries.get(ctryId-1).setArmyNumber(armieNumber);
+	public void addArmiesToCountry(int ctryId, int armieNumber) {
+		Player p = countries.get(ctryId-1).getPlayer();
+		p.setArmies(p.getArmies() - armieNumber);
+		int oldArmies = countries.get(ctryId-1).getArmyNumber();
+		
+		countries.get(ctryId-1).setArmyNumber(oldArmies + armieNumber);
 		setChanged();
 		notifyObservers(this);
 	}
@@ -319,7 +321,7 @@ public class Map extends Observable {
 		}
 		//calculate how many armies the player should have
 		int numOfArmy = numOfCty/3;
-		int bonusArmies = WholeContinentBonus(p);
+		int bonusArmies = wholeContinentBonus(p);
 		return (numOfArmy + bonusArmies);
 	}
 	
@@ -328,7 +330,7 @@ public class Map extends Observable {
 	 * @param current player
 	 * @return the number of bonus armies player get for taking whole continent
 	 */
-	public int WholeContinentBonus(Player p)
+	public int wholeContinentBonus(Player p)
 	{
 		int bonusArmies = 0;
 		boolean wholeContinent;

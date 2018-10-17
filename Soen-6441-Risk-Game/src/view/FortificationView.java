@@ -15,7 +15,7 @@ public class FortificationView extends View {
 		do {
 			country_number = getInteger();
 			correctValue = isValueCorrect(country_number, 0, Country.Counter);
-			if(!p.owns(country_number)) {
+			if(correctValue && !p.owns(country_number) && country_number != 0) {
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");
 			}
@@ -25,7 +25,6 @@ public class FortificationView extends View {
 	}
 	
 	public int chooseDestinationCountry(Player p) {
-		System.out.println("Fortification phase of P" + p.getNumber());
 		System.out.println("Enter the destination country number: ");
 		
 		int country_number;
@@ -34,7 +33,7 @@ public class FortificationView extends View {
 		do {
 			country_number = getInteger();
 			correctValue = isValueCorrect(country_number, 1, Country.Counter);
-			if(!p.owns(country_number)) {
+			if(correctValue && !p.owns(country_number)) {
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");
 			}
@@ -43,16 +42,33 @@ public class FortificationView extends View {
 		return country_number;
 	}
 
-	public int askArmiesNumber(Player p) {
-		System.out.println("Fortification phase of P" + p.getNumber());
-		System.out.println("Enter the destination country number: ");
+	public int askArmiesNumber(Player p, int armiesMaxNumber) {
+		System.out.println("Enter the number of armies: ");
+		
+		int armiesNumber;
+		boolean correctValue;
+		
+		do {
+			armiesNumber = getInteger();
+			correctValue = isValueCorrect(armiesNumber, 2, Country.Counter);
+			if(armiesNumber > armiesMaxNumber) {
+				correctValue = false;
+				System.out.println("Error : You don't have enough armies.");
+			}
+		}while(!correctValue);
+		
+		return armiesNumber;
+	}
+
+	public int armyError(Player p) {
+		System.out.println("Error : You can't move armies from a country that has only 1 army.");
 		
 		int country_number;
 		boolean correctValue;
 		
 		do {
 			country_number = getInteger();
-			correctValue = isValueCorrect(country_number,1, Country.Counter);
+			correctValue = isValueCorrect(country_number, 0, Country.Counter);
 			if(!p.owns(country_number)) {
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");

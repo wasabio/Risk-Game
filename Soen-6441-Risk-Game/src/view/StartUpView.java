@@ -15,7 +15,7 @@ public class StartUpView extends View {
 		do {
 			country_number = getInteger();
 			correctValue = isValueCorrect(country_number, 1, Country.Counter);
-			if(!p.owns(country_number)) {
+			if(correctValue && !p.owns(country_number)) {
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");
 			}
