@@ -47,10 +47,17 @@ public class Map extends Observable {
 	 * @author Yueshuai
 	 * @return true if the map is valid, otherwise false
 	 */
+	/**
+	 * to check if the map meets the whole requirement
+	 * @return true if the map is valid
+	 */
 	public boolean check() {		
 		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
 	}
-	
+	/**
+	 * check if the map is empty 
+	 * @return true if the map is not empty, otherwise false
+	 */
 	public boolean checkPlayableMap() {
 		/* You also have to check if the number of players is lower or equals than the number of countries on the map */
 		ArrayList<Continent> continents = new ArrayList<>();
