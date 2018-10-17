@@ -24,6 +24,7 @@ public class GameController {
 	{
 		try {
 			map = new Map();
+			map.clear();
 			mapView = new MapView();
 			reinforcementView = new ReinforcementView();
 			fortificationView = new FortificationView();

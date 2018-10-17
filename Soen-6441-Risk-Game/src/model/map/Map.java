@@ -60,9 +60,6 @@ public class Map extends Observable {
 	 */
 	public boolean checkPlayableMap() {
 		/* You also have to check if the number of players is lower or equals than the number of countries on the map */
-		ArrayList<Continent> continents = new ArrayList<>();
-		ArrayList<Country> countries = new ArrayList<>();
-		
 		if(this.countries == null || this.countries.size() == 0) 
 		{
 			System.out.println("There is no country in the map");
@@ -363,5 +360,9 @@ public class Map extends Observable {
 			 }
 		}
 		return bonusArmies;
+	}
+
+	public void clear() {
+		Country.Counter = 0;
 	}
 }
