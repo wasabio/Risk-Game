@@ -2,14 +2,25 @@ package view.mapEditor;
 
 import view.common.View;
 
+/**
+ * 
+ * The class is for the view of editing function in the map editor
+ *
+ */
 public class EditView extends View {
+	
+	/**
+	 * The method is to ask the country that is inputed
+	 * @return Returning the inputed country name
+	 */
 	/* Add country functions */
 	public String askCountryName() {
 		System.out.println("Enter the name of the country: ");
 		String name = getString();
 		return name;
 	}
-	 /**
+	 
+	/**
 	  * ask player to enter a valid continent number
 	  * @param maxNumber the maximum number player can enter
 	  * @return the number the player entered
@@ -26,6 +37,7 @@ public class EditView extends View {
 		
 		return number;
 	}
+	
 	/**
 	 * ask player to enter a valid neighbor to the country
 	 * @param maxNumber maximum number player can enter
@@ -42,6 +54,10 @@ public class EditView extends View {
 		return number;		 
 	}
 	
+	/**
+	 * The method for asking the specific continent names
+	 * @return Returning the name of the entered continent
+	 */
 	/*Add continent functions */
 	public String askContinentName() { 
 		System.out.println("Enter the continent name: ");
@@ -49,6 +65,7 @@ public class EditView extends View {
 		System.out.println();
 		return name;
 	}
+	
 	/**
 	 * ask player to enter the number of bonus armies of the continent
 	 * @return the bonus number the player entered
@@ -80,10 +97,17 @@ public class EditView extends View {
 		return number;	
 	}
 
+	/**
+	 * Printing error messages for adding country
+	 */
 	public void errorAddingCountry() {
 		System.out.println("Error : The country could not be added (Wrong input or 0 continents).");
 		
 	}
+	
+	/**
+	 * Printing error messages for adding Continent
+	 */
 	public void errorAddingContinent() {
 		System.out.println("Error : The continent could not be added (Wrong input).");	
 	}
