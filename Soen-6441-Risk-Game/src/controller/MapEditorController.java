@@ -105,19 +105,23 @@ public class MapEditorController {
 	 * The method for add Country
 	 */
 	public void addCountry() {
-		String ctryName = editView.askCountryName();
-		int maxInput = mapEditor.getMaxInputNumber();
-		int contNb = editView.askContinentNumber(maxInput);
-		ArrayList<Integer> neighborNumbers = new ArrayList<Integer>();
-		/* Ask all neighbors until user press 0 */
-		int currentInput;
-		do {
-			currentInput = editView.askNeighbor(maxInput);
-			if(currentInput != 0) {
-				neighborNumbers.add(currentInput);
-			}
-		}while(currentInput != 0);
-		 boolean added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
+		boolean added = false;
+		if(mapEditor.map.continents.size() > 0) {
+			String ctryName = editView.askCountryName();
+			int maxInput = mapEditor.getMaxInputNumber();
+			int contNb = editView.askContinentNumber(maxInput);
+			ArrayList<Integer> neighborNumbers = new ArrayList<Integer>();
+			/* Ask all neighbors until user press 0 */
+			int currentInput;
+			do {
+				currentInput = editView.askNeighbor(maxInput);
+				if(currentInput != 0) {
+					neighborNumbers.add(currentInput);
+				}
+			}while(currentInput != 0);
+			added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
+		}
+		
 		 if(!added) {
 			 editView.errorAddingCountry();
 		 }
@@ -127,6 +131,14 @@ public class MapEditorController {
 	 * The method for add Continent
 	 */
 	public void addContinent() {
-		//editView.
+		boolean added = false;
+		
+		String countinentName = editView.askContinentName();
+		int bonus = editView.askBonus();
+		mapEditor.addContinent(countinentName, bonus);
+	
+		if(!added) {
+			 editView.errorAddingContinent();
+		}
 	}
 }

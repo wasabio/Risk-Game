@@ -7,7 +7,6 @@ public class EditView extends View {
 	public String askCountryName() {
 		System.out.println("Enter the name of the country: ");
 		String name = getString();
-		System.out.println();
 		return name;
 	}
 	 /**
@@ -33,7 +32,7 @@ public class EditView extends View {
 	 * @return the number of the country the player entered
 	 */
 	public int askNeighbor(int maxNumber) {
-		System.out.println("Enter the neighbor of the country: ");
+		System.out.println("Enter the neighbor of the country (line number, 0 to stop): ");
 		int number;
 		boolean correctValue;
 		do {
@@ -45,7 +44,7 @@ public class EditView extends View {
 	
 	/*Add continent functions */
 	public String askContinentName() { 
-		System.out.println("Enter the neighbor of the country: ");
+		System.out.println("Enter the continent name: ");
 		String name = getString();
 		System.out.println();
 		return name;
@@ -71,7 +70,7 @@ public class EditView extends View {
 	 * @return the country number the player entered
 	 */
 	public int askCountryNumber(int maxNumber) {
-		System.out.println("Enter the neighbor of the country: ");
+		System.out.println("Enter the neighbor of the country (line number): ");
 		int number;
 		boolean correctValue;
 		do {
@@ -82,7 +81,10 @@ public class EditView extends View {
 	}
 
 	public void errorAddingCountry() {
-		System.out.println("Error : The country could not be added.");
+		System.out.println("Error : The country could not be added (Wrong input or 0 continents).");
 		
+	}
+	public void errorAddingContinent() {
+		System.out.println("Error : The continent could not be added (Wrong input).");	
 	}
 }

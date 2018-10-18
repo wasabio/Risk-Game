@@ -6,6 +6,7 @@ import java.util.Observer;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapEditor;
 import view.common.View;
 
 /**
@@ -16,7 +17,7 @@ import view.common.View;
 public class MapEditorView extends View implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {
-		print((Map) o);
+		print(((MapEditor) o).map);
 	}
 
 	public void print(Map map) {

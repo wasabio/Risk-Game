@@ -208,13 +208,33 @@ public class MapEditor extends Observable{
 		if(findCountry(ctryName) != null) {
 			return false;
 		}
+		/* Check if the continent number is correct */
+		Continent c = getContinent(contNb);
+		if(c == null) {
+			return false;
+		}
+		/* Check for incorrect neighbors */
+		ArrayList<Country> neighbors = new ArrayList<Country>();
+		for(int i : neighborNumbers) {
+			Country n = getCountry(i);
+			if(n == null) {
+				return false;
+			} else {
+				neighbors.add(n);
+			}
+		}
 		
-		//check conti number correct
-		//check each neighbor number correct
+		/* add country & create neighbors */
+		Country ctry = new Country(ctryName);
+		map.countries.add(ctry);
+		c.countries.add(ctry);
 		
-		//add country : true
-		return false;
+		for(Country neighbor : neighbors) {
+			connect(ctry, neighbor);
+		}
 		
+		changeState();
+		return true;
 	}
 
 	/**
@@ -232,14 +252,20 @@ public class MapEditor extends Observable{
 		return counter;
 	}
 
+	public void addContinent(String countinentName, int bonus) {
+		// TODO Auto-generated method stub
+		
+	}
+		
 	/**
 	 * save and generate the .map file
 	 */
 	public void save() {
 		map.check();
 		String content = extractInfo(map);
-		Generate(map.getName()+".map",content);
+		generate(map.getName()+".map",content);
 	}
+
 	/**
 	 * to extract map info into the string
 	 * @param map the map that needs to be saved
@@ -268,7 +294,7 @@ public class MapEditor extends Observable{
 		return content;
 	}
 
-	public static void Generate(String fileName, String content) { 
+	public static void generate(String fileName, String content) { 
 		try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
 		out.write(content); 
