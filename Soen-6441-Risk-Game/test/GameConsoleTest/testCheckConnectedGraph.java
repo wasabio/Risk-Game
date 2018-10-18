@@ -32,6 +32,7 @@ public class testCheckConnectedGraph {
 		con1.addCountry(cty1);
 		con2.addCountry(cty2);
 		con1.addCountry(cty3);
+		
 	}
 	/**
 	 * test when country 1 and 2 are connected but country 3 does not
