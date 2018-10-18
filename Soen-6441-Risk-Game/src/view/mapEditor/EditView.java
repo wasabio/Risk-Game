@@ -15,7 +15,7 @@ public class EditView extends View {
 	  * @return the number the player entered
 	  */
 	public int askContinentNumber(int maxNumber) {
-		System.out.println("Enter the continent the country belongs to (line number): ");
+		System.out.println("Enter the continent number (line number): ");
 		int number;
 		boolean correctValue;
 		
@@ -70,7 +70,7 @@ public class EditView extends View {
 	 * @return the country number the player entered
 	 */
 	public int askCountryNumber(int maxNumber) {
-		System.out.println("Enter the neighbor of the country (line number): ");
+		System.out.println("Enter the country you want to delete (line number): ");
 		int number;
 		boolean correctValue;
 		do {
@@ -86,5 +86,11 @@ public class EditView extends View {
 	}
 	public void errorAddingContinent() {
 		System.out.println("Error : The continent could not be added (Wrong input).");	
+	}
+	public void errorDeletingContinent() {
+		System.out.println("Error : The continent could not be deleted (Wrong input).");	
+	}
+	public void errorDeletingCountry() {
+		System.out.println("Error : The country could not be deleted (Wrong input).");	
 	}
 }

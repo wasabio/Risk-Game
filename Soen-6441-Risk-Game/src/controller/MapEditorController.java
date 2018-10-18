@@ -80,13 +80,29 @@ public class MapEditorController {
 	
 
 	private void deleteCountry() {
+		boolean deleted = false;
+		
 		int maxInput = mapEditor.getMaxInputNumber();
-		editView.askCountryNumber(maxInput);
+		int ctryNumber = editView.askCountryNumber(maxInput);
+		deleted = mapEditor.deleteCountry(ctryNumber);
+		
+		if(!deleted) {
+			 editView.errorDeletingCountry();
+		}
 	}
 
 	private void deleteContinent() {
+		
+		
+		boolean deleted = false;
+		
 		int maxInput = mapEditor.getMaxInputNumber();
-		editView.askContinentNumber(maxInput);
+		int contNumber = editView.askContinentNumber(maxInput);
+		deleted = mapEditor.deleteContinent(contNumber);
+		
+		if(!deleted) {
+			 editView.errorDeletingContinent();
+		}
 	}
 
 	public void addCountry() {
@@ -117,7 +133,7 @@ public class MapEditorController {
 		
 		String countinentName = editView.askContinentName();
 		int bonus = editView.askBonus();
-		mapEditor.addContinent(countinentName, bonus);
+		added = mapEditor.addContinent(countinentName, bonus);
 	
 		if(!added) {
 			 editView.errorAddingContinent();
