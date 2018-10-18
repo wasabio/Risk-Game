@@ -63,21 +63,34 @@ public class Map extends Observable {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * The method is to check whether does the map file includes the suitable country, and continent syntax in the map file
 	 * It also include the checking function for countries cannot less than total players
 	 * @return Returning false if one of the Condition occurs, otherwise returning true
+=======
+	 * check if there is any country and continent in the map 
+	 * check if the total country number is more than total player number
+	 * @return true if the map is valid, otherwise false
+>>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkPlayableMap() {
-		/* You also have to check if the number of players is lower or equals than the number of 
-		 * countries on the map */
-		if(this.countries == null || this.countries.size() == 0 || this.continents == null
+		/* check does map have any country and continent */
+		if (this.countries == null || this.countries.size() == 0 || this.continents == null
 				||this.continents.size() == 0) 
 		{
 			System.out.println("There is no country or continent in the map");
 			return false;
 		}
-		
-		return true;
+		/*check if the total number of country is more than total number of player*/
+		else if (this.players.size()>this.countries.size()) {
+			System.out.println("There are not enough country for all players");
+			return false;
+		}
+		else return true;
+	}
+	
+	public int test() {
+		return this.players.size();
 	}
 	
 	/**
@@ -99,8 +112,13 @@ public class Map extends Observable {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * The method is to check if there are empty continents which does not have a country signed under those continents
 	 * @return Returning false if such continents exist, otherwise true
+=======
+	 * check if there is empty continent which does not have any country
+	 * @return false if such continent exists, otherwise false
+>>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
