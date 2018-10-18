@@ -13,7 +13,13 @@ import java.util.StringTokenizer;
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
-
+/**
+ * This is the class that includes most logic functions for map
+ * It includes the functions like :
+ * 1. The functions of data changes for the map that is dealing with Continents, countries, and players data
+ * 2. The saving, and loading functions of the map file
+ * 3. The checking functions for checking the string properties of the map file is suitable to the program or not
+ */
 public class Map extends Observable {
 	
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
@@ -28,7 +34,11 @@ public class Map extends Observable {
 	private boolean warn;
 	private int playerNumber;
 	
-
+/**
+ * The method for loading the map file and checking the syntax of the map file is suit to the program or not
+ * @param mapFilePath The file path of the map file in string type
+ * @throws IOException
+ */
 	public void load(String mapFilePath) throws IOException 
 
 	{	
@@ -41,22 +51,21 @@ public class Map extends Observable {
 	}
 
 	/**
-	 * check if the map is valid by : check if the map is empty, 
-	 * check if the continent has any country,
-	 * check if a country has any neighbor
-	 * @author Yueshuai
-	 * @return true if the map is valid, otherwise false
-	 */
-	/**
-	 * to check if the map meets the whole requirement
-	 * @return true if the map is valid
+	 * check the map is validity of the map file by : 
+	 * 1. Checking if the map is empty, 
+	 * 2. Checking if a country without any neighbor
+	 * 3. Checking if a continent without any country
+	 * 
+	 * @return Returning true when 3 checking functions all passed, and other situations return false
 	 */
 	public boolean check() {		
 		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
 	}
+	
 	/**
-	 * check if there is any country and continent in the map 
-	 * @return true if the map is not empty, otherwise false
+	 * The method is to check whether does the map file includes the suitable country, and continent syntax in the map file
+	 * It also include the checking function for countries cannot less than total players
+	 * @return Returning false if one of the Condition occurs, otherwise returning true
 	 */
 	public boolean checkPlayableMap() {
 		/* You also have to check if the number of players is lower or equals than the number of 
@@ -70,11 +79,11 @@ public class Map extends Observable {
 		
 		return true;
 	}
-	/**
-	 * check if there is any disconnected country in the map which does not have any neighbor
-	 * @return false if such country exists, otherwise true
-	 */
 	
+	/**
+	 * The method is to check if there is any disconnected countries in the map which does not have any neighbor
+	 * @return Returning false if such countries exists, otherwise true
+	 */
 	public boolean checkConnectedGraph() {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
@@ -88,9 +97,10 @@ public class Map extends Observable {
 		}
 		return true;
 	}
+	
 	/**
-	 * check if there is empty continent which does not have any country
-	 * @return false if sunch continent exists, otherwise false
+	 * The method is to check if there are empty continents which does not have a country signed under those continents
+	 * @return Returning false if such continents exist, otherwise true
 	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
@@ -103,6 +113,11 @@ public class Map extends Observable {
 		return true; 
 	}
 	
+	/**
+	 * The method is to load and check the basic properties of the map file has what the program needed
+	 * @param in The string type in the map file that need to be read
+	 * @throws IOException
+	 */
 	private void loadMapSection(LineNumberReader in) throws IOException {
 		reachSection(in, "Map");
 		while(true) {
@@ -139,6 +154,11 @@ public class Map extends Observable {
 		}
 	}
 
+	/**
+	 * The method is to load and check the loaded continent strings in the map file are suitable to the program or not
+	 * @param in The continent string type in the map file that need to be read
+	 * @throws IOException
+	 */
 	private void loadContinents(LineNumberReader in) throws IOException {
 		while(true) {
 			String line = in.readLine();
@@ -166,6 +186,11 @@ public class Map extends Observable {
 		}
 	}
 	
+	/**
+	 * The method is to load and check the loaded country strings in the map file are suitable to the program or not
+	 * @param in The country string type in the map file that need to be read
+	 * @throws IOException
+	 */
 	private void loadCountries(LineNumberReader in) throws IOException {
 		while(true) {
 			String line = in.readLine();
@@ -184,6 +209,12 @@ public class Map extends Observable {
 		}
 	}
 	
+	/**
+	 * The method is to find the specific country and its information
+	 * @param name The specific country name in string type
+	 * @return Returning to the current country in country type if the condition is correct, otherwise print incorrect map file with the current country name
+	 * @throws IOException
+	 */
 	private Country findCountry(String name) throws IOException {
 		for (Country c : countries) {
 			if(c.getName().equals(name)) {
@@ -192,7 +223,13 @@ public class Map extends Observable {
 		}
 		throw new IOException("Incorrect map file (" + name + "," + ")");
 	}
-
+	
+	/**
+	 * The method is to parse the neighbors of the current country with separated by ",".
+	 * It also will check some conditions like the current country is exist or not and the correctness of the coordinates (x,y)
+	 * @param line This is the string line of neighbors of the current country
+	 * @throws IOException
+	 */
 	private void parseCountryLine(String line) throws IOException {
 		try {
 			StringTokenizer st = new StringTokenizer(line, ",");
@@ -223,7 +260,12 @@ public class Map extends Observable {
 			throw new IOException(" :Invalid country line (" + e + "): " + line);
 		}
 	}
-		
+	
+	/**
+	 * The method is to find the specific continent and its information
+	 * @param name The specific country name in string type
+	 * @return Returning to the current continent in continent type if the condition is correct, otherwise returning null
+	 */
 	private Continent findContinent(String name) {
 		for (Continent cont : this.continents) {
 			if (name.equalsIgnoreCase(cont.getName())) {
@@ -233,6 +275,13 @@ public class Map extends Observable {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param in
+	 * @param section
+	 * @return
+	 * @throws IOException
+	 */
 	private int reachSection(LineNumberReader in, String section) throws IOException {
 		String head = "[" + section + "]";
 		String line;
