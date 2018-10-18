@@ -313,6 +313,11 @@ public class MapEditor extends Observable{
 		return content;
 	}
 
+	/**
+	 * The function to generate the new file name and new properties that content in the map file
+	 * @param fileName The selected file name
+	 * @param content The string that content in the file
+	 */
 	public static void generate(String fileName, String content) { 
 		try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
