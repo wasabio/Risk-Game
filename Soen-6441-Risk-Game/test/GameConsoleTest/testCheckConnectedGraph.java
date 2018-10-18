@@ -18,7 +18,7 @@ public class testCheckConnectedGraph {
 	Country cty1,cty2,cty3;
 	Continent con1,con2;
 	@Before
-	public void Beofre() {
+	public void before() {
 		con1 = new Continent("",3);
 		con2 = new Continent("",2);
 		cty1 = new Country("");

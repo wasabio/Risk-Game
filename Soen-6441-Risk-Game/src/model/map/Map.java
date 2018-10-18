@@ -97,13 +97,10 @@ public class Map extends Observable
 		{
 			for (Country c : ct.countries) 
 			{
-				for(Country n : c.neighbors) 
+				if(c.neighbors == null || c.neighbors.size() == 0 )
 				{
-					if(n.neighbors == null || n.neighbors.size() == 0 )
-					{
-						System.out.println("A country doesnt have neighbor");
-						return false;
-					}
+					System.out.println("A country doesnt have neighbor");
+					return false;
 				}
 			}
 		}
