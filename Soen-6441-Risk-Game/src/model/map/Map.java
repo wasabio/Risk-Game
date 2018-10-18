@@ -30,7 +30,6 @@ public class Map extends Observable {
 	
 
 	public void load(String mapFilePath) throws IOException 
-
 	{	
 		this.mapFilePath = mapFilePath;
 		LineNumberReader in = new LineNumberReader(new FileReader(mapFilePath));
@@ -194,7 +193,6 @@ public class Map extends Observable {
 					throw new Exception("invalid coordinates");
 				}
 				if (ctry.getContinent() != null && !name.equals("")) {
-					ctry.setNumber(Country.Counter);
 					ctry.getContinent().countries.add(ctry);
 					countries.add(ctry);
 				}
@@ -357,5 +355,13 @@ public class Map extends Observable {
 
 	public void clear() {
 		Country.Counter = 0;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

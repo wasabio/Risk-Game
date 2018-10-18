@@ -24,6 +24,16 @@ public abstract class View {
 		 }while(true);
 	}
 	
+	protected String getString() 
+	{
+		String inputString = "";
+		do {
+			input = new Scanner(System.in);
+			inputString = input.nextLine();
+		}while(inputString == null || inputString.equals(""));
+		return inputString;
+	}
+	
 	protected boolean isValueCorrect(int value, int minimum, int maximum)
 	{
 		if(value < minimum || value > maximum)

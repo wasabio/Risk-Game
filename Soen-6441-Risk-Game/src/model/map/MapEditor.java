@@ -1,128 +1,232 @@
 package model.map;
 
-//
-///**
-// * for functions such as add, delete continents and countries.
-// * @author skyba
-// *
-// */
-///***
-//public class MapEditor {
-//
-//	/**
-//	 * Create a new and empty map. If need to load existing map, please see
-//	 * function load().
-//	 */
-//	public ConquestMap() {
-//		clear();
-//	}
-//
-//	/**
-//	 * If the data has been changed, call this function to notify observers.
-//	 */
-//	public void changeState() {
-//		setChanged();
-//		notifyObservers();
-//	}
-//
-//	/**
-//	 * Add a qualified continent to the local variables.
-//	 * 
-//	 * @param cont
-//	 *            The input continent.
-//	 */
-//	public void addContinent(Continent cont) {
-//		if (findContinent(cont.getName()) == null) {
-//			this.continents.add(cont);
-//			changeState();
-//		}
-//	}
-//
-//	/**
-//	 * Add a qualified territory to the local variables, then build the
-//	 * neighbour links.
-//	 * 
-//	 * @param ter
-//	 *            The input territory.
-//	 * 
-//	 */
-//	public void addTerritory(Territory ter) {
-//		if (findTerritory(ter.name) == null) {
-//			this.territories.add(ter);
-//			ArrayList<String> linkNames = ter.getLinkNames();
-//			if (linkNames.size() > 0) {
-//				for (String name : linkNames) {
-//					Territory neighbour = findTerritory(name);
-//					if (neighbour != null) {
-//						neighbour.getLinkNames().add(ter.getName());
-//						buildTerritoryLinks(neighbour);
-//					}
-//				}
-//			}
-//			changeState();
-//		}
-//	}
-//	
-//	/**
-//	 * Initial function of the class, normalize the local variables.
-//	 */
-//	public void clear() {
-//		this.mapFilePath = null;
-//		this.imageFilePath = null;
-//		this.author = null;
-//		this.scroll = ScrollOptions.HORIZONTAL;
-//		this.wrap = false;
-//		this.warn = true;
-//		this.continents.clear();
-//		this.territories.clear();
-//		changeState();
-//	}
-//	
-//	/**
-//	 * Delete the input continent, and remove the link between continent and its
-//	 * territories,set null continent to these territories.
-//	 * 
-//	 * @param cont
-//	 *            The target continent needed to remove.
-//	 */
-//	public void deleteContinent(Continent cont) {
-//		if (this.continents.contains(cont)) {
-//			this.continents.remove(cont);
-//			ArrayList<Territory> temp = new ArrayList<>();
-//			for (Territory ter : this.territories) {
-//				if (ter.getContinent() == cont) {
-//					temp.add(ter);
-//				}
-//			}
-//			for (Territory ter : temp) {
-//				ter.setContinent(null);
-//			}
-//			changeState();
-//
-//		}
-//	}
-//
-//	/**
-//	 * Delete the target territory, also remove all links in its neighbours.
-//	 * 
-//	 * @param ter
-//	 *            The target territory needed to be removed.
-//	 */
-//	public void deleteTerritory(Territory ter) {
-//		if (this.territories.contains(ter)) {
-//			this.territories.remove(ter);
-//			ArrayList<String> linkNames = ter.getLinkNames();
-//			if (linkNames.size() > 0) {
-//				for (String name : linkNames) {
-//					Territory neighbour = findTerritory(name);
-//					if (neighbour != null) {
-//						neighbour.getLinkNames().remove(ter.getName());
-//						buildTerritoryLinks(neighbour);
-//					}
-//				}
-//			}
-//		}
-//		changeState();
-//	}
-//	
-//}
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Observable;
+
+/**
+ * for functions such as add, delete continents and countries.
+ * @author Yann
+ *
+ */
+
+public class MapEditor extends Observable{
+	public Map map;
+
+	/**
+	 * Create a new and empty map. If need to load existing map, please see
+	 * function load().
+	 */
+	public MapEditor() {
+		map = new Map();
+		map.clear();
+		map.setPlayerNumber(0);
+	}
+
+	/**
+	 * If the data has been changed, call this function to notify observers.
+	 */
+	public void changeState() {
+		setChanged();
+		notifyObservers();
+	}
+
+	/**
+	 * Add a qualified continent to the local variables.
+	 * 
+	 * @param cont
+	 *            The input continent.
+	 */
+	public void addContinent(Continent cont) {
+		if (findContinent(cont.getName()) == null) {
+			map.continents.add(cont);
+			changeState();
+		}
+	}
+
+	/**
+	 * Delete the input continent, and remove the countries inside and their links
+	 * 
+	 * @param cont
+	 *            The target continent needed to remove.
+	 */
+	public void deleteContinent(Continent cont) {
+		if(map.continents.contains(cont)) {
+			for(Country c : cont.countries) {
+				deleteCountry(c);
+			}
+			map.continents.remove(cont);
+			changeState();
+		}
+	}
+	
+	/**
+	 * Add a qualified Country to the local variables, then build the
+	 * neighbor links.
+	 * 
+	 * @param ter
+	 *            The input Country.
+	 * 
+	 */
+	public void addCountry(Country ctry) {
+		/* If country name not already exists */
+		if (findCountry(ctry.getName()) == null) {
+			this.map.countries.add(ctry);
+			/* Adding neighbors */
+			ArrayList<String> neighborNames = ctry.neighborsNames;
+			if (neighborNames.size() > 0) {
+				for (String name : neighborNames) {
+					Country neighbor = findCountry(name);
+					if (neighbor != null) {
+						neighbor.neighborsNames.add(ctry.getName());
+						connect(ctry, neighbor);
+					}
+				}
+			}
+			changeState();
+		} else {
+			Country.Counter--;
+		}
+	}
+
+	/**
+	 * Delete the target Country, also remove all links in its neighbors.
+	 * 
+	 * @param ter
+	 *            The target Country needed to be removed.
+	 */
+	public void deleteCountry(Country ctry) {
+		if (map.countries.contains(ctry)) {
+			disconnect(ctry);
+			ctry.getContinent().countries.remove(ctry);
+			map.countries.remove(ctry);
+		}
+		changeState();
+	}
+	
+	/**
+	 * Find and return a continent giving a name. In case is does not exist, return null
+	 * 
+	 * @return the continent found
+	 */
+	private Continent findContinent(String name) {
+		for(Continent c : map.continents) {
+			if(c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Find and return a country giving a name. In case is does not exist, return null
+	 * 
+	 * @return the country found
+	 */
+	private Country findCountry(String name) {
+		for(Country c : map.countries) {
+			if(c.getName().equals(name)) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Create a connection between 2 countries. It generate a link in both side
+	 */
+	private void connect(Country ctry, Country neighbor) {
+		ctry.linkTo(neighbor);
+		neighbor.linkTo(ctry);
+	}
+	
+	/**
+	 * To remove all the connections made between a specific country and the other countries
+	 * @param c country to remove
+	 */
+	private void disconnect(Country c) {
+		for(Country n : c.neighbors) {
+			n.neighbors.remove(c);
+			n.neighborsNames.remove(c.getName());
+		}
+		c.neighbors.clear();
+		c.neighborsNames.clear();
+	}
+
+	public void setMapName(String mapName) {
+		map.setName(mapName);
+	}
+
+	public void load(String mapFilePath) {
+		try {
+			map.load(mapFilePath);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Translate the number displayed and entered by the user to the selected country
+	 * @param inputNumber number entered by the user
+	 */
+	public Country getCountry(int inputNumber) {
+		int counter = 0;
+		for(Continent c : map.continents) {
+			counter++;
+			for(Country ctry : c.countries) {
+				counter++;
+				if(counter == inputNumber) {
+					return ctry;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Translate the number displayed and entered by the user to the selected continent
+	 * @param inputNumber number entered by the user
+	 */
+	public Continent getContinent(int inputNumber) {
+		int counter = 0;
+		for(Continent c : map.continents) {
+			counter++;
+			if(counter == inputNumber) {
+				return c;
+			}
+			for(Country ctry : c.countries) {
+				counter++;
+			}
+		}
+		return null;
+	}
+
+	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) {
+		/* Check if there is an other country with the same name */
+		if(findCountry(ctryName) != null) {
+			return false;
+		}
+		
+		//check conti number correct
+		//check each neighbor number correct
+		
+		//add country : true
+		return false;
+		
+	}
+
+	/**
+	 * Calculate the number of countries and continent that are displayed, so the user can't choose a greater number.
+	 * @return the max possible input.
+	 */
+	public int getMaxInputNumber() {
+		int counter = 0;
+		for(Continent c : map.continents) {
+			counter++;
+			for(Country ctry : c.countries) {
+				counter++;
+			}
+		}
+		return counter;
+	}
+}

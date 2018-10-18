@@ -30,6 +30,7 @@ public class Country extends Observable {
 	public Country() 
 	{
 		Counter++;
+		this.number = Counter;
 		this.continent = null;
 		this.setPlayer(null);
 		this.name = "ctry" + Integer.toString(Counter);
@@ -47,6 +48,7 @@ public class Country extends Observable {
 	public Country(String new_name) 
 	{
 		Counter++;
+		this.number = Counter;
 		this.continent = null;
 		this.setPlayer(null);
 		this.name = new_name;
@@ -115,7 +117,6 @@ public class Country extends Observable {
 	}
 
 	/**
-	 * might need to do some changes, the Armies cannot be removed by players, only can be removed in move turn or defeated
 	 * To remove the Armies from the country
 	 * 
 	 * @param RemovedArmies : the number of the Armies that want to be removed from the country
@@ -217,9 +218,5 @@ public class Country extends Observable {
 
 	public int getNumber() {
 		return number;
-	}
-
-	public void setNumber(int number) {
-		this.number = number;
 	}
 }

@@ -68,11 +68,11 @@ public class testCalculateArmyNum {
 	con3.addCountry(cty3);
 	con1.addCountry(cty4);
 	con1.addCountry(cty5);
-	cty1.setNumber(1);    //didn't input number
+	/*cty1.setNumber(1);    //didn't input number
 	cty2.setNumber(2);
 	cty3.setNumber(3);
 	cty4.setNumber(4);
-	cty5.setNumber(5);
+	cty5.setNumber(5);*/
 	p1.ownedCountries.add(cty1);
 	p1.ownedCountries.add(cty2);
 	p1.ownedCountries.add(cty3);

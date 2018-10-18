@@ -1,98 +1,44 @@
 package view.mapEditor;
 
-import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import model.map.Continent;
+import model.map.Country;
+import model.map.Map;
+import view.common.View;
 
-/**
- * this class is for main view bar of the map editor
- * @author skyba
- *
- */
-public class MapEditorView 
-{
-
-	private JFrame frame;
-	private JMenuBar menuBar;
-	
-	/**
-	 * Create the application.
-	 */
-	public MapEditorView() 
-	{
-		initialize();
+public class MapEditorView extends View implements Observer {
+	@Override
+	public void update(Observable o, Object arg) {
+		print((Map) o);
 	}
-	
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() 
-	{
-		
-		frame = new JFrame();
-		frame.setBounds(400, 100, 1089, 788);
-		frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
-
-		JMenu MEVFile = new JMenu("File");
-		menuBar.add(MEVFile);
-
-		JMenuItem MEVNew = new JMenuItem("new");
-		MEVFile.add(MEVNew);
-		MEVNew.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				
+	public void print(Map map) {
+		System.out.print("\n\n\n\n\n*****************************************\n");
+		System.out.println("          World map - Editor mode");
+		int counter = 0;
+		for(Continent c : map.continents) {
+			counter++;
+			System.out.println(counter + " - Continent " + c.getName());
+			
+			for(Country ctry : c.countries) {
+				counter++;
+				System.out.print(counter + " - " + ctry.getName() + " --> ");
+				/* Displaying neighbors */
+				for(int i = 0; i < ctry.neighbors.size(); i++) {
+					System.out.print(ctry.neighbors.get(i).getName());
+					if(i != (ctry.neighbors.size() - 1)) {
+						System.out.print(", ");
+					}
+				}
+				System.out.println();
 			}
-		});
+			System.out.println();			
+		}
 		
-		JMenuItem MEVLoad = new JMenuItem("load");
-		MEVFile.add(MEVLoad);
-		MEVLoad.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-			}
-		});
-		
-		JMenuItem MEVSave = new JMenuItem("save");
-		MEVFile.add(MEVSave);
-		MEVLoad.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-			}
-		});
-		
-		JMenuItem MEVSaveAs = new JMenuItem("save as");
-		MEVFile.add(MEVSaveAs);
-		MEVSaveAs.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-			}
-		});
-		
-		JMenuItem MEVExit = new JMenuItem("exit");
-		MEVFile.add(MEVExit);
-		MEVExit.addActionListener(new ActionListener() 
-		{
-			public void actionPerformed(ActionEvent e) 
-			{
-				
-			}
-		});
+		System.out.print("\n*****************************************\n");
 	}
+
+
 }

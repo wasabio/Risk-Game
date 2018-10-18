@@ -1,4 +1,4 @@
-package view.common;
+package view.gameplay;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -6,6 +6,7 @@ import java.util.Observer;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import view.common.View;
 
 public class MapView extends View implements Observer {	
 	@Override
@@ -13,7 +14,7 @@ public class MapView extends View implements Observer {
 		print((Map) o);
 	}
 
-	private void print(Map map) {
+	public void print(Map map) {
 		System.out.print("\n\n\n\n\n*****************************************\n");
 		System.out.println("          World map - " + map.getPlayerNumber() + " players\n");
 

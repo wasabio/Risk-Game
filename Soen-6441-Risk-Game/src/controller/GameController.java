@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import view.common.MapView;
+import view.common.MapSelectionView;
 import view.gameplay.FortificationView;
-import view.gameplay.MapSelectionView;
+import view.gameplay.MapView;
 import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
 import model.gameplay.Player;
@@ -48,7 +48,7 @@ public class GameController {
 					fortificationPhase(p);
 				}
 			}
-		}while(!map.isOwned()); /* End of the game */
+		}while(!map.isOwned()); /* When map is owned, end of the game */
 		
 	}
 
