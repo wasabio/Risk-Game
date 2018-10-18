@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
- * for functions such as add, delete continents and countries.
+ * This class is for functions such as add, delete continents and countries in the map file.
  * 
  *
  */
-
 public class MapEditor extends Observable{
 	public Map map;
 
@@ -155,10 +154,18 @@ public class MapEditor extends Observable{
 		c.neighborsNames.clear();
 	}
 
+	/**
+	 * Setting the map name
+	 * @param mapName The current map name
+	 */
 	public void setMapName(String mapName) {
 		map.setName(mapName);
 	}
 
+	/**
+	 * The loading function for map files
+	 * @param mapFilePath The selected map file path with string type
+	 */
 	public void load(String mapFilePath) {
 		try {
 			map.load(mapFilePath);
@@ -203,6 +210,13 @@ public class MapEditor extends Observable{
 		return null;
 	}
 
+	/**
+	 * The method for adding countries and the neighbor
+	 * @param ctryName The target country with string type
+	 * @param contNb The number of continents
+	 * @param neighborNumbers Neighbor numbers of a country
+	 * @return
+	 */
 	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) {
 		/* Check if there is an other country with the same name */
 		if(findCountry(ctryName) != null) {
@@ -252,6 +266,11 @@ public class MapEditor extends Observable{
 		return counter;
 	}
 
+	/**
+	 * 
+	 * @param countinentName
+	 * @param bonus
+	 */
 	public void addContinent(String countinentName, int bonus) {
 		// TODO Auto-generated method stub
 		
