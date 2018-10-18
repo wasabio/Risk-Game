@@ -58,6 +58,7 @@ public class MapEditorController {
 			
 			switch(option) {
 			case 0: /* Save & exit */
+				mapEditor.save();
 				break;
 			case 1: /* Add country */
 				addCountry();
@@ -77,6 +78,7 @@ public class MapEditorController {
 		}while(option != 0);
 	}
 	
+
 	private void deleteCountry() {
 		int maxInput = mapEditor.getMaxInputNumber();
 		editView.askCountryNumber(maxInput);

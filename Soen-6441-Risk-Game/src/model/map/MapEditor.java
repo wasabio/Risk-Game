@@ -1,5 +1,7 @@
 package model.map;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -228,5 +230,33 @@ public class MapEditor extends Observable{
 			}
 		}
 		return counter;
+	}
+
+	/**
+	 * save and generate the .map file
+	 */
+	public void save() {
+		map.check();
+		String content = extractInfo(map);
+		Generate(map.getName()+".map",content);
+	}
+	private String extractInfo(Map map) {
+		String content = "[Map]\n"; 
+		content += "img="+map.getName()+".bmp\n\n";
+		content += "[continents]\n\n";
+		
+		return null;
+	}
+
+	public static void Generate(String fileName, String content) { 
+		try {
+		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
+		out.write(content); 
+		out.newLine(); 
+		out.close(); 
+		}
+		catch(IOException e) { 
+		System.out.println(e); 
+		 } 
 	}
 }
