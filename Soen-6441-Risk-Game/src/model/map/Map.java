@@ -102,11 +102,8 @@ public class Map extends Observable {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * The method is to check if there are empty continents which does not have a country signed under those continents
 	 * @return Returning false if such continents exist, otherwise true
-=======
->>>>>>> 61ad3edd313601a1102a1ba1dcb161d74291ca6b
 	 * check if there is empty continent which does not have any country
 	 * @return false if such continent exists, otherwise false
 	 */
