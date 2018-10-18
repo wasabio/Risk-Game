@@ -48,17 +48,19 @@ public class MapEditor extends Observable{
 	/**
 	 * Delete the input continent, and remove the countries inside and their links
 	 * 
-	 * @param cont
+	 * @param contNumber
 	 *            The target continent needed to remove.
 	 */
-	public void deleteContinent(Continent cont) {
-		if(map.continents.contains(cont)) {
-			for(Country c : cont.countries) {
-				deleteCountry(c);
-			}
-			map.continents.remove(cont);
+	public boolean deleteContinent(int contNumber) {
+		
+		Continent c = getContinent(contNumber);
+		/* if the continent exists */
+		if(c != null) {
+			map.continents.remove(c);
 			changeState();
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -95,12 +97,23 @@ public class MapEditor extends Observable{
 	 * 
 	 * @param ter
 	 *            The target Country needed to be removed.
+	 * @return 
 	 */
-	public void deleteCountry(Country ctry) {
-		if (map.countries.contains(ctry)) {
-			disconnect(ctry);
-			ctry.getContinent().countries.remove(ctry);
-			map.countries.remove(ctry);
+	public boolean deleteCountry(int ctryNumber) {
+		Country c = getCountry(ctryNumber);
+		/* if the country exists */
+		if(c != null) {
+			deleteCountry(c);
+			return true;
+		}
+		return false;
+	}
+	
+	public void deleteCountry(Country c) {
+		if (map.countries.contains(c)) {
+			disconnect(c);
+			c.getContinent().countries.remove(c);
+			map.countries.remove(c);
 		}
 		changeState();
 	}
@@ -242,7 +255,7 @@ public class MapEditor extends Observable{
 		Country ctry = new Country(ctryName);
 		map.countries.add(ctry);
 		c.countries.add(ctry);
-		
+		ctry.setContinent(c);
 		for(Country neighbor : neighbors) {
 			connect(ctry, neighbor);
 		}
@@ -271,9 +284,16 @@ public class MapEditor extends Observable{
 	 * @param countinentName
 	 * @param bonus
 	 */
-	public void addContinent(String countinentName, int bonus) {
-		// TODO Auto-generated method stub
+	public boolean addContinent(String continentName, int bonus) {
+		/* if continent name not already existing */
+		if(findContinent(continentName) != null) {
+			return false;
+		}
+		Continent c = new Continent(continentName, bonus);
+		map.continents.add(c);
+		changeState();
 		
+		return true;
 	}
 		
 	/**
