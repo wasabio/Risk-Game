@@ -10,8 +10,17 @@ import javax.swing.JFileChooser;
 import model.utilities.StringAnalyzer;
 import view.common.View;
 
+/**
+ * 
+ * This class is the view of map selection function for user to see. 
+ *
+ */
 public class MapSelectionView extends View {
 	
+	/**
+	 * The method is to let the user to select 2 ~ 6 players for the game.
+	 * @return Returning the player number that was inputed before to show the input is not correct.
+	 */
 	public int print() 
 	{
 		System.out.println("Choose the number of players (2-6): ");
@@ -27,6 +36,10 @@ public class MapSelectionView extends View {
 		return player_num;
 	}
 
+	/**
+	 * The method is for view of showing the map selection function and also showing the information of the selected .map file.
+	 * @return Returning the selected file path string if selected a file, otherwise returning null.
+	 */
 	public String selectMap() {
 		System.out.println("Select the map file (.map)...");
 		JFileChooser jf = new JFileChooser() {
