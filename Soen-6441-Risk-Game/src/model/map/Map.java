@@ -51,11 +51,10 @@ public class Map extends Observable {
 	}
 
 	/**
-	 * check the map is validity of the map file by : 
+	 * check if the map is valid by: 
 	 * 1. Checking if the map is empty, 
 	 * 2. Checking if a country without any neighbor
 	 * 3. Checking if a continent without any country
-	 * 
 	 * @return Returning true when 3 checking functions all passed, and other situations return false
 	 */
 	public boolean check() {		
@@ -63,15 +62,9 @@ public class Map extends Observable {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * The method is to check whether does the map file includes the suitable country, and continent syntax in the map file
-	 * It also include the checking function for countries cannot less than total players
-	 * @return Returning false if one of the Condition occurs, otherwise returning true
-=======
 	 * check if there is any country and continent in the map 
 	 * check if the total country number is more than total player number
 	 * @return true if the map is valid, otherwise false
->>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkPlayableMap() {
 		/* check does map have any country and continent */
@@ -89,10 +82,7 @@ public class Map extends Observable {
 		else return true;
 	}
 	
-	public int test() {
-		return this.players.size();
-	}
-	
+
 	/**
 	 * The method is to check if there is any disconnected countries in the map which does not have any neighbor
 	 * @return Returning false if such countries exists, otherwise true
@@ -101,7 +91,7 @@ public class Map extends Observable {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
 				for(Country n : c.neighbors) {
-					if(c.neighbors == null || c.neighbors.size() == 0 ){
+					if(n.neighbors == null || n.neighbors.size() == 0 ){
 						System.out.println("A country doesnt have neighbor");
 						return false;
 					}
@@ -112,8 +102,11 @@ public class Map extends Observable {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * The method is to check if there are empty continents which does not have a country signed under those continents
 	 * @return Returning false if such continents exist, otherwise true
+=======
+>>>>>>> 61ad3edd313601a1102a1ba1dcb161d74291ca6b
 	 * check if there is empty continent which does not have any country
 	 * @return false if such continent exists, otherwise false
 	 */
