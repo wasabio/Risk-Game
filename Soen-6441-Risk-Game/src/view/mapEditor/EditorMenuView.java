@@ -7,8 +7,10 @@ import view.common.View;
  * The class is for the main view of the map editor
  *
  */
-public class EditorMenuView extends View {
-	public int print() {
+public class EditorMenuView extends View 
+{
+	public int print() 
+	{
 		System.out.println("\n\n\n\n\n*****************************************");
 		System.out.println("               Map Editor\n");
 		
@@ -20,7 +22,8 @@ public class EditorMenuView extends View {
 		int option;
 		boolean correctValue;
 		
-		do {
+		do 
+		{
 			option = getInteger();
 			correctValue = isValueCorrect(option, 1, 2);
 		}while(!correctValue);
@@ -32,7 +35,8 @@ public class EditorMenuView extends View {
 	 * The method for asking selected map names
 	 * @return Returning mao name once the function finished
 	 */
-	public String askMapName() {
+	public String askMapName() 
+	{
 		System.out.println("Enter the name of the map (without extension): ");
 		String mapName = getString();
 		System.out.println();
@@ -43,7 +47,8 @@ public class EditorMenuView extends View {
 	 * The method for showing menu of choices of the function for the map file
 	 * @return Returning option that is entered if the value is incorrect
 	 */
-	public int menu() {
+	public int menu() 
+	{
 		System.out.println("\n*** Map Editor ***");
 		System.out.println("Select an option: ");
 		System.out.println("1 - Add country");
@@ -57,7 +62,8 @@ public class EditorMenuView extends View {
 		int option;
 		boolean correctValue;
 		
-		do {
+		do 
+		{
 			option = getInteger();
 			correctValue = isValueCorrect(option, 0, 5);
 		}while(!correctValue);
