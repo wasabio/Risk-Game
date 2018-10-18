@@ -47,6 +47,7 @@ public class EditView extends View {
 	public String askContinentName() { 
 		System.out.println("Enter the neighbor of the country: ");
 		String name = getString();
+		System.out.println();
 		return name;
 	}
 	/**
