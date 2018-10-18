@@ -21,6 +21,9 @@ public class MapEditorController {
 	private EditorMenuView editorMenuView;
 	private EditView editView;
 
+	/**
+	 * This is the constructor method of MapEditorController
+	 */
 	public MapEditorController()
 	{
 		try {
@@ -37,6 +40,10 @@ public class MapEditorController {
 		}
 	}
 	
+	/**
+	 * The method is to execute the map editor
+	 * @throws IOException
+	 */
 	private void execute() throws IOException
 	{
 		int choice = editorMenuView.print();
@@ -78,17 +85,25 @@ public class MapEditorController {
 		}while(option != 0);
 	}
 	
-
+	/**
+	 * The method for delete country
+	 */
 	private void deleteCountry() {
 		int maxInput = mapEditor.getMaxInputNumber();
 		editView.askCountryNumber(maxInput);
 	}
-
+	
+	/**
+	 * The method for delete continent
+	 */
 	private void deleteContinent() {
 		int maxInput = mapEditor.getMaxInputNumber();
 		editView.askContinentNumber(maxInput);
 	}
 
+	/**
+	 * The method for add Country
+	 */
 	public void addCountry() {
 		String ctryName = editView.askCountryName();
 		int maxInput = mapEditor.getMaxInputNumber();
@@ -108,6 +123,9 @@ public class MapEditorController {
 		 }
 	}
 	
+	/**
+	 * The method for add Continent
+	 */
 	public void addContinent() {
 		//editView.
 	}

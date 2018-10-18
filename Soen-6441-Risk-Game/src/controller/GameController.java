@@ -110,6 +110,7 @@ public class GameController
 			}
 		}while(remainingPlayers.size() != 0);
 	}
+	
 	/**
 	 * The method's main function is adding standby armies to the selected country when in the reinforcementPhase.
 	 * @param p The current player that is in the reinforcementPhase
