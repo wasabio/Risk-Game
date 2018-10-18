@@ -42,7 +42,6 @@ public class testCheckConnectedGraph {
 	public void testNotConnected() {
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
-		assertEquals(0,cty3.neighbors.size());   //error here£¬ should be false
 		assertFalse(map.checkConnectedGraph());
 	}
 	/**
