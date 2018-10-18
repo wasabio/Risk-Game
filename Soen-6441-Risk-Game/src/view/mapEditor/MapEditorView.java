@@ -11,7 +11,7 @@ import javax.swing.JMenuItem;
 
 /**
  * this class is for main view bar of the map editor
- * @author skyba
+ * 
  *
  */
 public class MapEditorView 
