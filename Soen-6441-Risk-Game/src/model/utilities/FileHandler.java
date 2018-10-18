@@ -6,9 +6,18 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * This is the class for file reading, wrting functions.
+ * It helps other classes to implement getting and editing the selected files.
+ */
 public class FileHandler {
-
+	//QA not fully sure
+	/**
+	 * The method is to read the selected file and check whether the file can be open or read.
+	 * If the file cannot be open or read, print error messages and the file name.
+	 * @param fileName The current selected file name with string type.
+	 * @return Returning the file path and the name of the file, or returning as null if the file cannot be open or read.
+	 */
 	public static String read(String fileName)
 	{
         String line = null;
@@ -34,6 +43,11 @@ public class FileHandler {
         return line;
 	}
 	
+	/**
+	 * The method is to write the selected current file.
+	 * @param fileName The selected current file that will be write with string type.
+	 * @param content The content of the selected file that will be write with string type.
+	 */
 	public static void write(String fileName, String content)
 	{
 		try {

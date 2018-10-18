@@ -112,13 +112,10 @@ public class Map extends Observable {
 	}
 	
 	/**
-<<<<<<< HEAD
 	 * The method is to check if there are empty continents which does not have a country signed under those continents
 	 * @return Returning false if such continents exist, otherwise true
-=======
 	 * check if there is empty continent which does not have any country
 	 * @return false if such continent exists, otherwise false
->>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
@@ -293,11 +290,12 @@ public class Map extends Observable {
 		return null;
 	}
 
+	//QA not fully understand this function
 	/**
-	 * 
-	 * @param in
-	 * @param section
-	 * @return
+	 * The method is to make a pointer for the LineNumberReader to point the target section in the map file
+	 * @param in The string line number that need to be read 
+	 * @param section The part of the string in the map file that is selected as the target
+	 * @return Returning the LineNumberReader type "in" while the read file string is not equal to the head
 	 * @throws IOException
 	 */
 	private int reachSection(LineNumberReader in, String section) throws IOException {
@@ -312,16 +310,26 @@ public class Map extends Observable {
 		return in.getLineNumber();
 	}
 
+	/**
+	 * The method is to get the current player number in the game
+	 * @return Returning the current player number in the game
+	 */
 	public int getPlayerNumber() {
 		return playerNumber;
 	}
 
+	/**
+	 * The method is to set the current player number in the game
+	 * @param playerNumber The current total player number of the game with int type
+	 */
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
 	}
 	
 	/**
-	 * The players are created and they are attributed an initial number of armies
+	 * The method is to set the current player number that selected by the user to the game
+	 * It also contains the function to assign the initial armies for each player
+	 * @param playerNumber The number of players that are selected with int type
 	 */
 	public void setPlayers(int playerNumber) {
 		setPlayerNumber(playerNumber);
@@ -337,6 +345,17 @@ public class Map extends Observable {
 	 * 
 	 * @return the initial number of armies
 	 */
+	/**
+	 * The method is to generate initial number of armies for each player when the game start
+	 * It also includes the condition for different player number with different initial armies number for each player
+	 * @return Returning different army number with different cases:
+	 * 	case 2 with 12 army each player, 
+	 * 	case 3 with 35 army each player, 
+	 *  case 4 with 30 army each player, 
+	 *  case 5 with 25 army each player, 
+	 *  case 6 with 20 army each player, 
+	 *  others Return 0; 
+	 */	
 	private int getInitialArmiesNumber() {
 		switch(this.playerNumber) {
 		case 2:
@@ -354,8 +373,8 @@ public class Map extends Observable {
 	}
 	
 	/**
-	 * This function will distribute the countries on the map between the players. It will put
-	 * 1 army by country until all the countries are occupied.
+	 * The method of this function is to distribute the countries on the map between the players.
+	 * It will deploy 1 army of each player as take turns until all the countries are owned by players
 	 */
 	public void distributeCountries() {
 		ArrayList<Country> freeCountries = new ArrayList<Country>(countries);
@@ -377,6 +396,11 @@ public class Map extends Observable {
 		notifyObservers(this);
 	}
 
+	/**
+	 * The method is to check whether the country owned by the correct player. 
+	 * Returning false if the match is incorrect, and returning true if the match is correct.
+	 * @return Returning false if the country is not owned by the correct owned player, otherwise returning true.
+	 */
 	public boolean isOwned() {
 		Player owner = countries.get(0).getPlayer();
 		for(Country c : countries) {
@@ -388,6 +412,13 @@ public class Map extends Observable {
 		return true;
 	}
 
+	/**
+	 * This method is to add armies to selected country that is owned by current player.
+	 * It includes functions of showing the remaining armies that can be deployed
+	 *  and change the army number of the selected country. 
+	 * @param ctryId The selected country ID with int type
+	 * @param armieNumber The army number that the current player wants to deploy to the selected country
+	 */
 	public void addArmiesToCountry(int ctryId, int armieNumber) {
 		Player p = countries.get(ctryId-1).getPlayer();
 		System.out.println(p.getArmies());
@@ -399,9 +430,10 @@ public class Map extends Observable {
 	}
 
 	/**
-	 * calculate number of countries the player owns, and calculate how many armies he should have left to deploy
-	 * @param p the current player
-	 * @return number of armies the player should have left to deploy
+	 * The method is to calculate the country number that the current player owned.
+	 * It also calculate the number of deployable armies that the current player can get
+	 * @param p The current player
+	 * @return Returning the number of deployable armies that the current player left
 	 */
 	public int calculateArmyNum(Player p) {
 		int numOfCty = 0;
@@ -421,9 +453,9 @@ public class Map extends Observable {
 	}
 	
 	/**
-	 * to check if the player take over the whole continent
-	 * @param current player
-	 * @return the number of bonus armies player get for taking whole continent
+	 * The method is to check whether the player can take over the whole continent
+	 * @param p The current player
+	 * @return Returning the number of extra armies that the player will get for owned the current continent
 	 */
 	public int wholeContinentBonus(Player p)
 	{
@@ -437,7 +469,11 @@ public class Map extends Observable {
 		}
 		return bonusArmies;
 	}
-
+	
+	//QA not sure what is this function for
+	/**
+	 * The method is to clear the data information of the country
+	 */
 	public void clear() {
 		Country.Counter = 0;
 	}
