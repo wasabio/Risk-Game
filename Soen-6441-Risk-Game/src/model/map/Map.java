@@ -41,19 +41,14 @@ public class Map extends Observable {
 	}
 
 	/**
-	 * check if the map is valid by : check if the map is empty, 
-	 * check if the continent has any country,
-	 * check if a country has any neighbor
+	 * check if the map meet all requirement it needs to be valid
 	 * @author Yueshuai
 	 * @return true if the map is valid, otherwise false
-	 */
-	/**
-	 * to check if the map meets the whole requirement
-	 * @return true if the map is valid
 	 */
 	public boolean check() {		
 		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
 	}
+	
 	/**
 	 * check if there is any country and continent in the map 
 	 * check if the total country number is more than total player number
@@ -75,9 +70,6 @@ public class Map extends Observable {
 		else return true;
 	}
 	
-	public int test() {
-		return this.players.size();
-	}
 	/**
 	 * check if there is any disconnected country in the map which does not have any neighbor
 	 * @return false if such country exists, otherwise true
@@ -87,7 +79,7 @@ public class Map extends Observable {
 		for(Continent ct : continents) {
 			for (Country c : ct.countries) {
 				for(Country n : c.neighbors) {
-					if(c.neighbors == null || c.neighbors.size() == 0 ){
+					if(n.neighbors == null || n.neighbors.size() == 0 ){
 						System.out.println("A country doesnt have neighbor");
 						return false;
 					}
@@ -96,6 +88,7 @@ public class Map extends Observable {
 		}
 		return true;
 	}
+	
 	/**
 	 * check if there is empty continent which does not have any country
 	 * @return false if such continent exists, otherwise false

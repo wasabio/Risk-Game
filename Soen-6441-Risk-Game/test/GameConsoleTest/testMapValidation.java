@@ -10,7 +10,7 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 /**
- * test if the map is valid when there is no country or continent in a map or
+ * test the method of checking if the map is valid when there is no country or continent in a map or
  * when player number is more than total country number
  * @author Yueshuai
  *
