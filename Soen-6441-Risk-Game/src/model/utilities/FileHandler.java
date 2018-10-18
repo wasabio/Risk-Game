@@ -6,11 +6,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
 /**
  * This is the class for file reading, wrting functions.
  * It helps other classes to implement getting and editing the selected files.
  */
-public class FileHandler {
+public class FileHandler 
+{
 	//QA not fully sure
 	/**
 	 * The method is to read the selected file and check whether the file can be open or read.
@@ -22,21 +24,25 @@ public class FileHandler {
 	{
         String line = null;
 
-        try {
+        try 
+        {
             FileReader fileReader = new FileReader(fileName);
 
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while((line += bufferedReader.readLine()) != null) {
+            while((line += bufferedReader.readLine()) != null) 
+            {
             	//Line is getting the content
             }   
 
             bufferedReader.close();
         }
-        catch(FileNotFoundException ex) {
+        catch(FileNotFoundException ex) 
+        {
             System.out.println("Unable to open file '" + fileName + "'");                
         }
-        catch(IOException ex) {
+        catch(IOException ex) 
+        {
             System.out.println("Error reading file '" + fileName + "'");                  
         }
         
@@ -50,7 +56,8 @@ public class FileHandler {
 	 */
 	public static void write(String fileName, String content)
 	{
-		try {
+		try 
+		{
             FileWriter fileWriter = new FileWriter(fileName);
 
             // Always wrap FileWriter in BufferedWriter.
@@ -59,7 +66,8 @@ public class FileHandler {
 
             bufferedWriter.close();
         }
-        catch(IOException ex) {
+        catch(IOException ex) 
+		{
             System.out.println("Error writing to file '" + fileName + "'");
         }
 	}

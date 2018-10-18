@@ -241,7 +241,7 @@ public class Country extends Observable
 	 * The method is to get the number of countries
 	 * @return Returning the number of countries with int type
 	 */
-	public int getNumber() //QA not fully sure this getNumber function is for
+	public int getNumber() //QA
 	{
 		return number;
 	}
