@@ -6,13 +6,25 @@ import java.util.Observer;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
-
+/**
+ * 
+ * The class is dealing with showing the data and data changes of the map and update with the observer pattern 
+ *
+ */
 public class MapView extends View implements Observer {	
+	
+	/**
+	 * The override method for update observer of the printed map.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		print((Map) o);
 	}
 
+	/**
+	 * The method is to print the information in a type of order for the map and showing to the user
+	 * @param map The map file that had been selected and will show to the user
+	 */
 	private void print(Map map) {
 		System.out.print("\n\n\n\n\n*****************************************\n");
 		System.out.println("          World map - " + map.getPlayerNumber() + " players\n");
