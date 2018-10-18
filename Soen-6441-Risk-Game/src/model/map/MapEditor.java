@@ -1,12 +1,14 @@
 package model.map;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 
 /**
  * for functions such as add, delete continents and countries.
- * @author Yann
+ * 
  *
  */
 
@@ -253,5 +255,32 @@ public class MapEditor extends Observable{
 	public void addContinent(String countinentName, int bonus) {
 		// TODO Auto-generated method stub
 		
+	/**
+	 * save and generate the .map file
+	 */
+	public void save() {
+		map.check();
+		String content = extractInfo(map);
+		Generate(map.getName()+".map",content);
+	}
+	
+	private String extractInfo(Map map) {
+		String content = "[Map]\n"; 
+		content += "img="+map.getName()+".bmp\n\n";
+		content += "[continents]\n\n";
+		
+		return null;
+	}
+
+	public static void generate(String fileName, String content) { 
+		try {
+		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
+		out.write(content); 
+		out.newLine(); 
+		out.close(); 
+		}
+		catch(IOException e) { 
+		System.out.println(e); 
+		 } 
 	}
 }
