@@ -9,6 +9,10 @@ import view.common.View;
  */
 public class EditorMenuView extends View 
 {
+	/**
+	 * The menu for create a map or editing the map
+	 * @return returning the option a gain if input the incorrect value
+	 */
 	public int print() 
 	{
 		System.out.println("\n\n\n\n\n*****************************************");

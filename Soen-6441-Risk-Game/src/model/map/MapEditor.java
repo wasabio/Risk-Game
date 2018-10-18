@@ -109,6 +109,10 @@ public class MapEditor extends Observable{
 		return false;
 	}
 	
+	/**
+	 * The method for deleting country in the map file
+	 * @param c the selected country
+	 */
 	public void deleteCountry(Country c) {
 		if (map.countries.contains(c)) {
 			disconnect(c);
