@@ -1,6 +1,7 @@
 package model.map;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,14 +12,16 @@ import java.util.Observable;
  * 
  *
  */
-public class MapEditor extends Observable{
+public class MapEditor extends Observable
+{
 	public Map map;
 
 	/**
 	 * Create a new and empty map. If need to load existing map, please see
 	 * function load().
 	 */
-	public MapEditor() {
+	public MapEditor() 
+	{
 		map = new Map();
 		map.clear();
 		map.setPlayerNumber(0);
@@ -27,7 +30,8 @@ public class MapEditor extends Observable{
 	/**
 	 * If the data has been changed, call this function to notify observers.
 	 */
-	public void changeState() {
+	public void changeState() 
+	{
 		setChanged();
 		notifyObservers();
 	}
@@ -38,8 +42,10 @@ public class MapEditor extends Observable{
 	 * @param cont
 	 *            The input continent.
 	 */
-	public void addContinent(Continent cont) {
-		if (findContinent(cont.getName()) == null) {
+	public void addContinent(Continent cont) 
+	{
+		if (findContinent(cont.getName()) == null) 
+		{
 			map.continents.add(cont);
 			changeState();
 		}
@@ -48,17 +54,21 @@ public class MapEditor extends Observable{
 	/**
 	 * Delete the input continent, and remove the countries inside and their links
 	 * 
-	 * @param cont
+	 * @param contNumber
 	 *            The target continent needed to remove.
 	 */
-	public void deleteContinent(Continent cont) {
-		if(map.continents.contains(cont)) {
-			for(Country c : cont.countries) {
-				deleteCountry(c);
-			}
-			map.continents.remove(cont);
+	public boolean deleteContinent(int contNumber) 
+	{
+		
+		Continent c = getContinent(contNumber);
+		/* if the continent exists */
+		if(c != null) 
+		{
+			map.continents.remove(c);
 			changeState();
+			return true;
 		}
+		return false;
 	}
 	
 	/**
@@ -69,16 +79,21 @@ public class MapEditor extends Observable{
 	 *            The input Country.
 	 * 
 	 */
-	public void addCountry(Country ctry) {
+	public void addCountry(Country ctry) 
+	{
 		/* If country name not already exists */
-		if (findCountry(ctry.getName()) == null) {
+		if (findCountry(ctry.getName()) == null) 
+		{
 			this.map.countries.add(ctry);
 			/* Adding neighbors */
 			ArrayList<String> neighborNames = ctry.neighborsNames;
-			if (neighborNames.size() > 0) {
-				for (String name : neighborNames) {
+			if (neighborNames.size() > 0) 
+			{
+				for (String name : neighborNames) 
+				{
 					Country neighbor = findCountry(name);
-					if (neighbor != null) {
+					if (neighbor != null) 
+					{
 						neighbor.neighborsNames.add(ctry.getName());
 						connect(ctry, neighbor);
 					}
@@ -95,12 +110,31 @@ public class MapEditor extends Observable{
 	 * 
 	 * @param ter
 	 *            The target Country needed to be removed.
+	 * @return 
 	 */
-	public void deleteCountry(Country ctry) {
-		if (map.countries.contains(ctry)) {
-			disconnect(ctry);
-			ctry.getContinent().countries.remove(ctry);
-			map.countries.remove(ctry);
+	public boolean deleteCountry(int ctryNumber) 
+	{
+		Country c = getCountry(ctryNumber);
+		/* if the country exists */
+		if(c != null) 
+		{
+			deleteCountry(c);
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * The method for deleting country in the map file
+	 * @param c the selected country
+	 */
+	public void deleteCountry(Country c) 
+	{
+		if (map.countries.contains(c)) 
+		{
+			disconnect(c);
+			c.getContinent().countries.remove(c);
+			map.countries.remove(c);
 		}
 		changeState();
 	}
@@ -110,9 +144,12 @@ public class MapEditor extends Observable{
 	 * 
 	 * @return the continent found
 	 */
-	private Continent findContinent(String name) {
-		for(Continent c : map.continents) {
-			if(c.getName().equals(name)) {
+	private Continent findContinent(String name) 
+	{
+		for(Continent c : map.continents) 
+		{
+			if(c.getName().equals(name)) 
+			{
 				return c;
 			}
 		}
@@ -124,9 +161,12 @@ public class MapEditor extends Observable{
 	 * 
 	 * @return the country found
 	 */
-	private Country findCountry(String name) {
-		for(Country c : map.countries) {
-			if(c.getName().equals(name)) {
+	private Country findCountry(String name) 
+	{
+		for(Country c : map.countries) 
+		{
+			if(c.getName().equals(name)) 
+			{
 				return c;
 			}
 		}
@@ -136,7 +176,8 @@ public class MapEditor extends Observable{
 	/**
 	 * Create a connection between 2 countries. It generate a link in both side
 	 */
-	private void connect(Country ctry, Country neighbor) {
+	private void connect(Country ctry, Country neighbor) 
+	{
 		ctry.linkTo(neighbor);
 		neighbor.linkTo(ctry);
 	}
@@ -145,8 +186,10 @@ public class MapEditor extends Observable{
 	 * To remove all the connections made between a specific country and the other countries
 	 * @param c country to remove
 	 */
-	private void disconnect(Country c) {
-		for(Country n : c.neighbors) {
+	private void disconnect(Country c) 
+	{
+		for(Country n : c.neighbors) 
+		{
 			n.neighbors.remove(c);
 			n.neighborsNames.remove(c.getName());
 		}
@@ -158,7 +201,8 @@ public class MapEditor extends Observable{
 	 * Setting the map name
 	 * @param mapName The current map name
 	 */
-	public void setMapName(String mapName) {
+	public void setMapName(String mapName) 
+	{
 		map.setName(mapName);
 	}
 
@@ -166,10 +210,13 @@ public class MapEditor extends Observable{
 	 * The loading function for map files
 	 * @param mapFilePath The selected map file path with string type
 	 */
-	public void load(String mapFilePath) {
-		try {
+	public void load(String mapFilePath) 
+	{
+		try 
+		{
 			map.load(mapFilePath);
-		} catch (IOException e) {
+		} catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -178,13 +225,17 @@ public class MapEditor extends Observable{
 	 * Translate the number displayed and entered by the user to the selected country
 	 * @param inputNumber number entered by the user
 	 */
-	public Country getCountry(int inputNumber) {
+	public Country getCountry(int inputNumber) 
+	{
 		int counter = 0;
-		for(Continent c : map.continents) {
+		for(Continent c : map.continents) 
+		{
 			counter++;
-			for(Country ctry : c.countries) {
+			for(Country ctry : c.countries) 
+			{
 				counter++;
-				if(counter == inputNumber) {
+				if(counter == inputNumber) 
+				{
 					return ctry;
 				}
 			}
@@ -196,14 +247,18 @@ public class MapEditor extends Observable{
 	 * Translate the number displayed and entered by the user to the selected continent
 	 * @param inputNumber number entered by the user
 	 */
-	public Continent getContinent(int inputNumber) {
+	public Continent getContinent(int inputNumber) 
+	{
 		int counter = 0;
-		for(Continent c : map.continents) {
+		for(Continent c : map.continents) 
+		{
 			counter++;
-			if(counter == inputNumber) {
+			if(counter == inputNumber) 
+			{
 				return c;
 			}
-			for(Country ctry : c.countries) {
+			for(Country ctry : c.countries) 
+			{
 				counter++;
 			}
 		}
@@ -217,21 +272,26 @@ public class MapEditor extends Observable{
 	 * @param neighborNumbers Neighbor numbers of a country
 	 * @return
 	 */
-	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) {
+	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) 
+	{
 		/* Check if there is an other country with the same name */
-		if(findCountry(ctryName) != null) {
+		if(findCountry(ctryName) != null)
+		{
 			return false;
 		}
 		/* Check if the continent number is correct */
 		Continent c = getContinent(contNb);
-		if(c == null) {
+		if(c == null)
+		{
 			return false;
 		}
 		/* Check for incorrect neighbors */
 		ArrayList<Country> neighbors = new ArrayList<Country>();
-		for(int i : neighborNumbers) {
+		for(int i : neighborNumbers) 
+		{
 			Country n = getCountry(i);
-			if(n == null) {
+			if(n == null) 
+			{
 				return false;
 			} else {
 				neighbors.add(n);
@@ -242,8 +302,9 @@ public class MapEditor extends Observable{
 		Country ctry = new Country(ctryName);
 		map.countries.add(ctry);
 		c.countries.add(ctry);
-		
-		for(Country neighbor : neighbors) {
+		ctry.setContinent(c);
+		for(Country neighbor : neighbors) 
+		{
 			connect(ctry, neighbor);
 		}
 		
@@ -255,11 +316,14 @@ public class MapEditor extends Observable{
 	 * Calculate the number of countries and continent that are displayed, so the user can't choose a greater number.
 	 * @return the max possible input.
 	 */
-	public int getMaxInputNumber() {
+	public int getMaxInputNumber() 
+	{
 		int counter = 0;
-		for(Continent c : map.continents) {
+		for(Continent c : map.continents) 
+		{
 			counter++;
-			for(Country ctry : c.countries) {
+			for(Country ctry : c.countries) 
+			{
 				counter++;
 			}
 		}
@@ -271,27 +335,34 @@ public class MapEditor extends Observable{
 	 * @param countinentName the name of the new continent
 	 * @param bonus bonus armies of the continent
 	 */
-	public void addContinent(String continentName, int bonus) {
-		// TODO Auto-generated method stub
-		if(findCountry(continentName) == null) {
-			Continent con = new Continent(continentName,bonus);
-			map.continents.add(con);
+
+	public boolean addContinent(String continentName, int bonus) 
+	{
+		/* if continent name not already existing */
+		if(findContinent(continentName) != null) 
+		{
+			return false;
 		}
+		Continent c = new Continent(continentName, bonus);
+		map.continents.add(c);
+		changeState();
+		
+		return true;
+
 	}
 		
 	/**
 	 * save and generate the .map file
 	 */
-	public void save() {
-		map.check();
-		String content = extractInfo(map);
+	public void save() 
+	{
+		if(map.check()) 
+		{
+			String content = extractInfo(map);
 
-		generate(map.getName(),content);
-		System.out.println("Map successfully saved");
-		System.out.print(content);
-
-		generate(map.getName()+".map",content);
-
+			generate(map.getName(),content);
+			System.out.println("Map successfully saved");
+		}
 	}
 
 	/**
@@ -299,36 +370,35 @@ public class MapEditor extends Observable{
 	 * @param map the map that needs to be saved
 	 * @return the string form of the map
 	 */
-	private String extractInfo(Map map) {
+	private String extractInfo(Map map) 
+	{
 		if(map == null || map.continents.size() ==0) return null;
-		String content = "[Map]\n"; 
-		content += "image="+map.getName()+".bmp\n";
-		content += "warn=yes\n";
-		content += "author=Team 14\n";
-		content += "scroll=horizontal\n";
-		content += "wrap=no\n\n";
-		content += "[Continents]\n";
-		for(Continent con : map.continents) {
-			content += con.getName()+"="+con.getExtraArmies()+"\n";
+		String content = "[Map]" + System.lineSeparator(); 
+		content += "image=" + map.getName() + ".bmp" + System.lineSeparator();
+		content += "warn=yes" + System.lineSeparator();
+		content += "author=Team 14" + System.lineSeparator();
+		content += "scroll=horizontal" + System.lineSeparator();
+		content += "wrap=no" + System.lineSeparator() + System.lineSeparator();
+		
+		content += "[Continents]" + System.lineSeparator();
+		for(Continent con : map.continents) 
+		{
+			content += con.getName() + "=" + con.getExtraArmies() + System.lineSeparator();
 		}
-		content += "\n";
-		content +="[Territories]\n";
-		int contCounter = 0;
-		int counCounter = 0;
-		for(Continent con : map.continents) {
-			for(Country c : con.countries) {
-				content += c.getName()+",0,0,"+c.getContinent().getName();
+		content += System.lineSeparator() + "[Territories]";
+
+		boolean firstLine = true;
+		for(Continent con : map.continents) 
+		{
+			if(!firstLine)	content += System.lineSeparator();
+			for(Country c : con.countries) 
+			{
+				content += System.lineSeparator() + c.getName()+",0,0,"+ c.getContinent().getName();
 				for(Country cou1 : c.neighbors) {
 					content += ","+cou1.getName();
 				}
-				if(contCounter != map.continents.size()-1 &&  counCounter != c.neighbors.size() ) {}
-				else content += "\n";
-				counCounter++;
 			}
-			if(contCounter < map.continents.size()-1) {
-				content += "\n";
-			}
-			contCounter++;
+			firstLine = false;
 		}
 		return content;
 	}
@@ -338,15 +408,19 @@ public class MapEditor extends Observable{
 	 * @param fileName The selected file name
 	 * @param content The string that content in the file
 	 */
-	public static void generate(String fileName, String content) { 
-		try {
-		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
-		out.write(content); 
+	public static void generate(String fileName, String content) 
+	{ 
+		try 
+		{
+			FileWriter fw = new FileWriter(new File("maps", fileName + ".map"));
 
-		out.close(); 
+			BufferedWriter out = new BufferedWriter(fw); 
+			out.write(content); 
+			out.close(); 
 		}
-		catch(IOException e) { 
-		System.out.println(e); 
+		catch(IOException e) 
+		{ 
+			System.out.println(e); 
 		 } 
 	}
 }

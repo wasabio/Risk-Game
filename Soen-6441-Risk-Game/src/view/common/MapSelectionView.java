@@ -16,7 +16,7 @@ import model.utilities.StringAnalyzer;
  */
 public class MapSelectionView extends View 
 {
-	
+	private String mapName;
 	/**
 	 * The method is to let the user to select 2 ~ 6 players for the game.
 	 * @return Returning the player number that was inputed before to show the input is not correct.
@@ -62,12 +62,22 @@ public class MapSelectionView extends View
 		jf.showOpenDialog(null);
 		File path = jf.getSelectedFile();
 
-		if(StringAnalyzer.checkMapType(path))
+		if(StringAnalyzer.checkMapType(path)) {
+			mapName = path.getName().substring(0, path.getName().length() - 4);
 			return path.getAbsolutePath();
+		}
+			
 		else
 			selectMap();
 		
 		return null;
 	}
 
+	/**
+	 * to get the map name
+	 * @return the map name
+	 */
+	public String getMapName() {
+		return mapName;
+	}
 }

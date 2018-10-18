@@ -14,13 +14,15 @@ import view.common.View;
  * 
  *
  */
-public class MapEditorView extends View implements Observer {
+public class MapEditorView extends View implements Observer 
+{
 	
 	/**
 	 * The override function and the observer for the update of the map editor view.
 	 */
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg) 
+	{
 		print(((MapEditor) o).map);
 	}
 
@@ -28,21 +30,26 @@ public class MapEditorView extends View implements Observer {
 	 * The method for printing map information
 	 * @param map The current map file
 	 */
-	public void print(Map map) {
+	public void print(Map map) 
+	{
 		System.out.print("\n\n\n\n\n*****************************************\n");
 		System.out.println("          World map - Editor mode");
 		int counter = 0;
-		for(Continent c : map.continents) {
+		for(Continent c : map.continents) 
+		{
 			counter++;
 			System.out.println(counter + " - Continent " + c.getName());
 			
-			for(Country ctry : c.countries) {
+			for(Country ctry : c.countries) 
+			{
 				counter++;
 				System.out.print(counter + " - " + ctry.getName() + " --> ");
 				/* Displaying neighbors */
-				for(int i = 0; i < ctry.neighbors.size(); i++) {
+				for(int i = 0; i < ctry.neighbors.size(); i++) 
+				{
 					System.out.print(ctry.neighbors.get(i).getName());
-					if(i != (ctry.neighbors.size() - 1)) {
+					if(i != (ctry.neighbors.size() - 1)) 
+					{
 						System.out.print(", ");
 					}
 				}

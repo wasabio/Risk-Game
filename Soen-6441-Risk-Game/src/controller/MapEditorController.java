@@ -60,6 +60,7 @@ public class MapEditorController
 		{
 			MapSelectionView mapSelectionView = new MapSelectionView();
 			String mapFilePath = mapSelectionView.selectMap();
+			mapEditor.setMapName(mapSelectionView.getMapName());
 			mapEditor.load(mapFilePath);
 			mapEditorView.print(mapEditor.map);
 		}
@@ -95,19 +96,29 @@ public class MapEditorController
 	/**
 	 * The method for delete country
 	 */
-	private void deleteCountry() 
-	{
+	private void deleteCountry() {
+		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
-		editView.askCountryNumber(maxInput);
+		int ctryNumber = editView.askCountryNumber(maxInput);
+		deleted = mapEditor.deleteCountry(ctryNumber);
+		
+		if(!deleted) {
+			// editView.errorDeletingCountry();
+		}
 	}
-	
+
 	/**
 	 * The method for delete continent
 	 */
-	private void deleteContinent() 
-	{
+	private void deleteContinent() {
+		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
-		editView.askContinentNumber(maxInput);
+		int contNumber = editView.askContinentNumber(maxInput);
+		deleted = mapEditor.deleteContinent(contNumber);
+		
+		if(!deleted) {
+			// editView.errorDeletingContinent();
+		}
 	}
 
 	/**
@@ -149,7 +160,7 @@ public class MapEditorController
 		
 		String countinentName = editView.askContinentName();
 		int bonus = editView.askBonus();
-		mapEditor.addContinent(countinentName, bonus);
+		added = mapEditor.addContinent(countinentName, bonus);
 	
 		if(!added) 
 		{
