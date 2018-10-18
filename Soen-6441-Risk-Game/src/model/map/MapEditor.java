@@ -1,6 +1,7 @@
 package model.map;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -304,15 +305,12 @@ public class MapEditor extends Observable{
 	 * save and generate the .map file
 	 */
 	public void save() {
-		map.check();
-		String content = extractInfo(map);
+		if(map.check()) {
+			String content = extractInfo(map);
 
-		generate(map.getName(),content);
-		System.out.println("Map successfully saved");
-		System.out.print(content);
-
-		generate(map.getName()+".map",content);
-
+			generate(map.getName(),content);
+			System.out.println("Map successfully saved");
+		}
 	}
 
 	/**
@@ -322,34 +320,29 @@ public class MapEditor extends Observable{
 	 */
 	private String extractInfo(Map map) {
 		if(map == null || map.continents.size() ==0) return null;
-		String content = "[Map]\n"; 
-		content += "image="+map.getName()+".bmp\n";
-		content += "warn=yes\n";
-		content += "author=Team 14\n";
-		content += "scroll=horizontal\n";
-		content += "wrap=no\n\n";
-		content += "[Continents]\n";
+		String content = "[Map]" + System.lineSeparator(); 
+		content += "image=" + map.getName() + ".bmp" + System.lineSeparator();
+		content += "warn=yes" + System.lineSeparator();
+		content += "author=Team 14" + System.lineSeparator();
+		content += "scroll=horizontal" + System.lineSeparator();
+		content += "wrap=no" + System.lineSeparator() + System.lineSeparator();
+		
+		content += "[Continents]" + System.lineSeparator();
 		for(Continent con : map.continents) {
-			content += con.getName()+"="+con.getExtraArmies()+"\n";
+			content += con.getName() + "=" + con.getExtraArmies() + System.lineSeparator();
 		}
-		content += "\n";
-		content +="[Territories]\n";
-		int contCounter = 0;
-		int counCounter = 0;
+		content += System.lineSeparator() + "[Territories]";
+
+		boolean firstLine = true;
 		for(Continent con : map.continents) {
+			if(!firstLine)	content += System.lineSeparator();
 			for(Country c : con.countries) {
-				content += c.getName()+",0,0,"+c.getContinent().getName();
+				content += System.lineSeparator() + c.getName()+",0,0,"+ c.getContinent().getName();
 				for(Country cou1 : c.neighbors) {
 					content += ","+cou1.getName();
 				}
-				if(contCounter != map.continents.size()-1 &&  counCounter != c.neighbors.size() ) {}
-				else content += "\n";
-				counCounter++;
 			}
-			if(contCounter < map.continents.size()-1) {
-				content += "\n";
-			}
-			contCounter++;
+			firstLine = false;
 		}
 		return content;
 	}
@@ -361,13 +354,14 @@ public class MapEditor extends Observable{
 	 */
 	public static void generate(String fileName, String content) { 
 		try {
-		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
-		out.write(content); 
+			FileWriter fw = new FileWriter(new File("maps", fileName + ".map"));
 
-		out.close(); 
+			BufferedWriter out = new BufferedWriter(fw); 
+			out.write(content); 
+			out.close(); 
 		}
 		catch(IOException e) { 
-		System.out.println(e); 
+			System.out.println(e); 
 		 } 
 	}
 }
