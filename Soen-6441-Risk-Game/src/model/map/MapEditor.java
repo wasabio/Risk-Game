@@ -225,13 +225,17 @@ public class MapEditor extends Observable
 	 * Translate the number displayed and entered by the user to the selected country
 	 * @param inputNumber number entered by the user
 	 */
-	public Country getCountry(int inputNumber) {
+	public Country getCountry(int inputNumber) 
+	{
 		int counter = 0;
-		for(Continent c : map.continents) {
+		for(Continent c : map.continents) 
+		{
 			counter++;
-			for(Country ctry : c.countries) {
+			for(Country ctry : c.countries) 
+			{
 				counter++;
-				if(counter == inputNumber) {
+				if(counter == inputNumber) 
+				{
 					return ctry;
 				}
 			}
