@@ -25,7 +25,7 @@ public class EditorMenuView extends View {
 
 	public String askMapName() {
 		System.out.println("Enter the name of the map (without extension): ");
-		String mapName = getString() + ".map";
+		String mapName = getString();
 		System.out.println();
 		return mapName;
 	}

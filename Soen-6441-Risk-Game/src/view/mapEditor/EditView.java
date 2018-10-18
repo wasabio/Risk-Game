@@ -44,7 +44,7 @@ public class EditView extends View {
 	}
 
 	public void errorAddingCountry() {
-		System.out.println("Error : The country could not be added.");
+		System.out.println("Error : The country could not be added (Wrong input or 0 continents).");
 		
 	}
 }

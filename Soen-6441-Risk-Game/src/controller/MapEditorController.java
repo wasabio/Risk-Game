@@ -79,19 +79,23 @@ public class MapEditorController {
 	}
 	
 	public void addCountry() {
-		String ctryName = editView.askCountryName();
-		int maxInput = mapEditor.getMaxInputNumber();
-		int contNb = editView.askContinentNumber(maxInput);
-		ArrayList<Integer> neighborNumbers = new ArrayList<Integer>();
-		/* Ask all neighbors until user press 0 */
-		int currentInput;
-		do {
-			currentInput = editView.askNeighbor();
-			if(currentInput != 0) {
-				neighborNumbers.add(currentInput);
-			}
-		}while(currentInput != 0);
-		 boolean added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
+		boolean added = false;
+		if(mapEditor.map.continents.size() > 0) {
+			String ctryName = editView.askCountryName();
+			int maxInput = mapEditor.getMaxInputNumber();
+			int contNb = editView.askContinentNumber(maxInput);
+			ArrayList<Integer> neighborNumbers = new ArrayList<Integer>();
+			/* Ask all neighbors until user press 0 */
+			int currentInput;
+			do {
+				currentInput = editView.askNeighbor();
+				if(currentInput != 0) {
+					neighborNumbers.add(currentInput);
+				}
+			}while(currentInput != 0);
+			added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
+		}
+		
 		 if(!added) {
 			 editView.errorAddingCountry();
 		 }
