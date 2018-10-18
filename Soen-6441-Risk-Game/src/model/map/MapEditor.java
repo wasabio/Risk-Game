@@ -239,6 +239,8 @@ public class MapEditor extends Observable{
 		map.check();
 		String content = extractInfo(map);
 		Generate(map.getName()+".map",content);
+		System.out.println("Map successfully saved");
+		System.out.print(content);
 	}
 	/**
 	 * to extract map info into the string
@@ -248,23 +250,34 @@ public class MapEditor extends Observable{
 	private String extractInfo(Map map) {
 		if(map == null || map.continents.size() ==0) return null;
 		String content = "[Map]\n"; 
-		content += "img="+map.getName()+".bmp\n";
-		content += "[continents]\n\n";
+		content += "image="+map.getName()+".bmp\n";
+		content += "warn=yes\n";
+		content += "author=Team 14\n";
+		content += "scroll=horizontal\n";
+		content += "wrap=no\n\n";
+		content += "[Continents]\n";
 		for(Continent con : map.continents) {
 			content += con.getName()+"="+con.getExtraArmies()+"\n";
 		}
 		content += "\n";
 		content +="[Territories]\n";
-		//for(Continent con : map.continents) {
-			for(Country c : map.countries) {
+		int contCounter = 0;
+		int counCounter = 0;
+		for(Continent con : map.continents) {
+			for(Country c : con.countries) {
 				content += c.getName()+",0,0,"+c.getContinent().getName();
 				for(Country cou1 : c.neighbors) {
 					content += ","+cou1.getName();
 				}
+				if(contCounter != map.continents.size()-1 &&  counCounter != c.neighbors.size() ) {}
+				else content += "\n";
+				counCounter++;
+			}
+			if(contCounter < map.continents.size()-1) {
 				content += "\n";
 			}
-			
-		//}
+			contCounter++;
+		}
 		return content;
 	}
 
@@ -272,7 +285,7 @@ public class MapEditor extends Observable{
 		try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
 		out.write(content); 
-		out.newLine(); 
+
 		out.close(); 
 		}
 		catch(IOException e) { 
