@@ -249,4 +249,9 @@ public class MapEditor extends Observable{
 		}
 		return counter;
 	}
+
+	public void addContinent(String countinentName, int bonus) {
+		// TODO Auto-generated method stub
+		
+	}
 }

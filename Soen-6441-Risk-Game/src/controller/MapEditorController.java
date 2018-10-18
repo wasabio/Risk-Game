@@ -66,11 +66,10 @@ public class MapEditorController {
 				addContinent();
 				break;
 			case 3: /* Delete country */
-				editView.askCountryNumber();
+				deleteCountry();
 				break;
 			case 4: /* Delete continent */
-				int maxInput = mapEditor.getMaxInputNumber();
-				editView.askContinentNumber(maxInput);
+				deleteContinent();
 				break;
 			case 5: /* Exit */
 				return;
@@ -78,6 +77,16 @@ public class MapEditorController {
 		}while(option != 0);
 	}
 	
+	private void deleteCountry() {
+		int maxInput = mapEditor.getMaxInputNumber();
+		editView.askCountryNumber(maxInput);
+	}
+
+	private void deleteContinent() {
+		int maxInput = mapEditor.getMaxInputNumber();
+		editView.askContinentNumber(maxInput);
+	}
+
 	public void addCountry() {
 		boolean added = false;
 		if(mapEditor.map.continents.size() > 0) {
@@ -88,7 +97,7 @@ public class MapEditorController {
 			/* Ask all neighbors until user press 0 */
 			int currentInput;
 			do {
-				currentInput = editView.askNeighbor();
+				currentInput = editView.askNeighbor(maxInput);
 				if(currentInput != 0) {
 					neighborNumbers.add(currentInput);
 				}
@@ -102,6 +111,13 @@ public class MapEditorController {
 	}
 	
 	public void addContinent() {
-		//editView.
-	}
+		boolean added = false;
+		
+		String countinentName = editView.askContinentName();
+		int bonus = editView.askBonus();
+		mapEditor.addContinent(countinentName, bonus);
+	
+	if(!added) {
+		 editView.errorAddingContinent();
+	 }
 }
