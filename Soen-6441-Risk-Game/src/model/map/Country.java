@@ -6,10 +6,11 @@ import java.util.Observable;
 import model.gameplay.Player;
 
 /**
- * This class is handling the information and the behavior of a country.
- * It holds data about the army in the country and has relationships with the country's neighbors
+ * This class is handling the information and the behavior of countries.
+ * It holds data about the army in the country and also the relationships with the country's neighbors
  */
-public class Country extends Observable {
+public class Country extends Observable 
+{
 	
 	private String name;
 	private int number;
@@ -25,7 +26,7 @@ public class Country extends Observable {
 	public static int Counter = 0;
 	
 	/**
-	 * Constructor method
+	 * The Constructor method of Country
 	 */
 	public Country() 
 	{
@@ -40,10 +41,9 @@ public class Country extends Observable {
 	}
 	
 	/**
-	 * Constructor method to initial the attributes
+	 * The constructor method to initial the attributes in the country
 	 * 
-	 * @param new_name : country name with String type
-	 *    
+	 * @param new_name The new country name with String type    
 	 */
 	public Country(String new_name) 
 	{
@@ -58,57 +58,61 @@ public class Country extends Observable {
 	}
 
 	/**
-	 * To set the position of the country center
-	 * 
-	 * @return continent with Continent type
+	 * The method to set the country's x and y position in the map file
+	 * @param x The x location of the country with int type
+	 * @param y The y location of the country with int type
 	 */
-	public void setCenter(int x, int y) {
+	public void setCenter(int x, int y) 
+	{
 		this.xLocation = x;
 		this.yLocation = y;
 	}
 
 	/**
-	 * To get the continent
+	 * The method is to get the continent
 	 * 
-	 * @return continent with Continent type
+	 * @return Returning the current continent with Continent type
 	 */
-	public Continent getContinent() {
+	public Continent getContinent() 
+	{
 		return continent;
 	}
 	
 	/**
-	 * To set the continent associated to the country
+	 * The method is to set the continent associated to the country
 	 * 
-	 * @param continent : the continent that will be set
-	 *            
+	 * @param continent The current continent that will be set            
 	 */
-	public void setContinent(Continent continent) {
+	public void setContinent(Continent continent) 
+	{
 		this.continent = continent;
 	}
 
 	/**
-	 * To set the player to the country
+	 * The method is to set the player to the country
 	 * 
-	 * @param p : the player that owns the country
+	 * @param p The player that will own the current country
 	 *            
 	 */
-	public void setPlayer(Player p) {
+	public void setPlayer(Player p) 
+	{
 		player = p;
 	}
 	
 	/**
-	 * To get the player
+	 * THe method is to get the player who is owned the current country
 	 * 
-	 * @return the player with Player type
+	 * @return Returning the current player(who owned the country) with Player type
 	 */
-	public Player getPlayer() {
+	public Player getPlayer() 
+	{
 		return player;
 	}
 	
 	/**
-	 * To add the troop to the country
+	 * The method is to add the armies to the current country
 	 * 
-	 * @param addArmies : the number of the Armies that need to be added with int type
+	 * @param newArmies The number of new Armies that needed to be added into the country with int type
 	 *            
 	 */
 	public void addArmies(int newArmies) 
@@ -117,9 +121,13 @@ public class Country extends Observable {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * To remove the Armies from the country
+=======
+	 * The method is to remove the Armies from the current country
+>>>>>>> ffaef38f3aa876baf3a4f9d10e962d8389c70198
 	 * 
-	 * @param RemovedArmies : the number of the Armies that want to be removed from the country
+	 * @param RemovedArmies The number of the Armies that want to be removed from the country
 	 *            
 	 */
 	public void removeArmies(int RemovedArmies) 
@@ -128,9 +136,9 @@ public class Country extends Observable {
 	}
 	
 	/**
-	 * To set a name to the country
+	 * The method is to set a name to the current country
 	 * 
-	 * @param name : the desired name that want to set to the country with String type
+	 * @param name The desired name that want to set to the country with String type
 	 *            
 	 */
 	public void setName(String name) 
@@ -139,9 +147,9 @@ public class Country extends Observable {
 	}
 
 	/**
-	 * To get the name of the country
+	 * The method is to get the name of the current country
 	 * 
-	 * @return the name of the country with String type
+	 * @return Returning the name of the country with String type
 	 */
 	public String getName() 
 	{
@@ -149,9 +157,9 @@ public class Country extends Observable {
 	}
 	
 	/**
-	 * To set the x coordinate position of the country
+	 * The method is to set the x coordinate position of the current country
 	 * 
-	 * @param x : the desired x coordinate position of the country
+	 * @param x The desired x coordinate position of the country
 	 *            
 	 */
 	public void setXLocation(int x) 
@@ -160,9 +168,9 @@ public class Country extends Observable {
 	}
 
 	/**
-	 * To get the x coordinate location of the country
+	 * The method is to get the x coordinate location of the current country
 	 * 
-	 * @return the x coordinate location of the country with int type
+	 * @return Returning the x coordinate location of the country with int type
 	 */
 	public int getXLocation() 
 	{
@@ -170,29 +178,38 @@ public class Country extends Observable {
 	}
 	
 	/**
-	 * To set the y coordinate location of the country
+	 * The method is to set the y coordinate location of the current country
 	 * 
-	 * @param y : the desired y coordinate location of the country
+	 * @param y The desired y coordinate location of the country
 	 */
 	public void setYLocation(int y) 
 	{
 		yLocation = y;
 	}
 
-	
+	/**
+	 * The method is to get the y coordinate location of the current country
+	 * @return Returning the y coordinate location with int type
+	 */
 	public int getYLocation() 
 	{
 		return yLocation;
 	}
-
-	public void linkTo(Country neighbor) {
+	
+	/**
+	 * The method is to add a neighbor to the current country
+	 * @param neighbor The linked country of the country
+	 */
+	public void linkTo(Country neighbor) //QA not fully sure is one or multiple, but I think is only one
+	{
 		this.neighbors.add(neighbor);
 	}
 	
 	/**
-	 * Override method to get country information in string layout
+	 * This override method is to get country information 
+	 * such as neighbors and owned player of the current country with string layout
 	 * 
-	 * @return country information with String type
+	 * @return Returning country information with neighbors and owned player in String type
 	 */
 	@Override
 	public String toString() 
@@ -208,15 +225,30 @@ public class Country extends Observable {
 		return "Country= " + this.getName() + " player=" ;
 	}
 
-	public int getArmyNumber() {
+	/**
+	 * The method is to get the army number of the current country
+	 * @return Returning the country's armyNumber with int type
+	 */
+	public int getArmyNumber() 
+	{
 		return armyNumber;
 	}
 
-	public void setArmyNumber(int armyNumber) {
+	/**
+	 * The method is to set the army number of the current country
+	 * @param armyNumber The number of armies in the country
+	 */
+	public void setArmyNumber(int armyNumber) 
+	{
 		this.armyNumber = armyNumber;
 	}
 
-	public int getNumber() {
+	/**
+	 * The method is to get the number of countries
+	 * @return Returning the number of countries with int type
+	 */
+	public int getNumber() //QA
+	{
 		return number;
 	}
 }

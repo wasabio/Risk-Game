@@ -7,13 +7,14 @@ import model.gameplay.Player;
 import model.map.Map;
 import model.map.MapEditor;
 import view.common.MapSelectionView;
-import view.gameplay.FortificationView;
-import view.gameplay.MapView;
-import view.gameplay.ReinforcementView;
 import view.mapEditor.EditView;
 import view.mapEditor.EditorMenuView;
 import view.mapEditor.MapEditorView;
 
+/**
+ * The class is for the control of map editing part
+ * 
+ */
 public class MapEditorController {
 	private MapEditor mapEditor;
 	private MapEditorView mapEditorView;

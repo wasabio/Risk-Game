@@ -6,29 +6,40 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-
+/**
+ * 
+ * The class's main function is to read and check .map file string lines of the current selected file.
+ *
+ */
 public class StringAnalyzer {
 	
 	/**
-	 * method to read the content of .map files
+	 * The method is to read the contents of .map files.
 	 * 
-	 * @param str
-	 *            content of a specific line
-	 * @param def
-	 *            line number
-	 * @return return the specific line number
+	 * @param str Content of a specific string type line.      
+	 * @param lineNb Line number of the string line.      
+	 * @return Returning the specific line number.
 	 */
-	public static int parseInt(String str, int lineNb) {
-		if (str == null) {
+	public static int parseInt(String str, int lineNb) 
+	{
+		if (str == null) 
+		{
 			return lineNb;
 		}
 		try {
 			return Integer.parseInt(str);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException e) 
+		{
+			
 		}
 		return lineNb;
 	}
 	
+	/**
+	 * The method is to check whether the file is .map file type.
+	 * @param file The current file that selected.
+	 * @return Returning true if the file is .map file type, otherwise returning false and print message showing that the file is not .map file.
+	 */
 	public static boolean checkMapType(File file)
 	{
 		if(file.getName().contains(".map"))

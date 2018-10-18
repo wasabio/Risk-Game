@@ -27,11 +27,12 @@ public class testCalculateArmyNum {
 	Continent con1 = new Continent("",7);
 	Continent con2 = new Continent("",4);
 	Continent con3 = new Continent("",6);
-	
 	Map map = new Map();
-	/**
-	 * test calculation of armies when player owns 1 whole continent and another country in a continent
-	 */
+	
+	/*/**
+	 * initiating 3 continents, 5 countries, country 1,4,5 is in continent 1, country 2 in continent 2
+	 * country 3 in continent 3
+	*/
 	@Before 
 	public void before1() {
 	con1.addCountry(cty1);
@@ -39,62 +40,50 @@ public class testCalculateArmyNum {
 	con3.addCountry(cty3);
 	con1.addCountry(cty4);
 	con1.addCountry(cty5);
-	p1.ownedCountries.add(cty1);
-	p1.ownedCountries.add(cty2);
-	p2.ownedCountries.add(cty3);
-	p2.ownedCountries.add(cty4);
-	p1.ownedCountries.add(cty1);
-	cty2.setPlayer(p1);
-	cty1.setPlayer(p1);
-	cty3.setPlayer(p2);
-	cty4.setPlayer(p2);
 	map.continents.add(con1);
 	map.continents.add(con2);
 	map.continents.add(con3);
+	map.countries.add(cty1);
+	map.countries.add(cty2);
+	map.countries.add(cty3);
+	map.countries.add(cty4);
+	map.countries.add(cty5);
 	}
 	@Test
 	public void test1() {
-		assertEquals(4,map.calculateArmyNum(p1));
+		p1.ownedCountries.add(cty1);
+		p1.ownedCountries.add(cty2);
+		p2.ownedCountries.add(cty3);
+		p2.ownedCountries.add(cty4);
+		p1.ownedCountries.add(cty1);
+		p1.ownedCountries.add(cty5);
+		cty2.setPlayer(p1);
+		cty1.setPlayer(p1);
+		cty3.setPlayer(p2);
+		cty4.setPlayer(p2);
+		cty5.setPlayer(p1);
+		
+		assertEquals(5,map.calculateArmyNum(p1));
 		assertEquals(6,map.calculateArmyNum(p2));
 	}
 	
-	/**
-	 * test when a player owns 4 countries in one continent
-	*/
-	@Before 
-	public void before2() {
-	con1.addCountry(cty1);
-	con2.addCountry(cty2);
-	con3.addCountry(cty3);
-	con1.addCountry(cty4);
-	con1.addCountry(cty5);
-	/*cty1.setNumber(1);    //didn't input number
-	cty2.setNumber(2);
-	cty3.setNumber(3);
-	cty4.setNumber(4);
-	cty5.setNumber(5);*/
-	p1.ownedCountries.add(cty1);
-	p1.ownedCountries.add(cty2);
-	p1.ownedCountries.add(cty3);
-	p1.ownedCountries.add(cty4);
-	p1.ownedCountries.add(cty5);
-	cty2.setPlayer(p1);
-	cty1.setPlayer(p1);
-	cty3.setPlayer(p1);
-	cty4.setPlayer(p1);
-	cty5.setPlayer(p1);
-	map.continents.add(con1);
-	map.continents.add(con2);
-	map.continents.add(con3);
-	
-	}
 	@Test
 	public void test2() {
+		p1.ownedCountries.add(cty1);
+		p1.ownedCountries.add(cty2);
+		p1.ownedCountries.add(cty3);
+		p1.ownedCountries.add(cty4);
+		p1.ownedCountries.add(cty5);
+		cty2.setPlayer(p1);
+		cty1.setPlayer(p1);
+		cty3.setPlayer(p1);
+		cty4.setPlayer(p1);
+		cty5.setPlayer(p1);
+		assertEquals(18,map.calculateArmyNum(p1));
 		
-		assertEquals(2,map.calculateArmyNum(p1));
-		
-	} 
+	}
 	
+
 	
 
 }

@@ -9,15 +9,26 @@ import javax.swing.JFileChooser;
 
 import model.utilities.StringAnalyzer;
 
-public class MapSelectionView extends View {
+/**
+ * 
+ * This class is the view of map selection function for user to see. 
+ *
+ */
+public class MapSelectionView extends View 
+{
 	
+	/**
+	 * The method is to let the user to select 2 ~ 6 players for the game.
+	 * @return Returning the player number that was inputed before to show the input is not correct.
+	 */
 	public int print() 
 	{
 		System.out.println("Choose the number of players (2-6): ");
 		int player_num;
 		boolean correctValue;
 		
-		do {
+		do 
+		{
 			player_num = getInteger();
 			correctValue = isValueCorrect(player_num, 2, 6);
 		}
@@ -26,11 +37,18 @@ public class MapSelectionView extends View {
 		return player_num;
 	}
 
-	public String selectMap() {
+	/**
+	 * The method is for view of showing the map selection function and also showing the information of the selected .map file.
+	 * @return Returning the selected file path string if selected a file, otherwise returning null.
+	 */
+	public String selectMap() 
+	{
 		System.out.println("Select the map file (.map)...");
-		JFileChooser jf = new JFileChooser() {
+		JFileChooser jf = new JFileChooser() 
+		{
 			
-		protected JDialog createDialog(Component parent) throws HeadlessException {
+		protected JDialog createDialog(Component parent) throws HeadlessException 
+		{
 			JDialog jDialog = super.createDialog(parent);
 			jDialog.setAlwaysOnTop(true);
 			return jDialog;		

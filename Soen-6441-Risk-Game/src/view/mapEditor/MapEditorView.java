@@ -8,6 +8,11 @@ import model.map.Country;
 import model.map.Map;
 import view.common.View;
 
+/**
+ * this class is for main view bar of the map editor
+ * 
+ *
+ */
 public class MapEditorView extends View implements Observer {
 	@Override
 	public void update(Observable o, Object arg) {

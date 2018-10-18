@@ -7,36 +7,57 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileHandler {
-
+/**
+ * This is the class for file reading, wrting functions.
+ * It helps other classes to implement getting and editing the selected files.
+ */
+public class FileHandler 
+{
+	//QA
+	/**
+	 * The method is to read the selected file and check whether the file can be open or read.
+	 * If the file cannot be open or read, print error messages and the file name.
+	 * @param fileName The current selected file name with string type.
+	 * @return Returning the file path and the name of the file, or returning as null if the file cannot be open or read.
+	 */
 	public static String read(String fileName)
 	{
         String line = null;
 
-        try {
+        try 
+        {
             FileReader fileReader = new FileReader(fileName);
 
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while((line += bufferedReader.readLine()) != null) {
+            while((line += bufferedReader.readLine()) != null) 
+            {
             	//Line is getting the content
             }   
 
             bufferedReader.close();
         }
-        catch(FileNotFoundException ex) {
+        catch(FileNotFoundException ex) 
+        {
             System.out.println("Unable to open file '" + fileName + "'");                
         }
-        catch(IOException ex) {
+        catch(IOException ex) 
+        {
             System.out.println("Error reading file '" + fileName + "'");                  
         }
         
         return line;
 	}
 	
+	/**
+	 * The method is to write the selected current file.
+	 * @param fileName The selected current file that will be write with string type.
+	 * @param content The content of the selected file that will be write with string type.
+	 */
 	public static void write(String fileName, String content)
 	{
-		try {
+		try 
+		{
             FileWriter fileWriter = new FileWriter(fileName);
 
             // Always wrap FileWriter in BufferedWriter.
@@ -45,7 +66,8 @@ public class FileHandler {
 
             bufferedWriter.close();
         }
-        catch(IOException ex) {
+        catch(IOException ex) 
+		{
             System.out.println("Error writing to file '" + fileName + "'");
         }
 	}
