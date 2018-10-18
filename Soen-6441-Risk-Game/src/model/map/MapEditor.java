@@ -255,13 +255,15 @@ public class MapEditor extends Observable{
 	public void addContinent(String countinentName, int bonus) {
 		// TODO Auto-generated method stub
 		
+	}
+		
 	/**
 	 * save and generate the .map file
 	 */
 	public void save() {
 		map.check();
 		String content = extractInfo(map);
-		Generate(map.getName()+".map",content);
+		generate(map.getName()+".map",content);
 	}
 	
 	private String extractInfo(Map map) {
