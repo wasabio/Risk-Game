@@ -15,7 +15,8 @@ import view.mapEditor.MapEditorView;
  * The class is for the control of map editing part
  * 
  */
-public class MapEditorController {
+public class MapEditorController 
+{
 	private MapEditor mapEditor;
 	private MapEditorView mapEditorView;
 	private EditorMenuView editorMenuView;
@@ -26,7 +27,8 @@ public class MapEditorController {
 	 */
 	public MapEditorController()
 	{
-		try {
+		try 
+		{
 			mapEditor = new MapEditor();
 			mapEditorView = new MapEditorView();
 			editorMenuView = new EditorMenuView();
@@ -35,7 +37,8 @@ public class MapEditorController {
 			mapEditor.addObserver(mapEditorView);
 			
 			execute();
-		} catch (IOException e) {
+		} catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -48,11 +51,13 @@ public class MapEditorController {
 	{
 		int choice = editorMenuView.print();
 		
-		if(choice == 1) {
+		if(choice == 1) 
+		{
 			String mapName = editorMenuView.askMapName();
 			mapEditor.setMapName(mapName);
 		} 
-		else if(choice == 2) {
+		else if(choice == 2) 
+		{
 			MapSelectionView mapSelectionView = new MapSelectionView();
 			String mapFilePath = mapSelectionView.selectMap();
 			mapEditor.load(mapFilePath);
@@ -60,10 +65,12 @@ public class MapEditorController {
 		}
 		
 		int option;
-		do {
+		do 
+		{
 			option = editorMenuView.menu();
 			
-			switch(option) {
+			switch(option) 
+			{
 			case 0: /* Save & exit */
 				mapEditor.save();
 				break;
@@ -88,7 +95,8 @@ public class MapEditorController {
 	/**
 	 * The method for delete country
 	 */
-	private void deleteCountry() {
+	private void deleteCountry() 
+	{
 		int maxInput = mapEditor.getMaxInputNumber();
 		editView.askCountryNumber(maxInput);
 	}
@@ -96,7 +104,8 @@ public class MapEditorController {
 	/**
 	 * The method for delete continent
 	 */
-	private void deleteContinent() {
+	private void deleteContinent() 
+	{
 		int maxInput = mapEditor.getMaxInputNumber();
 		editView.askContinentNumber(maxInput);
 	}
@@ -104,9 +113,11 @@ public class MapEditorController {
 	/**
 	 * The method for add Country
 	 */
-	public void addCountry() {
+	public void addCountry() 
+	{
 		boolean added = false;
-		if(mapEditor.map.continents.size() > 0) {
+		if(mapEditor.map.continents.size() > 0) 
+		{
 			String ctryName = editView.askCountryName();
 			int maxInput = mapEditor.getMaxInputNumber();
 			int contNb = editView.askContinentNumber(maxInput);
@@ -115,14 +126,16 @@ public class MapEditorController {
 			int currentInput;
 			do {
 				currentInput = editView.askNeighbor(maxInput);
-				if(currentInput != 0) {
+				if(currentInput != 0) 
+				{
 					neighborNumbers.add(currentInput);
 				}
 			}while(currentInput != 0);
 			added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
 		}
 		
-		 if(!added) {
+		 if(!added) 
+		 {
 			 editView.errorAddingCountry();
 		 }
 	}
@@ -130,14 +143,16 @@ public class MapEditorController {
 	/**
 	 * The method for add Continent
 	 */
-	public void addContinent() {
+	public void addContinent() 
+	{
 		boolean added = false;
 		
 		String countinentName = editView.askContinentName();
 		int bonus = editView.askBonus();
 		mapEditor.addContinent(countinentName, bonus);
 	
-		if(!added) {
+		if(!added) 
+		{
 			 editView.errorAddingContinent();
 		}
 	}
