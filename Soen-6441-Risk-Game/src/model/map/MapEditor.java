@@ -8,7 +8,7 @@ import java.util.Observable;
 
 /**
  * for functions such as add, delete continents and countries.
- * @author Yann
+ * 
  *
  */
 
