@@ -102,7 +102,7 @@ public class MapEditorController
 		deleted = mapEditor.deleteCountry(ctryNumber);
 		
 		if(!deleted) {
-			 editView.errorDeletingCountry();
+			// editView.errorDeletingCountry();
 		}
 	}
 
@@ -116,7 +116,7 @@ public class MapEditorController
 		deleted = mapEditor.deleteContinent(contNumber);
 		
 		if(!deleted) {
-			 editView.errorDeletingContinent();
+			// editView.errorDeletingContinent();
 		}
 	}
 

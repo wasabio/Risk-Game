@@ -11,7 +11,8 @@ import javax.swing.JOptionPane;
  * The class's main function is to read and check .map file string lines of the current selected file.
  *
  */
-public class StringAnalyzer {
+public class StringAnalyzer 
+{
 	
 	/**
 	 * The method is to read the contents of .map files.
