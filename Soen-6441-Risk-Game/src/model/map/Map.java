@@ -95,13 +95,7 @@ public class Map extends Observable {
 		else return true;
 	}
 	
-<<<<<<< HEAD
-=======
-	public int test() {
-		return this.players.size();
-	}
-	
->>>>>>> 5864f2424dade9d0df9f4e78bf47a43de7472cd6
+
 	/**
 	 * The method is to check if there is any disconnected countries in the map which does not have any neighbor
 	 * @return Returning false if such countries exists, otherwise true

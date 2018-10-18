@@ -12,7 +12,7 @@ import model.map.Map;
  * @author Yueshuai
  *
  */
-public class checkNoEmptyContinent {
+public class testCheckNoEmptyContinent {
 	Country cty1,cty2;
 	Continent con1,con2;
 	Map map = new Map();
