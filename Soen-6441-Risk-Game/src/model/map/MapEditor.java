@@ -240,12 +240,32 @@ public class MapEditor extends Observable{
 		String content = extractInfo(map);
 		Generate(map.getName()+".map",content);
 	}
+	/**
+	 * to extract map info into the string
+	 * @param map the map that needs to be saved
+	 * @return the string form of the map
+	 */
 	private String extractInfo(Map map) {
+		if(map == null || map.continents.size() ==0) return null;
 		String content = "[Map]\n"; 
-		content += "img="+map.getName()+".bmp\n\n";
+		content += "img="+map.getName()+".bmp\n";
 		content += "[continents]\n\n";
-		
-		return null;
+		for(Continent con : map.continents) {
+			content += con.getName()+"="+con.getExtraArmies()+"\n";
+		}
+		content += "\n";
+		content +="[Territories]\n";
+		//for(Continent con : map.continents) {
+			for(Country c : map.countries) {
+				content += c.getName()+",0,0,"+c.getContinent().getName();
+				for(Country cou1 : c.neighbors) {
+					content += ","+cou1.getName();
+				}
+				content += "\n";
+			}
+			
+		//}
+		return content;
 	}
 
 	public static void Generate(String fileName, String content) { 
