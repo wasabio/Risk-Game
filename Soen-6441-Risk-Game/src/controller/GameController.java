@@ -4,26 +4,36 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import view.FortificationView;
-import view.MapSelectionView;
-import view.MapView;
-import view.ReinforcementView;
-import view.StartUpView;
+import view.common.MapSelectionView;
+import view.gameplay.FortificationView;
+import view.gameplay.MapView;
+import view.gameplay.ReinforcementView;
+import view.gameplay.StartUpView;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
-
-public class GameController {
+	
+	/**
+	 * This class is a controller for game play part
+	 * It includes controls for different phases in the game
+	 */
+public class GameController 
+{
 	
 	private Map map;
 	private MapView mapView;
 	private ReinforcementView reinforcementView;
 	private FortificationView fortificationView;
 
+	/**
+	 * This is a constructor method for GameController
+	 */
 	public GameController()
 	{
-		try {
+		try 
+		{
 			map = new Map();
+			map.clear();
 			mapView = new MapView();
 			reinforcementView = new ReinforcementView();
 			fortificationView = new FortificationView();
@@ -31,27 +41,43 @@ public class GameController {
 			map.addObserver(mapView);
 			
 			execute();
-		} catch (IOException e) {
+		} 
+		catch (IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * This method deals with phase steps and checks whether the game has a winner or not
+	 * @throws IOException
+	 */
 	private void execute() throws IOException
 	{		
 		startUpPhase();
 		
-		do {
-			for(Player p : map.players) {
-				if(p.ownedCountries.size() > 0) {
+		do 
+		{
+			for(Player p : map.players) 
+			{
+				if(p.ownedCountries.size() > 0) 
+				{
 					reinforcementPhase(p);
 					fortificationPhase(p);
 				}
 			}
-		}while(!map.isOwned()); /* End of the game */
+		}while(!map.isOwned()); /* When map is owned, end of the game */
 		
 	}
 
-	private void startUpPhase() throws IOException {
+	/**
+	 * This method deals with deploying players and armies on the map when the game just start.
+	 * The deployment of each player with countries is randomly deployed.
+	 * The deployment will end until every country have an owner.
+	 * @throws IOException
+	 */
+	private void startUpPhase() throws IOException 
+	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
 		StartUpView startUpView = new StartUpView();
 
@@ -64,14 +90,19 @@ public class GameController {
 		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 			
-		do {
+		do 
+		{
 			Iterator<Player> i = remainingPlayers.iterator();
 
-			while (i.hasNext()) {
+			while (i.hasNext()) 
+			{
 				Player p = i.next();
-				if(p.getArmies() == 0) {
+				if(p.getArmies() == 0) 
+				{
 					i.remove();
-				} else {
+				} 
+				else 
+				{
 					int ctryId = startUpView.askCountry(p);
 					Country c = map.countries.get(ctryId-1);					
 					map.addArmiesToCountry(ctryId, 1);
@@ -80,18 +111,29 @@ public class GameController {
 		}while(remainingPlayers.size() != 0);
 	}
 	
-	private void reinforcementPhase(Player p) {
+	/**
+	 * The method's main function is adding standby armies to the selected country when in the reinforcementPhase.
+	 * @param p The current player that is in the reinforcementPhase
+	 */
+	private void reinforcementPhase(Player p) 
+	{
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
-		do {
+		do 
+		{
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			map.addArmiesToCountry(countryNumber, selectedArmies);
 		}while(p.getArmies() > 0);
 	}
 	
-	
-	private void fortificationPhase( Player p) {
+	/**
+	 * This method deals with the logic when one group of army in a country tries to attack another country.
+	 * It also deals with the computing of fight damage when two group of armies are fighting. 
+	 * @param p The current player that is in the fortificationPhase
+	 */
+	private void fortificationPhase( Player p) 
+	{
 		/* Getting Origin countries */
 		int	originCountryId = fortificationView.chooseOriginCountry(p);
 		/* 0 to skip */
@@ -99,7 +141,8 @@ public class GameController {
 		
 		int maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
 		/* We can't move armies from a country that has only 1 army */		
-		while(maxArmies <= 1) {
+		while(maxArmies <= 1) 
+		{
 			originCountryId = fortificationView.originError(p);
 			if(originCountryId == 0) return;
 			maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
