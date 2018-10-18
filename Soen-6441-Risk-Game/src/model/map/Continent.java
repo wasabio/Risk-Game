@@ -39,7 +39,7 @@ public class Continent
 	 * @param name Continent name with String type
 	 *
 	 */
-	public Continent(int bonus, String name, int extraArmies) //QA not sure the int bonus used for what function
+	public Continent(int bonus, String name, int extraArmies) //QA
 	{
 		super();
 		this.extraArmies = extraArmies;
@@ -60,14 +60,6 @@ public class Continent
 		return retString;
 	}
 
-	///**
-	 //* method to override the Continent toString() method.
-	 //*/
-	//public String toString() 
-	//{
-	//	return this.name;
-	//}
-	
 	/**
 	 * Adding a country to the Continent
 	 * @param c The country that was added
@@ -138,6 +130,7 @@ public class Continent
 	{
 		return name;
 	}
+	
 	/**
 	 * This method is to get the owner of the countries(in the continent) 
 	 * and a checking logic for correctness of owned country number(in the continent) of a player
@@ -156,6 +149,7 @@ public class Continent
 		
 		return p;
 	}
+	
 	/**
 	 * This method is to check that the country is owned by which player
 	 * @param p the player of the player type
