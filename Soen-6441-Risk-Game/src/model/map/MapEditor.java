@@ -267,13 +267,16 @@ public class MapEditor extends Observable{
 	}
 
 	/**
-	 * 
-	 * @param countinentName
-	 * @param bonus
+	 * to add a new continent
+	 * @param countinentName the name of the new continent
+	 * @param bonus bonus armies of the continent
 	 */
-	public void addContinent(String countinentName, int bonus) {
+	public void addContinent(String continentName, int bonus) {
 		// TODO Auto-generated method stub
-		
+		if(findCountry(continentName) == null) {
+			Continent con = new Continent(continentName,bonus);
+			map.continents.add(con);
+		}
 	}
 		
 	/**
