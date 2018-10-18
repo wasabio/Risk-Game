@@ -7,7 +7,8 @@ import java.util.Scanner;
  * The class is to show the inputed integers for the user and check the input integer is correct to the program or not.
  *
  */
-public abstract class View {
+public abstract class View 
+{
 	
 	private static Scanner input;
 	

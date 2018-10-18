@@ -9,7 +9,8 @@ import view.common.View;
  * The class is for the view to show the changes and the steps of the Reinforcement phase in the game.
  *
  */
-public class ReinforcementView extends View {
+public class ReinforcementView extends View 
+{
 
 	/**
 	 * The method is dealing with the view functions of the current player asking the selected country.
@@ -24,10 +25,12 @@ public class ReinforcementView extends View {
 		int country_number;
 		boolean correctValue;
 		
-		do {
+		do 
+		{
 			country_number = getInteger();
 			correctValue = isValueCorrect(country_number, 1, Country.Counter);
-			if(correctValue && !p.owns(country_number)) {
+			if(correctValue && !p.owns(country_number)) 
+			{
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");
 			}
@@ -48,7 +51,8 @@ public class ReinforcementView extends View {
 		int armies_number;
 		boolean correctValue;
 		
-		do {
+		do 
+		{
 			armies_number = getInteger();
 			correctValue = isValueCorrect(armies_number, 1, p.getArmies());
 		}while(!correctValue);

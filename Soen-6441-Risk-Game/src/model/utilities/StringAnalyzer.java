@@ -20,13 +20,17 @@ public class StringAnalyzer {
 	 * @param lineNb Line number of the string line.      
 	 * @return Returning the specific line number.
 	 */
-	public static int parseInt(String str, int lineNb) {
-		if (str == null) {
+	public static int parseInt(String str, int lineNb) 
+	{
+		if (str == null) 
+		{
 			return lineNb;
 		}
 		try {
 			return Integer.parseInt(str);
-		} catch (NumberFormatException e) {
+		} catch (NumberFormatException e) 
+		{
+			
 		}
 		return lineNb;
 	}

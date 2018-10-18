@@ -10,7 +10,8 @@ import javax.swing.JFileChooser;
  * It is the first view that the user will see.
  * 
  */
-public class MainMenuView extends View {
+public class MainMenuView extends View 
+{
 		
 	/**
 	 * The method is to print messages for some introductions and 2 choices to the user.
