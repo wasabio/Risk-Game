@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
- * for functions such as add, delete continents and countries.
+ * This class is for functions such as add, delete continents and countries in the map file.
  * 
  *
  */
-
 public class MapEditor extends Observable{
 	public Map map;
 
@@ -168,10 +167,18 @@ public class MapEditor extends Observable{
 		c.neighborsNames.clear();
 	}
 
+	/**
+	 * Setting the map name
+	 * @param mapName The current map name
+	 */
 	public void setMapName(String mapName) {
 		map.setName(mapName);
 	}
 
+	/**
+	 * The loading function for map files
+	 * @param mapFilePath The selected map file path with string type
+	 */
 	public void load(String mapFilePath) {
 		try {
 			map.load(mapFilePath);
@@ -216,6 +223,13 @@ public class MapEditor extends Observable{
 		return null;
 	}
 
+	/**
+	 * The method for adding countries and the neighbor
+	 * @param ctryName The target country with string type
+	 * @param contNb The number of continents
+	 * @param neighborNumbers Neighbor numbers of a country
+	 * @return
+	 */
 	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) {
 		/* Check if there is an other country with the same name */
 		if(findCountry(ctryName) != null) {
@@ -265,6 +279,11 @@ public class MapEditor extends Observable{
 		return counter;
 	}
 
+	/**
+	 * 
+	 * @param countinentName
+	 * @param bonus
+	 */
 	public boolean addContinent(String continentName, int bonus) {
 		/* if continent name not already existing */
 		if(findContinent(continentName) != null) {
@@ -283,7 +302,13 @@ public class MapEditor extends Observable{
 	public void save() {
 		map.check();
 		String content = extractInfo(map);
+
+		generate(map.getName(),content);
+		System.out.println("Map successfully saved");
+		System.out.print(content);
+
 		generate(map.getName()+".map",content);
+
 	}
 
 	/**
@@ -294,31 +319,47 @@ public class MapEditor extends Observable{
 	private String extractInfo(Map map) {
 		if(map == null || map.continents.size() ==0) return null;
 		String content = "[Map]\n"; 
-		content += "img="+map.getName()+".bmp\n";
-		content += "[continents]\n\n";
+		content += "image="+map.getName()+".bmp\n";
+		content += "warn=yes\n";
+		content += "author=Team 14\n";
+		content += "scroll=horizontal\n";
+		content += "wrap=no\n\n";
+		content += "[Continents]\n";
 		for(Continent con : map.continents) {
 			content += con.getName()+"="+con.getExtraArmies()+"\n";
 		}
 		content += "\n";
 		content +="[Territories]\n";
-		//for(Continent con : map.continents) {
-			for(Country c : map.countries) {
+		int contCounter = 0;
+		int counCounter = 0;
+		for(Continent con : map.continents) {
+			for(Country c : con.countries) {
 				content += c.getName()+",0,0,"+c.getContinent().getName();
 				for(Country cou1 : c.neighbors) {
 					content += ","+cou1.getName();
 				}
+				if(contCounter != map.continents.size()-1 &&  counCounter != c.neighbors.size() ) {}
+				else content += "\n";
+				counCounter++;
+			}
+			if(contCounter < map.continents.size()-1) {
 				content += "\n";
 			}
-			
-		//}
+			contCounter++;
+		}
 		return content;
 	}
 
+	/**
+	 * The function to generate the new file name and new properties that content in the map file
+	 * @param fileName The selected file name
+	 * @param content The string that content in the file
+	 */
 	public static void generate(String fileName, String content) { 
 		try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
 		out.write(content); 
-		out.newLine(); 
+
 		out.close(); 
 		}
 		catch(IOException e) { 

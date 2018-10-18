@@ -1,7 +1,11 @@
 [Map]
-img=null.bmp
-[continents]
+image=null.bmp
+warn=yes
+author=Team 14
+scroll=horizontal
+wrap=no
 
+[Continents]
 North America=5
 South America=2
 Africa=3
@@ -14,21 +18,8 @@ Alaska,0,0,North America,Quebec,Ontario,China
 Ontario,0,0,North America,Alaska,Quebec,Central America
 Quebec,0,0,North America,Alaska,Ontario,Central America,Western Europe
 Central America,0,0,North America,Quebec,Ontario,Venezuela
-Venezuela,0,0,South America,Central America,Brazil,Argentina
-Peru,0,0,South America,Brazil,Argentina,South Africa
-Argentina,0,0,South America,Peru,Brazil,Venezuela
-Brazil,0,0,South America,Venezuela,Peru,Argentina,North Africa
-North Africa,0,0,Africa,Southern Europe,India,South Africa,Madagascar
-South Africa,0,0,Africa,Madagascar,North Africa,Peru
-Madagascar,0,0,Africa,North Africa,South Africa
-Western Europe,0,0,Europe,Northern Europe,Russia,Southern Europe,Quebec
-Northern Europe,0,0,Europe,Western Europe,Russia
-Southern Europe,0,0,Europe,North Africa,Western Europe
-Russia,0,0,Europe,Northern Europe
-Ural,0,0,Asia,China,Russia,India
-China,0,0,Asia,Ural,India,Alaska
-India,0,0,Asia,Ural,China,North Africa,Australia
-Australia,0,0,Oceania,Indonesia,India
-Indonesia,0,0,Oceania,New Zealand,Australia
-New Zealand,0,0,Oceania,Indonesia
-
+Venezuela,0,0,South America,Central America,Brazil,ArgentinaPeru,0,0,South America,Brazil,Argentina,South AfricaArgentina,0,0,South America,Peru,Brazil,VenezuelaBrazil,0,0,South America,Venezuela,Peru,Argentina,North Africa
+North Africa,0,0,Africa,Southern Europe,India,South Africa,MadagascarSouth Africa,0,0,Africa,Madagascar,North Africa,PeruMadagascar,0,0,Africa,North Africa,South Africa
+Western Europe,0,0,Europe,Northern Europe,Russia,Southern Europe,QuebecNorthern Europe,0,0,Europe,Western Europe,RussiaSouthern Europe,0,0,Europe,North Africa,Western EuropeRussia,0,0,Europe,Northern Europe
+Ural,0,0,Asia,China,Russia,IndiaChina,0,0,Asia,Ural,India,AlaskaIndia,0,0,Asia,Ural,China,North Africa,Australia
+Australia,0,0,Oceania,Indonesia,IndiaIndonesia,0,0,Oceania,New Zealand,AustraliaNew Zealand,0,0,Oceania,Indonesia
