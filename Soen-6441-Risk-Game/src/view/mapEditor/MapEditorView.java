@@ -6,6 +6,7 @@ import java.util.Observer;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapEditor;
 import view.common.View;
 
 /**
@@ -14,11 +15,19 @@ import view.common.View;
  *
  */
 public class MapEditorView extends View implements Observer {
+	
+	/**
+	 * The override function and the observer for the update of the map editor view.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		print((Map) o);
+		print(((MapEditor) o).map);
 	}
 
+	/**
+	 * The method for printing map information
+	 * @param map The current map file
+	 */
 	public void print(Map map) {
 		System.out.print("\n\n\n\n\n*****************************************\n");
 		System.out.println("          World map - Editor mode");

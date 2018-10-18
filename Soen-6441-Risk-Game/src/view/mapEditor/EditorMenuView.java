@@ -2,6 +2,11 @@ package view.mapEditor;
 
 import view.common.View;
 
+/**
+ * 
+ * The class is for the main view of the map editor
+ *
+ */
 public class EditorMenuView extends View {
 	public int print() {
 		System.out.println("\n\n\n\n\n*****************************************");
@@ -23,6 +28,10 @@ public class EditorMenuView extends View {
 		return option;
 	}
 
+	/**
+	 * The method for asking selected map names
+	 * @return Returning mao name once the function finished
+	 */
 	public String askMapName() {
 		System.out.println("Enter the name of the map (without extension): ");
 		String mapName = getString();
@@ -30,6 +39,10 @@ public class EditorMenuView extends View {
 		return mapName;
 	}
 
+	/**
+	 * The method for showing menu of choices of the function for the map file
+	 * @return Returning option that is entered if the value is incorrect
+	 */
 	public int menu() {
 		System.out.println("\n*** Map Editor ***");
 		System.out.println("Select an option: ");

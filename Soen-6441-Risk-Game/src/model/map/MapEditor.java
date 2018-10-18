@@ -7,11 +7,10 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
- * for functions such as add, delete continents and countries.
+ * This class is for functions such as add, delete continents and countries in the map file.
  * 
  *
  */
-
 public class MapEditor extends Observable{
 	public Map map;
 
@@ -155,10 +154,18 @@ public class MapEditor extends Observable{
 		c.neighborsNames.clear();
 	}
 
+	/**
+	 * Setting the map name
+	 * @param mapName The current map name
+	 */
 	public void setMapName(String mapName) {
 		map.setName(mapName);
 	}
 
+	/**
+	 * The loading function for map files
+	 * @param mapFilePath The selected map file path with string type
+	 */
 	public void load(String mapFilePath) {
 		try {
 			map.load(mapFilePath);
@@ -203,18 +210,45 @@ public class MapEditor extends Observable{
 		return null;
 	}
 
+	/**
+	 * The method for adding countries and the neighbor
+	 * @param ctryName The target country with string type
+	 * @param contNb The number of continents
+	 * @param neighborNumbers Neighbor numbers of a country
+	 * @return
+	 */
 	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) {
 		/* Check if there is an other country with the same name */
 		if(findCountry(ctryName) != null) {
 			return false;
 		}
+		/* Check if the continent number is correct */
+		Continent c = getContinent(contNb);
+		if(c == null) {
+			return false;
+		}
+		/* Check for incorrect neighbors */
+		ArrayList<Country> neighbors = new ArrayList<Country>();
+		for(int i : neighborNumbers) {
+			Country n = getCountry(i);
+			if(n == null) {
+				return false;
+			} else {
+				neighbors.add(n);
+			}
+		}
 		
-		//check conti number correct
-		//check each neighbor number correct
+		/* add country & create neighbors */
+		Country ctry = new Country(ctryName);
+		map.countries.add(ctry);
+		c.countries.add(ctry);
 		
-		//add country : true
-		return false;
+		for(Country neighbor : neighbors) {
+			connect(ctry, neighbor);
+		}
 		
+		changeState();
+		return true;
 	}
 
 	/**
@@ -233,15 +267,30 @@ public class MapEditor extends Observable{
 	}
 
 	/**
+	 * 
+	 * @param countinentName
+	 * @param bonus
+	 */
+	public void addContinent(String countinentName, int bonus) {
+		// TODO Auto-generated method stub
+		
+	}
+		
+	/**
 	 * save and generate the .map file
 	 */
 	public void save() {
 		map.check();
 		String content = extractInfo(map);
-		Generate(map.getName()+".map",content);
+
+		generate(map.getName(),content);
 		System.out.println("Map successfully saved");
 		System.out.print(content);
+
+		generate(map.getName()+".map",content);
+
 	}
+
 	/**
 	 * to extract map info into the string
 	 * @param map the map that needs to be saved
@@ -281,7 +330,12 @@ public class MapEditor extends Observable{
 		return content;
 	}
 
-	public static void Generate(String fileName, String content) { 
+	/**
+	 * The function to generate the new file name and new properties that content in the map file
+	 * @param fileName The selected file name
+	 * @param content The string that content in the file
+	 */
+	public static void generate(String fileName, String content) { 
 		try {
 		BufferedWriter out = new BufferedWriter(new FileWriter(fileName)); 
 		out.write(content); 

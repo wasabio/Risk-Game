@@ -121,11 +121,8 @@ public class Country extends Observable
 	}
 
 	/**
-<<<<<<< HEAD
 	 * To remove the Armies from the country
-=======
 	 * The method is to remove the Armies from the current country
->>>>>>> ffaef38f3aa876baf3a4f9d10e962d8389c70198
 	 * 
 	 * @param RemovedArmies The number of the Armies that want to be removed from the country
 	 *            
