@@ -119,7 +119,8 @@ public class MapEditorController {
 		int bonus = editView.askBonus();
 		mapEditor.addContinent(countinentName, bonus);
 	
-	if(!added) {
-		 editView.errorAddingContinent();
-	 }
+		if(!added) {
+			 editView.errorAddingContinent();
+		}
+	}
 }
