@@ -60,6 +60,7 @@ public class MapEditorController
 		{
 			MapSelectionView mapSelectionView = new MapSelectionView();
 			String mapFilePath = mapSelectionView.selectMap();
+			mapEditor.setMapName(mapSelectionView.getMapName());
 			mapEditor.load(mapFilePath);
 			mapEditorView.print(mapEditor.map);
 		}
