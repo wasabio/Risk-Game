@@ -51,33 +51,20 @@ public class Map extends Observable {
 	}
 
 	/**
-<<<<<<< HEAD
-	 * check if the map meet all requirement it needs to be valid
-	 * @author Yueshuai
-	 * @return true if the map is valid, otherwise false
-=======
-	 * check the map is validity of the map file by : 
+	 * check if the map is valid by: 
 	 * 1. Checking if the map is empty, 
 	 * 2. Checking if a country without any neighbor
 	 * 3. Checking if a continent without any country
-	 * 
 	 * @return Returning true when 3 checking functions all passed, and other situations return false
->>>>>>> 5864f2424dade9d0df9f4e78bf47a43de7472cd6
 	 */
 	public boolean check() {		
 		return (checkPlayableMap() && checkConnectedGraph() && checkNoEmptyContinent()) ;
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * The method is to check whether does the map file includes the suitable country, and continent syntax in the map file
-	 * It also include the checking function for countries cannot less than total players
-	 * @return Returning false if one of the Condition occurs, otherwise returning true
-=======
 	 * check if there is any country and continent in the map 
 	 * check if the total country number is more than total player number
 	 * @return true if the map is valid, otherwise false
->>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkPlayableMap() {
 		/* check does map have any country and continent */
@@ -115,13 +102,8 @@ public class Map extends Observable {
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * The method is to check if there are empty continents which does not have a country signed under those continents
-	 * @return Returning false if such continents exist, otherwise true
-=======
 	 * check if there is empty continent which does not have any country
 	 * @return false if such continent exists, otherwise false
->>>>>>> d8a39cc09d4995484d397e62dbc25e9f4ce7c4a9
 	 */
 	public boolean checkNoEmptyContinent() {
 		for(Continent ct : continents) {
