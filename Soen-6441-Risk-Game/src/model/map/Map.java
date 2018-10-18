@@ -544,10 +544,18 @@ public class Map extends Observable
 		Country.Counter = 0;
 	}
 
+	/**
+	 * The method for getting map name
+	 * @return Returning name of the map name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * The method for setting map name
+	 * @param name The map name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
