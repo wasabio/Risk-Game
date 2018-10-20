@@ -127,7 +127,7 @@ public class Map extends Observable
 	}
 	
 	/**
-	 * The method is to load and check the basic properties of the map file has what the program needed
+	 * To load and check if the map file has the good syntax.
 	 * @param in The string type in the map file that need to be read
 	 * @throws IOException
 	 */
@@ -185,7 +185,7 @@ public class Map extends Observable
 	}
 
 	/**
-	 * The method is to load and check the loaded continent strings in the map file are suitable to the program or not
+	 * To load and check if the continent's section of the map file is correct.
 	 * @param in The continent string type in the map file that need to be read
 	 * @throws IOException
 	 */
@@ -225,7 +225,7 @@ public class Map extends Observable
 	}
 	
 	/**
-	 * The method is to load and check the loaded country strings in the map file are suitable to the program or not
+	 * To load and check if the territorie's section of the map file is correct.
 	 * @param in The country string type in the map file that need to be read
 	 * @throws IOException
 	 */

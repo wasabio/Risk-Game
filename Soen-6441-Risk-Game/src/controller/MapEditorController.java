@@ -117,7 +117,7 @@ public class MapEditorController
 		deleted = mapEditor.deleteContinent(contNumber);
 		
 		if(!deleted) {
-			// editView.errorDeletingContinent();
+			//editView.errorDeletingContinent();
 		}
 	}
 

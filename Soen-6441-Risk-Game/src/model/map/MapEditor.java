@@ -59,11 +59,13 @@ public class MapEditor extends Observable
 	 */
 	public boolean deleteContinent(int contNumber) 
 	{
-		
 		Continent c = getContinent(contNumber);
 		/* if the continent exists */
 		if(c != null) 
 		{
+			for(Country ctry : c.countries) {
+				deleteCountry(ctry);
+			}
 			map.continents.remove(c);
 			changeState();
 			return true;
