@@ -64,9 +64,12 @@ public class MapEditor extends Observable
 		/* if the continent exists */
 		if(c != null) 
 		{
-			for(Country ctry : c.countries) {
-				deleteCountry(ctry);
+			int size = c.countries.size();
+			
+			for(int i = 0; i < size; i++) {
+				deleteCountry(c.countries.remove(0));
 			}
+			
 			map.continents.remove(c);
 			changeState();
 			return true;

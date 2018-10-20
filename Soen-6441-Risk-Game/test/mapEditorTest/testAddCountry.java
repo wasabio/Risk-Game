@@ -1,4 +1,4 @@
-package MapEditorTest;
+package mapEditorTest;
 
 import static org.junit.Assert.*;
 

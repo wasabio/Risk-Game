@@ -1,4 +1,4 @@
-package MapEditorTest;
+package mapEditorTest;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -38,7 +38,7 @@ public class testDeleteContinent {
 		
 		cty1.linkTo(cty3);
 		cty3.linkTo(cty1);
-		cty3.linkTo(cty3);
+		cty3.linkTo(cty2);
 		cty2.linkTo(cty3);
 	}
 	/**
@@ -55,7 +55,7 @@ public class testDeleteContinent {
 	@Test
 	public void testDeleteContinent() {
 		Continent c = me.getContinent(1);
-		assertNotNull(c);
+		assertEquals(c, con1);
 		assertTrue(me.deleteContinent(1));
 		assertEquals(1,me.map.continents.size());
 		assertEquals(1,me.map.countries.size());

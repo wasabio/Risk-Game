@@ -1,4 +1,4 @@
-package GameConsoleTest;
+package gameConsoleTest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
