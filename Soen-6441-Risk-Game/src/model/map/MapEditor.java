@@ -101,7 +101,8 @@ public class MapEditor extends Observable
 				}
 			}
 			changeState();
-		} else {
+		} else 
+		{
 			Country.Counter--;
 		}
 	}

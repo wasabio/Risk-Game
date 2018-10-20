@@ -52,7 +52,7 @@ public class MapSelectionView extends View
 			JDialog jDialog = super.createDialog(parent);
 			jDialog.setAlwaysOnTop(true);
 			return jDialog;		
-			}
+		}
 		};
 		
 		/*To open in current directory*/
@@ -62,7 +62,8 @@ public class MapSelectionView extends View
 		jf.showOpenDialog(null);
 		File path = jf.getSelectedFile();
 
-		if(StringAnalyzer.checkMapType(path)) {
+		if(StringAnalyzer.checkMapType(path)) 
+		{
 			mapName = path.getName().substring(0, path.getName().length() - 4);
 			return path.getAbsolutePath();
 		}
@@ -77,7 +78,8 @@ public class MapSelectionView extends View
 	 * to get the map name
 	 * @return the map name
 	 */
-	public String getMapName() {
+	public String getMapName() 
+	{
 		return mapName;
 	}
 }
