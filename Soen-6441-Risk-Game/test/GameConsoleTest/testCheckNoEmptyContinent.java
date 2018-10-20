@@ -20,7 +20,7 @@ public class testCheckNoEmptyContinent {
 	 * test when there is 1 continent with 2 countries and 1 continent with no country
 	 */
 	@Before
-	public void Before() {
+	public void before() {
 		con1 = new Continent("",6);
 		con2 = new Continent("",3);
 		

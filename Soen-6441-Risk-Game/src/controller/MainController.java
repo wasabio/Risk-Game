@@ -11,7 +11,8 @@ public class MainController
 {
 	
 	/**
-	 * Start the application by creating a main menu.
+	 * The method is to start the application by creating a main menu.
+	 * @param args introductions in main menu with string type
 	 */
 	public static void main(String[] args) 
 	{

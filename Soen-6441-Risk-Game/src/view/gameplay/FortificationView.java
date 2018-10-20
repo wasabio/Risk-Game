@@ -67,40 +67,39 @@ public class FortificationView extends View
 
 	/**
 	 * The method for showing the entered armies numbers and the changes. 
-	 * It also has several conditions for checking the value is correct or not.
+	 * It also has several conditions for checking if the value is correct or not.
 	 * @param p The current player.
-	 * @param armiesMaxNumber The max number of the army that the current player can deploy.
+	 * @param armiesMaxNumber The max number of the army that the current player can send.
 	 * @return Returning the total army number that the current player can be deployed.
 	 */
 	public int askArmiesNumber(Player p, int armiesMaxNumber) 
 	{
-		System.out.println("Enter the number of armies: ");
+		System.out.println("Enter the number of armies to send: ");
 		
-		int armiesNumber;
+		int armiesSelected;
 		boolean correctValue;
 		
 		do 
 		{
-			armiesNumber = getInteger();
-			correctValue = isValueCorrect(armiesNumber, 2, Country.Counter);
-			if(armiesNumber > (armiesMaxNumber-1) || armiesNumber <= 0) 
+			armiesSelected = getInteger();
+			correctValue = isValueCorrect(armiesSelected, 1, armiesMaxNumber);
+			if(armiesSelected > armiesMaxNumber || armiesSelected <= 0) 
 			{
-				correctValue = false;
-				System.out.println("Error : Wrong number of armies.");
+				System.out.println("Error : You can only send between 1 and " + armiesMaxNumber + " armies.");
 			}
 		}while(!correctValue);
 		
-		return armiesNumber;
+		return armiesSelected;
 	}
 
 	/**
-	 * The method is to showing the error messages for the origin country that is selected.
+	 * The method displays an error message for the origin country that is selected.
 	 * @param p The current player.
 	 * @return Returning the selected country number.
 	 */
-	public int originError(Player p) 
+	public int errorOrigin(Player p) 
 	{
-		System.out.println("Error : You can't move armies from a country that has only 1 army.");
+		System.out.println("Error : Select more than 1 army.");
 		
 		int country_number;
 		boolean correctValue;
@@ -117,5 +116,13 @@ public class FortificationView extends View
 		}while(!correctValue);
 		
 		return country_number;
+	}
+
+	public void errorSendingTroops() {
+		System.out.println("Error : Choose a country that has allied neighbors and more than 1 army.");
+	}
+
+	public void errorNotConnected() {
+		System.out.println("Error : Choose a country that is connected to origin country.");		
 	}
 }
