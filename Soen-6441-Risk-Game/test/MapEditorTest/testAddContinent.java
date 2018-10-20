@@ -8,9 +8,10 @@ import org.junit.Test;
 import model.map.Continent;
 import model.map.Map;
 import model.map.MapEditor;
+
 /**
  * Test the mothod for adding continent
- * @author Yueshuai
+ * 
  *
  */
 public class testAddContinent {
@@ -25,6 +26,7 @@ public class testAddContinent {
 		assertEquals(1,me.map.continents.size());
 		
 	}
+	
 	/**
 	 * the number of continent should be 0 if no continent is added
 	 */

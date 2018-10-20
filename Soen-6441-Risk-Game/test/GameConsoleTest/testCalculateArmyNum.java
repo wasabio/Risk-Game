@@ -12,10 +12,11 @@ import model.map.Map;
 
 /**
  * This class tests the calculation of army number test should be given to player in Map class
- * @author Yueshuai
+ * 
  *
  */
-public class testCalculateArmyNum {
+public class testCalculateArmyNum 
+{
 
 	Player p1 = new Player(1,5);
 	Player p2 = new Player(2,5);
@@ -33,8 +34,12 @@ public class testCalculateArmyNum {
 	 * initiating 3 continents, 5 countries, country 1,4,5 is in continent 1, country 2 in continent 2
 	 * country 3 in continent 3
 	*/
+	/**
+	 * The test method for adding countries and continents
+	 */
 	@Before 
-	public void before1() {
+	public void before1() 
+	{
 	con1.addCountry(cty1);
 	con2.addCountry(cty2);
 	con3.addCountry(cty3);
@@ -49,6 +54,10 @@ public class testCalculateArmyNum {
 	map.countries.add(cty4);
 	map.countries.add(cty5);
 	}
+	
+	/**
+	 * Test method for adding owner of players and count the army number
+	 */
 	@Test
 	public void test1() {
 		p1.ownedCountries.add(cty1);
@@ -67,6 +76,9 @@ public class testCalculateArmyNum {
 		assertEquals(6,map.calculateArmyNum(p2));
 	}
 	
+	/**
+	 * Second test method for adding owner of players and count the army number
+	 */
 	@Test
 	public void test2() {
 		p1.ownedCountries.add(cty1);

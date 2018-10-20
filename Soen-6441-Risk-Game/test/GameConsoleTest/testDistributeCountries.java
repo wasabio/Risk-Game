@@ -10,10 +10,11 @@ import org.junit.*;
 
 /**
  * test if all countries will be distributed to players
- * @author Yueshuai
+ * 
  *
  */
-public class testDistributeCountries {
+public class testDistributeCountries 
+{
 	Continent con1 = new Continent("",2);
 	Continent con2 = new Continent("",3);
 	Continent con3 = new Continent("",4);
@@ -49,29 +50,37 @@ public class testDistributeCountries {
 		map.players.add(p1);
 		map.players.add(p2);
 	}
+	
 	/**
 	 * distribute countries, and test if all countries are owned by players
 	 */
 	@Test
-	public void test() {
+	public void test() 
+	{
 		map.distributeCountries();
 		boolean isDistributed = true;
-		for(Country c : map.countries) {
-			if(c.getPlayer().getNumber() == 0) {
+		for(Country c : map.countries) 
+		{
+			if(c.getPlayer().getNumber() == 0) 
+			{
 				isDistributed = false;
 				break;
 			}
 		}
 		assertTrue(isDistributed);	
 	}
+	
 	/**
 	 * do not distribute countries, and test if countries are owned by players
 	 */
 	@Test
-	public void test2() {
+	public void test2() 
+	{
 		boolean isDistributed = true;
-		for(Country c : map.countries) {
-			if(map.getPlayerNumber() == 0) {
+		for(Country c : map.countries) 
+		{
+			if(map.getPlayerNumber() == 0) 
+			{
 				isDistributed = false;
 				break;
 			}

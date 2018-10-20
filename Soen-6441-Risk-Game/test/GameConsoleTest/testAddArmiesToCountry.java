@@ -9,23 +9,27 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+
 /**
  * test the method for reinforcing armies from one country to another
- * @author Yueshuai
+ * 
  *
  */
-public class testAddArmiesToCountry {
+public class testAddArmiesToCountry 
+{
 	Continent con1,con2;
 	Country cty1,cty2,cty3,cty4;
 	Player p1,p2;
 	Map map = new Map();
+	
 	/**
 	 * initiate continents, countries, players,
 	 * put countries into 2 continents
 	 * 
 	 */
 	@Before
-	public void before() {
+	public void before() 
+	{
 		con1 = new Continent("",3);
 		con2 = new Continent("",2);
 		cty1 = new Country("");
@@ -46,14 +50,15 @@ public class testAddArmiesToCountry {
 		con2.addCountry(cty4);
 		map.players.add(p1);
 		map.players.add(p2);
-		
 	}
+	
 	/**
 	 * test the result of number of armies in country and left armies for 2 users 
 	 * after reinforced their already taken countries
 	 */
 	@Test
-	public void testAddOnTakenCountry() {
+	public void testAddOnTakenCountry() 
+	{
 		p1.ownedCountries.add(cty1);
 		cty1.setPlayer(p1);
 		p1.ownedCountries.add(cty3);

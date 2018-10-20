@@ -9,7 +9,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-public class testMapFileSyntax {
+
+public class testMapFileSyntax 
+{
 	String mapFilePath;
 	LineNumberReader in;
 	
@@ -17,14 +19,17 @@ public class testMapFileSyntax {
 	  public final ExpectedException exception = ExpectedException.none();
 
 	@Test(expected = FileNotFoundException.class)
-	public void testNotFoundMap() throws FileNotFoundException {
+	public void testNotFoundMap() throws FileNotFoundException 
+	{
 		mapFilePath = "ok.map";
 
 		in = new LineNumberReader(new FileReader(mapFilePath));
 	}
 	
+	
 	@Test(expected = FileNotFoundException.class)
-	public void testMissingMapSection() throws FileNotFoundException {
+	public void testMissingMapSection() throws FileNotFoundException
+	{
 		new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "maps");
 		File file = new File("world.map");
 		mapFilePath = file.getAbsolutePath();

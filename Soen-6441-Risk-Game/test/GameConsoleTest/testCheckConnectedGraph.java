@@ -8,17 +8,24 @@ import org.junit.Test;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+
 /**
  * test the method of checking if there is any isolated country which does not have any neighbor
- * @author Yueshuai
+ * 
  *
  */
-public class testCheckConnectedGraph {
+public class testCheckConnectedGraph 
+{
 	Map map = new Map();
 	Country cty1,cty2,cty3;
 	Continent con1,con2;
+	
+	/**
+	 * The value setting for connected graph test
+	 */
 	@Before
-	public void before() {
+	public void before() 
+	{
 		con1 = new Continent("",3);
 		con2 = new Continent("",2);
 		cty1 = new Country("");
@@ -34,21 +41,25 @@ public class testCheckConnectedGraph {
 		con1.addCountry(cty3);
 		
 	}
+	
 	/**
 	 * test when country 1 and 2 are connected but country 3 does not
 	 * have any neighbor
 	 */
 	@Test
-	public void testNotConnected() {
+	public void testNotConnected() 
+	{
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
 		assertFalse(map.checkConnectedGraph());
 	}
+	
 	/**
 	 * test when all three countries are connected
 	 */
 	@Test  
-	public void testAllConnected() {
+	public void testAllConnected() 
+	{
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
 		cty1.linkTo(cty3);
