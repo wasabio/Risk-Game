@@ -15,7 +15,6 @@ import model.map.MapEditor;
  */
 public class testAddContinent {
 	MapEditor me = new MapEditor();
-	Map map = new Map();
 	
 	/**
 	 * the number of continent should be 1 after adding one continent
