@@ -156,7 +156,7 @@ public class Country extends Observable
 	/**
 	 * The method is to set the x coordinate position of the current country
 	 * 
-	 * @param x The desired x coordinate position of the country
+	 * @param x The desired x coordinate position of the country with int type
 	 *            
 	 */
 	public void setXLocation(int x) 
@@ -177,7 +177,7 @@ public class Country extends Observable
 	/**
 	 * The method is to set the y coordinate location of the current country
 	 * 
-	 * @param y The desired y coordinate location of the country
+	 * @param y The desired y coordinate location of the country with int type
 	 */
 	public void setYLocation(int y) 
 	{
@@ -195,9 +195,9 @@ public class Country extends Observable
 	
 	/**
 	 * The method is to add a neighbor to the current country
-	 * @param neighbor The linked country of the country
+	 * @param neighbor The linked country of the current country
 	 */
-	public void linkTo(Country neighbor) //QA not fully sure is one or multiple, but I think is only one
+	public void linkTo(Country neighbor) //QA 
 	{
 		this.neighbors.add(neighbor);
 	}

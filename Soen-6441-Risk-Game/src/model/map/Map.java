@@ -17,8 +17,8 @@ import model.utilities.StringAnalyzer;
 /**
  * This is the class that includes most logic functions for map
  * It includes the functions like :
- * 1. The functions of data changes for the map that is dealing with Continents, countries, and players data
- * 2. The saving, and loading functions of the map file
+ * 1. The functions of data changes for Continents, countries, and players of the whole map. 
+ * 2. The finding, and loading functions of the map file
  * 3. The checking functions for checking the string properties of the map file is suitable to the program or not
  */
 public class Map extends Observable 
@@ -56,7 +56,7 @@ public class Map extends Observable
 	 * 1. Checking if the map is empty, 
 	 * 2. Checking if a country without any neighbor
 	 * 3. Checking if a continent without any country
-	 * @return Returning true when 3 checking functions all passed, and other situations return false
+	 * @return Returning true when 3 checking functions all passed, and other situations will return false
 	 */
 	public boolean check() 
 	{		
@@ -108,10 +108,8 @@ public class Map extends Observable
 	}
 	
 	/**
-	 * The method is to check if there are empty continents which does not have a country signed under those continents
+	 * The method is to check if there are empty continents which does not have any country signed under those continents
 	 * @return Returning false if such continents exist, otherwise true
-	 * check if there is empty continent which does not have any country
-	 * @return false if such continent exists, otherwise false
 	 */
 	public boolean checkNoEmptyContinent() 
 	{
@@ -127,7 +125,7 @@ public class Map extends Observable
 	}
 	
 	/**
-	 * The method is to load and check the basic properties of the map file has what the program needed
+	 * The method is to load and check the basic properties of the map file that the program needed
 	 * @param in The string type in the map file that need to be read
 	 * @throws IOException
 	 */
@@ -390,11 +388,6 @@ public class Map extends Observable
 		}
 	}
 
-	/**
-	 * To generate an initial armies number depending on the number of players
-	 * 
-	 * @return the initial number of armies
-	 */
 	/**
 	 * The method is to generate initial number of armies for each player when the game start
 	 * It also includes the condition for different player number with different initial armies number for each player

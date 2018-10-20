@@ -56,6 +56,7 @@ public class MapEditor extends Observable
 	 * 
 	 * @param contNumber
 	 *            The target continent needed to remove.
+	 * @return Returning true if the input continent is exist, otherwise return false           
 	 */
 	public boolean deleteContinent(int contNumber) 
 	{
@@ -75,7 +76,7 @@ public class MapEditor extends Observable
 	 * Add a qualified Country to the local variables, then build the
 	 * neighbor links.
 	 * 
-	 * @param ter
+	 * @param ctry
 	 *            The input Country.
 	 * 
 	 */
@@ -108,9 +109,9 @@ public class MapEditor extends Observable
 	/**
 	 * Delete the target Country, also remove all links in its neighbors.
 	 * 
-	 * @param ter
-	 *            The target Country needed to be removed.
-	 * @return 
+	 * @param ctryNumber
+	 *            The target Country needed to be removed with int type.
+	 * @return Returning true if the input suit with an existing country, otherwise return false
 	 */
 	public boolean deleteCountry(int ctryNumber) 
 	{
@@ -142,7 +143,8 @@ public class MapEditor extends Observable
 	/**
 	 * Find and return a continent giving a name. In case is does not exist, return null
 	 * 
-	 * @return the continent found
+	 * @param The input continent name
+	 * @return Returning continent type if the continent is found, otherwise return null
 	 */
 	private Continent findContinent(String name) 
 	{
@@ -158,8 +160,8 @@ public class MapEditor extends Observable
 	
 	/**
 	 * Find and return a country giving a name. In case is does not exist, return null
-	 * 
-	 * @return the country found
+	 * @param name The input country name
+	 * @return Returning country type if the country is found, otherwise return null
 	 */
 	private Country findCountry(String name) 
 	{
@@ -175,6 +177,8 @@ public class MapEditor extends Observable
 	
 	/**
 	 * Create a connection between 2 countries. It generate a link in both side
+	 * @param ctry The current country
+	 * @param neighbor The current country's neighbor
 	 */
 	private void connect(Country ctry, Country neighbor) 
 	{
@@ -184,7 +188,7 @@ public class MapEditor extends Observable
 	
 	/**
 	 * To remove all the connections made between a specific country and the other countries
-	 * @param c country to remove
+	 * @param c country that need to remove
 	 */
 	private void disconnect(Country c) 
 	{
@@ -224,6 +228,7 @@ public class MapEditor extends Observable
 	/**
 	 * Translate the number displayed and entered by the user to the selected country
 	 * @param inputNumber number entered by the user
+	 * @return Returning country type if the input suit to the countries in the map file, otherwise return null.
 	 */
 	public Country getCountry(int inputNumber) 
 	{
@@ -246,6 +251,7 @@ public class MapEditor extends Observable
 	/**
 	 * Translate the number displayed and entered by the user to the selected continent
 	 * @param inputNumber number entered by the user
+	 * @return Returning Continent type if the continent found in the map, otherwise return null.
 	 */
 	public Continent getContinent(int inputNumber) 
 	{
@@ -270,7 +276,7 @@ public class MapEditor extends Observable
 	 * @param ctryName The target country with string type
 	 * @param contNb The number of continents
 	 * @param neighborNumbers Neighbor numbers of a country
-	 * @return
+	 * @return Returning false if countries have the same name, continent number is wrong, or neighbor is wrong. Otherwise return true.
 	 */
 	public boolean addCountry(String ctryName, int contNb, ArrayList<Integer> neighborNumbers) 
 	{
@@ -314,7 +320,7 @@ public class MapEditor extends Observable
 
 	/**
 	 * Calculate the number of countries and continent that are displayed, so the user can't choose a greater number.
-	 * @return the max possible input.
+	 * @return Returning the max possible input.
 	 */
 	public int getMaxInputNumber() 
 	{
@@ -334,6 +340,7 @@ public class MapEditor extends Observable
 	 * to add a new continent
 	 * @param countinentName the name of the new continent
 	 * @param bonus bonus armies of the continent
+	 * @return Returning false if find the added continent name is already exist, otherwise return true
 	 */
 
 	public boolean addContinent(String continentName, int bonus) 
