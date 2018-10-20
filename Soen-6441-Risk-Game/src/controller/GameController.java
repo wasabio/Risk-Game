@@ -15,7 +15,7 @@ import model.map.Map;
 	
 	/**
 	 * This class is a controller for game play part
-	 * It includes controls for different phases in the game
+	 * It also includes controls for different phases in the game
 	 */
 public class GameController 
 {
@@ -128,8 +128,9 @@ public class GameController
 	}
 	
 	/**
-	 * This method deals with the logic when one group of army in a country tries to attack another country.
-	 * It also deals with the computing of fight damage when two group of armies are fighting. 
+	 * This method deals with the logic when the player's one group of army in a country 
+	 * tries to merge with another group of army in another country.
+	 * It also deals with the calculate of armies when two group of armies are merging. 
 	 * @param p The current player that is in the fortificationPhase
 	 */
 	private void fortificationPhase( Player p) 
