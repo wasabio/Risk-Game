@@ -252,7 +252,6 @@ public class Country extends Observable
 	/**
 	 * To ensure a country can send troops during the fortification phase. The country must have more than 1 army and must have 
 	 * allied neighbors.
-	 * @param originCountryId is the origin country ID of the fortification phase.
 	 * @return a boolean saying if the fortification move is possible.
 	 */
 	public boolean canSendTroopsToAlly() 
@@ -276,7 +275,7 @@ public class Country extends Observable
 	}
 
 	/**
-	 * This functions looks for a connected path of allied countries between 2 countries (this & destination)
+	 * This functions looks for a connected path of allied countries between 2 countries (this and destination)
 	 * @param destination is the country to reach
 	 * @return if a path has been found between both countries
 	 */

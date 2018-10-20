@@ -93,6 +93,7 @@ public class EditView extends View
 	/* Remove country functions */
 	/**
 	 * ask player to enter the number of the country
+	 * @param maxNumber the max number
 	 * @return the country number the player entered
 	 */
 	public int askCountryNumber(int maxNumber) 

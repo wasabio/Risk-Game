@@ -24,7 +24,7 @@ public class testMapFileSyntax
 
 	/**
 	 * Testing can or cannot find a map
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException reject an error
 	 */
 	@Test(expected = FileNotFoundException.class)
 	public void testNotFoundMap() throws FileNotFoundException 
@@ -36,7 +36,7 @@ public class testMapFileSyntax
 	
 	/**
 	 * Testing whether can the program find out not suitable(missing) syntax
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException reject an error
 	 */
 	@Test(expected = FileNotFoundException.class)
 	public void testMissingMapSection() throws FileNotFoundException

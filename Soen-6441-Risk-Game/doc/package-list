@@ -1,0 +1,10 @@
+controller
+gameConsoleTest
+mapEditorTest
+model.gameplay
+model.map
+model.utilities
+testSuites
+view.common
+view.gameplay
+view.mapEditor

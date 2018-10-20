@@ -39,7 +39,7 @@ public class Map extends Observable
 	/**
 	 * The method for loading the map file and checking the syntax of the map file is suit to the program or not
 	 * @param mapFilePath The file path of the map file in string type
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	public void load(String mapFilePath) throws IOException 
 	{	

@@ -344,7 +344,7 @@ public class MapEditor extends Observable
 
 	/**
 	 * to add a new continent
-	 * @param countinentName the name of the new continent
+	 * @param continentName the name of the new continent
 	 * @param bonus bonus armies of the continent
 	 * @return Returning false if find the added continent name is already exist, otherwise return true
 	 */
