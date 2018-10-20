@@ -125,11 +125,7 @@ public class Map extends Observable
 	}
 	
 	/**
-<<<<<<< HEAD
-	 * To load and check if the map file has the good syntax.
-=======
-	 * The method is to load and check the basic properties of the map file that the program needed
->>>>>>> 1940597e6a1fe849067987e46ca28dc4bf556892
+	 * 	 * To load and check if the map file has the good syntax.
 	 * @param in The string type in the map file that need to be read
 	 * @throws IOException
 	 */
@@ -408,7 +404,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 12;
+			return 40;
 		case 3:
 			return 35;
 		case 4:
