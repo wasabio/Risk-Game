@@ -16,7 +16,7 @@ import model.map.MapEditor;
  * @author Yueshuai
  */
 public class testDeleteCountry {
-	Map map = new Map();
+	//Map map = new Map();
 	MapEditor mapEditor = new MapEditor();
 	Continent con1 = new Continent("",1);
 	Continent con2 = new Continent("",2);
@@ -24,6 +24,9 @@ public class testDeleteCountry {
 	Country cty2 = new Country("");
 	Country cty3 = new Country("");
 	Country cty4 = new Country("");
+	/**
+	 * create countries and create neighbor relations
+	 */
 	@Before
 	public void Before() {
 		con1.addCountry(cty1);
@@ -39,12 +42,12 @@ public class testDeleteCountry {
 		cty3.linkTo(cty4);
 		cty4.linkTo(cty3);
 		
-		map.continents.add(con1);
-		map.continents.add(con2);
-		map.countries.add(cty1);
-		map.countries.add(cty2);
-		map.countries.add(cty3);
-		map.countries.add(cty4);
+		mapEditor.map.continents.add(con1);
+		mapEditor.map.continents.add(con2);
+		mapEditor.map.countries.add(cty1);
+		mapEditor.map.countries.add(cty2);
+		mapEditor.map.countries.add(cty3);
+		mapEditor.map.countries.add(cty4);
 		
 	}
 	/**
@@ -53,39 +56,22 @@ public class testDeleteCountry {
 	@Test
 	public void testDelete() {
 		mapEditor.deleteCountry(cty2);
-		boolean isDeletedFromCon = false;
-		for(Continent con : map.continents)   //check if any continent contains the country
-		{
-			for(Country cty : map.countries)
-				if(cty == cty2) {
-					isDeletedFromCon = true;
-					break;
-				}
-			if(isDeletedFromCon) break;
-		}
-		assertTrue(isDeletedFromCon);
 		
-		boolean isNeighborDeleted = true; //check if any country is still neighbor with deleted country
-		for(Country ct : map.countries) {
-			for(Country c : ct.neighbors) {
-				if(c == cty2) {
-					isNeighborDeleted = false;
-					break;
-				}
-			}
-			if(!isNeighborDeleted) break;
+		assertFalse(mapEditor.map.countries.contains(cty2));
+		
+		for(Country ct : mapEditor.map.countries) {
+			assertFalse(ct.neighbors.contains(cty2));
 		}
-		assertFalse(isNeighborDeleted);
 	}
 	
 	/**
-	 * test not deleteing any country
+	 * test not deleting any country
 	 */
 	public void testNotDelete() {
 		boolean isDeletedFromCon = false;
-		for(Continent con : map.continents)   //check if any continent contains the country
+		for(Continent con : mapEditor.map.continents)   //check if any continent contains the country
 		{
-			for(Country cty : map.countries)
+			for(Country cty : mapEditor.map.countries)
 				if(cty == cty2) {
 					isDeletedFromCon = true;
 					break;
@@ -95,7 +81,7 @@ public class testDeleteCountry {
 		assertFalse(isDeletedFromCon);
 		
 		boolean isNeighborDeleted = false; //check if any country is still neighbor with deleted country
-		for(Country ct : map.countries) {
+		for(Country ct : mapEditor.map.countries) {
 			for(Country c : ct.neighbors) {
 				if(c == cty2) {
 					isNeighborDeleted = true;

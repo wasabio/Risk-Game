@@ -138,7 +138,8 @@ public class GameController
 		boolean canSendTroops;
 		int	originCountryId;
 		Country origin;
-		do {
+		do 
+		{
 			originCountryId = fortificationView.chooseOriginCountry(p); /* Select a valid country owned by the current player */
 			if(originCountryId == 0) return;	/* 0 to skip */
 			
@@ -153,12 +154,14 @@ public class GameController
 		boolean connected;
 		int destinationCountryId;
 		Country destination;
-		do {
+		do 
+		{
 			destinationCountryId = fortificationView.chooseDestinationCountry(p);
 			
 			destination = map.countries.get(destinationCountryId-1);
 			connected = destination.isConnectedTo(origin);
-			if(!connected) {
+			if(!connected) 
+			{
 				fortificationView.errorNotConnected();
 			}
 		}while(!connected);

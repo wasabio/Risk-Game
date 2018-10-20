@@ -15,7 +15,7 @@ public abstract class View
 	/**
 	 * The method to get the input integer.
 	 * It also checks the input integer is correct or not. It is not correct, it will print a notice message to the user.
-	 * @return Returning the input if the 
+	 * @return Returning the next steo texts if there are texts.
 	 */
 	protected int getInteger() 
 	{
@@ -35,6 +35,10 @@ public abstract class View
 		 }while(true);
 	}
 	
+	/**
+	 * The method to get the input string
+	 * @return Returning input string if there are none or only space in the input
+	 */
 	protected String getString() 
 	{
 		String inputString = "";

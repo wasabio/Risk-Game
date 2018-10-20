@@ -156,7 +156,7 @@ public class Country extends Observable
 	/**
 	 * The method is to set the x coordinate position of the current country
 	 * 
-	 * @param x The desired x coordinate position of the country
+	 * @param x The desired x coordinate position of the country with int type
 	 *            
 	 */
 	public void setXLocation(int x) 
@@ -177,7 +177,7 @@ public class Country extends Observable
 	/**
 	 * The method is to set the y coordinate location of the current country
 	 * 
-	 * @param y The desired y coordinate location of the country
+	 * @param y The desired y coordinate location of the country with int type
 	 */
 	public void setYLocation(int y) 
 	{
@@ -195,9 +195,9 @@ public class Country extends Observable
 	
 	/**
 	 * The method is to add a neighbor to the current country
-	 * @param neighbor The linked country of the country
+	 * @param neighbor The linked country of the current country
 	 */
-	public void linkTo(Country neighbor) //QA not fully sure is one or multiple, but I think is only one
+	public void linkTo(Country neighbor) //QA 
 	{
 		this.neighbors.add(neighbor);
 	}
@@ -255,15 +255,18 @@ public class Country extends Observable
 	 * @param originCountryId is the origin country ID of the fortification phase.
 	 * @return a boolean saying if the fortification move is possible.
 	 */
-	public boolean canSendTroopsToAlly() {
+	public boolean canSendTroopsToAlly() 
+	{
 		/* We can't move armies from a country that has only 1 army or if the country is not connected */
-		if(getArmyNumber() <= 1 || neighbors == null || neighbors.size() == 0) {
+		if(getArmyNumber() <= 1 || neighbors == null || neighbors.size() == 0) 
+		{
 			return false;
 		}
 
 		/* We look for an allied neighbor */
 		for(Country neighbor : neighbors) {
-			if(neighbor.getPlayer() == getPlayer()) {
+			if(neighbor.getPlayer() == getPlayer()) 
+			{
 				return true;
 			}
 		}
@@ -277,7 +280,8 @@ public class Country extends Observable
 	 * @param destination is the country to reach
 	 * @return if a path has been found between both countries
 	 */
-	public boolean isConnectedTo(Country destination) {
+	public boolean isConnectedTo(Country destination) 
+	{
 		ArrayList<Country> open = new ArrayList<Country>();
 		ArrayList<Country> closed = new ArrayList<Country>();
 		Player player = this.getPlayer();
@@ -289,8 +293,10 @@ public class Country extends Observable
 		{
 			current = open.remove(0);
 			
-			for(Country neighbor : current.neighbors) { /* Check all the neighbors */
-				if(neighbor == destination) {
+			for(Country neighbor : current.neighbors) 
+			{ /* Check all the neighbors */
+				if(neighbor == destination) 
+				{
 					return true;
 				}
 				if(player.ownedCountries.contains(neighbor) && !closed.contains(neighbor)) { /* Add not inspected allied country in open list */

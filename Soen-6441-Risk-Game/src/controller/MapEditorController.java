@@ -96,13 +96,15 @@ public class MapEditorController
 	/**
 	 * The method for delete country
 	 */
-	private void deleteCountry() {
+	private void deleteCountry() 
+	{
 		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
 		int ctryNumber = editView.askCountryNumber(maxInput);
 		deleted = mapEditor.deleteCountry(ctryNumber);
 		
-		if(!deleted) {
+		if(!deleted) 
+		{
 			// editView.errorDeletingCountry();
 		}
 	}
@@ -110,14 +112,16 @@ public class MapEditorController
 	/**
 	 * The method for delete continent
 	 */
-	private void deleteContinent() {
+	private void deleteContinent() 
+	{
 		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
 		int contNumber = editView.askContinentNumber(maxInput);
 		deleted = mapEditor.deleteContinent(contNumber);
 		
-		if(!deleted) {
-			//editView.errorDeletingContinent();
+		if(!deleted) 
+		{
+			// editView.errorDeletingContinent();
 		}
 	}
 
