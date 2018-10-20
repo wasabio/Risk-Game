@@ -248,4 +248,58 @@ public class Country extends Observable
 	{
 		return number;
 	}
+	
+	/**
+	 * To ensure a country can send troops during the fortification phase. The country must have more than 1 army and must have 
+	 * allied neighbors.
+	 * @param originCountryId is the origin country ID of the fortification phase.
+	 * @return a boolean saying if the fortification move is possible.
+	 */
+	public boolean canSendTroopsToAlly() {
+		/* We can't move armies from a country that has only 1 army or if the country is not connected */
+		if(getArmyNumber() <= 1 || neighbors == null || neighbors.size() == 0) {
+			return false;
+		}
+
+		/* We look for an allied neighbor */
+		for(Country neighbor : neighbors) {
+			if(neighbor.getPlayer() == getPlayer()) {
+				return true;
+			}
+		}
+		
+		/* No ally found in neighbors */
+		return false;
+	}
+
+	/**
+	 * This functions looks for a connected path of allied countries between 2 countries (this & destination)
+	 * @param destination is the country to reach
+	 * @return if a path has been found between both countries
+	 */
+	public boolean isConnectedTo(Country destination) {
+		ArrayList<Country> open = new ArrayList<Country>();
+		ArrayList<Country> closed = new ArrayList<Country>();
+		Player player = this.getPlayer();
+		Country current;
+		
+		open.add(this);
+		
+		while(open.size() > 0)	/* Continue until all connected allies have been inspected */
+		{
+			current = open.remove(0);
+			
+			for(Country neighbor : current.neighbors) { /* Check all the neighbors */
+				if(neighbor == destination) {
+					return true;
+				}
+				if(player.ownedCountries.contains(neighbor) && !closed.contains(neighbor)) { /* Add not inspected allied country in open list */
+					open.add(neighbor);
+				}
+			}
+			closed.add(current);
+		}
+		
+		return false;
+	}
 }

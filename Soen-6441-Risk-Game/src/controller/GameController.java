@@ -13,10 +13,10 @@ import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
 	
-	/**
-	 * This class is a controller for game play part
-	 * It also includes controls for different phases in the game
-	 */
+/**
+ * This class is a controller for game play part
+ * It also includes controls for different phases in the game
+ */
 public class GameController 
 {
 	
@@ -128,30 +128,46 @@ public class GameController
 	}
 	
 	/**
-	 * This method deals with the logic when the player's one group of army in a country 
-	 * tries to merge with another group of army in another country.
-	 * It also deals with the calculate of armies when two group of armies are merging. 
+	 * This method deals with the logic of the fortification phase. The player can choose origin and destination, and armies number.
+	 * Origin and destination countries must be connected.
 	 * @param p The current player that is in the fortificationPhase
 	 */
-	private void fortificationPhase( Player p) 
+	private void fortificationPhase(Player p) 
 	{
-		/* Getting Origin countries */
-		int	originCountryId = fortificationView.chooseOriginCountry(p);
-		/* 0 to skip */
-		if(originCountryId == 0) return;
+		/* Getting origin country */
+		boolean canSendTroops;
+		int	originCountryId;
+		Country origin;
+		do {
+			originCountryId = fortificationView.chooseOriginCountry(p); /* Select a valid country owned by the current player */
+			if(originCountryId == 0) return;	/* 0 to skip */
+			
+			origin = map.countries.get(originCountryId-1);
+			canSendTroops = origin.canSendTroopsToAlly(); /* Check if the selected country can send troops */
+			if(!canSendTroops)	fortificationView.errorSendingTroops();
+		}while(!canSendTroops);
 		
-		int maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
-		/* We can't move armies from a country that has only 1 army */		
-		while(maxArmies <= 1) 
-		{
-			originCountryId = fortificationView.originError(p);
-			if(originCountryId == 0) return;
-			maxArmies = map.countries.get(originCountryId-1).getArmyNumber();
-		}
-		/* Getting destination and armies number */
+		
+		
+		/* Getting destination country */
+		boolean connected;
+		int destinationCountryId;
+		Country destination;
+		do {
+			destinationCountryId = fortificationView.chooseDestinationCountry(p);
+			
+			destination = map.countries.get(destinationCountryId-1);
+			connected = destination.isConnectedTo(origin);
+			if(!connected) {
+				fortificationView.errorNotConnected();
+			}
+		}while(!connected);
+			
 		Country c = map.countries.get(originCountryId-1);
-		int destinationCountryId = fortificationView.chooseDestinationCountry(p);
-		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber());
+		
+		/* Getting number of armies to send */
+		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
+		
 		/* Updating armies */
 		map.addArmiesToCountry(originCountryId, -selectedArmies);
 		map.addArmiesToCountry(destinationCountryId, selectedArmies);

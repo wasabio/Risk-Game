@@ -79,7 +79,7 @@ public class testDeleteCountry {
 	}
 	
 	/**
-	 * test not deleteing any country
+	 * test not deleting any country
 	 */
 	public void testNotDelete() {
 		boolean isDeletedFromCon = false;
