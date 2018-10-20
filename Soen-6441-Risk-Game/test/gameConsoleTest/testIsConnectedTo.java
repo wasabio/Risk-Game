@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package GameConsoleTest;
 
 import static org.junit.Assert.*;
 
@@ -9,12 +9,9 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
-/**
- * test the method for reinforcing armies from one country to another
- * @author Yueshuai
- *
- */
-public class testCanSendTroopsToAlly {
+
+public class testIsConnectedTo {
+
 	Continent con1;
 	Country cty1,cty2,cty3,cty4;
 	Player p1,p2;
@@ -47,12 +44,12 @@ public class testCanSendTroopsToAlly {
 		
 		p1.ownedCountries.add(cty1);
 		cty1.setPlayer(p1);
-		p1.ownedCountries.add(cty3);
-		cty3.setPlayer(p1);
+		p2.ownedCountries.add(cty3);
+		cty3.setPlayer(p2);
 		p1.ownedCountries.add(cty2);
 		cty2.setPlayer(p1);
-		p2.ownedCountries.add(cty4);
-		cty4.setPlayer(p2);
+		p1.ownedCountries.add(cty4);
+		cty4.setPlayer(p1);
 		
 		cty1.setArmyNumber(1);
 		cty2.setArmyNumber(2);
@@ -67,26 +64,19 @@ public class testCanSendTroopsToAlly {
 		cty4.linkTo(cty3);
 		
 	}
-	/**
-	 * test when the fortification requirements are all met
+	/*
+	 * test when origin and destination countries are connected
 	 */
 	@Test
-	public void testValidCondition() {
-		assertTrue(cty3.canSendTroopsToAlly());
+	public void testConnected() {
+		assertTrue(cty3.isConnectedTo(cty4));
+	}
+	/*
+	 * test when origin and destination countries are not connected
+	 */
+	@Test
+	public void testNotConnected() {
+		assertFalse(cty1.isConnectedTo(cty4));
 	}
 
-	/**
-	 * test when the the origin country doesn't have enough troops
-	 */
-	@Test
-	public void testNoTroops() {
-		assertFalse(cty1.canSendTroopsToAlly());
-	}
-	/**
-	 * test when the the origin country doesn't have neighbor
-	 */
-	@Test
-	public void testNoNeighbor() {
-		assertFalse(cty4.canSendTroopsToAlly());
-	}
 }
