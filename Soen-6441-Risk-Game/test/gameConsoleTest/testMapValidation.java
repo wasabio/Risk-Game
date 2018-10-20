@@ -9,39 +9,47 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+
 /**
  * test the method of checking if the map is valid when there is no country or continent in a map or
  * when player number is more than total country number
  * @author Yueshuai
  *
  */
-public class testMapValidation {
+public class testMapValidation 
+{
 	Map map = new Map();
+	
 	/** 
 	 * test when there are 2 continents but no country
-	 * */ 
+	 **/ 
 	@Test
-	public void testNoCountry() {
+	public void testNoCountry() 
+	{
 		Continent con1 = new Continent("America",7);
 		Continent con2 = new Continent("Asia",4);
 		map.continents.add(con1);
 		map.continents.add(con2);
 		assertFalse(map.checkPlayableMap());
 	}
+	
 	/** 
 	 * test when there are 2 countries but no continent 
-	 * */
+	 **/
 	@Test
-	public void testNoContinent() {
+	public void testNoContinent() 
+	{
 		Country cty1= new Country("USA");
 		Country cty2 = new Country("Canada");
 		assertFalse(map.checkPlayableMap());
 	}
+	
 	/**
 	 *  test when there are only 2 countries but there are 3 players 
-	 *  */
+	 **/
 	@Test
-	public void testNoEnoughCountry() {
+	public void testNoEnoughCountry() 
+	{
 		Continent con1 = new Continent("America",7);
 		Continent con2 = new Continent("Asia",4);
 		map.continents.add(con1);
@@ -60,12 +68,14 @@ public class testMapValidation {
 		map.players.add(p3);
 		assertFalse(map.checkPlayableMap());	
 	}
+	
 	/**
 	 *  test when there are 2 continents and 3 countries in the map and 
 	 *  player number less than country number 
 	 * */
 	@Test
-	public void testNoError() {
+	public void testNoError() 
+	{
 		Continent con1 = new Continent("America",7);
 		Continent con2 = new Continent("Asia",4);
 		map.continents.add(con1);

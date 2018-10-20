@@ -9,6 +9,7 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 import model.map.MapEditor;
+
 /**
  * to test the method for deleting continent 
  * @author Yueshuai
@@ -22,6 +23,7 @@ public class testDeleteContinent {
 	Country cty2 = new Country("");
 	Country cty3 = new Country("");
 	MapEditor me = new MapEditor();
+	
 	/**
 	 * create 2 continents and 3 countries and create neighbor relations
 	 */
@@ -41,6 +43,7 @@ public class testDeleteContinent {
 		cty3.linkTo(cty2);
 		cty2.linkTo(cty3);
 	}
+	
 	/**
 	 * test when no continent is deleted, check the continent number, country number,
 	 * and check the total number of the neighbor of country 3

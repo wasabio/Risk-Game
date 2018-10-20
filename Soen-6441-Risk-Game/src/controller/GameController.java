@@ -159,7 +159,7 @@ public class GameController
 			destinationCountryId = fortificationView.chooseDestinationCountry(p);
 			
 			destination = map.countries.get(destinationCountryId-1);
-			connected = destination.isConnectedTo(origin);
+			 connected = destination.isConnectedTo(origin);
 			if(!connected) 
 			{
 				fortificationView.errorNotConnected();
