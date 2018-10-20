@@ -31,7 +31,7 @@ public class testDistributeCountries {
 	 * put countries into different continents
 	 */
 	@Before
-	public void Before() {
+	public void before() {
 		con1.addCountry(cty1);
 		con1.addCountry(cty2);
 		con2.addCountry(cty3);

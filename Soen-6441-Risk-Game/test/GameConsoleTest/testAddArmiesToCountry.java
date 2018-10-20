@@ -25,7 +25,7 @@ public class testAddArmiesToCountry {
 	 * 
 	 */
 	@Before
-	public void Beofre() {
+	public void before() {
 		con1 = new Continent("",3);
 		con2 = new Continent("",2);
 		cty1 = new Country("");
