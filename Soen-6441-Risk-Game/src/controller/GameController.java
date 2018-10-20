@@ -13,10 +13,10 @@ import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
 	
-	/**
-	 * This class is a controller for game play part
-	 * It includes controls for different phases in the game
-	 */
+/**
+ * This class is a controller for game play part
+ * It also includes controls for different phases in the game
+ */
 public class GameController 
 {
 	
@@ -128,7 +128,8 @@ public class GameController
 	}
 	
 	/**
-	 * This method deals with the logic when one group of army in a country tries to attack another country.
+	 * This method deals with the logic of the fortification phase. The player can choose origin and destination, and armies number.
+	 * Origin and destination countries must be connected.
 	 * @param p The current player that is in the fortificationPhase
 	 */
 	private void fortificationPhase(Player p) 

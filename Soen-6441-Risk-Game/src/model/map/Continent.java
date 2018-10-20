@@ -15,35 +15,14 @@ public class Continent
 	public ArrayList<Country> countries = new ArrayList<Country>();
 	
 	/**
-	 * constructor method.
-	 */
-	public Continent() 
-	{
-		
-	}
-	
-	/**
 	 * Construction method with the following parameters.
-	 * @param new_name :  continent name with String type
-	 * @param new_extraArmies : extraArmies the player can get after conquest the continent
+	 * @param new_name : New continent name with String type
+	 * @param new_extraArmies : New extraArmies the player can get after the conquest of a continent
 	 */
 	public Continent(String new_name, int new_extraArmies)
 	{
 		this.name = new_name;
 		this.extraArmies = new_extraArmies;
-	}
-	
-	/**
-	 * constructor method with incoming parameters.
-	 * @param extraArmies A continent's extraArmies after a player conquest it 
-	 * @param name Continent name with String type
-	 *
-	 */
-	public Continent(int bonus, String name, int extraArmies) //QA
-	{
-		super();
-		this.extraArmies = extraArmies;
-		this.name = name;
 	}
 	
 	/**
@@ -97,7 +76,7 @@ public class Continent
 
 	/**
 	 * This method is to set the number of the extra armies of the continent for each turn when the continent is owned
-	 * @param extraArmies: the number of the extra armies players will get each turn
+	 * @param extraArmies: the number of the extra armies players will get each turn with int type
 	 */
 	public void setExtraArmies(int extraArmies)
 	{
@@ -152,8 +131,8 @@ public class Continent
 	
 	/**
 	 * This method is to check that the country is owned by which player
-	 * @param p the player of the player type
-	 * @return Returning false means the not owned by the player, and true means the
+	 * @param p the current player of the player type
+	 * @return Returning false means the countries are not owned by the player, and true means those countries owned by the player
 	 */
 	public boolean ownedBy(Player p) 
 	{
