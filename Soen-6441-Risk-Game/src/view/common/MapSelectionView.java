@@ -19,7 +19,7 @@ public class MapSelectionView extends View
 	private String mapName;
 	/**
 	 * The method is to let the user to select 2 ~ 6 players for the game.
-	 * @return Returning the player number that was inputed before to show the input is not correct.
+	 * @return Returning the player number that was inputed if the value not right.
 	 */
 	public int print() 
 	{
