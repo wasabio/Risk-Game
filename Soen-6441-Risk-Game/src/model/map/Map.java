@@ -48,7 +48,7 @@ public class Map extends Observable
 		loadMapSection(in);
 		loadContinents(in);
 		loadCountries(in);
-		check();
+		if(check() == false) return;
 	}
 
 	/**

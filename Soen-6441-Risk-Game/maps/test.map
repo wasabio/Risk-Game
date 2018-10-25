@@ -1,0 +1,11 @@
+[Map]
+image=world.bmp
+warn=yes
+author=Team 14
+scroll=horizontal
+wrap=no
+
+[Continents]
+
+[Territories]
+Alaska,70,126
