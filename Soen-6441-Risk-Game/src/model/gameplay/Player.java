@@ -3,6 +3,7 @@ package model.gameplay;
 import java.util.ArrayList;
 
 import model.map.Country;
+import model.map.Map;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
@@ -78,6 +79,20 @@ public class Player
 		return false;
 	}
 
+	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
+	{
+		map.addArmiesToCountry(countryNumber, selectedArmies);
+	}
 	
+	public void attack() 
+	{
+		
+	}
+	
+	public void fortification(Map map, int originCountryId, int destinationCountryId, int selectedArmies)
+	{
+		map.addArmiesToCountry(originCountryId, -selectedArmies);
+		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+	}
 	
 }

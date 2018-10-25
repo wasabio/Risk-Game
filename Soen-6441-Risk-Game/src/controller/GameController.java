@@ -123,7 +123,7 @@ public class GameController
 		{
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
-			map.addArmiesToCountry(countryNumber, selectedArmies);
+			p.reinforcement(map, countryNumber, selectedArmies);
 		}while(p.getArmies() > 0);
 	}
 	
@@ -149,7 +149,6 @@ public class GameController
 		}while(!canSendTroops);
 		
 		
-		
 		/* Getting destination country */
 		boolean connected;
 		int destinationCountryId;
@@ -162,7 +161,7 @@ public class GameController
 			 connected = destination.isConnectedTo(origin);
 			if(!connected) 
 			{
-				fortificationView.errorNotConnected();
+				fortificationView.errorNotConnectedCountries();
 			}
 		}while(!connected);
 			
@@ -172,7 +171,6 @@ public class GameController
 		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
 		
 		/* Updating armies */
-		map.addArmiesToCountry(originCountryId, -selectedArmies);
-		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
 	}	
 }
