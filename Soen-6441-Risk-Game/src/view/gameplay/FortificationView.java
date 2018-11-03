@@ -119,14 +119,14 @@ public class FortificationView extends View
 	}
 
 	/**
-	 * The method for sending error message when sending armies
+	 * The method for sending error message while sending armies
 	 */
 	public void errorSendingTroops() {
 		System.out.println("Error : Choose a country that has allied neighbors and more than 1 army.");
 	}
 
 	/**
-	 * The method for notice of the two country are not connect
+	 * The method to check if two country are connected
 	 */
 	public void errorNotConnectedCountries() {
 		System.out.println("Error : Choose a country that is connected to origin country.");		

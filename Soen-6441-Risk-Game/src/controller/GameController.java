@@ -104,7 +104,6 @@ public class GameController
 				else 
 				{
 					int ctryId = startUpView.askCountry(p);
-					Country c = map.countries.get(ctryId-1);					
 					map.addArmiesToCountry(ctryId, 1);
 				}
 			}

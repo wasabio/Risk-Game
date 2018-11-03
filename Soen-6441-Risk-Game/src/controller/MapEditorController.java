@@ -3,8 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import model.gameplay.Player;
-import model.map.Map;
 import model.map.MapEditor;
 import view.common.MapSelectionView;
 import view.mapEditor.EditView;
