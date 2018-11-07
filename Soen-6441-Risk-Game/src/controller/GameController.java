@@ -89,7 +89,7 @@ public class GameController
 		map.distributeCountries(); /* Randomly split the countries between the players */
 		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
-			
+		
 		do 
 		{
 			Iterator<Player> i = remainingPlayers.iterator();
