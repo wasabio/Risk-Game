@@ -7,8 +7,10 @@ import java.util.Iterator;
 import view.common.MapSelectionView;
 import view.gameplay.FortificationView;
 import view.gameplay.MapView;
+import view.gameplay.PhaseView;
 import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
@@ -21,7 +23,9 @@ public class GameController
 {
 	
 	private Map map;
+	private Phase phase;
 	private MapView mapView;
+	private PhaseView phaseView;
 	private ReinforcementView reinforcementView;
 	private FortificationView fortificationView;
 
@@ -34,12 +38,13 @@ public class GameController
 		{
 			map = new Map();
 			map.clear();
+			phase = new Phase();
 			mapView = new MapView();
+			phaseView = new PhaseView();
 			reinforcementView = new ReinforcementView();
 			fortificationView = new FortificationView();
-			
+			phase.addObserver(phaseView);
 			map.addObserver(mapView);
-			
 			execute();
 		} 
 		catch (IOException e) 
@@ -80,14 +85,12 @@ public class GameController
 	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
 		StartUpView startUpView = new StartUpView();
-
 		int playerNumber = mapSelectionView.print();
 		map.setPlayers(playerNumber); 
 		
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
 		map.distributeCountries(); /* Randomly split the countries between the players */
-		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
 		do 
@@ -103,7 +106,9 @@ public class GameController
 				} 
 				else 
 				{
+					phase.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
+					
 					map.addArmiesToCountry(ctryId, 1);
 				}
 			}
@@ -116,10 +121,12 @@ public class GameController
 	 */
 	private void reinforcementPhase(Player p) 
 	{
+		phase.setPhase("Reinforcement phase", p);
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
 		do 
 		{
+			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			p.reinforcement(map, countryNumber, selectedArmies);
@@ -133,6 +140,7 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
+		phase.setPhase("Fortification phase", p);
 		/* Getting origin country */
 		boolean canSendTroops;
 		int	originCountryId;

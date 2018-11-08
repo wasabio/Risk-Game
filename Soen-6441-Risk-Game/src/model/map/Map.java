@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
@@ -36,7 +37,7 @@ public class Map extends Observable
 	private String author;
 	private boolean warn;
 	private int playerNumber;
-	
+
 	/**
 	 * The method for loading the map file and checking the syntax of the map file is suit to the program or not
 	 * @param mapFilePath The file path of the map file in string type
@@ -459,9 +460,9 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 40;
+			return 15;
 		case 3:
-			return 35;
+			return 10;
 		case 4:
 			return 30;
 		case 5:
@@ -609,4 +610,5 @@ public class Map extends Observable
 	{
 		this.name = name;
 	}
+	
 }

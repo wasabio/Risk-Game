@@ -19,7 +19,6 @@ public class FortificationView extends View
 	 */
 	public int chooseOriginCountry(Player p) 
 	{
-		System.out.println("Fortification phase of P" + p.getNumber());
 		System.out.println("Enter the origin country number (0 to skip): ");
 		
 		int country_number;
