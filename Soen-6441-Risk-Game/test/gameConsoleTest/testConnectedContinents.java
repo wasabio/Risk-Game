@@ -61,7 +61,7 @@ public class testConnectedContinents
 		cty2.linkTo(cty4);
 		cty4.linkTo(cty2);
 		
-		assertFalse(map.checkConnectedMap());
+		assertFalse(map.checkConnectedContinents());
 	}
 	
 	/**
@@ -76,6 +76,7 @@ public class testConnectedContinents
 		
 		cty3.linkTo(cty4);
 		cty4.linkTo(cty3);
+		
 		assertFalse(map.checkConnectedContinents());
 	}
 	
