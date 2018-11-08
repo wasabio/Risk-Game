@@ -6,7 +6,11 @@ import java.util.Observer;
 import model.gameplay.Phase;
 import model.map.Map;
 import view.common.View;
-
+/**
+ * this class is the observer for every action during each phase
+ * @author Yueshuai
+ *
+ */
 public class PhaseView extends View implements Observer {
 
 	@Override
@@ -17,7 +21,7 @@ public class PhaseView extends View implements Observer {
 
 	private void print(Phase o) {
 		// TODO Auto-generated method stub
-		System.out.print(o.getPhase()+" P"+o.getPlayer().getNumber()+" ");
+		System.out.print(o.getAction() +"\n"+o.getPhase()+" P"+o.getPlayer().getNumber()+" ");
 	}
 	
 	

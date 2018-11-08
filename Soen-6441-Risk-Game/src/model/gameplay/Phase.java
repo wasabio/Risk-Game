@@ -6,6 +6,7 @@ import java.util.Observable;
 public class Phase extends Observable{
 	String phase;
 	Player p;
+	String action="";
 	public void setPhase(String newPhase,Player newPlayer) {
 		this.phase = newPhase;
 		this.p = newPlayer;
@@ -18,6 +19,11 @@ public class Phase extends Observable{
 	public Player getPlayer() {
 		return p;
 	}
-	
+	public String getAction() {
+		return action;
+	}
+	public void setAction(String str) {
+		action = str;
+	}
 	
 }

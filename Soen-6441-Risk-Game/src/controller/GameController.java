@@ -108,7 +108,7 @@ public class GameController
 				{
 					phase.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
-					
+					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId).getName()+"\n");
 					map.addArmiesToCountry(ctryId, 1);
 				}
 			}
@@ -130,6 +130,7 @@ public class GameController
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			p.reinforcement(map, countryNumber, selectedArmies);
+			
 		}while(p.getArmies() > 0);
 	}
 	

@@ -1,6 +1,7 @@
 package model.gameplay;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.map.Country;
 import model.map.Map;
@@ -9,10 +10,11 @@ import model.map.Map;
  * This class is dealing with each player's data changes like owned countries, armies, and cards
  * 
  */
-public class Player 
+public class Player extends Observable
 {
 	private int number;
 	private int armies;
+	private Phase phase = new Phase();
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
 	
 	/**
@@ -82,6 +84,9 @@ public class Player
 	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
 	{
 		map.addArmiesToCountry(countryNumber, selectedArmies);
+		phase.setAction("P "+" reinfoced "+ selectedArmies+" army in "+"\n");
+		
+		
 	}
 	
 	public void attack() 
@@ -93,6 +98,8 @@ public class Player
 	{
 		map.addArmiesToCountry(originCountryId, -selectedArmies);
 		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+		phase.setAction("p"+getNumber()+" fortified "+ selectedArmies+" army from "+
+				map.countries.get(originCountryId).getName()+"to"+map.countries.get(destinationCountryId).getName()+"\n");
 	}
 	
 }
