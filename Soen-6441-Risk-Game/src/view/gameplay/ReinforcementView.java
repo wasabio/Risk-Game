@@ -25,7 +25,7 @@ public class ReinforcementView extends View
 		int country_number;
 		boolean correctValue;
 		
-		do 
+		do
 		{
 			country_number = getInteger();
 			correctValue = isValueCorrect(country_number, 1, Country.Counter);
