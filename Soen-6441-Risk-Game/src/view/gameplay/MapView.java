@@ -89,7 +89,7 @@ public class MapView extends View implements Observer
 			System.out.println("Continent " + c.getName() + " owned by P" + c.getOwner().getNumber());
 		} else 
 		{
-			System.out.println();
+			System.out.print("");
 		}
 	}
 	
