@@ -130,6 +130,7 @@ public class GameController
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
 			p.reinforcement(map, countryNumber, selectedArmies);
+			phase.setAction("P"+p.getNumber()+" reinfoced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
 			
 		}while(p.getArmies() > 0);
 	}

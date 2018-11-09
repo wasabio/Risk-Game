@@ -84,9 +84,6 @@ public class Player extends Observable
 	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
 	{
 		map.addArmiesToCountry(countryNumber, selectedArmies);
-		phase.setAction("P "+" reinfoced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
-		
-		
 	}
 	
 	public void attack() 
