@@ -459,7 +459,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 40;
+			return 13;
 		case 3:
 			return 35;
 		case 4:
@@ -486,7 +486,7 @@ public class Map extends Observable
 			{
 				if(freeCountries.size() > 0) 
 				{
-					int i = Random.getRandomIndex(0, freeCountries.size()-1); //Random assignment
+					int i = Random.getRandomInt(0, freeCountries.size()-1); //Random assignment
 					Country c = freeCountries.remove(i);
 					c.setPlayer(p);
 					c.setArmyNumber(1);
@@ -520,22 +520,44 @@ public class Map extends Observable
 	}
 
 	/**
-	 * This method is to add armies to selected country that is owned by current player.
-	 * It includes functions of showing the remaining armies that can be deployed
-	 *  and change the army number of the selected country. 
-	 * @param ctryId The selected country ID with int type
-	 * @param armieNumber The army number that the current player wants to deploy to the selected country
+	 * Add armies to a specific country by its id 
+	 * @param ctryId Country id
+	 * @param armiesNumber Armies number to add
 	 */
-	public void addArmiesToCountry(int ctryId, int armieNumber) 
+	public void addArmiesToCountry(int ctryId, int armiesNumber) 
 	{
-		Player p = countries.get(ctryId-1).getPlayer();
-		System.out.println(p.getArmies());
-		p.setArmies(p.getArmies() - armieNumber);
-		int oldArmies = countries.get(ctryId-1).getArmyNumber();
-		countries.get(ctryId-1).setArmyNumber(oldArmies + armieNumber);
+		Country c = countries.get(ctryId-1);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
 		setChanged();
 		notifyObservers(this);
 	}
+	
+	/**
+	 * Add armies to a country, and reduces the number of army in player's hand.
+	 * @param countryNumber Country id
+	 * @param armiesNumber Number of armies to add
+	 */
+	public void addArmiesFromHand(int countryNumber, int armiesNumber) {
+		Country c = countries.get(countryNumber-1);
+		Player p = c.getPlayer();
+		
+		p.setArmies(p.getArmies() - armiesNumber);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	/**
+	 * To get selected country with an id
+	 * @param ctryId the id entered by the user
+	 * @return the country selected
+	 */
+	public Country getCountry(int ctryId) {
+		return countries.get(ctryId-1);
+	}
+
 
 	/**
 	 * The method is to calculate the country number that the current player owned.
