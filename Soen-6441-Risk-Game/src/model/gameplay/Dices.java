@@ -36,13 +36,11 @@ public class Dices {
 		/* Rolling attacker dices */
 		for(int dice = 1; dice <= attDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.println("att:" + a);
 			attackerDices.add(a);
 		}
 		/* Rolling defender dices */
 		for(int dice = 1; dice <= defDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.println("def:" + a);
 			defenderDices.add(a);
 		}
 		
@@ -57,12 +55,10 @@ public class Dices {
 	}
 	
 	public int getAttackerLoss() {
-		System.out.println("attloss:" + attackerLoss);
 		return attackerLoss;
 	}
 	
 	public int getDefenderLoss() {
-		System.out.println("defloss:" + defenderLoss);
 		return defenderLoss;
 	}
 	

@@ -1,5 +1,7 @@
 package model.gameplay;
 
-public class Card {
-
+public enum Card {
+    artillery,
+    cavalry,
+    infantry
 }

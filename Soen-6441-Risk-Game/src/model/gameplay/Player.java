@@ -3,10 +3,12 @@ package model.gameplay;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Observable;
 
 import model.map.Country;
 import model.map.Map;
+import model.utilities.Random;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
@@ -16,8 +18,10 @@ public class Player extends Observable
 {
 	private int number;
 	private int armies;
+	public boolean gotCard = false;
 	private Phase phase = new Phase();
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
+	public ArrayList<Card> cards = new ArrayList<Card>();
 	
 	/**
 	 * The Constructor method of player
@@ -176,5 +180,117 @@ public class Player extends Observable
 			totalArmy += c.getArmyNumber();
 		}
 		return totalArmy;
+	}
+
+	public String getCards() {
+		String result = "";
+		for(Card c : cards) {
+			result += c.name() + " ";
+		}
+		return result;
+	}
+
+	public void getOneCard() {		
+		switch(Random.getRandomInt(1, 3)) {
+		case 1:
+			cards.add(Card.artillery);
+			break;
+		case 2:
+			cards.add(Card.cavalry);
+			break;
+		case 3:
+			cards.add(Card.infantry);
+			break;			
+		}
+	}
+
+	public boolean trade(int combination) {
+		switch(combination)
+		{
+		case 1: 
+			if(checkSameCards(Card.artillery)) {
+				removeSameCards(Card.artillery);
+				return true;
+			}		
+			break;
+		case 2:
+			if(checkSameCards(Card.cavalry)) {
+				removeSameCards(Card.cavalry);
+				return true;
+			}
+			break;
+		case 3:
+			if(checkSameCards(Card.infantry)) {
+				removeSameCards(Card.infantry);
+				return true;
+			}
+			break;
+		case 4:
+			if(checkDifferentCards()) {
+				removeDifferentCards();
+				return true;
+			}
+			break;
+		}
+		
+		return false;
+	}
+
+	private boolean checkDifferentCards() {
+		boolean artillery = false, infantry = false, cavalry = false;
+		
+		for(Card card : cards) {
+			if(card.name().equals("artillery"))	artillery = true;
+			if(card.name().equals("infantry"))	artillery = true;
+			if(card.name().equals("cavalry"))	artillery = true;
+		}
+		
+		return (artillery & infantry & cavalry);
+	}
+
+	private void removeDifferentCards() {
+		Iterator<Card> i = cards.iterator();
+		boolean artillery = false, infantry = false, cavalry = false;
+		
+		while(i.hasNext() && (artillery  == false || infantry == false || cavalry  == false)) {
+			Card c = i.next();
+			if(c.name().equals("artillery") && artillery == false) {
+				i.remove();
+				artillery = true;
+			}
+			else if(c.name().equals("infantry") && infantry == false) {
+				i.remove();
+				infantry = true;
+			}
+			else if(c.name().equals("cavalry") && cavalry == false) {
+				i.remove();
+				cavalry = true;
+			}
+		}
+	}
+
+	public boolean checkSameCards(Card c) {
+		int sameCard = 0;
+		
+		for(Card card : cards) {
+			if(card.name().equals(c.name()))	sameCard++;
+		}
+		
+		if(sameCard >= 3) return true;
+		
+		return false;
+	}
+	
+	public void removeSameCards(Card t) {
+		Iterator<Card> i = cards.iterator();
+		int removed = 0;
+		
+		while(i.hasNext() && removed < 3) {
+			Card c = i.next();
+			if(c.name().equals(t.name()))	{
+				i.remove();
+				removed++;
+			}
+		}
 	}
 }

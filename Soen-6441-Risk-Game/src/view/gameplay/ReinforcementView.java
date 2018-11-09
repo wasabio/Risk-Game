@@ -20,7 +20,7 @@ public class ReinforcementView extends View
 	public int askCountry(Player p)
 	{
 		System.out.println(" - "  + p.getArmies() + " armies available");
-		System.out.println("Enter the country number to reinforce: ");
+		System.out.println("Enter the country number to reinforce (0 to trade cards): ");
 		
 		int country_number;
 		boolean correctValue;
@@ -28,8 +28,12 @@ public class ReinforcementView extends View
 		do
 		{
 			country_number = getInteger();
-			correctValue = isValueCorrect(country_number, 1, Country.Counter);
-			if(correctValue && !p.owns(country_number))
+			correctValue = isValueCorrect(country_number, 0, Country.Counter);
+			if(p.cards.size() >= 5 && country_number != 0) {
+				System.out.println("Error : You have 5 cards, you must trade.");
+				correctValue = false;
+			}
+			else if(correctValue && !p.owns(country_number) && country_number != 0)
 			{
 				correctValue = false;
 				System.out.println("Error : This country does not belong you.");
@@ -58,5 +62,30 @@ public class ReinforcementView extends View
 		}while(!correctValue);
 		
 		return armies_number;
+	}
+
+	public int askCardsToTrade(Player p) {
+		// TODO Auto-generated method stub
+		System.out.println("Please choose the combination to trade: ");
+		System.out.println("1 - artillery");
+		System.out.println("2 - cavalry");
+		System.out.println("3 - infantry");
+		System.out.println("4 - different");
+		
+		int opt;
+		boolean correctValue;
+		
+		do 
+		{
+			opt = getInteger();
+			correctValue = isValueCorrect(opt, 1, 4);
+		}while(!correctValue);
+		
+		return opt;
+	}
+
+	public void errorTraiding() {
+		System.out.println("Error : You can't trade those cards !");
+		
 	}
 }
