@@ -447,7 +447,7 @@ public class Map extends Observable
 	 * The method is to generate initial number of armies for each player when the game start
 	 * It also includes the condition for different player number with different initial armies number for each player
 	 * @return Returning different army number with different cases:
-	 * 	case 2 with 12 army each player, 
+	 * 	case 2 with 40 army each player, 
 	 * 	case 3 with 35 army each player, 
 	 *  case 4 with 30 army each player, 
 	 *  case 5 with 25 army each player, 
@@ -459,7 +459,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 13;
+			return 40;
 		case 3:
 			return 35;
 		case 4:
