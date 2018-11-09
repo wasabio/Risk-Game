@@ -95,4 +95,23 @@ public class Player
 		map.addArmiesToCountry(destinationCountryId, selectedArmies);
 	}
 	
+	public int getTotalArmy()
+	{
+		int totalArmy =0;
+		for(Country c : ownedCountries) {
+			totalArmy = totalArmy + c.getArmyNumber();
+		}
+		return totalArmy;
+	}
+	
+	public double conquedPercentage(Player p, Map map) 
+	{
+		double count = p.ownedCountries.size();
+		double total = map.countries.size();
+		
+		double Percentage = count/total;
+		
+		return Percentage;
+	}
+	
 }

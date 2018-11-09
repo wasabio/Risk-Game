@@ -3,6 +3,7 @@ package view.gameplay;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -36,31 +37,59 @@ public class MapView extends View implements Observer
 		for(Continent c : map.continents) 
 		{
 			System.out.print("Continent " + c.getName());
-			if(c.getOwner() != null) 
-			{
-				System.out.println( " owned by P" + c.getOwner().getNumber() + " (+" + c.getExtraArmies() + ")");
-			} else 
-			{
-				System.out.println();
-			}
+			checkOwner(c);
 
 			
 			for(Country ctry : c.countries) 
 			{
 				System.out.print("P" + ctry.getPlayer().getNumber() + " - " + ctry.getNumber() +"  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
-				for(int i = 0; i < ctry.neighbors.size(); i++) {
-					System.out.print(ctry.neighbors.get(i).getName());
-					if(i != (ctry.neighbors.size() - 1)) 
-					{
-						System.out.print(", ");
-					}
-				}
+				showNeighbors(ctry);
 				System.out.println();
 			}
 			System.out.println();			
 		}
 		
 		System.out.print("\n*****************************************\n\n");
+		System.out.println(" World Domination View ");
+		
+		
+		for(Player p : map.players) 
+		{
+			System.out.println("Player " + p.getNumber() + " conqued persentage " + p.conquedPercentage(p, map));
+		}
+		
+		for(Player p : map.players) 
+		{	
+			System.out.println("Player "+ p.getNumber() + " total army : " + (p.getTotalArmy()+ p.getArmies()));
+		}
+		
+		for(Continent c : map.continents) 
+		{
+			checkOwner(c);
+		}
+		
+		System.out.print("\n*****************************************\n\n");
+		
 	}
 
+	public void showNeighbors(Country ctry){
+		for(int i = 0; i < ctry.neighbors.size(); i++) {
+			System.out.print(ctry.neighbors.get(i).getName());
+			if(i != (ctry.neighbors.size() - 1)) 
+			{
+				System.out.print(", ");
+			}
+		}
+	}
+	
+	public void checkOwner(Continent c) {
+		if(c.getOwner() != null) 
+		{
+			System.out.println("Continent " + c.getName() + " owned by P" + c.getOwner().getNumber());
+		} else 
+		{
+			System.out.println();
+		}
+	}
+	
 }
