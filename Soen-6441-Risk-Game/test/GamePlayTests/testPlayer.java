@@ -1,4 +1,4 @@
-package classTests;
+package GamePlayTests;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
