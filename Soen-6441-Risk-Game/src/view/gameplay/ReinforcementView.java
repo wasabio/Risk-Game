@@ -19,7 +19,7 @@ public class ReinforcementView extends View
 	 */
 	public int askCountry(Player p)
 	{
-		System.out.println("Reinforcement phase of P" + p.getNumber() + " - "  + p.getArmies() + " armies available");
+		System.out.println(" - "  + p.getArmies() + " armies available");
 		System.out.println("Enter the country number to reinforce: ");
 		
 		int country_number;

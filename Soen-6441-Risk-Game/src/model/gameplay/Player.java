@@ -3,6 +3,7 @@ package model.gameplay;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Observable;
 
 import model.map.Country;
 import model.map.Map;
@@ -11,10 +12,11 @@ import model.map.Map;
  * This class is dealing with each player's data changes like owned countries, armies, and cards
  * 
  */
-public class Player 
+public class Player extends Observable
 {
 	private int number;
 	private int armies;
+	private Phase phase = new Phase();
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
 	
 	/**
@@ -29,8 +31,8 @@ public class Player
 	}
 
 	/**
-	 * get number method for owned countries
-	 * @return return to current number of owned countries of the player
+	 * get player id
+	 * @return return player id
 	 */
 	public int getNumber() 
 	{
@@ -38,8 +40,8 @@ public class Player
 	}
 	
 	/**
-	 * set number method for owned countries
-	 * @param number the number of countries
+	 * set player id
+	 * @param number the ID of the player
 	 */
 	public void setNumber(int number) 
 	{
@@ -48,7 +50,7 @@ public class Player
 	
 	/**
 	 * get method for the armies
-	 * @return return to current armies number of the player
+	 * @return current armies number of the player
 	 */
 	public int getArmies() 
 	{
@@ -56,7 +58,7 @@ public class Player
 	}
 	
 	/**
-	 * set method of the armies
+	 * set number of the armies
 	 * @param armies The number of armies of the current players
 	 */
 	public void setArmies(int armies) 

@@ -227,6 +227,8 @@ public class Country extends Observable
 	public void setArmyNumber(int armyNumber) 
 	{
 		this.armyNumber = armyNumber;
+		setChanged();
+		notifyObservers();
 	}
 
 	/**

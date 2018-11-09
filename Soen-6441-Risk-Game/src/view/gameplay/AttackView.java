@@ -16,7 +16,6 @@ public class AttackView extends View {
 	 */
 	public int chooseAttackerCountry(Player p) 
 	{
-		System.out.println("Attack phase of P" + p.getNumber());
 		System.out.println("Enter the attacker country number (0 to skip): ");
 		
 		int country_number;

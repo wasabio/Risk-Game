@@ -8,10 +8,12 @@ import view.common.MapSelectionView;
 import view.gameplay.FortificationView;
 import view.gameplay.AttackView;
 import view.gameplay.MapView;
+import view.gameplay.PhaseView;
 import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
 import view.gameplay.WinnerView;
 import model.gameplay.Dices;
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
@@ -24,7 +26,9 @@ public class GameController
 {
 	
 	private Map map;
+	private Phase phase;
 	private MapView mapView;
+	private PhaseView phaseView;
 	private ReinforcementView reinforcementView;
 	private AttackView attackView;
 	private FortificationView fortificationView;
@@ -40,13 +44,14 @@ public class GameController
 		{
 			map = new Map();
 			map.clear();
+			phase = new Phase();
 			mapView = new MapView();
+			phaseView = new PhaseView();
 			reinforcementView = new ReinforcementView();
 			attackView = new AttackView();
 			fortificationView = new FortificationView();
-			
+			phase.addObserver(phaseView);
 			map.addObserver(mapView);
-
 			execute();
 		} 
 		catch (IOException e) 
@@ -94,14 +99,12 @@ public class GameController
 	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
 		StartUpView startUpView = new StartUpView();
-
 		int playerNumber = mapSelectionView.print();
 		map.setPlayers(playerNumber); 
 		
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
 		map.distributeCountries(); /* Randomly split the countries between the players */
-		
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
 		do 
@@ -117,7 +120,9 @@ public class GameController
 				} 
 				else 
 				{
+					phase.setPhase("Start up phase",p,1);
 					int ctryId = startUpView.askCountry(p);
+					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId-1).getName()+"\n");
 					map.addArmiesFromHand(ctryId, 1);
 				}
 			}
@@ -130,13 +135,20 @@ public class GameController
 	 */
 	private void reinforcementPhase(Player p) 
 	{
+		
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
+		phase.setPhase("Reinforcement phase", p,1);
 		do 
 		{
+			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
+			int index = map.countries.get(countryNumber-1).getArmyNumber();
 			p.reinforcement(map, countryNumber, selectedArmies);
+			phase.setAction("P"+p.getNumber()+" reinfoced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
+			phase.setPhase("Reinforcement phase", p,map.countries.get(countryNumber-1).getArmyNumber());
+
 		}while(p.getArmies() > 0);
 	}
 	
@@ -149,6 +161,7 @@ public class GameController
 	private int attackPhase(Player p) 
 	{
 		do {
+			phase.setPhase("Attack phase", p,1);
 			/* Getting attacker country */
 			boolean canAttack;
 			int	attackerCountryId;
@@ -181,6 +194,7 @@ public class GameController
 			if(attackMode == 1) //All-out
 			{
 				p.attack(map, attackerCtry, defenderCtry);
+				phase.setAction("P"+p.getNumber()+" used " + attackerCtry.getName() + " to attack "+ map.countries.get(defenderCtry.getNumber()-1).getName() + " with " + attackerCtry.getArmyNumber() + " armies\n");
 			}
 			else {			//Classic
 				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
@@ -189,6 +203,7 @@ public class GameController
 				dices.setDicesNumber(attackerDices, defenderDices);
 				
 				p.attack(map, attackerCtry, defenderCtry, dices);
+				phase.setAction("P"+p.getNumber()+" used " + attackerCtry.getName() + " to attack "+ map.countries.get(defenderCtry.getNumber()-1).getName() + " with " + attackerDices + " armies\n");
 			}
 			
 			/* Attacker conquered the country */
@@ -202,6 +217,8 @@ public class GameController
 			if(map.isOwned()) {
 				return map.countries.get(0).getPlayer().getNumber();
 			}
+			
+			
 		}while(attackView.continueAttacking());
 		
 		return 0;
@@ -214,6 +231,7 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
+		phase.setPhase("Fortification phase", p,1);
 		/* Getting origin country */
 		boolean canSendTroops;
 		int	originCountryId;
@@ -248,5 +266,7 @@ public class GameController
 		
 		/* Updating armies */
 		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
+		phase.setAction("p"+p.getNumber()+" fortified "+ selectedArmies+" army from "+
+				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
 	}	
 }

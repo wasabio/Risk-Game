@@ -19,7 +19,7 @@ public class StartUpView extends View
 	 */
 	public int askCountry(Player p) 
 	{
-		System.out.println("Startup phase of P" + p.getNumber() + " - "  + p.getArmies() + " armies available");
+		System.out.println(" - "  + p.getArmies() + " armies available");
 		System.out.println("Enter the country number you want to deploy 1 army: ");
 
 		int country_number;
