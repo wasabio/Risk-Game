@@ -40,19 +40,24 @@ public class testCalculateArmyNum
 	@Before 
 	public void before1() 
 	{
-	con1.addCountry(cty1);
-	con2.addCountry(cty2);
-	con3.addCountry(cty3);
-	con1.addCountry(cty4);
-	con1.addCountry(cty5);
-	map.continents.add(con1);
-	map.continents.add(con2);
-	map.continents.add(con3);
-	map.countries.add(cty1);
-	map.countries.add(cty2);
-	map.countries.add(cty3);
-	map.countries.add(cty4);
-	map.countries.add(cty5);
+		con1.addCountry(cty1);
+		con2.addCountry(cty2);
+		con3.addCountry(cty3);
+		con1.addCountry(cty4);
+		con1.addCountry(cty5);
+		map.continents.add(con1);
+		map.continents.add(con2);
+		map.continents.add(con3);
+		map.countries.add(cty1);
+		map.countries.add(cty2);
+		map.countries.add(cty3);
+		map.countries.add(cty4);
+		map.countries.add(cty5);
+		cty1.setArmyNumber(5);
+		cty2.setArmyNumber(1);
+		cty3.setArmyNumber(4);
+		cty4.setArmyNumber(2);
+		cty5.setArmyNumber(3);
 	}
 	
 	/**
@@ -64,7 +69,6 @@ public class testCalculateArmyNum
 		p1.ownedCountries.add(cty2);
 		p2.ownedCountries.add(cty3);
 		p2.ownedCountries.add(cty4);
-		p1.ownedCountries.add(cty1);
 		p1.ownedCountries.add(cty5);
 		cty2.setPlayer(p1);
 		cty1.setPlayer(p1);
@@ -72,8 +76,8 @@ public class testCalculateArmyNum
 		cty4.setPlayer(p2);
 		cty5.setPlayer(p1);
 		
-		assertEquals(5,map.calculateArmyNum(p1));
-		assertEquals(6,map.calculateArmyNum(p2));
+		assertEquals(7,map.calculateArmyNum(p1));
+		assertEquals(8,map.calculateArmyNum(p2));
 	}
 	
 	/**
@@ -91,7 +95,7 @@ public class testCalculateArmyNum
 		cty3.setPlayer(p1);
 		cty4.setPlayer(p1);
 		cty5.setPlayer(p1);
-		assertEquals(18,map.calculateArmyNum(p1));
+		assertEquals(22,map.calculateArmyNum(p1));
 		
 	}
 	

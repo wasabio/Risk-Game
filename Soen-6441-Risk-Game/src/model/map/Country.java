@@ -305,10 +305,9 @@ public class Country extends Observable
 	public boolean canAttack() {
 		if(armyNumber > 1)
 		{
-			Player player = this.player;
 			for(Country neighbor : neighbors)
 			{
-				if(neighbor.getPlayer() != player) //Enemy country
+				if(neighbor.getPlayer() != this.player) //Enemy country
 				{
 					return true;
 				}
