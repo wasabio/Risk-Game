@@ -159,14 +159,14 @@ public class Player extends Observable
 		c.setPlayer(this);
 	}
 
-	public double getPercentage(Player p, Map map)
+	public float getPercentage(Player p, Map map)
     {
-        double count = p.ownedCountries.size();
-        double total = map.countries.size();
-        double percentage = count/total;
+		float count = p.ownedCountries.size();
+		float total = map.countries.size();
+		float percentage = count/total;
         BigDecimal bd = new BigDecimal(percentage);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
-        return bd.doubleValue();
+        return (float)bd.doubleValue();
     }
 	
 	public int getTotalArmy() {

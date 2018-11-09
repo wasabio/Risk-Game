@@ -12,6 +12,7 @@ import view.gameplay.PhaseView;
 import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
 import view.gameplay.WinnerView;
+import view.gameplay.WorldDominationView;
 import model.gameplay.Dices;
 import model.gameplay.Phase;
 import model.gameplay.Player;
@@ -33,6 +34,7 @@ public class GameController
 	private AttackView attackView;
 	private FortificationView fortificationView;
 	private WinnerView winnerView;
+	private WorldDominationView worldDomiView;
 	private Player winner;
 
 	/**
@@ -47,11 +49,14 @@ public class GameController
 			phase = new Phase();
 			mapView = new MapView();
 			phaseView = new PhaseView();
+			worldDomiView = new WorldDominationView();
 			reinforcementView = new ReinforcementView();
 			attackView = new AttackView();
 			fortificationView = new FortificationView();
 			phase.addObserver(phaseView);
+			map.addObserver(worldDomiView);
 			map.addObserver(mapView);
+			
 			execute();
 		} 
 		catch (IOException e) 
