@@ -70,23 +70,6 @@ public class AttackView extends View {
 		
 		return attackMode;
 	}
-	
-	public int askAttackedDices(int armyNumber) {
-		System.out.println("Select the attack mode number: 1 - All-out, 2 - Classic");
-		int attackMode;
-		
-		do 
-		{
-			attackMode = getInteger();
-		}while(!isValueCorrect(attackMode, 1, 2));
-		
-		return attackMode;
-	}
-
-	public int askAttackerDices(int armyNumber) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 
 	/**
 	 * Display an error message : wrong attacker country selection
@@ -135,5 +118,29 @@ public class AttackView extends View {
 		}while(!isValueCorrect(selectedArmies, 1, maxArmies-1));
 		
 		return selectedArmies;
+	}
+
+	public int askDefenderDices(Player p, int maxDicesNumber) {
+		System.out.println("P" + p.getNumber() + " (Defender) Enter the number of dices you want to use (1 or 2):");
+		int diceNumber;
+		
+		do
+		{
+			diceNumber = getInteger();
+		}while(!isValueCorrect(diceNumber, 1, maxDicesNumber));
+		
+		return diceNumber;
+	}
+	
+	public int askAttackerDices(Player p, int maxDicesNumber) {
+		System.out.println("P" + p.getNumber() + " (Attacker) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
+		int diceNumber;
+		boolean correctValue = false;
+		do 
+		{
+			diceNumber = getInteger();
+		}while(!isValueCorrect(diceNumber, 1, maxDicesNumber));
+		
+		return diceNumber;
 	}
 }

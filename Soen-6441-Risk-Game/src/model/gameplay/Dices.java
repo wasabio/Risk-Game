@@ -24,7 +24,7 @@ public class Dices {
 		return attackerMaxDices;
 	}
 	
-	public int getdefenderMaxDices() {
+	public int getDefenderMaxDices() {
 		return defenderMaxDices;
 	}
 	
