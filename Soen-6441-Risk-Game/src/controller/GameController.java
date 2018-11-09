@@ -108,7 +108,7 @@ public class GameController
 				{
 					phase.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
-					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId).getName()+"\n");
+					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId-1).getName()+"\n");
 					map.addArmiesToCountry(ctryId, 1);
 				}
 			}

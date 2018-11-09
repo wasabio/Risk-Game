@@ -1,7 +1,6 @@
+/controller/
 /gameConsoleTest/
 /mapEditorTest/
-/testSuites/
-/controller/
 /model/
+/testSuites/
 /view/
-/testCheckConnectedMap.class
