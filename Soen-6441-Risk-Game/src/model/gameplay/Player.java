@@ -29,8 +29,8 @@ public class Player extends Observable
 	}
 
 	/**
-	 * get number method for owned countries
-	 * @return return to current number of owned countries of the player
+	 * get player id
+	 * @return return player id
 	 */
 	public int getNumber() 
 	{
@@ -38,8 +38,8 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * set number method for owned countries
-	 * @param number the number of countries
+	 * set player id
+	 * @param number the ID of the player
 	 */
 	public void setNumber(int number) 
 	{
@@ -48,7 +48,7 @@ public class Player extends Observable
 	
 	/**
 	 * get method for the armies
-	 * @return return to current armies number of the player
+	 * @return current armies number of the player
 	 */
 	public int getArmies() 
 	{
@@ -56,7 +56,7 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * set method of the armies
+	 * set number of the armies
 	 * @param armies The number of armies of the current players
 	 */
 	public void setArmies(int armies) 
