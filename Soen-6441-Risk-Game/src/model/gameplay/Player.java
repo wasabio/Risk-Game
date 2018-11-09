@@ -95,8 +95,6 @@ public class Player extends Observable
 	{
 		map.addArmiesToCountry(originCountryId, -selectedArmies);
 		map.addArmiesToCountry(destinationCountryId, selectedArmies);
-		phase.setAction("p"+getNumber()+" fortified "+ selectedArmies+" army from "+
-				map.countries.get(originCountryId).getName()+"to"+map.countries.get(destinationCountryId).getName()+"\n");
 	}
 	
 }

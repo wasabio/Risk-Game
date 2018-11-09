@@ -37,7 +37,7 @@ public class Map extends Observable
 	private String author;
 	private boolean warn;
 	private int playerNumber;
-	private Phase phase;
+	private Phase phase = new Phase();
 	/**
 	 * The method for loading the map file and checking the syntax of the map file is suit to the program or not
 	 * @param mapFilePath The file path of the map file in string type
@@ -610,5 +610,15 @@ public class Map extends Observable
 	{
 		this.name = name;
 	}
+	public void setPhase(String newPhase,Player newPlayer) {
+		phase.setPhase(newPhase, newPlayer);
+		setChanged();
+		notifyObservers(this);
+	}
+
+	public String getPhase() {
+		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");
+	}
+	
 	
 }

@@ -43,7 +43,7 @@ public class GameController
 			phaseView = new PhaseView();
 			reinforcementView = new ReinforcementView();
 			fortificationView = new FortificationView();
-			phase.addObserver(phaseView);
+			map.addObserver(phaseView);
 			map.addObserver(mapView);
 			execute();
 		} 
@@ -106,7 +106,7 @@ public class GameController
 				} 
 				else 
 				{
-					phase.setPhase("Start up phase",p);
+					map.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
 					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId-1).getName()+"\n");
 					map.addArmiesToCountry(ctryId, 1);
@@ -121,7 +121,7 @@ public class GameController
 	 */
 	private void reinforcementPhase(Player p) 
 	{
-		phase.setPhase("Reinforcement phase", p);
+		map.setPhase("Reinforcement phase", p);
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
 		do 
@@ -142,7 +142,7 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
-		phase.setPhase("Fortification phase", p);
+		map.setPhase("Fortification phase", p);
 		/* Getting origin country */
 		boolean canSendTroops;
 		int	originCountryId;
@@ -181,5 +181,7 @@ public class GameController
 		
 		/* Updating armies */
 		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
+		phase.setAction("p"+p.getNumber()+" fortified "+ selectedArmies+" army from "+
+				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
 	}	
 }

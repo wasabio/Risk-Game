@@ -10,8 +10,6 @@ public class Phase extends Observable{
 	public void setPhase(String newPhase,Player newPlayer) {
 		this.phase = newPhase;
 		this.p = newPlayer;
-		setChanged();
-		notifyObservers(this);
 	}
 	public String getPhase() {
 		return phase;
