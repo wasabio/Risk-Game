@@ -1,4 +1,4 @@
-package MapEditorTest;
+package MapEditorTests;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import model.map.MapEditor;
 /**
  * test the method of adding country in the map editor
  */
-public class testAddCountry {
+public class TestAddCountry {
 	MapEditor mapEditor = new MapEditor();
 	Continent con1 = new Continent("",1);
 	Continent con2 = new Continent("",2);

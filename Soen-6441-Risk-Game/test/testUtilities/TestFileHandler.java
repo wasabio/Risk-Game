@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package testUtilities;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
  * The test class for testing the map syntax
  *
  */
-public class testMapFileSyntax 
+public class TestFileHandler 
 {
 	String mapFilePath;
 	LineNumberReader in;

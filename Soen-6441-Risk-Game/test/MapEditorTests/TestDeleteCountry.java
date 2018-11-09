@@ -1,4 +1,4 @@
-package MapEditorTest;
+package MapEditorTests;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ import model.map.MapEditor;
  * test the method of deleteing country in map editor
  * @author Yueshuai
  */
-public class testDeleteCountry {
+public class TestDeleteCountry {
 	//Map map = new Map();
 	MapEditor mapEditor = new MapEditor();
 	Continent con1 = new Continent("",1);

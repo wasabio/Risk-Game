@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 import org.junit.Test;
@@ -13,7 +13,7 @@ import org.junit.*;
  * 
  *
  */
-public class testDistributeCountries 
+public class TestDistributeCountries 
 {
 	Continent con1 = new Continent("",2);
 	Continent con2 = new Continent("",3);

@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import model.map.Map;
 /**
  * check if the map is an unconnected graph, by trying to reach each possible country from a specific country in the map
  */
-public class testCheckConnectedMap 
+public class TestCheckConnectedMap 
 {
 	Map map = new Map();
 	Country cty1,cty2,cty3,cty4;

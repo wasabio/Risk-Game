@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 
@@ -13,7 +13,7 @@ import model.map.Map;
  * @author Yueshuai
  *
  */
-public class testCheckNoEmptyContinent 
+public class TestCheckNoEmptyContinent 
 {
 	Country cty1,cty2;
 	Continent con1,con2;

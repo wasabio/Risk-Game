@@ -1,4 +1,4 @@
-package testMap;
+package CountryTests;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,7 +10,7 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
-public class testCountry {
+public class TestAddOnTakenCountry {
 
 	Continent con1,con2;
 	Country cty1,cty2,cty3,cty4;

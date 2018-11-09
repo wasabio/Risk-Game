@@ -1,4 +1,4 @@
-package MapEditorTest;
+package MapEditorTests;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import model.map.MapEditor;
  * @author Yueshuai
  *
  */
-public class testDeleteContinent {
+public class TestDeleteContinent {
 	
 	Continent con1 = new Continent("a",4);
 	Continent con2 = new Continent("b",3);

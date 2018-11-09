@@ -1,4 +1,4 @@
-package MapEditorTest;
+package MapEditorTests;
 
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -14,7 +14,7 @@ import model.map.MapEditor;
  * 
  *
  */
-public class testAddContinent {
+public class TestAddContinent {
 	MapEditor me = new MapEditor();
 	
 	/**

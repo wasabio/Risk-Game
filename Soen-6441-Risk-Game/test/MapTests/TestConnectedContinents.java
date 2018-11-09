@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +12,7 @@ import model.map.Map;
 /**
  * check if all the continents are accessible from any other continent
  */
-public class testConnectedContinents 
+public class TestConnectedContinents 
 {
 	Map map = new Map();
 	Country cty1,cty2,cty3,cty4;

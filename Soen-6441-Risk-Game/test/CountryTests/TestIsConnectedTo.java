@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package CountryTests;
 
 import static org.junit.Assert.*;
 
@@ -10,7 +10,7 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
-public class testIsConnectedTo {
+public class TestIsConnectedTo {
 
 	Continent con1;
 	Country cty1,cty2,cty3,cty4;

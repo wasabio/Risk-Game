@@ -1,19 +1,17 @@
-package testMap;
+package ContinentTests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
-import org.junit.BeforeClass;
-import org.junit.Before;
 import org.junit.Test;
 
 import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
-import model.map.MapEditor;
 
-public class testContinent {
-	
+public class TestGetowner 
+{
 	Map map = new Map();	
 	Continent cont1 = new Continent("",1);
 	Continent cont2 = new Continent("",2);

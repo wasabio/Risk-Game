@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ import model.map.Map;
  * 
  *
  */
-public class testCalculateArmyNum 
+public class TestCalculateArmyNum 
 {
 
 	Player p1 = new Player(1,5);

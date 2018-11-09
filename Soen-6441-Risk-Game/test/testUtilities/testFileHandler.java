@@ -1,24 +1,51 @@
 package testUtilities;
 
-import org.junit.BeforeClass;
-import org.junit.Before;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.LineNumberReader;
+
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import model.gameplay.Player;
-import model.map.Continent;
-import model.map.Country;
-import model.map.Map;
-import model.map.MapEditor;
-import model.utilities.FileHandler;
+/**
+ * 
+ * The test class for testing the map syntax
+ *
+ */
+public class TestFileHandler 
+{
+	String mapFilePath;
+	LineNumberReader in;
+	 
+	@Rule
+	  public final ExpectedException exception = ExpectedException.none();
 
-public class testFileHandler {
-
-	@Test 
-	public void testRead() 
+	/**
+	 * Testing can or cannot find a map
+	 * @throws FileNotFoundException reject an error
+	 */
+	@Test(expected = FileNotFoundException.class)
+	public void testNotFoundMap() throws FileNotFoundException 
 	{
-		String line = "file";
-		line.
-		
+		mapFilePath = "ok.map";
+
+		in = new LineNumberReader(new FileReader(mapFilePath));
+	}
+	
+	/**
+	 * Testing whether can the program find out not suitable(missing) syntax
+	 * @throws FileNotFoundException reject an error
+	 */
+	@Test(expected = FileNotFoundException.class)
+	public void testMissingMapSection() throws FileNotFoundException
+	{
+		new File(System.getProperty("user.dir") + System.getProperty("file.separator") + "maps");
+		File file = new File("world.map");
+		mapFilePath = file.getAbsolutePath();
+
+		in = new LineNumberReader(new FileReader(mapFilePath));
 	}
 	
 	

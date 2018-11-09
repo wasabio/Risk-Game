@@ -1,4 +1,4 @@
-package gameConsoleTest;
+package MapTests;
 
 import static org.junit.Assert.*;
 
@@ -15,7 +15,7 @@ import model.map.Map;
  * @author Yueshuai
  *
  */
-public class testMapValidation 
+public class TestMapValidation 
 {
 	Map map = new Map();
 	
