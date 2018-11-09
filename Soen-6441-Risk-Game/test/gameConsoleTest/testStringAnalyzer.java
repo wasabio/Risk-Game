@@ -8,7 +8,11 @@ import java.io.File;
 import org.junit.Test;
 
 import model.utilities.StringAnalyzer;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class testStringAnalyzer {
 
 	@Test

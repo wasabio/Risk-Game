@@ -23,6 +23,7 @@ import view.gameplay.WorldDominationView;
  * 1. The functions of data changes for Continents, countries, and players of the whole map. 
  * 2. The finding, and loading functions of the map file
  * 3. The checking functions for checking the string properties of the map file is suitable to the program or not
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Map extends Observable 
 {

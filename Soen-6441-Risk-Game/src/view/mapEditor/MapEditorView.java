@@ -12,7 +12,7 @@ import view.common.View;
 /**
  * this class is for main view bar of the map editor
  * 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapEditorView extends View implements Observer 
 {

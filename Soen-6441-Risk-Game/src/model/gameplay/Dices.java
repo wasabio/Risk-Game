@@ -4,7 +4,11 @@ import java.util.Collections;
 import java.util.PriorityQueue;
 
 import model.utilities.Random;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class Dices {
 	private PriorityQueue<Integer> attackerDices = new PriorityQueue<Integer>(Collections.reverseOrder());
 	private PriorityQueue<Integer> defenderDices = new PriorityQueue<Integer>(Collections.reverseOrder());

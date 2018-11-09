@@ -11,7 +11,11 @@ import gameConsoleTest.testCheckNoEmptyContinent;
 import gameConsoleTest.testDistributeCountries;
 import gameConsoleTest.testMapFileSyntax;
 import gameConsoleTest.testMapValidation;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 
 @RunWith(Suite.class)
 @SuiteClasses({	testAddArmiesToCountry.class,

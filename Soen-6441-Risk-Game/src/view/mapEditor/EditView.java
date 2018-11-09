@@ -5,7 +5,7 @@ import view.common.View;
 /**
  * 
  * The class is for the view of editing function in the map editor
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class EditView extends View 
 {

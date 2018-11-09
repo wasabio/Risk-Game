@@ -11,8 +11,8 @@ import model.map.Country;
 import model.map.Map;
 /**
  * test the Player class
- * @author Yueshuai
- *
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testPlayer {
 

@@ -9,6 +9,12 @@ import mapEditorTest.testAddCountry;
 import mapEditorTest.testDeleteContinent;
 import mapEditorTest.testDeleteCountry;
 
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
+
 @RunWith(Suite.class)
 @SuiteClasses({	testAddContinent.class,
 				testAddCountry.class,

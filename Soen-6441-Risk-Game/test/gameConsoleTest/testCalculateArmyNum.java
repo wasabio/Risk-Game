@@ -13,7 +13,7 @@ import model.map.Map;
 /**
  * This class tests the calculation of army number test should be given to player in Map class
  * 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testCalculateArmyNum 
 {

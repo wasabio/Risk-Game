@@ -4,7 +4,7 @@ package view.common;
  * 
  * The class MainMenuView is the view class that is showing the choice of both play game and map editing features to the user.
  * It is the first view that the user will see.
- * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MainMenuView extends View 
 {

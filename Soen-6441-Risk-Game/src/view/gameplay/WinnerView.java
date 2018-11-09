@@ -4,8 +4,8 @@ import model.gameplay.Player;
 
 /**
  * This class is in charge of displaying the winner who won the game
- * @author Yann
- *
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class WinnerView {
 	/**

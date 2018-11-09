@@ -8,6 +8,7 @@ import model.gameplay.Player;
 /**
  * This class is handling the information and the behavior of countries.
  * It holds data about the army in the country and also the relationships with the country's neighbors
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Country extends Observable 
 {

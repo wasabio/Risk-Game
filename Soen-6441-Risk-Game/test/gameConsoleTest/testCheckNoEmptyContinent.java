@@ -10,8 +10,8 @@ import model.map.Map;
 
 /**
  * test the method of checking if the map contains empty continents that have no country in it
- * @author Yueshuai
- *
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testCheckNoEmptyContinent 
 {

@@ -6,6 +6,7 @@ import view.common.View;
 
 /**
  * This class displays the fortification view and asks for inputs.
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class FortificationView extends View 
 {

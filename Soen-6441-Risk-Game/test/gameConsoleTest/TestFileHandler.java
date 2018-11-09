@@ -13,7 +13,7 @@ import org.junit.rules.ExpectedException;
 /**
  * 
  * The test class for testing the map syntax
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class TestFileHandler 
 {

@@ -7,7 +7,11 @@ import org.junit.Test;
 
 
 import model.utilities.Random;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class testRandom 
 {
 	@Test

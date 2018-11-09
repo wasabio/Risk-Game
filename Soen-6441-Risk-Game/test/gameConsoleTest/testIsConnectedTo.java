@@ -9,7 +9,11 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class testIsConnectedTo {
 
 	Continent con1;

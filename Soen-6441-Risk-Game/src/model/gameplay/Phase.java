@@ -2,7 +2,11 @@ package model.gameplay;
 
 
 import java.util.Observable;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class Phase extends Observable{
 	String phase;
 	Player p;

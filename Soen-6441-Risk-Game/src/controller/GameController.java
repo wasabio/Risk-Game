@@ -22,6 +22,7 @@ import model.map.Map;
 /**
  * This class is a controller for game play part
  * It also includes controls for different phases in the game
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
  */
 public class GameController 
 {

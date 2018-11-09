@@ -11,6 +11,7 @@ import model.map.Map;
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
  * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Player extends Observable
 {

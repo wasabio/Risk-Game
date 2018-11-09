@@ -5,6 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * To generate all the random aspects of the game : dice, cards, countries assignment...
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Random 
 {

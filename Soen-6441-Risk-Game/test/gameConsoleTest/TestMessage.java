@@ -14,7 +14,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import model.utilities.Message;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class TestMessage {
 
 	@Test

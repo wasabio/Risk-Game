@@ -7,7 +7,11 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Map;
 import view.common.View;
-
+/**
+ * 
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class WorldDominationView extends View implements Observer {
 
 	@Override

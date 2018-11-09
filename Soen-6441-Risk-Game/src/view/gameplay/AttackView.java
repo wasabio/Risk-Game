@@ -6,6 +6,7 @@ import view.common.View;
 
 /**
  * This class displays the attack view and asks for inputs
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class AttackView extends View {
 

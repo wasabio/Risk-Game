@@ -11,7 +11,7 @@ import org.junit.*;
 /**
  * test if all countries will be distributed to players
  * 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testDistributeCountries 
 {

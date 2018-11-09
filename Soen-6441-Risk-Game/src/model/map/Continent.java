@@ -7,6 +7,7 @@ import model.gameplay.Player;
 /**
 * This class holds informations and behaviors of a continent. 
 * It holds a list of its associated countries.
+* @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
 */
 public class Continent 
 {

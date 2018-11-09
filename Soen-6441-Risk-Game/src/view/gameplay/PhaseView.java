@@ -8,8 +8,8 @@ import model.map.Map;
 import view.common.View;
 /**
  * this class is the observer for every action during each phase
- * @author Yueshuai
- *
+ * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class PhaseView extends View implements Observer {
 
