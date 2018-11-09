@@ -5,15 +5,13 @@ import model.map.Country;
 import view.common.View;
 
 /**
- * 
- * This class is for showing the view of deploying armies in the map
- *
+ * This class displays the fortification view and asks for inputs.
  */
 public class FortificationView extends View 
 {
 
 	/**
-	 * The method is to choose the origin country using the specify numbers.
+	 * To choose the origin country using a correct number.
 	 * @param p The current player.
 	 * @return Returning the selected country number if the value of the input is incorrect.
 	 */
@@ -40,7 +38,7 @@ public class FortificationView extends View
 	}
 	
 	/**
-	 * The method is to choose the destination country using the specify numbers.
+	 * To choose the destination country using a correct number.
 	 * @param p The current player.
 	 * @return Returning the selected country number if the value of the input is incorrect.
 	 */

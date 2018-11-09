@@ -1,9 +1,5 @@
 package view.common;
 
-import java.io.File;
-
-import javax.swing.JFileChooser;
-
 /**
  * 
  * The class MainMenuView is the view class that is showing the choice of both play game and map editing features to the user.

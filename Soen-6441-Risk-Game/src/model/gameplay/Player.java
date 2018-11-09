@@ -78,15 +78,63 @@ public class Player
 		}
 		return false;
 	}
-
+	
+	/**
+	 * This method will process to reinforce a player's country
+	 * @param map the map
+	 * @param countryNumber the selected country
+	 * @param selectedArmies the number of armies to add
+	 */
 	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
 	{
-		map.addArmiesToCountry(countryNumber, selectedArmies);
+		map.addArmiesFromHand(countryNumber, selectedArmies);
 	}
 	
-	public void attack() 
+	/**
+	 * This method will process the all-out attack mode.
+	 * @param attackerCtry Country attacking
+	 * @param defenderCtry Country defending
+	 */
+	public void attack(Map map, Country attackerCtry, Country defenderCtry) 
 	{
+		do{
+			Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
+			battle(map, dices, attackerCtry, defenderCtry);
+		}while(attackerCtry.getArmyNumber() > 1 && defenderCtry.getArmyNumber() > 0);	// Continue until no attack is possible
 		
+		/* Resolving battle result : conquering a country */
+		if(defenderCtry.getArmyNumber() == 0) {
+			conquer(defenderCtry);			
+		}
+	}
+
+	/**
+	 * This method will process the classic attack mode. The players provide their dices.
+	 * @param attackerCtry Country attacking
+	 * @param defenderCtry Country defending
+	 * @param dices Dices selected by the players
+	 */
+	public void attack(Map map, Country attackerCtry, Country defenderCtry, Dices dices) {
+		battle(map, dices, attackerCtry, defenderCtry);
+		
+		/* Resolving battle result : conquering a country */
+		if(defenderCtry.getArmyNumber() == 0) {
+			conquer(defenderCtry);			
+		}
+	}
+	
+	/**
+	 * This class will compute a battle. It rolls the dice, computing the result, and resolve the loss of both sides.
+	 * @param map
+	 * @param dices
+	 * @param attackerCtry
+	 * @param defenderCtry
+	 */
+	private void battle(Map map, Dices dices, Country attackerCtry, Country defenderCtry) {
+		dices.roll();
+		/* Resolving loss in both armies */
+		map.addArmiesToCountry(attackerCtry.getNumber(), -dices.getAttackerLoss());
+		map.addArmiesToCountry(defenderCtry.getNumber(), -dices.getDefenderLoss());
 	}
 	
 	public void fortification(Map map, int originCountryId, int destinationCountryId, int selectedArmies)
@@ -94,5 +142,18 @@ public class Player
 		map.addArmiesToCountry(originCountryId, -selectedArmies);
 		map.addArmiesToCountry(destinationCountryId, selectedArmies);
 	}
+	
+	/**
+	 * To conquer a country
+	 * @param c the country to conquer
+	 */
+	private void conquer(Country c)
+	{
+		Player defender = c.getPlayer();
+		defender.ownedCountries.remove(c);
+		this.ownedCountries.add(c);
+		c.setPlayer(this);
+	}
+
 	
 }

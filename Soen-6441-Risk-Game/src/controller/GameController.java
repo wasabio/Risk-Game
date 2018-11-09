@@ -6,9 +6,12 @@ import java.util.Iterator;
 
 import view.common.MapSelectionView;
 import view.gameplay.FortificationView;
+import view.gameplay.AttackView;
 import view.gameplay.MapView;
 import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
+import view.gameplay.WinnerView;
+import model.gameplay.Dices;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
@@ -23,7 +26,10 @@ public class GameController
 	private Map map;
 	private MapView mapView;
 	private ReinforcementView reinforcementView;
+	private AttackView attackView;
 	private FortificationView fortificationView;
+	private WinnerView winnerView;
+	private Player winner;
 
 	/**
 	 * This is a constructor method for GameController
@@ -36,10 +42,11 @@ public class GameController
 			map.clear();
 			mapView = new MapView();
 			reinforcementView = new ReinforcementView();
+			attackView = new AttackView();
 			fortificationView = new FortificationView();
 			
 			map.addObserver(mapView);
-			
+
 			execute();
 		} 
 		catch (IOException e) 
@@ -53,7 +60,7 @@ public class GameController
 	 * @throws IOException
 	 */
 	private void execute() throws IOException
-	{		
+	{	
 		startUpPhase();
 		
 		do 
@@ -63,11 +70,18 @@ public class GameController
 				if(p.ownedCountries.size() > 0) 
 				{
 					reinforcementPhase(p);
+					
+					if(attackPhase(p) != 0) {
+						winner = p;
+						break;
+					}
+					
 					fortificationPhase(p);
 				}
 			}
 		}while(!map.isOwned()); /* When map is owned, end of the game */
 		
+		winnerView = new WinnerView(winner);
 	}
 
 	/**
@@ -104,14 +118,14 @@ public class GameController
 				else 
 				{
 					int ctryId = startUpView.askCountry(p);
-					map.addArmiesToCountry(ctryId, 1);
+					map.addArmiesFromHand(ctryId, 1);
 				}
 			}
 		}while(remainingPlayers.size() != 0);
 	}
 	
 	/**
-	 * The method's main function is adding standby armies to the selected country when in the reinforcementPhase.
+	 * This method collects all the inputs in the reinforcement phase.
 	 * @param p The current player that is in the reinforcementPhase
 	 */
 	private void reinforcementPhase(Player p) 
@@ -126,6 +140,73 @@ public class GameController
 		}while(p.getArmies() > 0);
 	}
 	
+	/**
+	 * This method collects all the inputs in the attack phase by calling views. The player can choose origin and destination, and armies number.
+	 * Origin and destination countries must be connected.
+	 * @param p The current player that is in the fortificationPhase
+	 * @return Return an integer corresponding to the winner's id.
+	 */
+	private int attackPhase(Player p) 
+	{
+		do {
+			/* Getting attacker country */
+			boolean canAttack;
+			int	attackerCountryId;
+			Country attackerCtry;
+			do 
+			{
+				attackerCountryId = attackView.chooseAttackerCountry(p); /* Select a valid country owned by the current player */
+				if(attackerCountryId == 0) return 0;	/* 0 to skip */
+				
+				attackerCtry = map.countries.get(attackerCountryId-1);
+				canAttack = attackerCtry.canAttack(); /* Check if the selected country can attack another country */
+				if(!canAttack)	attackView.errorCannotAttack();
+			}while(!canAttack);
+			
+			/* Getting attacked country */
+			boolean canBeAttacked;
+			int defenderCountryId;
+			Country defenderCtry;
+			do 
+			{
+				defenderCountryId = attackView.chooseAttackedCountry(p);
+				defenderCtry = map.countries.get(defenderCountryId-1);
+				canBeAttacked = defenderCtry.canBeAttackedBy(attackerCtry);
+				if(!canBeAttacked)	attackView.errorCannotBeAttackedBy(attackerCtry);
+			}while(!canBeAttacked);
+			
+			/* Getting attack mode : all-out or classic */
+			int attackMode = attackView.askAttackMode();
+			
+			if(attackMode == 1) //All-out
+			{
+				p.attack(map, attackerCtry, defenderCtry);
+			}
+			else {			//Classic
+				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
+				int attackerDices = attackView.askAttackerDices(p, dices.getAttackerMaxDices());
+				int defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
+				dices.setDicesNumber(attackerDices, defenderDices);
+				
+				p.attack(map, attackerCtry, defenderCtry, dices);
+			}
+			
+			/* Attacker conquered the country */
+			if(defenderCtry.getPlayer() == attackerCtry.getPlayer()) {
+				int movingArmies = attackView.askMovingArmies(attackerCtry.getArmyNumber());
+				map.addArmiesToCountry(attackerCtry.getNumber(), -movingArmies);
+				map.addArmiesToCountry(defenderCtry.getNumber(), movingArmies);
+			}
+			
+			// Checking winning conditions
+			if(map.isOwned()) {
+				return map.countries.get(0).getPlayer().getNumber();
+			}
+		}while(attackView.continueAttacking());
+		
+		return 0;
+	}
+
 	/**
 	 * This method deals with the logic of the fortification phase. The player can choose origin and destination, and armies number.
 	 * Origin and destination countries must be connected.
@@ -147,8 +228,7 @@ public class GameController
 			if(!canSendTroops)	fortificationView.errorSendingTroops();
 		}while(!canSendTroops);
 		
-		
-		/* Getting destination country */
+		/* Getting attacked country */
 		boolean connected;
 		int destinationCountryId;
 		Country destination;
@@ -158,10 +238,7 @@ public class GameController
 			
 			destination = map.countries.get(destinationCountryId-1);
 			 connected = destination.isConnectedTo(origin);
-			if(!connected) 
-			{
-				fortificationView.errorNotConnectedCountries();
-			}
+			if(!connected)	fortificationView.errorNotConnectedCountries();
 		}while(!connected);
 			
 		Country c = map.countries.get(originCountryId-1);

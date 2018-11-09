@@ -75,8 +75,8 @@ public class testAddArmiesToCountry
 	
 		/*reinforce 2 armies to country 1
 		 * reinforce 2 armies to country 4*/
-		map.addArmiesToCountry(1,2);
-		map.addArmiesToCountry(4,2);
+		map.addArmiesFromHand(1,2);
+		map.addArmiesFromHand(4,2);
 		
 		assertEquals(3,cty1.getArmyNumber()); //test the army number for country 1 after added 2 armies
 		assertEquals(6,cty4.getArmyNumber()); //test the army nummber for country 4 after added 2 armies

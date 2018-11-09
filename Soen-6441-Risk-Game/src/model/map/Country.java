@@ -108,17 +108,6 @@ public class Country extends Observable
 	{
 		return player;
 	}
-	
-	/**
-	 * The method is to add the armies to the current country
-	 * 
-	 * @param newArmies The number of new Armies that needed to be added into the country with int type
-	 *            
-	 */
-	public void addArmies(int newArmies) 
-	{
-		this.setArmyNumber(this.getArmyNumber() + newArmies);
-	}
 
 	/**
 	 * To remove the Armies from the country
@@ -241,10 +230,10 @@ public class Country extends Observable
 	}
 
 	/**
-	 * The method is to get the number of countries
-	 * @return Returning the number of countries with int type
+	 * To get a country's id
+	 * @return Returning id
 	 */
-	public int getNumber() //QA
+	public int getNumber()
 	{
 		return number;
 	}
@@ -256,7 +245,7 @@ public class Country extends Observable
 	 */
 	public boolean canSendTroopsToAlly() 
 	{
-		/* We can't move armies from a country that has only 1 army or if the country is not connected */
+		/* We can't move armies from a country that has 1 or less army or if the country is not connected */
 		if(getArmyNumber() <= 1 || neighbors == null || neighbors.size() == 0) 
 		{
 			return false;
@@ -303,6 +292,37 @@ public class Country extends Observable
 				}
 			}
 			closed.add(current);
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Check if a country can attack an other country. Country's armies number must be greater than 1, and there should be
+	 * at least one enemy country in the neighborhood.
+	 * @return If the country can attack
+	 */
+	public boolean canAttack() {
+		if(armyNumber > 1)
+		{
+			Player player = this.player;
+			for(Country neighbor : neighbors)
+			{
+				if(neighbor.getPlayer() != player) //Enemy country
+				{
+					return true;
+				}
+			}
+		}
+			
+		return false;
+	}
+
+	public boolean canBeAttackedBy(Country attackerCtry) {		
+		
+		if(attackerCtry.getPlayer() != this.player && this.neighbors.contains(attackerCtry)) //Enemy country and neighbor
+		{
+			return true;
 		}
 		
 		return false;
