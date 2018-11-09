@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Stack;
 import java.util.StringTokenizer;
 
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
@@ -36,7 +37,7 @@ public class Map extends Observable
 	private String author;
 	private boolean warn;
 	private int playerNumber;
-	
+	private Phase phase = new Phase();
 	/**
 	 * The method for loading the map file and checking the syntax of the map file is suit to the program or not
 	 * @param mapFilePath The file path of the map file in string type
@@ -447,7 +448,7 @@ public class Map extends Observable
 	 * The method is to generate initial number of armies for each player when the game start
 	 * It also includes the condition for different player number with different initial armies number for each player
 	 * @return Returning different army number with different cases:
-	 * 	case 2 with 12 army each player, 
+	 * 	case 2 with 40 army each player, 
 	 * 	case 3 with 35 army each player, 
 	 *  case 4 with 30 army each player, 
 	 *  case 5 with 25 army each player, 
@@ -459,7 +460,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 40;
+			return 10;
 		case 3:
 			return 35;
 		case 4:
@@ -486,7 +487,7 @@ public class Map extends Observable
 			{
 				if(freeCountries.size() > 0) 
 				{
-					int i = Random.getRandomIndex(0, freeCountries.size()-1); //Random assignment
+					int i = Random.getRandomInt(0, freeCountries.size()-1); //Random assignment
 					Country c = freeCountries.remove(i);
 					c.setPlayer(p);
 					c.setArmyNumber(1);
@@ -520,22 +521,44 @@ public class Map extends Observable
 	}
 
 	/**
-	 * This method is to add armies to selected country that is owned by current player.
-	 * It includes functions of showing the remaining armies that can be deployed
-	 *  and change the army number of the selected country. 
-	 * @param ctryId The selected country ID with int type
-	 * @param armieNumber The army number that the current player wants to deploy to the selected country
+	 * Add armies to a specific country by its id 
+	 * @param ctryId Country id
+	 * @param armiesNumber Armies number to add
 	 */
-	public void addArmiesToCountry(int ctryId, int armieNumber) 
+	public void addArmiesToCountry(int ctryId, int armiesNumber) 
 	{
-		Player p = countries.get(ctryId-1).getPlayer();
-		System.out.println(p.getArmies());
-		p.setArmies(p.getArmies() - armieNumber);
-		int oldArmies = countries.get(ctryId-1).getArmyNumber();
-		countries.get(ctryId-1).setArmyNumber(oldArmies + armieNumber);
+		Country c = countries.get(ctryId-1);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
 		setChanged();
 		notifyObservers(this);
 	}
+	
+	/**
+	 * Add armies to a country, and reduces the number of army in player's hand.
+	 * @param countryNumber Country id
+	 * @param armiesNumber Number of armies to add
+	 */
+	public void addArmiesFromHand(int countryNumber, int armiesNumber) {
+		Country c = countries.get(countryNumber-1);
+		Player p = c.getPlayer();
+		
+		p.setArmies(p.getArmies() - armiesNumber);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	/**
+	 * To get selected country with an id
+	 * @param ctryId the id entered by the user
+	 * @return the country selected
+	 */
+	public Country getCountry(int ctryId) {
+		return countries.get(ctryId-1);
+	}
+
 
 	/**
 	 * The method is to calculate the country number that the current player owned.
@@ -545,22 +568,22 @@ public class Map extends Observable
 	 */
 	public int calculateArmyNum(Player p) 
 	{
-		int numOfCty = 0;
+		int totalArmies = 0;
 		/* Search how many countries are owned by current player */
 		for(Country c : countries) {
-			if(p.getNumber() == c.getPlayer().getNumber()) 
+			if(p == c.getPlayer()) 
 			{
-				numOfCty++;
+				totalArmies += c.getArmyNumber();
 			}
 		}
 		/* calculate how many armies the player should have */
-		int numOfArmy = numOfCty/3;
-		int bonusArmies = wholeContinentBonus(p);
-		if((numOfArmy + bonusArmies) < 3) 
+		int numOfArmy = totalArmies/3;
+		int continentBonus = wholeContinentBonus(p);
+		if((numOfArmy + continentBonus) < 3) 
 		{
 			return 3;
 		}
-		return (numOfCty/3+bonusArmies);
+		return (numOfArmy+continentBonus);
 	}
 	
 	/**
@@ -609,4 +632,11 @@ public class Map extends Observable
 	{
 		this.name = name;
 	}
+
+
+	public String getPhase() {
+		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");
+	}
+	
+	
 }

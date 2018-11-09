@@ -1,0 +1,23 @@
+[Map]
+image=world.bmp
+warn=yes
+author=Team 14
+scroll=horizontal
+wrap=no
+
+[Continents]
+North America=5
+South America=2
+Africa=3
+
+[Territories]
+Alaska,70,126,North America,Quebec,Ontario
+Ontario,199,167,North America,Alaska
+Quebec,253,166,North America,Alaska,Venezuela
+
+Venezuela,259,303,South America,Peru,Quebec
+Peru,262,349,South America,Venezuela,North Africa
+
+North Africa,420,264,Africa,South Africa,Peru
+South Africa,483,371,Africa,North Africa,Madagascar
+Madagascar,536,361,Africa,South Africa
