@@ -1,7 +1,5 @@
-/controller/
 /gameConsoleTest/
-/mapEditorTest/
-/model/
-/testSuites/
-/view/
 /classTests/
+/controller/
+/model/
+/view/
