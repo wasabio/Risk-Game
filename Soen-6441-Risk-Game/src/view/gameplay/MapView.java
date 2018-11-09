@@ -1,5 +1,6 @@
 package view.gameplay;
 
+import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -55,7 +56,7 @@ public class MapView extends View implements Observer
 		
 		for(Player p : map.players) 
 		{
-			System.out.println("Player " + p.getNumber() + " conqued persentage " + p.conquedPercentage(p, map));
+			System.out.println("Player " + p.getNumber() + " conqued Percentage " + p.conquedPercentage(p, map));
 		}
 		
 		for(Player p : map.players) 

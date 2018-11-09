@@ -1,5 +1,6 @@
 package model.gameplay;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import model.map.Country;
@@ -110,7 +111,7 @@ public class Player
 		double total = map.countries.size();
 		
 		double Percentage = count/total;
-		
+		Percentage = Double.parseDouble(new DecimalFormat("##.##").format(Percentage));
 		return Percentage;
 	}
 	
