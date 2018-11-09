@@ -14,7 +14,7 @@ import model.map.Map;
  * @author Yueshuai
  *
  */
-public class testPlayer {
+public class TestPlayer {
 
 	Player p;
 	@Before()

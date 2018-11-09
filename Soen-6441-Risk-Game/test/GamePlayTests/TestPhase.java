@@ -9,7 +9,7 @@ import model.gameplay.Player;
 import model.map.Map;
 
 import org.junit.Before;
-public class testPhase {
+public class TestPhase {
 
 	/**
 	 * this method to test the functionality of Phase class

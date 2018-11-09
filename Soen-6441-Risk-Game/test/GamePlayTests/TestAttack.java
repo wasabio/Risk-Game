@@ -19,7 +19,7 @@ import model.map.Map;
  * @author Yann
  *
  */
-public class testAttack {
+public class TestAttack {
 	
 	static Player p1, p2;
 	static Country cty1, cty2, cty3, cty4;
