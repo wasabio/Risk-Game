@@ -21,7 +21,7 @@ public class PhaseView extends View implements Observer {
 
 	private void print(Phase o) {
 		// TODO Auto-generated method stub
-		System.out.print(o.getAction()+"\n");
+		System.out.print("\n"+o.getAction()+"\n");
 		System.out.print("P"+ o.getPlayer().getNumber()+" "+o.getPhase()+" ");
 		
 	}
