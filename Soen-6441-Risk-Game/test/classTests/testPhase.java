@@ -24,7 +24,7 @@ public class testPhase {
 		p = new Player(1,1);
 		map = new Map();
 		map.players.add(p);
-		phase.setPhase("start up", p);
+		phase.setPhase("start up", p,1);
 		phase.setAction("ok");
 	}
 	@Test

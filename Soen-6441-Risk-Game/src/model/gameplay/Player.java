@@ -84,6 +84,7 @@ public class Player extends Observable
 	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
 	{
 		map.addArmiesToCountry(countryNumber, selectedArmies);
+		
 	}
 	
 	public void attack() 

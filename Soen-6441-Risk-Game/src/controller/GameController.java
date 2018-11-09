@@ -43,7 +43,7 @@ public class GameController
 			phaseView = new PhaseView();
 			reinforcementView = new ReinforcementView();
 			fortificationView = new FortificationView();
-			map.addObserver(phaseView);
+			phase.addObserver(phaseView);
 			map.addObserver(mapView);
 			execute();
 		} 
@@ -106,7 +106,7 @@ public class GameController
 				} 
 				else 
 				{
-					map.setPhase("Start up phase",p);
+					phase.setPhase("Start up phase",p,1);
 					int ctryId = startUpView.askCountry(p);
 					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId-1).getName()+"\n");
 					map.addArmiesToCountry(ctryId, 1);
@@ -121,16 +121,20 @@ public class GameController
 	 */
 	private void reinforcementPhase(Player p) 
 	{
-		map.setPhase("Reinforcement phase", p);
+		
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
+		phase.setPhase("Reinforcement phase", p,1);
 		do 
 		{
 			
 			int countryNumber = reinforcementView.askCountry(p);
 			int selectedArmies = reinforcementView.askArmiesNumber(p);
+			int index = map.countries.get(countryNumber-1).getArmyNumber();
 			p.reinforcement(map, countryNumber, selectedArmies);
 			phase.setAction("P"+p.getNumber()+" reinfoced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
+			phase.setPhase("Reinforcement phase", p,map.countries.get(countryNumber-1).getArmyNumber());
+			
 			
 		}while(p.getArmies() > 0);
 	}
@@ -142,7 +146,7 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
-		map.setPhase("Fortification phase", p);
+		phase.setPhase("Fortification phase", p,1);
 		/* Getting origin country */
 		boolean canSendTroops;
 		int	originCountryId;

@@ -460,9 +460,9 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 15;
+			return 5;
 		case 3:
-			return 10;
+			return 8;
 		case 4:
 			return 30;
 		case 5:
@@ -610,11 +610,7 @@ public class Map extends Observable
 	{
 		this.name = name;
 	}
-	public void setPhase(String newPhase,Player newPlayer) {
-		phase.setPhase(newPhase, newPlayer);
-		setChanged();
-		notifyObservers(this);
-	}
+
 
 	public String getPhase() {
 		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");

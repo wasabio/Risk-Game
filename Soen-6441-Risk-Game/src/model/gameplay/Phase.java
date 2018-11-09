@@ -7,9 +7,13 @@ public class Phase extends Observable{
 	String phase;
 	Player p;
 	String action="";
-	public void setPhase(String newPhase,Player newPlayer) {
+	int army=-1;
+	public void setPhase(String newPhase,Player newPlayer,int armyNum) {
 		this.phase = newPhase;
 		this.p = newPlayer;
+		army = armyNum;
+		setChanged();
+		notifyObservers();
 	}
 	public String getPhase() {
 		return phase;

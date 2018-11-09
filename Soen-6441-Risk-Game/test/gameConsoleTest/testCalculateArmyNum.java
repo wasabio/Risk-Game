@@ -41,10 +41,17 @@ public class testCalculateArmyNum
 	public void before1() 
 	{
 	con1.addCountry(cty1);
-	con2.addCountry(cty2);
-	con3.addCountry(cty3);
 	con1.addCountry(cty4);
 	con1.addCountry(cty5);
+	con2.addCountry(cty2);
+	con3.addCountry(cty3);
+	
+	cty1.setArmyNumber(1);
+	cty2.setArmyNumber(2);
+	cty3.setArmyNumber(3);
+	cty4.setArmyNumber(4);
+	cty5.setArmyNumber(5);
+	
 	map.continents.add(con1);
 	map.continents.add(con2);
 	map.continents.add(con3);

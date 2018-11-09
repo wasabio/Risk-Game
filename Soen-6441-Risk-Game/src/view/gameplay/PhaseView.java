@@ -16,11 +16,13 @@ public class PhaseView extends View implements Observer {
 	@Override
 	public void update(Observable o, Object org) {
 		// TODO Auto-generated method stub
-		print((Map) o);
+		print((Phase) o);
 	}
 
-	private void print(Map o) {
+	private void print(Phase o) {
 		// TODO Auto-generated method stub
+		System.out.print(o.getAction()+"\n");
+		System.out.print("P"+ o.getPlayer().getNumber()+" "+o.getPhase()+" ");
 		
 	}
 	
