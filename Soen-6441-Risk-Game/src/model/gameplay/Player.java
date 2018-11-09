@@ -1,5 +1,8 @@
 package model.gameplay;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import model.map.Country;
@@ -155,5 +158,22 @@ public class Player
 		c.setPlayer(this);
 	}
 
+	public double getPercentage(Player p, Map map)
+    {
+        double count = p.ownedCountries.size();
+        double total = map.countries.size();
+        double percentage = count/total;
+        BigDecimal bd = new BigDecimal(percentage);
+        bd = bd.setScale(2, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
 	
+	public int getTotalArmy() {
+		int totalArmy = 0;
+		
+		for(Country c : ownedCountries) {
+			totalArmy += c.getArmyNumber();
+		}
+		return totalArmy;
+	}
 }
