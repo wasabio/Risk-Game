@@ -16,7 +16,7 @@ public class Dices {
 	private int defenderLoss = 0;
 	
 	public Dices(int new_attackerArmiesNumber, int new_defenderArmiesNumber) {
-		attackerMaxDices = Math.min(new_attackerArmiesNumber, 3);
+		attackerMaxDices = Math.min(new_attackerArmiesNumber-1, 3);
 		defenderMaxDices = Math.min(new_defenderArmiesNumber, 2);
 	}
 
@@ -33,7 +33,6 @@ public class Dices {
 			attDicesNumber = attackerMaxDices;
 			defDicesNumber = defenderMaxDices;
 		}
-				
 		/* Rolling attacker dices */
 		for(int dice = 1; dice <= attDicesNumber; dice++) {
 			int a = rollADice();
