@@ -29,12 +29,12 @@ public class MapView extends View implements Observer
 	 * The method is to print the information in a type of order for the map and showing to the user
 	 * @param map The map file that had been selected and will show to the user
 	 */
-	private void print(Map map) 
+	private void print(Map o) 
 	{
 		System.out.print("\n\n\n\n\n*****************************************\n");
-		System.out.println("          World map - " + map.getPlayerNumber() + " players\n");
+		System.out.println("          World map - " + o.getPlayerNumber() + " players\n");
 
-		for(Continent c : map.continents) 
+		for(Continent c : o.continents) 
 		{
 			System.out.print("Continent " + c.getName());
 			if(c.getOwner() != null) 
@@ -61,26 +61,6 @@ public class MapView extends View implements Observer
 			System.out.println();			
 		}
 		
-		System.out.print("\n*****************************************\n\n");
-        System.out.println(" World Domination View ");
-       
-        for(Player p : map.players)
-        {
-        	double c = p.getPercentage(p, map);
-            System.out.println("Player " + p.getNumber() + " conquered Percentage " + c);
-        }
-       
-        for(Player p : map.players)
-        {  
-            System.out.println("Player "+ p.getNumber() + " total army : " + (p.getTotalArmy()+ p.getArmies()));
-        }
-       
-        for(Continent c : map.continents)
-        {
-            checkOwner(c);
-        }
-       
-        System.out.print("\n*****************************************\n\n");
        
     }
  
@@ -103,4 +83,5 @@ public class MapView extends View implements Observer
             System.out.print("");
         }
     }
+
 }
