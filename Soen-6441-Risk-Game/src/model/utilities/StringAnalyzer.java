@@ -47,7 +47,6 @@ public class StringAnalyzer
 			return true;
 		else
 		{
-			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
 			return false;
 		}
 	}
