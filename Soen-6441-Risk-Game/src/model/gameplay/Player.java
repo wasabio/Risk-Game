@@ -99,6 +99,7 @@ public class Player extends Observable
 	
 	/**
 	 * This method will process the all-out attack mode.
+	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
 	 */
@@ -117,6 +118,7 @@ public class Player extends Observable
 
 	/**
 	 * This method will process the classic attack mode. The players provide their dices.
+	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
 	 * @param dices Dices selected by the players

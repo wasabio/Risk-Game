@@ -46,7 +46,7 @@ public class testCheckConnectedMap
 	}
 	
 	/**
-	 * test when country 1 and 2 are connected but country 3 & 4 do not
+	 * test when country 1 and 2 are connected but country 3 and 4 do not
 	 * have any neighbor
 	 */
 	@Test

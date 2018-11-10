@@ -4,6 +4,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import testSuites.testModules.TestSuiteClass;
+
 /**
  * the test suite of all tests
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen

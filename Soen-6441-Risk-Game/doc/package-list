@@ -1,3 +1,4 @@
+classTests
 controller
 gameConsoleTest
 mapEditorTest
@@ -5,6 +6,7 @@ model.gameplay
 model.map
 model.utilities
 testSuites
+testSuites.testModules
 view.common
 view.gameplay
 view.mapEditor

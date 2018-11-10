@@ -80,6 +80,7 @@ public class AttackView extends View {
 
 	/**
 	 * Display an error message : wrong attacked country selection
+	 * @param attacker the attacker
 	 */
 	public void errorCannotBeAttackedBy(Country attacker) {
 		System.out.println("Error : Choose an enemy neighbor of " + attacker.getName() + ".");
@@ -104,7 +105,7 @@ public class AttackView extends View {
 
 	/**
 	 * Asking number of armies to move to the conquered country
-	 * @param armiesNumber Remaining number of armies in the attacker country
+	 * @param maxArmies Remaining number of armies in the attacker country
 	 * @return the number of moving armies
 	 */
 	public int askMovingArmies(int maxArmies) {
