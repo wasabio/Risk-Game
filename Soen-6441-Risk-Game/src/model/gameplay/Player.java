@@ -160,6 +160,12 @@ public class Player extends Observable
 		c.setPlayer(this);
 	}
 
+	/**
+	 * Get the percentage of the owned countries of a map of a player
+	 * @param p players
+	 * @param map the whole countries in the map
+	 * @return the double type percentage value
+	 */
 	public float getPercentage(Player p, Map map)
     {
 		float count = p.ownedCountries.size();
@@ -170,6 +176,10 @@ public class Player extends Observable
         return (float)bd.doubleValue();
     }
 	
+	/**
+	 * get the whole army number of all player have
+	 * @return int type total army number of all players have
+	 */
 	public int getTotalArmy() {
 		int totalArmy = 0;
 		
