@@ -9,7 +9,6 @@ import testSuites.testModules.TestSuiteClass;
 /**
  * This test suite starts all the tests
  * @author Yann-PC
- *
  */
 @RunWith(Suite.class)
 @SuiteClasses({	TestSuiteClass.class,

@@ -66,7 +66,10 @@ public class testAttack {
 		map.countries.add(cty3);
 		map.countries.add(cty4);
 	}
-	
+
+	/**
+	 * test the all out method
+	 */
 	@Test
 	public void testValidAttackAllOutMode() {
 		cty1.linkTo(cty2);
@@ -92,6 +95,9 @@ public class testAttack {
 		}
 	}
 	
+	/**
+	 * test the checking of not connect country try to attack each other
+	 */
 	@Test
 	public void testAttackNotConnected() {
 		cty3.setArmyNumber(12);
@@ -105,6 +111,9 @@ public class testAttack {
 		assertEquals(cty4.canBeAttackedBy(cty3), false);
 	}
 	
+	/**
+	 * test the ClassicMode is working
+	 */
 	@Test
 	public void testValidAttackClassicMode() {
 		cty1.setPlayer(p1);

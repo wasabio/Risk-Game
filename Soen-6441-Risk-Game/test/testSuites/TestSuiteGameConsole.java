@@ -16,7 +16,11 @@ import gameConsoleTest.testMapFileSyntax;
 import gameConsoleTest.testMapValidation;
 import gameConsoleTest.testTrade;
 
-
+/**
+ * test suite of gameconsole
+ * @author skyba
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({	testAddArmiesToCountry.class,
 				testAttack.class,

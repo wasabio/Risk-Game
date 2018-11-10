@@ -12,6 +12,9 @@ import model.utilities.Random;
  */
 public class testRandom {
 	
+	/**
+	 * test the random can give right value
+	 */
 	@Test
 	public void testRnd() {
 		

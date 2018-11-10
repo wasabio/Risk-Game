@@ -55,6 +55,9 @@ public class testDeleteContinent {
 		assertEquals(2,cty3.neighbors.size());
 	}
 	
+	/**
+	 * test the delete function of Continent
+	 */
 	@Test
 	public void testDeleteContinent() {
 		Continent c = me.getContinent(1);

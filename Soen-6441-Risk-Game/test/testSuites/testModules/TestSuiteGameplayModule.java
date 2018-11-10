@@ -11,7 +11,6 @@ import classTests.testPlayer;
 /**
  * This test suite tests the gameplay module
  * @author Yann-PC
- *
  */
 @RunWith(Suite.class)
 @SuiteClasses({	
