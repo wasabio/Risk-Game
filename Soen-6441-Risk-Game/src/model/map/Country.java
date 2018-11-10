@@ -319,6 +319,11 @@ public class Country extends Observable
 		return false;
 	}
 
+	/**
+	 * function that check the country can attack by who
+	 * @param attackerCtry the attacker's country
+	 * @return true id the country can be attack otherwise false
+	 */
 	public boolean canBeAttackedBy(Country attackerCtry) {		
 		
 		if(attackerCtry.getPlayer() != this.player && this.neighbors.contains(attackerCtry)) //Enemy country and neighbor

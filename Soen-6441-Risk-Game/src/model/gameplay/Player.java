@@ -321,6 +321,10 @@ public class Player extends Observable
 		return false;
 	}
 	
+	/**
+	 * remove same 3 cards
+	 * @param t same 3 cards
+	 */
 	public void removeSameCards(Card t) {
 		Iterator<Card> i = cards.iterator();
 		int removed = 0;
