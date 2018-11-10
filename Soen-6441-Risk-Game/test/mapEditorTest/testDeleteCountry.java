@@ -13,7 +13,7 @@ import model.map.MapEditor;
 
 /**  
  * test the method of deleteing country in map editor
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testDeleteCountry {
 	//Map map = new Map();

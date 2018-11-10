@@ -11,7 +11,7 @@ import model.map.Country;
 import model.map.Map;
 /**
  * test the method for reinforcing armies from one country to another
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testCanSendTroopsToAlly {

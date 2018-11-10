@@ -6,6 +6,7 @@ import view.common.MainMenuView;
  * This class is the point of entry of the application. It controls the execution
  * flow of the main menu and let the user choose between playing or editing maps.
  * It is the first menu that is displayed to the user when he starts the program.
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MainController 
 {

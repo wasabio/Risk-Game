@@ -12,7 +12,7 @@ import model.utilities.Random;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
- * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Player extends Observable
 {
@@ -144,6 +144,13 @@ public class Player extends Observable
 		map.addArmiesToCountry(defenderCtry.getNumber(), -dices.getDefenderLoss());
 	}
 	
+	/**
+	 * fortification phase function
+	 * @param map map data
+	 * @param originCountryId first chosen Country
+	 * @param destinationCountryId second chosen Country
+	 * @param selectedArmies army number selected to attack
+	 */
 	public void fortification(Map map, int originCountryId, int destinationCountryId, int selectedArmies)
 	{
 		map.addArmiesToCountry(originCountryId, -selectedArmies);
@@ -162,6 +169,12 @@ public class Player extends Observable
 		c.setPlayer(this);
 	}
 
+	/**
+	 * get the percentage of each player owned countries in a map
+	 * @param p each player
+	 * @param map map file
+	 * @return each player's percentage
+	 */
 	public float getPercentage(Player p, Map map)
     {
 		float count = p.ownedCountries.size();
@@ -172,6 +185,10 @@ public class Player extends Observable
         return (float)bd.doubleValue();
     }
 	
+	/**
+	 * get the total army of each player
+	 * @return total army number of eaach player
+	 */
 	public int getTotalArmy() {
 		int totalArmy = 0;
 		
@@ -181,6 +198,10 @@ public class Player extends Observable
 		return totalArmy;
 	}
 
+	/**
+	 * get the card
+	 * @return the card that get
+	 */
 	public String getCards() {
 		String result = "";
 		for(Card c : cards) {
@@ -189,6 +210,9 @@ public class Player extends Observable
 		return result;
 	}
 
+	/**
+	 * get one type of the card
+	 */
 	public void getOneCard() {		
 		switch(Random.getRandomInt(1, 3)) {
 		case 1:
@@ -203,6 +227,11 @@ public class Player extends Observable
 		}
 	}
 
+	/**
+	 * trade the card
+	 * @param combination 3 same type to trade
+	 * @return true if can trade, otherwise false
+	 */
 	public boolean trade(int combination) {
 		switch(combination)
 		{
@@ -235,6 +264,10 @@ public class Player extends Observable
 		return false;
 	}
 
+	/**
+	 * check weather cards are different
+	 * @return return the types string of cards names
+	 */
 	private boolean checkDifferentCards() {
 		boolean artillery = false, infantry = false, cavalry = false;
 		
@@ -247,6 +280,9 @@ public class Player extends Observable
 		return (artillery & infantry & cavalry);
 	}
 
+	/**
+	 * remove 3 different types of cards to add extra army
+	 */
 	private void removeDifferentCards() {
 		Iterator<Card> i = cards.iterator();
 		boolean artillery = false, infantry = false, cavalry = false;
@@ -268,6 +304,11 @@ public class Player extends Observable
 		}
 	}
 
+	/**
+	 * check do the player get the same 3 cards
+	 * @param c the card that hold
+	 * @return true if have three same cards, otherwise false
+	 */
 	public boolean checkSameCards(Card c) {
 		int sameCard = 0;
 		
@@ -280,6 +321,10 @@ public class Player extends Observable
 		return false;
 	}
 	
+	/**
+	 * remove same 3 cards
+	 * @param t same 3 cards
+	 */
 	public void removeSameCards(Card t) {
 		Iterator<Card> i = cards.iterator();
 		int removed = 0;

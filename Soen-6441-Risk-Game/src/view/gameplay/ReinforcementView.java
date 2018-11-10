@@ -7,7 +7,7 @@ import view.common.View;
 /**
  * 
  * The class is for the view to show the changes and the steps of the Reinforcement phase in the game.
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class ReinforcementView extends View 
 {
@@ -64,6 +64,11 @@ public class ReinforcementView extends View
 		return armies_number;
 	}
 
+	/**
+	 * ask the cards to let player to see and choose
+	 * @param p the current player
+	 * @return return the chosen int
+	 */
 	public int askCardsToTrade(Player p) {
 		// TODO Auto-generated method stub
 		System.out.println("Please choose the combination to trade: ");
@@ -84,6 +89,9 @@ public class ReinforcementView extends View
 		return opt;
 	}
 
+	/**
+	 * show the message of error when trade
+	 */
 	public void errorTraiding() {
 		System.out.println("Error : You can't trade those cards !");
 		

@@ -13,7 +13,7 @@ public class testPhase {
 
 	/**
 	 * this method to test the functionality of Phase class
-	 * @author Yueshuai
+	 * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
 	 */
 	Phase phase;
 	Player p;
@@ -27,6 +27,9 @@ public class testPhase {
 		phase.setPhase("start up", p);
 		phase.setAction("ok");
 	}
+	/**
+	 * test whether can get the right value
+	 */
 	@Test
 	public void test() {
 		assertSame("start up",phase.getPhase());

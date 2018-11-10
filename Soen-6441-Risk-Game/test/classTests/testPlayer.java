@@ -11,18 +11,22 @@ import model.map.Country;
 import model.map.Map;
 /**
  * test the Player class
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testPlayer {
 
 	Player p;
+	/**
+	 * set the new value of player
+	 */
 	@Before()
 	public void Before(){
 		p = new Player(1,2);
 		p.setArmies(6);
 		p.setNumber(3);
 	}
+	
 	/**
 	 * test return value of getArmies
 	 */
@@ -30,6 +34,7 @@ public class testPlayer {
 	public void testGetArmies() {
 		assertEquals(6,p.getArmies());
 	}
+	
 	/**
 	 * test get player ID number
 	 */
@@ -37,6 +42,7 @@ public class testPlayer {
 	public void testGetNumber() {
 		assertEquals(3,p.getNumber());
 	}
+	
 	/**
 	 * test set armies
 	 */
@@ -45,6 +51,7 @@ public class testPlayer {
 		p.setArmies(9);
 		assertEquals(9, p.getArmies());
 	}
+	
 	/**
 	 * test owns to check if the country belongs to the player
 	 */

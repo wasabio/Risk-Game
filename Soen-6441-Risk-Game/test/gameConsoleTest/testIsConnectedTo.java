@@ -10,6 +10,11 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
+/**
+ * test the connection function in map class
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class testIsConnectedTo {
 
 	Continent con1;
@@ -64,14 +69,14 @@ public class testIsConnectedTo {
 		cty4.linkTo(cty3);
 		
 	}
-	/*
+	/**
 	 * test when origin and destination countries are connected
 	 */
 	@Test
 	public void testConnected() {
 		assertTrue(cty3.isConnectedTo(cty4));
 	}
-	/*
+	/**
 	 * test when origin and destination countries are not connected
 	 */
 	@Test

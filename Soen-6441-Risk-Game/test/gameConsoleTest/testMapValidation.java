@@ -12,7 +12,7 @@ import model.map.Map;
 /**
  * test the method of checking if the map is valid when there is no country or continent in a map or
  * when player number is more than total country number
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testMapValidation 

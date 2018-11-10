@@ -13,6 +13,11 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
+/**
+ * the test for trade card
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class testTrade {
 	
 	Continent con1 = new Continent("",2);
@@ -27,6 +32,9 @@ public class testTrade {
 	Player p2 = new Player(2,3);
 	Map map = new Map();
 	
+	/**
+	 * test values
+	 */
 	@Before
 	public void before() {
 		con1.addCountry(cty1);
@@ -48,6 +56,9 @@ public class testTrade {
 		
 	}
 	
+	/**
+	 * test 3 same card trade
+	 */
 	@Test
 	public void testTrade3Cavalry() {
 		p1.setArmies(5);
@@ -59,6 +70,9 @@ public class testTrade {
 		assertEquals(0, p1.cards.size());
 	}
 	
+	/**
+	 * test when the trade id wrong
+	 */
 	@Test
 	public void testWrongTrade() {
 		p1.setArmies(5);
@@ -68,6 +82,9 @@ public class testTrade {
 		assertFalse(p1.trade(2));
 	}
 	
+	/**
+	 * test if the trade with the 3 card get wrong
+	 */
 	@Test
 	public void testWrongTrade2() {
 		p1.setArmies(5);

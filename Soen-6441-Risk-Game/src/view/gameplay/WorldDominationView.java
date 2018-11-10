@@ -7,14 +7,25 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Map;
 import view.common.View;
-
+/**
+ * The view showing whole total data for player to see
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
+ *
+ */
 public class WorldDominationView extends View implements Observer {
 
+	/**
+	 * observer for the view
+	 */
 	@Override
 	public void update(Observable o, Object org) {
 		print((Map) o);
 	}
 	
+	/**
+	 * print out the message of the World Domination View
+	 * @param o the map file
+	 */
 	private void print(Map o) {
 		System.out.print("\n*****************************************\n\n");
         System.out.println(" World Domination View ");
@@ -38,6 +49,10 @@ public class WorldDominationView extends View implements Observer {
         System.out.print("\n*****************************************\n\n");
 	}
 	
+	/**
+	 * check the owner of the countinent
+	 * @param c the continent
+	 */
 	 public void checkOwner(Continent c) {
 	        if(c.getOwner() != null)
 	        {

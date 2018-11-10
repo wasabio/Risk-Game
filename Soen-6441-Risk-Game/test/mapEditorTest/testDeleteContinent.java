@@ -12,7 +12,7 @@ import model.map.MapEditor;
 
 /**
  * to test the method for deleting continent 
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testDeleteContinent {
@@ -55,6 +55,9 @@ public class testDeleteContinent {
 		assertEquals(2,cty3.neighbors.size());
 	}
 	
+	/**
+	 * test the delete function of Continent
+	 */
 	@Test
 	public void testDeleteContinent() {
 		Continent c = me.getContinent(1);

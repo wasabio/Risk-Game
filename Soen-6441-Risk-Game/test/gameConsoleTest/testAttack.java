@@ -16,7 +16,7 @@ import model.map.Map;
 
 /**
  * This class tests the attack phase
- * @author Yann
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testAttack {
@@ -26,8 +26,12 @@ public class testAttack {
 	static Continent con1;
 	static Map map;
 
+	/**
+	 * Set up the test environment of the test class
+	 */
 	@BeforeClass
 	public static void beforeClass() {
+		map = new Map();
 		p1 = new Player(1,5);
 		p2 = new Player(2,5);
 		
@@ -37,7 +41,7 @@ public class testAttack {
 		cty4 = new Country("A");
 		
 		con1 = new Continent("",7);
-		map = new Map();
+		
 	}
 	
 	
@@ -62,7 +66,10 @@ public class testAttack {
 		map.countries.add(cty3);
 		map.countries.add(cty4);
 	}
-	
+
+	/**
+	 * test the all out method
+	 */
 	@Test
 	public void testValidAttackAllOutMode() {
 		cty1.linkTo(cty2);
@@ -88,6 +95,9 @@ public class testAttack {
 		}
 	}
 	
+	/**
+	 * test the checking of not connect country try to attack each other
+	 */
 	@Test
 	public void testAttackNotConnected() {
 		cty3.setArmyNumber(12);
@@ -101,6 +111,9 @@ public class testAttack {
 		assertEquals(cty4.canBeAttackedBy(cty3), false);
 	}
 	
+	/**
+	 * test the ClassicMode is working
+	 */
 	@Test
 	public void testValidAttackClassicMode() {
 		cty1.setPlayer(p1);
@@ -115,5 +128,9 @@ public class testAttack {
 		p1.attack(map, cty1, cty2, dices);
 		
 		assertEquals(dices.getAttackerLoss() + dices.getDefenderLoss(), 2);
+		assertEquals(cty1.getArmyNumber(), 12 - dices.getAttackerLoss());	//Checking 	army deduction
+		assertEquals(cty2.getArmyNumber(), 10 - dices.getDefenderLoss());	//Checking 	army deduction
+
+		
 	}
 }

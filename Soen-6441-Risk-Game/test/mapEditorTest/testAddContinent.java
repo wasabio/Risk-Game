@@ -12,7 +12,7 @@ import model.map.MapEditor;
 /**
  * Test the mothod for adding continent
  * 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testAddContinent {
 	MapEditor me = new MapEditor();

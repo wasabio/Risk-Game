@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 /**
  * 
  * The class's main function is to read and check .map file string lines of the current selected file.
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class StringAnalyzer 
@@ -47,7 +48,6 @@ public class StringAnalyzer
 			return true;
 		else
 		{
-			JOptionPane.showMessageDialog(null, "the file name has to end with .map");
 			return false;
 		}
 	}

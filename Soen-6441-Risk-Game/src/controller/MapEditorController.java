@@ -11,7 +11,7 @@ import view.mapEditor.MapEditorView;
 
 /**
  * The class is for the control of map editing part
- * 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapEditorController 
 {
