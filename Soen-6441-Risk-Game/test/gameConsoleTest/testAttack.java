@@ -26,8 +26,12 @@ public class testAttack {
 	static Continent con1;
 	static Map map;
 
+	/**
+	 * Set up the test environment of the test class
+	 */
 	@BeforeClass
 	public static void beforeClass() {
+		map = new Map();
 		p1 = new Player(1,5);
 		p2 = new Player(2,5);
 		
@@ -37,7 +41,7 @@ public class testAttack {
 		cty4 = new Country("A");
 		
 		con1 = new Continent("",7);
-		map = new Map();
+		
 	}
 	
 	
