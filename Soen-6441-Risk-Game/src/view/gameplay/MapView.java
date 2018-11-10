@@ -64,6 +64,10 @@ public class MapView extends View implements Observer
        
     }
  
+	/**
+	 * show the neighbor of each country
+	 * @param ctry the current country 
+	 */
     public void showNeighbors(Country ctry){
         for(int i = 0; i < ctry.neighbors.size(); i++) {
             System.out.print(ctry.neighbors.get(i).getName());
@@ -74,6 +78,10 @@ public class MapView extends View implements Observer
         }
     }
    
+    /**
+     * Check the owner of each country in the continent
+     * @param c the country's continent
+     */
     public void checkOwner(Continent c) {
         if(c.getOwner() != null)
         {

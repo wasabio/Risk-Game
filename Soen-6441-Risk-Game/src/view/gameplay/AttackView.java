@@ -57,7 +57,7 @@ public class AttackView extends View {
 	
 	/**
 	 * Asking for attack mode : all-out or classic
-	 * @return 
+	 * @return return the attack mode state that chosen
 	 */
 	public int askAttackMode() {
 		System.out.println("Select the attack mode number: 1 - All-out, 2 - Classic");
@@ -121,10 +121,10 @@ public class AttackView extends View {
 	}
 
 	/**
-	 * 
-	 * @param p
-	 * @param maxDicesNumber
-	 * @return
+	 *  ask the defender dices
+	 * @param p the current player of defender
+	 * @param maxDicesNumber the maximum dice number
+	 * @return return the dice number of defender
 	 */
 	public int askDefenderDices(Player p, int maxDicesNumber) {
 		System.out.println("P" + p.getNumber() + " (Defender) Enter the number of dices you want to use (1 or 2):");
@@ -138,6 +138,12 @@ public class AttackView extends View {
 		return diceNumber;
 	}
 	
+	/**
+	 * ask the Attacker dices
+	 * @param p the current player of Attacker
+	 * @param maxDicesNumber the maximum dice number
+	 * @return return the dice number of Attacker
+	 */
 	public int askAttackerDices(Player p, int maxDicesNumber) {
 		System.out.println("P" + p.getNumber() + " (Attacker) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
 		int diceNumber;
