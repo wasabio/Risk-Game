@@ -120,6 +120,12 @@ public class AttackView extends View {
 		return selectedArmies;
 	}
 
+	/**
+	 * 
+	 * @param p
+	 * @param maxDicesNumber
+	 * @return
+	 */
 	public int askDefenderDices(Player p, int maxDicesNumber) {
 		System.out.println("P" + p.getNumber() + " (Defender) Enter the number of dices you want to use (1 or 2):");
 		int diceNumber;

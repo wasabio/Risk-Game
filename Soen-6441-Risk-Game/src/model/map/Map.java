@@ -636,7 +636,10 @@ public class Map extends Observable
 		this.name = name;
 	}
 
-
+	/**
+	 * get the current phase, player name
+	 * @return return the phase state with current player
+	 */
 	public String getPhase() {
 		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");
 	}
