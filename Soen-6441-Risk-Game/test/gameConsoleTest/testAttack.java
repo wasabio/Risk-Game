@@ -115,5 +115,9 @@ public class testAttack {
 		p1.attack(map, cty1, cty2, dices);
 		
 		assertEquals(dices.getAttackerLoss() + dices.getDefenderLoss(), 2);
+		assertEquals(cty1.getArmyNumber(), 12 - dices.getAttackerLoss());	//Checking 	army deduction
+		assertEquals(cty2.getArmyNumber(), 10 - dices.getDefenderLoss());	//Checking 	army deduction
+
+		
 	}
 }
