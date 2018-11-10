@@ -1,6 +1,8 @@
 package gameConsoleTest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -52,8 +54,27 @@ public class testTrade {
 		p1.cards.add(Card.cavalry);
 		p1.cards.add(Card.cavalry);
 		p1.cards.add(Card.cavalry);
-		p1.trade(2); // 2 = cavalry
-		
+		 
+		assertTrue(p1.trade(2));// 2 = cavalry
 		assertEquals(0, p1.cards.size());
+	}
+	
+	@Test
+	public void testWrongTrade() {
+		p1.setArmies(5);
+		p1.cards.add(Card.cavalry);
+		p1.cards.add(Card.cavalry);
+		
+		assertFalse(p1.trade(2));
+	}
+	
+	@Test
+	public void testWrongTrade2() {
+		p1.setArmies(5);
+		p1.cards.add(Card.cavalry);
+		p1.cards.add(Card.cavalry);
+		p1.cards.add(Card.cavalry);
+		
+		assertFalse(p1.trade(1));
 	}
 }
