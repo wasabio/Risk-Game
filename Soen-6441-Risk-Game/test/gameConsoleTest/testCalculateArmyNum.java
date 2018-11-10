@@ -76,8 +76,8 @@ public class testCalculateArmyNum
 		cty4.setPlayer(p2);
 		cty5.setPlayer(p1);
 		
-		assertEquals(7,map.calculateArmyNum(p1));
-		assertEquals(8,map.calculateArmyNum(p2));
+		assertEquals(5,map.calculateArmyNum(p1));
+		assertEquals(6,map.calculateArmyNum(p2));
 	}
 	
 	/**
@@ -95,11 +95,6 @@ public class testCalculateArmyNum
 		cty3.setPlayer(p1);
 		cty4.setPlayer(p1);
 		cty5.setPlayer(p1);
-		assertEquals(22,map.calculateArmyNum(p1));
-		
+		assertEquals(18,map.calculateArmyNum(p1));
 	}
-	
-
-	
-
 }

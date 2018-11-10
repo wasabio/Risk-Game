@@ -570,16 +570,16 @@ public class Map extends Observable
 	 */
 	public int calculateArmyNum(Player p) 
 	{
-		int totalArmies = 0;
+		int nbCtry = 0;
 		/* Search how many countries are owned by current player */
 		for(Country c : countries) {
 			if(p == c.getPlayer()) 
 			{
-				totalArmies += c.getArmyNumber();
+				nbCtry ++;
 			}
 		}
 		/* calculate how many armies the player should have */
-		int numOfArmy = totalArmies/3;
+		int numOfArmy = nbCtry/3;
 		int continentBonus = wholeContinentBonus(p);
 		if((numOfArmy + continentBonus) < 3) 
 		{
