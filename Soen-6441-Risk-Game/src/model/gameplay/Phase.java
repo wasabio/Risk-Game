@@ -5,7 +5,7 @@ import java.util.Observable;
 
 /**
  * The class for update different phase state
- * @author 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
  *
  */
 public class Phase extends Observable{

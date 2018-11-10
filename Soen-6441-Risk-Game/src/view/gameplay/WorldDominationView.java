@@ -9,7 +9,7 @@ import model.map.Map;
 import view.common.View;
 /**
  * The view showing whole total data for player to see
- * @author 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
  *
  */
 public class WorldDominationView extends View implements Observer {

@@ -9,7 +9,7 @@ import model.map.Country;
 
 /**
  * test the country function
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testCountry {

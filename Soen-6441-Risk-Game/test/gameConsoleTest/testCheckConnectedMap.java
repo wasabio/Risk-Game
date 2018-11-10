@@ -11,6 +11,7 @@ import model.map.Map;
 
 /**
  * check if the map is an unconnected graph, by trying to reach each possible country from a specific country in the map
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testCheckConnectedMap 
 {

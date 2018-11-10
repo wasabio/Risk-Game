@@ -10,7 +10,7 @@ import mapEditorTest.testDeleteContinent;
 import mapEditorTest.testDeleteCountry;
 /**
  * mapeditor package test suit
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

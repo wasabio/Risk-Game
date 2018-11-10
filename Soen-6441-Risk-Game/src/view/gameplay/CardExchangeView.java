@@ -7,7 +7,7 @@ import model.gameplay.Phase;
 import view.common.View;
 /**
  * the view for card
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class CardExchangeView extends View implements Observer 

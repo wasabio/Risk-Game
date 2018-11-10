@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * This is the class for file reading, wrting functions.
  * It helps other classes to implement getting and editing the selected files.
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class FileHandler 
 {

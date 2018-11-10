@@ -18,7 +18,7 @@ import gameConsoleTest.testTrade;
 
 /**
  * test suite of gameconsole
- * @author skyba
+ *@author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

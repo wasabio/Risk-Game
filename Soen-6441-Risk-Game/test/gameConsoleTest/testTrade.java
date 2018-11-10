@@ -15,7 +15,7 @@ import model.map.Map;
 
 /**
  * the test for trade card
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testTrade {

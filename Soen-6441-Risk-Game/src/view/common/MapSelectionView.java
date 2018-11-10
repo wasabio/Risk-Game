@@ -12,7 +12,7 @@ import model.utilities.StringAnalyzer;
 /**
  * 
  * This class is the view of map selection function for user to see. 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapSelectionView extends View 
 {

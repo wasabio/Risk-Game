@@ -12,7 +12,7 @@ import model.map.MapEditor;
 
 /**
  * to test the method for deleting continent 
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testDeleteContinent {

@@ -12,7 +12,7 @@ import model.map.Map;
 
 /**
  * test the functions in the continent class
- * @author
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testContinent {

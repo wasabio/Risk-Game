@@ -16,7 +16,7 @@ import model.map.Map;
 
 /**
  * This class tests the attack phase
- * @author Yann
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testAttack {

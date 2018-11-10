@@ -12,7 +12,7 @@ import view.common.View;
 /**
  * 
  * The class is dealing with showing the data and data changes of the map and update with the observer pattern 
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapView extends View implements Observer 
 {	

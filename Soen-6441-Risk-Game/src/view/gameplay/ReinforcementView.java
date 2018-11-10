@@ -7,7 +7,7 @@ import view.common.View;
 /**
  * 
  * The class is for the view to show the changes and the steps of the Reinforcement phase in the game.
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class ReinforcementView extends View 
 {

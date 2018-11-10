@@ -11,7 +11,7 @@ import mapEditorTest.testDeleteCountry;
 
 /**
  * test suite of mapeditor
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

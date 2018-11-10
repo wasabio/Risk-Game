@@ -11,6 +11,7 @@ import model.map.Map;
 
 /**
  * check if all the continents are accessible from any other continent
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testConnectedContinents 
 {

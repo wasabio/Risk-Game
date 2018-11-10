@@ -11,7 +11,7 @@ import classTests.testRandom;
 
 /**
  * test suite of suite class
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

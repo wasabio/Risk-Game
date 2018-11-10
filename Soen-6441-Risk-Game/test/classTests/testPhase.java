@@ -13,7 +13,7 @@ public class testPhase {
 
 	/**
 	 * this method to test the functionality of Phase class
-	 * @author Yueshuai
+	 * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
 	 */
 	Phase phase;
 	Player p;

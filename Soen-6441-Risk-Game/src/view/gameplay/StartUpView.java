@@ -7,7 +7,7 @@ import view.common.View;
 /**
  * 
  * This class is for a view implement when the game just start.
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class StartUpView extends View 
 {

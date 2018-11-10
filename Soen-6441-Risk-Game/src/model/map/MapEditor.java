@@ -10,7 +10,7 @@ import java.util.Observable;
 /**
  * This class is for functions such as add, delete continents and countries in the map file.
  * 
- *
+ *@author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapEditor extends Observable
 {

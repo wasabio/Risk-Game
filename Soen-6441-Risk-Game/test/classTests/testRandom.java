@@ -8,7 +8,7 @@ import model.utilities.Random;
 
 /**
  * Test the random method
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testRandom {
 	

@@ -12,7 +12,7 @@ import model.map.Map;
 
 /**
  * test the connection function in map class
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testIsConnectedTo {

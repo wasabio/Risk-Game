@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 import model.utilities.Random;
 /**
  * The class for the main functions of dices
- * @author 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
  *
  */
 public class Dices {

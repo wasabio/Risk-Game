@@ -5,7 +5,7 @@ import view.common.View;
 /**
  * 
  * The class is for the main view of the map editor
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class EditorMenuView extends View 
 {

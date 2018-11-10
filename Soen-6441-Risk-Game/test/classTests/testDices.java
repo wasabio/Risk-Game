@@ -10,7 +10,7 @@ import model.gameplay.Dices;
 
 /**
  * Testing dice rolling
- * @author Yann-PC
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testDices {

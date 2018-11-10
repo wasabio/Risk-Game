@@ -11,6 +11,7 @@ import model.map.Map;
 import model.map.MapEditor;
 /**
  * test the method of adding country in the map editor
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testAddCountry {
 	MapEditor mapEditor = new MapEditor();

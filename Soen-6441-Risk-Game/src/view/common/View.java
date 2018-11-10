@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
  * 
  * The class is to show the inputed integers for the user and check the input integer is correct to the program or not.
- *
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public abstract class View 
 {
