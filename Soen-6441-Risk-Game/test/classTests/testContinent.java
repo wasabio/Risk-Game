@@ -10,6 +10,11 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
+/**
+ * test the functions in the continent class
+ * @author
+ *
+ */
 public class testContinent {
 
 	Map map = new Map();	
@@ -23,7 +28,9 @@ public class testContinent {
 	Player p1 = new Player(0, 1);
 	Player p2 = new Player(0, 1);
 	
-	
+	/**
+	 * test the get owner method
+	 */
 	@Test
 	public void testGetOwner() 
 	{
@@ -54,6 +61,9 @@ public class testContinent {
 		assertEquals(p1, cont1.getOwner());
 	}
 	
+	/**
+	 * test when not get the owner
+	 */
 	@Test
 	public void testNotGetOwner() 
 	{

@@ -9,6 +9,11 @@ import classTests.testPhase;
 import classTests.testPlayer;
 import classTests.testRandom;
 
+/**
+ * test suite of suite class
+ * @author skyba
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({	testDices.class,
 				testPhase.class,

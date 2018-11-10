@@ -8,7 +8,11 @@ import mapEditorTest.testAddContinent;
 import mapEditorTest.testAddCountry;
 import mapEditorTest.testDeleteContinent;
 import mapEditorTest.testDeleteCountry;
-
+/**
+ * mapeditor package test suit
+ * @author skyba
+ *
+ */
 @RunWith(Suite.class)
 @SuiteClasses({	testAddContinent.class,
 				testAddCountry.class,

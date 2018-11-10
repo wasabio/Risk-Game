@@ -27,6 +27,9 @@ public class testPhase {
 		phase.setPhase("start up", p);
 		phase.setAction("ok");
 	}
+	/**
+	 * test whether can get the right value
+	 */
 	@Test
 	public void test() {
 		assertSame("start up",phase.getPhase());

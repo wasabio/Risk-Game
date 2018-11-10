@@ -10,11 +10,14 @@ import org.junit.Test;
 import model.utilities.StringAnalyzer;
 /**
  * 
- * 
+ * test the StringAnalyzer class
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class testStringAnalyzer {
 
+	/**
+	 * check can get the correct one and ignore incorrect one
+	 */
 	@Test
 	public void testCheckMapType() 
 	{

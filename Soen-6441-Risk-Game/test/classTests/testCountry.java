@@ -7,10 +7,18 @@ import org.junit.Test;
 
 import model.map.Country;
 
+/**
+ * test the country function
+ * @author skyba
+ *
+ */
 public class testCountry {
 
 	Country c;
 	
+	/**
+	 * test country can get right value and string
+	 */
 	@Test
 	public void testMethods() {
 		Country.Counter = 0;
