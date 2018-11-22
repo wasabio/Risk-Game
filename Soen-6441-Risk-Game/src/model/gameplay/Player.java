@@ -275,8 +275,8 @@ public class Player extends Observable
 		
 		for(Card card : cards) {
 			if(card.name().equals("artillery"))	artillery = true;
-			if(card.name().equals("infantry"))	artillery = true;
-			if(card.name().equals("cavalry"))	artillery = true;
+			if(card.name().equals("infantry"))	infantry = true;
+			if(card.name().equals("cavalry"))	cavalry = true;
 		}
 		
 		return (artillery & infantry & cavalry);
