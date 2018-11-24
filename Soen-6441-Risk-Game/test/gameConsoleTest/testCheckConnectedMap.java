@@ -8,6 +8,7 @@ import org.junit.Test;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapChecker;
 
 /**
  * check if the map is an unconnected graph, by trying to reach each possible country from a specific country in the map
@@ -18,6 +19,7 @@ public class testCheckConnectedMap
 	Map map = new Map();
 	Country cty1,cty2,cty3,cty4;
 	Continent con1,con2;
+	MapChecker checker;
 	
 	/**
 	 * The value setting for connected graph test
@@ -43,6 +45,7 @@ public class testCheckConnectedMap
 		con1.addCountry(cty3);
 		con2.addCountry(cty2);		
 		con2.addCountry(cty4);
+		checker = new MapChecker(map);
 	}
 	
 	/**
@@ -54,7 +57,7 @@ public class testCheckConnectedMap
 	{
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
-		assertFalse(map.checkConnectedMap());
+		assertFalse(checker.checkConnectedMap());
 	}
 	
 	/**
@@ -69,7 +72,7 @@ public class testCheckConnectedMap
 		
 		cty3.linkTo(cty4);
 		cty4.linkTo(cty3);
-		assertFalse(map.checkConnectedMap());
+		assertFalse(checker.checkConnectedMap());
 	}
 	
 	/**
@@ -86,7 +89,7 @@ public class testCheckConnectedMap
 		
 		cty4.linkTo(cty3);
 		cty3.linkTo(cty4);
-		assertTrue(map.checkConnectedMap());
+		assertTrue(checker.checkConnectedMap());
 	}
 
 }

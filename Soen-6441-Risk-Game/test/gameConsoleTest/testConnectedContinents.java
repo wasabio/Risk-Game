@@ -8,6 +8,7 @@ import org.junit.Test;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapChecker;
 
 /**
  * check if all the continents are accessible from any other continent
@@ -18,6 +19,7 @@ public class testConnectedContinents
 	Map map = new Map();
 	Country cty1,cty2,cty3,cty4;
 	Continent con1,con2, con3, con4;
+	MapChecker checker;
 	
 	/**
 	 * The value setting for connected graph test
@@ -47,6 +49,7 @@ public class testConnectedContinents
 		con2.addCountry(cty2);
 		con3.addCountry(cty3);		
 		con4.addCountry(cty4);
+		checker = new MapChecker(map);
 	}
 	
 	/**
@@ -62,7 +65,7 @@ public class testConnectedContinents
 		cty2.linkTo(cty4);
 		cty4.linkTo(cty2);
 		
-		assertFalse(map.checkConnectedContinents());
+		assertFalse(checker.checkConnectedContinents());
 	}
 	
 	/**
@@ -78,7 +81,7 @@ public class testConnectedContinents
 		cty3.linkTo(cty4);
 		cty4.linkTo(cty3);
 		
-		assertFalse(map.checkConnectedContinents());
+		assertFalse(checker.checkConnectedContinents());
 	}
 	
 	/**
@@ -96,7 +99,6 @@ public class testConnectedContinents
 		
 		cty4.linkTo(cty3);
 		cty3.linkTo(cty4);
-		assertTrue(map.checkConnectedContinents());
+		assertTrue(checker.checkConnectedContinents());
 	}
-
 }

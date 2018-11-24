@@ -131,7 +131,7 @@ public class GameController
 				{
 					phase.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
-					phase.setAction("p"+p.getNumber()+" added 1 army in "+map.countries.get(ctryId-1).getName()+"\n");
+					phase.setAction("P" + p.getNumber() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
 					map.addArmiesFromHand(ctryId, 1);
 				}
 			}
@@ -155,7 +155,7 @@ public class GameController
 				int combination = reinforcementView.askCardsToTrade(p);
 				if(p.trade(combination)) {
 					p.setArmies(p.getArmies() + cardBonus);
-					phase.setAction("P"+p.getNumber()+" traded cards and got "+ cardBonus +" new armies\n");
+					phase.setAction("P" + p.getNumber() + " traded cards and got " + cardBonus + " new armies\n");
 					cardBonus += 5;
 				} else {
 					reinforcementView.errorTraiding();
@@ -163,9 +163,8 @@ public class GameController
 			} else {
 				int selectedArmies = reinforcementView.askArmiesNumber(p);
 				p.reinforcement(map, countryNumber, selectedArmies);
-				phase.setAction("P"+p.getNumber()+" reinforced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
+				phase.setAction("P" + p.getNumber() + " reinforced " + selectedArmies + " army in " + map.countries.get(countryNumber-1).getName() + "\n");
 			}
-			
 		}while(p.getArmies() > 0);
 	}
 	
@@ -185,7 +184,7 @@ public class GameController
 			Country attackerCtry;
 			do 
 			{
-				attackerCountryId = attackView.chooseAttackerCountry(p); /* Select a valid country owned by the current player */
+				attackerCountryId = attackView.chooseAttackerCountry(p);
 				if(attackerCountryId == 0) return 0;	/* 0 to skip */
 				
 				attackerCtry = map.countries.get(attackerCountryId-1);

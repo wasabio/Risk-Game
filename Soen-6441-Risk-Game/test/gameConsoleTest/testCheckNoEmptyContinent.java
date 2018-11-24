@@ -7,6 +7,7 @@ import org.junit.Test;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapChecker;
 
 /**
  * test the method of checking if the map contains empty continents that have no country in it
@@ -18,6 +19,7 @@ public class testCheckNoEmptyContinent
 	Country cty1,cty2;
 	Continent con1,con2;
 	Map map = new Map();
+	MapChecker checker;
 	
 	/**
 	 * test when there is 1 continent with 2 countries and 1 continent with no country
@@ -30,7 +32,7 @@ public class testCheckNoEmptyContinent
 		
 		map.continents.add(con1);
 		map.continents.add(con2);
-		
+		checker = new MapChecker(map);
 	}
 	
 	/**
@@ -45,7 +47,7 @@ public class testCheckNoEmptyContinent
 		con1.addCountry(cty2);
 		map.countries.add(cty1);
 		map.countries.add(cty2);
-		assertFalse(map.checkNoEmptyContinent());
+		assertFalse(checker.checkNoEmptyContinent());
 	}
 	
 	/**
@@ -54,7 +56,7 @@ public class testCheckNoEmptyContinent
 	@Test 
 	public void testNoCountry2()
 	{
-		assertFalse(map.checkNoEmptyContinent());
+		assertFalse(checker.checkNoEmptyContinent());
 	}
 	
 	/**
@@ -72,7 +74,7 @@ public class testCheckNoEmptyContinent
 		map.countries.add(cty1);
 		map.countries.add(cty2);
 		map.countries.add(cty3);
-		assertTrue(map.checkNoEmptyContinent());
+		assertTrue(checker.checkNoEmptyContinent());
 	}
 	
 

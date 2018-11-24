@@ -8,6 +8,7 @@ import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
+import model.map.MapChecker;
 
 /**
  * test the method of checking if the map is valid when there is no country or continent in a map or
@@ -18,6 +19,7 @@ import model.map.Map;
 public class testMapValidation 
 {
 	Map map = new Map();
+	MapChecker checker = new MapChecker(map);
 	
 	/** 
 	 * test when there are 2 continents but no country
@@ -29,7 +31,7 @@ public class testMapValidation
 		Continent con2 = new Continent("Asia",4);
 		map.continents.add(con1);
 		map.continents.add(con2);
-		assertFalse(map.checkPlayableMap());
+		assertFalse(checker.checkPlayableMap());
 	}
 	
 	/** 
@@ -40,7 +42,7 @@ public class testMapValidation
 	{
 		Country cty1= new Country("USA");
 		Country cty2 = new Country("Canada");
-		assertFalse(map.checkPlayableMap());
+		assertFalse(checker.checkPlayableMap());
 	}
 	
 	/**
@@ -65,7 +67,7 @@ public class testMapValidation
 		map.players.add(p1);
 		map.players.add(p2);
 		map.players.add(p3);
-		assertFalse(map.checkPlayableMap());	
+		assertFalse(checker.checkPlayableMap());	
 	}
 	
 	/**
@@ -90,9 +92,6 @@ public class testMapValidation
 		Player p3 = new Player(3,3);
 		map.players.add(p1);
 		map.players.add(p2);
-		assertTrue(map.checkPlayableMap());	
+		assertTrue(checker.checkPlayableMap());	
 	}
-	
-	
-
 }

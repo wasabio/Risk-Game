@@ -357,7 +357,8 @@ public class MapEditor extends Observable
 	 */
 	public void save() 
 	{
-		if(map.check()) 
+		MapChecker checker = new MapChecker(map);
+		if(checker.check()) 
 		{
 			String content = extractInfo(map);
 
