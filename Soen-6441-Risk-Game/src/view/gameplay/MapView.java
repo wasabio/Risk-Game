@@ -3,7 +3,6 @@ package view.gameplay;
 import java.util.Observable;
 import java.util.Observer;
 
-import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;

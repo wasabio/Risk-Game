@@ -34,7 +34,6 @@ public class GameController
 	private ReinforcementView reinforcementView;
 	private AttackView attackView;
 	private FortificationView fortificationView;
-	private WinnerView winnerView;
 	private WorldDominationView worldDomiView;
 	private Player winner;
 	private CardExchangeView cardExchangeView;
@@ -96,7 +95,7 @@ public class GameController
 			}
 		}while(!map.isOwned()); /* When map is owned, end of the game */
 		
-		winnerView = new WinnerView(winner);
+		new WinnerView(winner);
 	}
 
 	/**
@@ -163,7 +162,6 @@ public class GameController
 				}
 			} else {
 				int selectedArmies = reinforcementView.askArmiesNumber(p);
-				int index = map.countries.get(countryNumber-1).getArmyNumber();
 				p.reinforcement(map, countryNumber, selectedArmies);
 				phase.setAction("P"+p.getNumber()+" reinforced "+ selectedArmies+" army in "+map.countries.get(countryNumber-1).getName()+"\n");
 			}
@@ -208,12 +206,11 @@ public class GameController
 			}while(!canBeAttacked);
 			
 			/* Getting attack mode : all-out or classic */
-			int attackMode = attackView.askAttackMode();
-			
-			if(attackMode == 1) //All-out
+			phase.setAction(attackerCtry.getName() + "(P"+ p.getNumber()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(P" + defenderCtry.getPlayer().getNumber() + ")\n");
+
+			if(attackView.askAttackMode() == 1) //All-out
 			{
 				p.attack(map, attackerCtry, defenderCtry);
-				phase.setAction("P"+p.getNumber()+" used " + attackerCtry.getName() + " to attack "+ map.countries.get(defenderCtry.getNumber()-1).getName() + " with " + attackerCtry.getArmyNumber() + " armies\n");
 			}
 			else {			//Classic
 				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
@@ -222,7 +219,6 @@ public class GameController
 				dices.setDicesNumber(attackerDices, defenderDices);
 				
 				p.attack(map, attackerCtry, defenderCtry, dices);
-				phase.setAction("P"+p.getNumber()+" used " + attackerCtry.getName() + " to attack "+ map.countries.get(defenderCtry.getNumber()-1).getName() + " with " + attackerDices + " armies\n");
 			}
 			
 			/* Attacker conquered the country */
@@ -235,6 +231,9 @@ public class GameController
 					p.getOneCard();
 					p.gotCard = true;
 				}
+				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") conquered " + defenderCtry.getName() + " and moved " + movingArmies + " armies\n");
+			} else {
+				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") failed to conquer " + defenderCtry.getName() + " (P" + defenderCtry.getPlayer().getNumber() + ")\n");
 			}
 			
 			// Checking winning conditions

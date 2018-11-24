@@ -73,16 +73,16 @@ public class MapEditorController
 			case 0: /* Save & exit */
 				mapEditor.save();
 				break;
-			case 1: /* Add country */
+			case 1:
 				addCountry();
 				break;
-			case 2: /* Add continent */
+			case 2:
 				addContinent();
 				break;
-			case 3: /* Delete country */
+			case 3:
 				deleteCountry();
 				break;
-			case 4: /* Delete continent */
+			case 4:
 				deleteContinent();
 				break;
 			case 5: /* Exit */
@@ -92,43 +92,30 @@ public class MapEditorController
 	}
 	
 	/**
-	 * The method for delete country
+	 * The method to delete country
 	 */
 	private void deleteCountry() 
 	{
-		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
 		int ctryNumber = editView.askCountryNumber(maxInput);
-		deleted = mapEditor.deleteCountry(ctryNumber);
-		
-		if(!deleted) 
-		{
-			// editView.errorDeletingCountry();
-		}
+		mapEditor.deleteCountry(ctryNumber);
 	}
 
 	/**
-	 * The method for delete continent
+	 * The method to delete continent
 	 */
 	private void deleteContinent() 
 	{
-		boolean deleted = false;
 		int maxInput = mapEditor.getMaxInputNumber();
 		int contNumber = editView.askContinentNumber(maxInput);
-		deleted = mapEditor.deleteContinent(contNumber);
-		
-		if(!deleted) 
-		{
-			// editView.errorDeletingContinent();
-		}
+		mapEditor.deleteContinent(contNumber);
 	}
 
 	/**
-	 * The method for add Country
+	 * The method to add Country
 	 */
 	public void addCountry() 
 	{
-		boolean added = false;
 		if(mapEditor.map.continents.size() > 0) 
 		{
 			String ctryName = editView.askCountryName();
@@ -144,29 +131,18 @@ public class MapEditorController
 					neighborNumbers.add(currentInput);
 				}
 			}while(currentInput != 0);
-			added = mapEditor.addCountry(ctryName, contNb, neighborNumbers);
+			
+			if(!mapEditor.addCountry(ctryName, contNb, neighborNumbers))	editView.errorAddingCountry();
 		}
-		
-		 if(!added) 
-		 {
-			 editView.errorAddingCountry();
-		 }
 	}
 	
 	/**
-	 * The method for add Continent
+	 * The method to add Continent
 	 */
 	public void addContinent() 
-	{
-		boolean added = false;
-		
+	{		
 		String countinentName = editView.askContinentName();
 		int bonus = editView.askBonus();
-		added = mapEditor.addContinent(countinentName, bonus);
-	
-		if(!added) 
-		{
-			 editView.errorAddingContinent();
-		}
+		if(!mapEditor.addContinent(countinentName, bonus))	editView.errorAddingContinent();
 	}
 }

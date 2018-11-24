@@ -269,10 +269,7 @@ public class MapEditor extends Observable
 			{
 				return c;
 			}
-			for(Country ctry : c.countries) 
-			{
-				counter++;
-			}
+			counter += c.countries.size();
 		}
 		return null;
 	}
@@ -330,16 +327,7 @@ public class MapEditor extends Observable
 	 */
 	public int getMaxInputNumber() 
 	{
-		int counter = 0;
-		for(Continent c : map.continents) 
-		{
-			counter++;
-			for(Country ctry : c.countries) 
-			{
-				counter++;
-			}
-		}
-		return counter;
+		return map.continents.size() + map.countries.size();
 	}
 
 	/**

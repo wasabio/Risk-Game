@@ -108,12 +108,13 @@ public class Player extends Observable
 		do{
 			Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
 			battle(map, dices, attackerCtry, defenderCtry);
-		}while(attackerCtry.getArmyNumber() > 1 && defenderCtry.getArmyNumber() > 0);	// Continue until no attack is possible
-		
-		/* Resolving battle result : conquering a country */
-		if(defenderCtry.getArmyNumber() == 0) {
-			conquer(defenderCtry);			
-		}
+
+			/* Resolving battle result : conquering a country */
+			if(defenderCtry.getArmyNumber() == 0) {
+				conquer(defenderCtry);
+				return;
+			}
+		}while(attackerCtry.getArmyNumber() > 1);	// Continue until no attack is possible
 	}
 
 	/**
@@ -184,6 +185,7 @@ public class Player extends Observable
 		float percentage = count/total;
         BigDecimal bd = new BigDecimal(percentage);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
+        
         return (float)bd.doubleValue();
     }
 	
@@ -197,6 +199,7 @@ public class Player extends Observable
 		for(Country c : ownedCountries) {
 			totalArmy += c.getArmyNumber();
 		}
+		
 		return totalArmy;
 	}
 
@@ -209,6 +212,7 @@ public class Player extends Observable
 		for(Card c : cards) {
 			result += c.name() + " ";
 		}
+		
 		return result;
 	}
 

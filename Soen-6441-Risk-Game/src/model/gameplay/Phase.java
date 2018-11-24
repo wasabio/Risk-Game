@@ -23,6 +23,7 @@ public class Phase extends Observable{
 		this.p = newPlayer;
 		setChanged();
 		notifyObservers();
+		this.action="";	//Cleaning up the previous action after it has been displayed
 	}
 	
 	/**

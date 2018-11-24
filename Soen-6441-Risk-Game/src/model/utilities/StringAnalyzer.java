@@ -1,11 +1,7 @@
 package model.utilities;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 /**
  * 
  * The class's main function is to read and check .map file string lines of the current selected file.

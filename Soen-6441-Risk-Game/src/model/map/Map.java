@@ -333,7 +333,7 @@ public class Map extends Observable
 				return c;
 			}
 		}
-		throw new IOException("Incorrect map file (" + name + "," + ")");
+		throw new IOException("Incorrect map file (Country " + name + " not found)");
 	}
 	
 	/**
@@ -363,7 +363,6 @@ public class Map extends Observable
 				{
 					throw new Exception("invalid coordinates");
 				}
-				
 				if (ctry.getContinent() != null && !name.equals("")) 
 				{
 					ctry.getContinent().countries.add(ctry);
@@ -471,7 +470,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 40;
+			return 5;
 		case 3:
 			return 35;
 		case 4:
@@ -522,10 +521,7 @@ public class Map extends Observable
 		Player owner = countries.get(0).getPlayer();
 		for(Country c : countries) 
 		{
-			if(c.getPlayer() != owner) 
-			{
-				return false;
-			}
+			if(c.getPlayer() != owner)	return false;
 		}
 		
 		return true;
