@@ -122,7 +122,7 @@ public class MapEditorController
 			int maxInput = mapEditor.getMaxInputNumber();
 			int contNb = editView.askContinentNumber(maxInput);
 			ArrayList<Integer> neighborNumbers = new ArrayList<Integer>();
-			/* Ask all neighbors until user press 0 */
+			/* Ask all neighbors until user presses 0 */
 			int currentInput;
 			do {
 				currentInput = editView.askNeighbor(maxInput);
@@ -141,8 +141,8 @@ public class MapEditorController
 	 */
 	public void addContinent() 
 	{		
-		String countinentName = editView.askContinentName();
+		String continentName = editView.askContinentName();
 		int bonus = editView.askBonus();
-		if(!mapEditor.addContinent(countinentName, bonus))	editView.errorAddingContinent();
+		if(!mapEditor.addContinent(continentName, bonus))	editView.errorAddingContinent();
 	}
 }

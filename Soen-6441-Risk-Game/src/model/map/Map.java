@@ -15,7 +15,6 @@ import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
-import view.gameplay.WorldDominationView;
 
 /**
  * This is the class that includes most logic functions for map
@@ -39,7 +38,6 @@ public class Map extends Observable
 	private boolean warn;
 	private int playerNumber;
 	private Phase phase = new Phase();
-	private WorldDominationView worldDomiView = new WorldDominationView();
 	
 	/**
 	 * Map constructor 
@@ -343,7 +341,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 5;
+			return 40;
 		case 3:
 			return 35;
 		case 4:

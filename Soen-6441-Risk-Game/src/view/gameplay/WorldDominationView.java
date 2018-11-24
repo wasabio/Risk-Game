@@ -50,7 +50,7 @@ public class WorldDominationView extends View implements Observer {
 	}
 	
 	/**
-	 * check the owner of the countinent
+	 * check the owner of the continent
 	 * @param c the continent
 	 */
 	 public void checkOwner(Continent c) {

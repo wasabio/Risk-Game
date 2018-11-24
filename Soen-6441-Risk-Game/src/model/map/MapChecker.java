@@ -3,9 +3,18 @@ package model.map;
 import java.util.HashSet;
 import java.util.Stack;
 
+/**
+ * This class is in charge of checking if a map pass all the tests, to determine if it is playable
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ */
 public class MapChecker {
 	private Map map;
 	
+	/**
+	 * Constructor of the MapChecker class.
+	 * 
+	 * @param newMap The map that is going to be checked.
+	 */
 	public MapChecker(Map newMap) {
 		this.map = newMap;
 	}
@@ -15,15 +24,17 @@ public class MapChecker {
 	 * 1. Checking if the map is empty, 
 	 * 2. Checking if a country without any neighbor
 	 * 3. Checking if a continent without any country
+	 * 4. Checking if a continent is connected to another one
+	 * 5. Checking if a continent is a connected subgraph
 	 * 
 	 * Unconnected map = DFS on Countries, trying to get all the countries
 	 * Unconnected continent = DFS on continents
 	 * 
-	 * @return Returning true when 3 checking functions all passed, and other situations will return false
+	 * @return Returning true when all the checking functions pass, another situation will return false
 	 */
 	public boolean check() 
 	{
-		return (checkPlayableMap() && checkConnectedMap() && checkNoEmptyContinent() && checkConnectedContinents());
+		return (checkPlayableMap() && checkConnectedMap() && checkNoEmptyContinent() && checkConnectedContinents() && checkContinentsAsConnectedSubgraphs());
 	}
 	
 	/**
@@ -136,5 +147,39 @@ public class MapChecker {
 		return true;
 	}
 
-	
+	/**
+	 * To check if each continent is a connected subgraph. DFS on each continent, trying to access all the countries once.
+	 * @return Returning false if a continent is not a connected subgraph, otherwise true
+	 */
+	public boolean checkContinentsAsConnectedSubgraphs() 
+	{
+		if(map.countries == null || map.countries.size() == 0
+		|| map.continents == null || map.continents.size() == 0)	return false;
+		
+		for(Continent c : map.continents) {
+			Stack<Country> open = new Stack<Country>();
+			HashSet<Country> closed = new HashSet<Country>();
+			
+			open.push(c.countries.get(0));
+			
+			while(open.size() != 0) {
+				Country current = open.pop();
+				
+				for(Country neighbor : current.neighbors) {
+					if(!closed.contains(neighbor) && neighbor.getContinent() == c) {
+						open.push(neighbor);
+					}
+				}
+				closed.add(current);
+			}
+			
+			if(closed.size() !=  c.countries.size())
+			{
+				System.out.println("The continent " + c.getName() + " is not a connected subgraph");
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
