@@ -343,4 +343,16 @@ public class Player extends Observable
 			}
 		}
 	}
+	
+	/**
+	 * Check if a player can continue to attack during the attack phase. At least one
+	 * of its own countries must be able to launch an attack.
+	 */
+	public boolean canContinueAttacking() {
+		for(Country c : this.ownedCountries) {
+			if(c.canAttack())	return true;
+		}
+		
+		return false;
+	}
 }

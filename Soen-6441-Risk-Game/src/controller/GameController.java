@@ -239,7 +239,7 @@ public class GameController
 			if(map.isOwned()) {
 				return map.countries.get(0).getPlayer().getNumber();
 			}
-		}while(attackView.continueAttacking());
+		}while(p.canContinueAttacking() && attackView.continueAttacking());
 		
 		p.gotCard = false;
 		
