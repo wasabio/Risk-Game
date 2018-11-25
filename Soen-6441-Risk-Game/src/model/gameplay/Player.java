@@ -117,16 +117,6 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * This method will process to reinforce a player's country
-	 * @param map the map
-	 * @param countryNumber the selected country
-	 * @param selectedArmies the number of armies to add
-	 */
-	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
-	{
-	}
-	
-	/**
 	 * This method will process the all-out attack mode.
 	 * @param map The map
 	 * @param attackerCtry Country attacking

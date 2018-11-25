@@ -10,11 +10,9 @@ import view.gameplay.AttackView;
 import view.gameplay.CardExchangeView;
 import view.gameplay.MapView;
 import view.gameplay.PhaseView;
-import view.gameplay.ReinforcementView;
 import view.gameplay.StartUpView;
 import view.gameplay.WinnerView;
 import view.gameplay.WorldDominationView;
-import model.gameplay.Dices;
 import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.map.Country;
@@ -31,7 +29,6 @@ public class GameController
 	private Phase phase;
 	private MapView mapView;
 	private PhaseView phaseView;
-	private AttackView attackView;
 	private FortificationView fortificationView;
 	private WorldDominationView worldDomiView;
 	private Player winner;
@@ -50,7 +47,6 @@ public class GameController
 			mapView = new MapView();
 			phaseView = new PhaseView();
 			worldDomiView = new WorldDominationView();
-			attackView = new AttackView();
 			fortificationView = new FortificationView();
 			cardExchangeView = new CardExchangeView();
 			phase.addObserver(phaseView);
@@ -151,12 +147,7 @@ public class GameController
 	{
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
-		
-		do 
-		{
-			phase.setPhase("Reinforcement phase", p);
-			p.reinforce();
-		}while(p.getArmies() > 0);
+		p.reinforce();
 	}
 	
 	/**
@@ -167,74 +158,10 @@ public class GameController
 	 */
 	private int attackPhase(Player p) 
 	{
-		do {
-			phase.setPhase("Attack phase", p);
-			/* Getting attacker country */
-			boolean canAttack;
-			int	attackerCountryId;
-			Country attackerCtry;
-			do 
-			{
-				attackerCountryId = attackView.chooseAttackerCountry(p);
-				if(attackerCountryId == 0) return 0;	/* 0 to skip */
-				
-				attackerCtry = map.countries.get(attackerCountryId-1);
-				canAttack = attackerCtry.canAttack(); /* Check if the selected country can attack another country */
-				if(!canAttack)	attackView.errorCannotAttack();
-			}while(!canAttack);
-			
-			/* Getting attacked country */
-			boolean canBeAttacked;
-			int defenderCountryId;
-			Country defenderCtry;
-			do 
-			{
-				defenderCountryId = attackView.chooseAttackedCountry(p);
-				defenderCtry = map.countries.get(defenderCountryId-1);
-				canBeAttacked = defenderCtry.canBeAttackedBy(attackerCtry);
-				if(!canBeAttacked)	attackView.errorCannotBeAttackedBy(attackerCtry);
-			}while(!canBeAttacked);
-			
-			/* Getting attack mode : all-out or classic */
-			phase.setAction(attackerCtry.getName() + "("+ p.getName()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
-
-			if(attackView.askAttackMode() == 1) //All-out
-			{
-				p.attack(map, attackerCtry, defenderCtry);
-			}
-			else {			//Classic
-				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
-				int attackerDices = attackView.askAttackerDices(p, dices.getAttackerMaxDices());
-				int defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
-				dices.setDicesNumber(attackerDices, defenderDices);
-				
-				p.attack(map, attackerCtry, defenderCtry, dices);
-			}
-			
-			/* Attacker conquered the country */
-			if(defenderCtry.getPlayer() == p) {
-				int movingArmies = attackView.askMovingArmies(attackerCtry.getArmyNumber());
-				map.addArmiesToCountry(attackerCtry.getNumber(), -movingArmies);
-				map.addArmiesToCountry(defenderCtry.getNumber(), movingArmies);
-				
-				if(p.gotCard == false) {
-					p.getOneCard();
-					p.gotCard = true;
-				}
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(" + p.getName() + ") conquered " + defenderCtry.getName() + " and moved " + movingArmies + " armies\n");
-			} else {
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(" + p.getName() + ") failed to conquer " + defenderCtry.getName() + " (P" + defenderCtry.getPlayer().getName() + ")\n");
-			}
-			
-			// Checking winning conditions
-			if(map.isOwned()) {
-				return map.countries.get(0).getPlayer().getNumber();
-			}
-		}while(p.canContinueAttacking() && attackView.continueAttacking());
-		
 		p.gotCard = false;
+		p.attack();
 		
-		return 0;
+		return map.isOwned() ? p.getNumber() : 0;	// Checking winning conditions
 	}
 
 	/**
