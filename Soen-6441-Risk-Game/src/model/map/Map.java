@@ -351,7 +351,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 22;
+			return 40;
 		case 3:
 			return 35;
 		case 4:
