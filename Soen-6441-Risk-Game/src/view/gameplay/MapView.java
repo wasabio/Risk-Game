@@ -38,7 +38,7 @@ public class MapView extends View implements Observer
 			System.out.print("Continent " + c.getName());
 			if(c.getOwner() != null) 
 			{
-				System.out.println( " owned by P" + c.getOwner().getNumber() + " (+" + c.getExtraArmies() + ")");
+				System.out.println( " owned by " + c.getOwner().getName() + " (+" + c.getExtraArmies() + ")");
 			} else 
 			{
 				System.out.println();
@@ -47,7 +47,7 @@ public class MapView extends View implements Observer
 			
 			for(Country ctry : c.countries) 
 			{
-				System.out.print("P" + ctry.getPlayer().getNumber() + " - " + ctry.getNumber() +"  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
+				System.out.print(ctry.getPlayer().getName() + " - " + ctry.getNumber() +"  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
 				for(int i = 0; i < ctry.neighbors.size(); i++) {
 					System.out.print(ctry.neighbors.get(i).getName());
 					if(i != (ctry.neighbors.size() - 1)) 
@@ -84,7 +84,7 @@ public class MapView extends View implements Observer
     public void checkOwner(Continent c) {
         if(c.getOwner() != null)
         {
-            System.out.println("Continent " + c.getName() + " owned by P" + c.getOwner().getNumber());
+            System.out.println("Continent " + c.getName() + " owned by " + c.getOwner().getName());
         } else
         {
             System.out.print("");

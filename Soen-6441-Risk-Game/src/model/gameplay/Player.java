@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+import model.gameplay.strategy.ConcreteStrategy;
+import model.gameplay.strategy.Strategy;
 import model.map.Country;
 import model.map.Map;
 import model.utilities.Random;
@@ -18,6 +20,8 @@ public class Player extends Observable
 {
 	private int number;
 	private int armies;
+	private Strategy strategy;
+	private Map map;
 	public boolean gotCard = false;
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
 	public ArrayList<Card> cards = new ArrayList<Card>();
@@ -27,10 +31,17 @@ public class Player extends Observable
 	 * @param new_number new number of countries
 	 * @param new_armies new number of armies
 	 */
-	public Player(int new_number, int new_armies) 
+	public Player(int new_number, int new_armies, Map map, Strategy new_strategy) 
 	{
 		setNumber(new_number);
 		setArmies(new_armies);
+		setStrategy(new_strategy);
+        setMap(map);
+	}
+	
+	public void setMap(Map map) {
+		this.map = map;
+		((ConcreteStrategy) strategy).setMap(map);
 	}
 
 	/**
@@ -50,6 +61,25 @@ public class Player extends Observable
 	{
 		this.number = number;
 	}
+	
+	/**
+	 * get player name
+	 * @return return player name
+	 */
+	public String getName() 
+	{
+		return (strategy.getClass().getSimpleName() + " " + getNumber());
+	}
+	
+	/**
+     * Plugs in a specific strategy to be used
+     * @param strategy the strategy of the player
+     */
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+		((ConcreteStrategy) strategy).setPlayer(this);
+    }
+
 	
 	/**
 	 * get method for the armies
@@ -94,7 +124,6 @@ public class Player extends Observable
 	 */
 	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
 	{
-		map.addArmiesFromHand(countryNumber, selectedArmies);
 	}
 	
 	/**
@@ -354,5 +383,17 @@ public class Player extends Observable
 		}
 		
 		return false;
+	}
+
+	public void reinforce() {
+		strategy.reinforce();
+	}
+	
+	public void attack() {
+		strategy.attack();
+	}
+	
+	public void fortify() {
+		strategy.fortify();
 	}
 }

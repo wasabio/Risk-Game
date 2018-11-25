@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -33,8 +34,8 @@ public class testIsConnectedTo {
 		cty2 = new Country("");
 		cty3 = new Country("");
 		cty4 = new Country("");
-		p1 = new Player(1,5);
-		p2 = new Player(2,3);
+		p1 = new Player(1,5, map, new Human());
+		p2 = new Player(2,3, map, new Human());
 		map.continents.add(con1);
 		map.countries.add(cty1);
 		map.countries.add(cty2);

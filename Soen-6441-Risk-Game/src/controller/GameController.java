@@ -31,13 +31,11 @@ public class GameController
 	private Phase phase;
 	private MapView mapView;
 	private PhaseView phaseView;
-	private ReinforcementView reinforcementView;
 	private AttackView attackView;
 	private FortificationView fortificationView;
 	private WorldDominationView worldDomiView;
 	private Player winner;
 	private CardExchangeView cardExchangeView;
-	private int cardBonus = 5;
 
 	/**
 	 * This is a constructor method for GameController
@@ -52,7 +50,6 @@ public class GameController
 			mapView = new MapView();
 			phaseView = new PhaseView();
 			worldDomiView = new WorldDominationView();
-			reinforcementView = new ReinforcementView();
 			attackView = new AttackView();
 			fortificationView = new FortificationView();
 			cardExchangeView = new CardExchangeView();
@@ -61,6 +58,7 @@ public class GameController
 			map.addObserver(worldDomiView);
 			map.addObserver(mapView);
 			
+			setUp();
 			execute();
 		} 
 		catch (IOException e) 
@@ -97,6 +95,19 @@ public class GameController
 		
 		new WinnerView(winner);
 	}
+	
+	/**
+	 * Set up the parameters of the game : number of players, types of players, map selection.
+	 */
+	public void setUp() throws IOException  
+	{
+		MapSelectionView mapSelectionView = new MapSelectionView();
+		int playerNumber = mapSelectionView.print();
+		map.setPlayers(playerNumber); 
+		
+		String mapFilePath = mapSelectionView.selectMap();		
+		map.load(mapFilePath);
+	}
 
 	/**
 	 * This method deals with deploying players and armies on the map when the game just start.
@@ -104,15 +115,9 @@ public class GameController
 	 * The deployment will end until every country have an owner.
 	 * @throws IOException
 	 */
-	private void startUpPhase() throws IOException 
+	private void startUpPhase()
 	{
-		MapSelectionView mapSelectionView = new MapSelectionView();
 		StartUpView startUpView = new StartUpView();
-		int playerNumber = mapSelectionView.print();
-		map.setPlayers(playerNumber); 
-		
-		String mapFilePath = mapSelectionView.selectMap();		
-		map.load(mapFilePath);
 		map.distributeCountries(); /* Randomly split the countries between the players */
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
@@ -131,7 +136,7 @@ public class GameController
 				{
 					phase.setPhase("Start up phase",p);
 					int ctryId = startUpView.askCountry(p);
-					phase.setAction("P" + p.getNumber() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
+					phase.setAction(p.getName() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
 					map.addArmiesFromHand(ctryId, 1);
 				}
 			}
@@ -150,21 +155,7 @@ public class GameController
 		do 
 		{
 			phase.setPhase("Reinforcement phase", p);
-			int countryNumber = reinforcementView.askCountry(p);
-			if(countryNumber == 0) {
-				int combination = reinforcementView.askCardsToTrade(p);
-				if(p.trade(combination)) {
-					p.setArmies(p.getArmies() + cardBonus);
-					phase.setAction("P" + p.getNumber() + " traded cards and got " + cardBonus + " new armies\n");
-					cardBonus += 5;
-				} else {
-					reinforcementView.errorTraiding();
-				}
-			} else {
-				int selectedArmies = reinforcementView.askArmiesNumber(p);
-				p.reinforcement(map, countryNumber, selectedArmies);
-				phase.setAction("P" + p.getNumber() + " reinforced " + selectedArmies + " army in " + map.countries.get(countryNumber-1).getName() + "\n");
-			}
+			p.reinforce();
 		}while(p.getArmies() > 0);
 	}
 	
@@ -205,7 +196,7 @@ public class GameController
 			}while(!canBeAttacked);
 			
 			/* Getting attack mode : all-out or classic */
-			phase.setAction(attackerCtry.getName() + "(P"+ p.getNumber()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(P" + defenderCtry.getPlayer().getNumber() + ")\n");
+			phase.setAction(attackerCtry.getName() + "("+ p.getName()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 
 			if(attackView.askAttackMode() == 1) //All-out
 			{
@@ -230,9 +221,9 @@ public class GameController
 					p.getOneCard();
 					p.gotCard = true;
 				}
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") conquered " + defenderCtry.getName() + " and moved " + movingArmies + " armies\n");
+				phase.setAction(phase.getAction() + attackerCtry.getName() + "(" + p.getName() + ") conquered " + defenderCtry.getName() + " and moved " + movingArmies + " armies\n");
 			} else {
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") failed to conquer " + defenderCtry.getName() + " (P" + defenderCtry.getPlayer().getNumber() + ")\n");
+				phase.setAction(phase.getAction() + attackerCtry.getName() + "(" + p.getName() + ") failed to conquer " + defenderCtry.getName() + " (P" + defenderCtry.getPlayer().getName() + ")\n");
 			}
 			
 			// Checking winning conditions
@@ -288,7 +279,7 @@ public class GameController
 		
 		/* Updating armies */
 		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
-		phase.setAction("p"+p.getNumber()+" fortified "+ selectedArmies+" army from "+
+		phase.setAction(p.getName() + " fortified " + selectedArmies + " army from " +
 				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
 	}	
 }

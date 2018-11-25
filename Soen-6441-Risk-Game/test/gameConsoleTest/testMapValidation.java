@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -40,8 +41,6 @@ public class testMapValidation
 	@Test
 	public void testNoContinent() 
 	{
-		Country cty1= new Country("USA");
-		Country cty2 = new Country("Canada");
 		assertFalse(checker.checkPlayableMap());
 	}
 	
@@ -61,9 +60,9 @@ public class testMapValidation
 		con2.addCountry(cty2);
 		map.countries.add(cty1);
 		map.countries.add(cty2);
-		Player p1 = new Player(1,2);
-		Player p2 = new Player(2,3);
-		Player p3 = new Player(3,3);
+		Player p1 = new Player(1, 2, map, new Human());
+		Player p2 = new Player(2, 3, map, new Human());
+		Player p3 = new Player(3, 3, map, new Human());
 		map.players.add(p1);
 		map.players.add(p2);
 		map.players.add(p3);
@@ -87,9 +86,8 @@ public class testMapValidation
 		con2.addCountry(cty2);
 		map.countries.add(cty1);
 		map.countries.add(cty2);
-		Player p1 = new Player(1,2);
-		Player p2 = new Player(2,3);
-		Player p3 = new Player(3,3);
+		Player p1 = new Player(1, 2, map, new Human());
+		Player p2 = new Player(2, 3, map, new Human());
 		map.players.add(p1);
 		map.players.add(p2);
 		assertTrue(checker.checkPlayableMap());	

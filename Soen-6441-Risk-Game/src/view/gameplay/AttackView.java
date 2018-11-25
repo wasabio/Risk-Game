@@ -128,7 +128,7 @@ public class AttackView extends View {
 	 * @return the dice result number
 	 */
 	public int askDefenderDices(Player p, int maxDicesNumber) {
-		System.out.println("P" + p.getNumber() + " (Defender) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
+		System.out.println(p.getName() + " (Defender) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
 		int diceNumber;
 		
 		do
@@ -146,7 +146,7 @@ public class AttackView extends View {
 	 * @return the dice result number
 	 */
 	public int askAttackerDices(Player p, int maxDicesNumber) {
-		System.out.println("P" + p.getNumber() + " (Attacker) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
+		System.out.println(p.getName() + " (Attacker) Enter the number of dices you want to use (1 to " + maxDicesNumber + "):");
 		int diceNumber;
 
 		do 

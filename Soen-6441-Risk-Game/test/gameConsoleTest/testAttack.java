@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import model.gameplay.Dices;
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -32,8 +33,8 @@ public class testAttack {
 	@BeforeClass
 	public static void beforeClass() {
 		map = new Map();
-		p1 = new Player(1,5);
-		p2 = new Player(2,5);
+		p1 = new Player(1, 5, map, new Human());
+		p2 = new Player(2, 5, map, new Human());
 		
 		cty1= new Country("London");
 		cty2 = new Country("Beijing");

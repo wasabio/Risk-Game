@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import model.gameplay.Card;
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -19,7 +20,7 @@ import model.map.Map;
  *
  */
 public class testTrade {
-	
+	Map map = new Map();
 	Continent con1 = new Continent("",2);
 	Continent con2 = new Continent("",3);
 	Continent con3 = new Continent("",4);
@@ -28,9 +29,8 @@ public class testTrade {
 	Country cty3 = new Country("");
 	Country cty4 = new Country("");
 	Country cty5 = new Country("");
-	Player p1 = new Player(1,3);
-	Player p2 = new Player(2,3);
-	Map map = new Map();
+	Player p1 = new Player(1, 3, map, new Human());
+	Player p2 = new Player(2, 3, map, new Human());
 	
 	/**
 	 * test values

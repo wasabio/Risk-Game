@@ -22,6 +22,6 @@ public class WinnerView {
 	 * @param p the winner
 	 */
 	public void print(Player p) {
-		System.out.println("Congrats P" + p.getNumber() + ", you won !");
+		System.out.println("Congrats " + p.getName() + ", you won !");
 	}
 }

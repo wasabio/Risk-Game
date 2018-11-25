@@ -33,12 +33,12 @@ public class WorldDominationView extends View implements Observer {
         for(Player p : o.players)
         {
         	int c = (int)(100*p.getPercentage(p, o));
-            System.out.println("Player " + p.getNumber() + " conquered Percentage " + c+"%");
+            System.out.println(p.getName() + " conquered Percentage " + c+"%");
         }
        
         for(Player p : o.players)
         {  
-            System.out.println("Player "+ p.getNumber() + " total army : " + (p.getTotalArmy()+ p.getArmies()));
+            System.out.println(p.getName() + " total army : " + (p.getTotalArmy()+ p.getArmies()));
         }
        
         for(Continent c : o.continents)
@@ -46,7 +46,7 @@ public class WorldDominationView extends View implements Observer {
             checkOwner(c);
         }
        
-        System.out.print("\n*****************************************\n\n");
+        System.out.print("\n*****************************************\n");
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class WorldDominationView extends View implements Observer {
 	 public void checkOwner(Continent c) {
 	        if(c.getOwner() != null)
 	        {
-	            System.out.println("Continent " + c.getName() + " owned by P" + c.getOwner().getNumber());
+	            System.out.println("Continent " + c.getName() + " owned by " + c.getOwner().getName());
 	        } else
 	        {
 	            System.out.print("");

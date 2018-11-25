@@ -13,6 +13,7 @@ import java.util.StringTokenizer;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.utilities.Random;
 import model.utilities.StringAnalyzer;
 
@@ -38,6 +39,7 @@ public class Map extends Observable
 	private boolean warn;
 	private int playerNumber;
 	private Phase phase = new Phase();
+	private static int cardBonus = 0;
 	
 	/**
 	 * Map constructor 
@@ -321,10 +323,18 @@ public class Map extends Observable
 		
 		for(int i = 1; i <= playerNumber; i++) 
 		{
-			players.add(new Player(i, armiesNumber));
+			players.add(new Player(i, armiesNumber, this, new Human()));
 		}
 	}
-
+	
+	/**
+	 * Return card bonus and increase it by 5 each time a player receives this bonus
+	 */
+	public static int getCardBonus() {
+		cardBonus += 5;
+		return cardBonus;
+	}
+	
 	/**
 	 * The method is to generate initial number of armies for each player when the game start
 	 * It also includes the condition for different player number with different initial armies number for each player
@@ -341,7 +351,7 @@ public class Map extends Observable
 		switch(this.playerNumber) 
 		{
 		case 2:
-			return 40;
+			return 22;
 		case 3:
 			return 35;
 		case 4:
@@ -490,6 +500,7 @@ public class Map extends Observable
 	public void clear() 
 	{
 		Country.Counter = 0;
+		Map.cardBonus = 0;
 	}
 
 	/**
@@ -514,7 +525,7 @@ public class Map extends Observable
 	 * get the player's current phase
 	 * @return print out the phase and player state
 	 */
-	public String getPhase() {
-		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");
+	public Phase getPhase() {
+		return phase;
 	}
 }

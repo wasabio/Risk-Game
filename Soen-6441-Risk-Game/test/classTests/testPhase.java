@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Map;
 
 import org.junit.Before;
@@ -21,7 +22,7 @@ public class testPhase {
 	@Before
 	public void Before() {
 		phase = new Phase();
-		p = new Player(1,1);
+		p = new Player(1,1, map, new Human());
 		map = new Map();
 		map.players.add(p);
 		phase.setPhase("start up", p);
