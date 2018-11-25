@@ -43,23 +43,9 @@ public class WorldDominationView extends View implements Observer {
        
         for(Continent c : o.continents)
         {
-            checkOwner(c);
+        	if(c.getOwner() != null)	System.out.println("Continent " + c.getName() + " owned by " + c.getOwner().getName());
         }
        
         System.out.print("\n*****************************************\n");
 	}
-	
-	/**
-	 * check the owner of the continent
-	 * @param c the continent
-	 */
-	 public void checkOwner(Continent c) {
-	        if(c.getOwner() != null)
-	        {
-	            System.out.println("Continent " + c.getName() + " owned by " + c.getOwner().getName());
-	        } else
-	        {
-	            System.out.print("");
-	        }
-	    }
 }
