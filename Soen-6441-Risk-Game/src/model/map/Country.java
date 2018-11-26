@@ -306,18 +306,19 @@ public class Country extends Observable
 	 * @return If the country can attack
 	 */
 	public boolean canAttack() {
-		if(armyNumber > 1)
+		return (armyNumber > 1 && getEnnemyNeighbor() != null) ?	true : false;
+	}
+	
+	public Country getEnnemyNeighbor() {
+		for(Country neighbor : neighbors)
 		{
-			for(Country neighbor : neighbors)
+			if(neighbor.getPlayer() != this.player) //Enemy country
 			{
-				if(neighbor.getPlayer() != this.player) //Enemy country
-				{
-					return true;
-				}
+				return neighbor;
 			}
 		}
-			
-		return false;
+		
+		return null;
 	}
 
 	/**

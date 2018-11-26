@@ -117,39 +117,47 @@ public class Player extends Observable
 	}
 	
 	/**
+	 * To execute a reinforce move. It moves the armies and update the action.
+	 * @param country The country to reinforce.
+	 * @param armies The number of armies to add.
+	 */
+	public void reinforceMove(Country country, int armies) {
+		map.addArmiesFromHand(country, armies);
+		map.getPhase().setAction(this.getName() + " reinforced " + armies + " army in " + country.getName() + "\n");		
+	}
+	
+	/**
 	 * This method will process the all-out attack mode.
-	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
+	 * @return boolean Tell if the defender country has been conquered
 	 */
-	public void attack(Map map, Country attackerCtry, Country defenderCtry) 
+	public boolean allOutAttack(Country attackerCtry, Country defenderCtry) 
 	{
-		do{
+		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
+
+		do {
 			Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
 			battle(map, dices, attackerCtry, defenderCtry);
+			
+			if(conquer(defenderCtry))	return true;		// Trying to conquer the country
 
-			/* Resolving battle result : conquering a country */
-			if(defenderCtry.getArmyNumber() == 0) {
-				conquer(defenderCtry);
-				return;
-			}
 		}while(attackerCtry.getArmyNumber() > 1);	// Continue until no attack is possible
+		
+		return false;
 	}
 
 	/**
 	 * This method will process the classic attack mode. The players provide their dices.
-	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
 	 * @param dices Dices selected by the players
+	 * @return boolean Tell if the defender country has been conquered
 	 */
-	public void attack(Map map, Country attackerCtry, Country defenderCtry, Dices dices) {
+	public boolean classicAttack(Country attackerCtry, Country defenderCtry, Dices dices) {
+		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 		battle(map, dices, attackerCtry, defenderCtry);
-		
-		/* Resolving battle result : conquering a country */
-		if(defenderCtry.getArmyNumber() == 0) {
-			conquer(defenderCtry);			
-		}
+		return conquer(defenderCtry);		// Trying to conquer the country	
 	}
 	
 	/**
@@ -169,13 +177,18 @@ public class Player extends Observable
 	/**
 	 * To conquer a country
 	 * @param c the country to conquer
+	 * @return boolean True if the country has been conquered, false otherwise
 	 */
-	private void conquer(Country c)
+	private boolean conquer(Country c)
 	{
-		Player defender = c.getPlayer();
-		defender.ownedCountries.remove(c);
-		this.ownedCountries.add(c);
-		c.setPlayer(this);
+		if(c.getArmyNumber() == 0) {
+			Player defender = c.getPlayer();
+			defender.ownedCountries.remove(c);
+			this.ownedCountries.add(c);
+			c.setPlayer(this);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -360,6 +373,22 @@ public class Player extends Observable
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * To get the country with the biggest army number of the player.
+	 * @return the strongest country.
+	 */
+	public Country getStrongestCountry() {
+		if(ownedCountries == null || ownedCountries.size() ==0)	
+			return null;
+		
+		Country max = ownedCountries.get(0);
+		
+		for(Country c : ownedCountries)
+			if(c.getArmyNumber() > max.getArmyNumber()) max = c;
+		
+		return max;
 	}
 
 	public void reinforce() {

@@ -422,11 +422,26 @@ public class Map extends Observable
 	
 	/**
 	 * Add armies to a country, and reduces the number of army in player's hand.
-	 * @param countryNumber Country id
-	 * @param armiesNumber Number of armies to add
+	 * @param countryNumber Country id.
+	 * @param armiesNumber Number of armies to add.
 	 */
 	public void addArmiesFromHand(int countryNumber, int armiesNumber) {
 		Country c = countries.get(countryNumber-1);
+		Player p = c.getPlayer();
+		
+		p.setArmies(p.getArmies() - armiesNumber);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	/**
+	 * Add armies to a country, and reduces the number of army in player's hand.
+	 * @param c The country that receives the armies.
+	 * @param armiesNumber Number of armies to add.
+	 */
+	public void addArmiesFromHand(Country c, int armiesNumber) {
 		Player p = c.getPlayer();
 		
 		p.setArmies(p.getArmies() - armiesNumber);

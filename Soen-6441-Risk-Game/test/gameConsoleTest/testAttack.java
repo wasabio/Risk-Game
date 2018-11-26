@@ -82,7 +82,7 @@ public class testAttack {
 		cty1.setPlayer(p1);
 		cty2.setPlayer(p2);
 		
-		p1.attack(map, cty1, cty2);
+		p1.allOutAttack(cty1, cty2);
 		// Attacker XOR Defender wins
 		assertTrue(cty1.getArmyNumber() == 1 || cty2.getArmyNumber() == 0);
 		assertFalse(cty1.getArmyNumber() == 1 && cty2.getArmyNumber() == 0);
@@ -107,7 +107,7 @@ public class testAttack {
 		cty3.setPlayer(p1);
 		cty4.setPlayer(p2);
 		
-		p1.attack(map, cty3, cty4);
+		p1.allOutAttack(cty3, cty4);
 		assertEquals(cty3.canAttack(), false);
 		assertEquals(cty4.canBeAttackedBy(cty3), false);
 	}
@@ -126,7 +126,7 @@ public class testAttack {
 		cty2.setArmyNumber(10);
 		Dices dices = new Dices(cty1.getArmyNumber(), cty2.getArmyNumber());
 		dices.setDicesNumber(3, 2);//Set attacker dices to 3, defender dices to 2
-		p1.attack(map, cty1, cty2, dices);
+		p1.classicAttack(cty1, cty2, dices);
 		
 		assertEquals(dices.getAttackerLoss() + dices.getDefenderLoss(), 2);
 		assertEquals(cty1.getArmyNumber(), 12 - dices.getAttackerLoss());	//Checking 	army deduction

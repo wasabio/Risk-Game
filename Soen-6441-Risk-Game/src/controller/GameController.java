@@ -66,18 +66,19 @@ public class GameController
 	 * @throws IOException
 	 */
 	private void execute() throws IOException
-	{	
+	{
 		startUpPhase();
 		
 		do 
 		{
 			for(Player p : map.players) 
 			{
-				if(p.ownedCountries.size() > 0) 
+				if(p.ownedCountries.size() > 0)
 				{
 					reinforcementPhase(p);
+					attackPhase(p);
 					
-					if(attackPhase(p) != 0) {
+					if(map.isOwned()) {
 						winner = p;
 						break;
 					}
@@ -152,14 +153,10 @@ public class GameController
 	 * This method collects all the inputs in the attack phase by calling views. The player can choose origin and destination, and armies number.
 	 * Origin and destination countries must be connected.
 	 * @param p The current player that is in the fortificationPhase
-	 * @return Return an integer corresponding to the winner's id.
 	 */
-	private int attackPhase(Player p) 
+	private void attackPhase(Player p) 
 	{
-		p.gotCard = false;
 		p.attack();
-		
-		return map.isOwned() ? p.getNumber() : 0;	// Checking winning conditions
 	}
 
 	/**

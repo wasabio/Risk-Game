@@ -17,7 +17,7 @@ public class Human extends ConcreteStrategy implements Strategy {
 	private FortificationView fortificationView;
 
 	/**
-	 * Constructor for HumanStrategy
+	 * Reinforce phase according to the strategy of the human player
 	 */
 	@Override
 	public void reinforce() {
@@ -46,7 +46,8 @@ public class Human extends ConcreteStrategy implements Strategy {
 	@Override
 	public void attack() {
 		attackView = new AttackView();
-
+		player.gotCard = false;
+		
 		do {
 			map.getPhase().setPhase("Attack phase", player);
 
@@ -54,29 +55,29 @@ public class Human extends ConcreteStrategy implements Strategy {
 			if(attackerCtry == null)	return;
 			
 			Country defenderCtry = getDefenderCountry(attackerCtry);
-			map.getPhase().setAction(attackerCtry.getName() + "("+ player.getName()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 
 			/* Getting attack mode : all-out or classic */
-			if(attackView.askAttackMode() == 1) //All-out
-			{
-				player.attack(map, attackerCtry, defenderCtry);
+			boolean conquered = false;
+			
+			if(attackView.askAttackMode() == 1) { //All-out
+				conquered = player.allOutAttack(attackerCtry, defenderCtry);
 			}
 			else {			//Classic
 				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
 				int attackerDices = attackView.askAttackerDices(player, dices.getAttackerMaxDices());
 				int defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
 				dices.setDicesNumber(attackerDices, defenderDices);
-				
-				player.attack(map, attackerCtry, defenderCtry, dices);
+
+				conquered = player.classicAttack(attackerCtry, defenderCtry, dices);
 			}
 			
 			/* Attacker conquered the country */
-			if(defenderCtry.getPlayer() == player) {
+			if(conquered) {
 				int movingArmies = attackView.askMovingArmies(attackerCtry.getArmyNumber());
 				map.addArmiesToCountry(attackerCtry.getNumber(), -movingArmies);
 				map.addArmiesToCountry(defenderCtry.getNumber(), movingArmies);
 				
-				if(!player.gotCard == false) {
+				if(!player.gotCard) {
 					player.getOneCard();
 					player.gotCard = true;
 				}
