@@ -4,6 +4,7 @@ import model.gameplay.Dices;
 import model.map.Country;
 import model.map.Map;
 import view.gameplay.AttackView;
+import view.gameplay.FortificationView;
 import view.gameplay.ReinforcementView;
 
 /**
@@ -13,6 +14,7 @@ public class Human extends ConcreteStrategy implements Strategy {
 	
 	private ReinforcementView reinforcementView;
 	private AttackView attackView;
+	private FortificationView fortificationView;
 
 	/**
 	 * Constructor for HumanStrategy
@@ -87,9 +89,53 @@ public class Human extends ConcreteStrategy implements Strategy {
 	
 	@Override
 	public void fortify() {
+		fortificationView = new FortificationView();
+		map.getPhase().setPhase("Fortification phase", player);
 		
+		/* Getting origin country */
+		boolean canSendTroops;
+		int	originCountryId;
+		Country origin;
+		do 
+		{
+			originCountryId = fortificationView.chooseOriginCountry(player); /* Select a valid country owned by the current player */
+			if(originCountryId == 0) return;	/* 0 to skip */
+			
+			origin = map.countries.get(originCountryId-1);
+			canSendTroops = origin.canSendTroopsToAlly(); /* Check if the selected country can send troops */
+			if(!canSendTroops)	fortificationView.errorSendingTroops();
+		}while(!canSendTroops);
+		
+		/* Getting destination country */
+		boolean connected;
+		int destinationCountryId;
+		Country destination;
+		do 
+		{
+			destinationCountryId = fortificationView.chooseDestinationCountry(player);
+			
+			destination = map.countries.get(destinationCountryId-1);
+			 connected = destination.isConnectedTo(origin);
+			if(!connected)	fortificationView.errorNotConnectedCountries();
+		}while(!connected);
+			
+		Country c = map.countries.get(originCountryId-1);
+		
+		/* Getting number of armies to send */
+		int selectedArmies = fortificationView.askArmiesNumber(player, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
+		
+		/* Updating armies */
+		map.addArmiesToCountry(originCountryId, -selectedArmies);
+		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+		
+		map.getPhase().setAction(player.getName() + " fortified " + selectedArmies + " army from " +
+				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
 	}
 
+	/**
+	 * Ask the user to choose a country to attack
+	 * @return the selected attacker country
+	 */
 	private Country getAttackerCountry() {
 		boolean canAttack;
 		int	attackerCountryId;
@@ -107,6 +153,11 @@ public class Human extends ConcreteStrategy implements Strategy {
 		return attackerCtry;
 	}
 	
+	/**
+	 * Ask the user to choose a country to defend
+	 * @param attackerCtry A n
+	 * @return the selected defender country
+	 */
 	private Country getDefenderCountry(Country attackerCtry) {
 		boolean canBeAttacked;
 		int defenderCountryId;

@@ -167,19 +167,6 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * fortification phase function
-	 * @param map map data
-	 * @param originCountryId first chosen Country
-	 * @param destinationCountryId second chosen Country
-	 * @param selectedArmies army number selected to attack
-	 */
-	public void fortification(Map map, int originCountryId, int destinationCountryId, int selectedArmies)
-	{
-		map.addArmiesToCountry(originCountryId, -selectedArmies);
-		map.addArmiesToCountry(destinationCountryId, selectedArmies);
-	}
-	
-	/**
 	 * To conquer a country
 	 * @param c the country to conquer
 	 */

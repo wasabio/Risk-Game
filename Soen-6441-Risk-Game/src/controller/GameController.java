@@ -29,7 +29,6 @@ public class GameController
 	private Phase phase;
 	private MapView mapView;
 	private PhaseView phaseView;
-	private FortificationView fortificationView;
 	private WorldDominationView worldDomiView;
 	private Player winner;
 	private CardExchangeView cardExchangeView;
@@ -47,7 +46,6 @@ public class GameController
 			mapView = new MapView();
 			phaseView = new PhaseView();
 			worldDomiView = new WorldDominationView();
-			fortificationView = new FortificationView();
 			cardExchangeView = new CardExchangeView();
 			phase.addObserver(phaseView);
 			phase.addObserver(cardExchangeView);
@@ -171,42 +169,6 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
-		phase.setPhase("Fortification phase", p);
-		/* Getting origin country */
-		boolean canSendTroops;
-		int	originCountryId;
-		Country origin;
-		do 
-		{
-			originCountryId = fortificationView.chooseOriginCountry(p); /* Select a valid country owned by the current player */
-			if(originCountryId == 0) return;	/* 0 to skip */
-			
-			origin = map.countries.get(originCountryId-1);
-			canSendTroops = origin.canSendTroopsToAlly(); /* Check if the selected country can send troops */
-			if(!canSendTroops)	fortificationView.errorSendingTroops();
-		}while(!canSendTroops);
-		
-		/* Getting attacked country */
-		boolean connected;
-		int destinationCountryId;
-		Country destination;
-		do 
-		{
-			destinationCountryId = fortificationView.chooseDestinationCountry(p);
-			
-			destination = map.countries.get(destinationCountryId-1);
-			 connected = destination.isConnectedTo(origin);
-			if(!connected)	fortificationView.errorNotConnectedCountries();
-		}while(!connected);
-			
-		Country c = map.countries.get(originCountryId-1);
-		
-		/* Getting number of armies to send */
-		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
-		
-		/* Updating armies */
-		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
-		phase.setAction(p.getName() + " fortified " + selectedArmies + " army from " +
-				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
+		p.fortify();
 	}	
 }
