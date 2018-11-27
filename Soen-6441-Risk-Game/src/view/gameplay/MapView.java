@@ -1,8 +1,16 @@
 package view.gameplay;
 
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Frame;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -15,6 +23,22 @@ import view.common.View;
  */
 public class MapView extends View implements Observer 
 {	
+	private static Frame aFrame = new Frame("Map");
+	private JPanel container;
+	
+	/**
+	 * Map view constructor
+	 */
+	public MapView() {
+		aFrame.setSize(900, 1000);
+	    aFrame.setVisible(true);
+	    container = new JPanel();
+	    JScrollPane scrPane = new JScrollPane(container);
+	    container.setLayout(new FlowLayout(FlowLayout.LEFT));
+
+	    aFrame.add(scrPane);
+	}
+	
 	/**
 	 * The override method for update observer of the printed map.
 	 */
@@ -30,37 +54,49 @@ public class MapView extends View implements Observer
 	 */
 	private void print(Map o) 
 	{
-		System.out.print("\n\n\n\n\n*****************************************\n");
-		System.out.println("          World map - " + o.getPlayerNumber() + " players\n");
+		Player p = o.getPhase().getPlayer();
+	    
+		String text = "<html>";
+		text += "          World map - " + o.getPlayerNumber() + " players<br/>";
+		text += "*****************************************<br/>";
 
 		for(Continent c : o.continents) 
 		{
-			System.out.print("Continent " + c.getName());
+			text += "<b>Continent " + c.getName() + "</b>";
 			if(c.getOwner() != null) 
 			{
-				System.out.println( " owned by " + c.getOwner().getName() + " (+" + c.getExtraArmies() + ")");
+				text += " owned by " + c.getOwner().getName() + " (+" + c.getExtraArmies() + ")<br/>";
 			} else 
 			{
-				System.out.println();
+				text += "<br/>";
 			}
 
 			
 			for(Country ctry : c.countries) 
 			{
-				System.out.print(ctry.getPlayer().getName() + " - " + ctry.getNumber() +"  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ");
+				System.out.println(p + " et " + ctry.getPlayer());
+				if(p == ctry.getPlayer())	text += "<font color='red'>" + ctry.getPlayer().getName() + " - " + ctry.getNumber() + "  </font>";
+				else	text += ctry.getPlayer().getName() + " - " + ctry.getNumber() + "  ";
+				text += ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ";
 				for(int i = 0; i < ctry.neighbors.size(); i++) {
-					System.out.print(ctry.neighbors.get(i).getName());
+					text += ctry.neighbors.get(i).getName();
 					if(i != (ctry.neighbors.size() - 1)) 
 					{
-						System.out.print(", ");
+						text += ", ";
 					}
 				}
-				System.out.println();
+				text += "<br/>";
 			}
-			System.out.println();			
+			text += "<br/>";			
 		}
-		
-       
+		text += "</html>";
+		JLabel label = new JLabel(text);
+	    Font f = new Font(Font.SERIF, Font.PLAIN, 20);
+	    label.setFont(f);
+		label.setFont(label.getFont().deriveFont(60));
+		container.removeAll();
+		container.add(label);
+        aFrame.revalidate();
     }
  
 	/**

@@ -35,7 +35,8 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 				Country defender = attacker.getEnnemyNeighbor();
 				
 				player.allOutAttack(attacker, defender);
-				player.conquestMove(attacker, defender, attacker.getArmyNumber() - 1);
+				boolean conquered = player.conquestMove(attacker, defender, attacker.getArmyNumber() - 1);
+				if(conquered)	attacker = defender;
 			}
 		}while(attacker.canAttack());
 	}

@@ -44,6 +44,7 @@ public class GameController
 			map = new Map();
 			map.clear();
 			phase = new Phase();
+			map.setPhase(phase);
 			mapView = new MapView();
 			phaseView = new PhaseView();
 			worldDomiView = new WorldDominationView();
