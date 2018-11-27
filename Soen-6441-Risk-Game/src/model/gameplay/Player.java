@@ -117,13 +117,43 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * To execute a reinforce move. It moves the armies and update the action.
+	 * To execute a reinforcement move. It moves the armies and update the action.
 	 * @param country The country to reinforce.
 	 * @param armies The number of armies to add.
 	 */
-	public void reinforceMove(Country country, int armies) {
+	public void reinforcementMove(Country country, int armies) {
 		map.addArmiesFromHand(country, armies);
 		map.getPhase().setAction(this.getName() + " reinforced " + armies + " army in " + country.getName() + "\n");		
+	}
+	
+	/**
+	 * To execute a conquest move after an attack. It moves the armies and update the action.
+	 * @param attacker The attacker country.
+	 * @param defender The defender country.
+	 * @param armies The number of armies to move.
+	 */
+	public void conquestMove(Country attacker, Country defender, int armies) {
+		if(defender.getArmyNumber() == 0) {
+			map.addArmiesToCountry(attacker, -armies);
+			map.addArmiesToCountry(defender, armies);
+			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") conquered " + defender.getName() + " and moved " + armies + " armies\n");
+		} else {
+			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") failed to conquer " + defender.getName() + " (" + defender.getPlayer().getName() + ")\n");
+		}
+	}
+	
+	/**
+	 * To execute a fortification move. It moves the armies and update the action.
+	 * @param origin Origin country.
+	 * @param destination Destination country.
+	 * @param armies The number of armies to move.
+	 */
+	public void fortificationMove(Country origin, Country destination, int armies) {
+		map.addArmiesToCountry(origin, -armies);
+		map.addArmiesToCountry(destination, armies);
+		
+		map.getPhase().setAction(this.getName() + " fortified " + armies + " army from " +
+				origin.getName()+" to "+ destination.getName() + "\n");		
 	}
 	
 	/**
@@ -170,8 +200,8 @@ public class Player extends Observable
 	private void battle(Map map, Dices dices, Country attackerCtry, Country defenderCtry) {
 		dices.roll();
 		/* Resolving loss in both armies */
-		map.addArmiesToCountry(attackerCtry.getNumber(), -dices.getAttackerLoss());
-		map.addArmiesToCountry(defenderCtry.getNumber(), -dices.getDefenderLoss());
+		map.addArmiesToCountry(attackerCtry, -dices.getAttackerLoss());
+		map.addArmiesToCountry(defenderCtry, -dices.getDefenderLoss());
 	}
 	
 	/**
@@ -383,12 +413,12 @@ public class Player extends Observable
 		if(ownedCountries == null || ownedCountries.size() ==0)	
 			return null;
 		
-		Country max = ownedCountries.get(0);
+		Country strongest = ownedCountries.get(0);
 		
 		for(Country c : ownedCountries)
-			if(c.getArmyNumber() > max.getArmyNumber()) max = c;
+			if(c.getArmyNumber() > strongest.getArmyNumber()) strongest = c;
 		
-		return max;
+		return strongest;
 	}
 
 	public void reinforce() {

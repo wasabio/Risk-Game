@@ -36,7 +36,7 @@ public class Human extends ConcreteStrategy implements Strategy {
 					reinforcementView.errorTraiding();
 				}
 			} else {	//Reinforcement menu
-				int selectedArmies = reinforcementView.askArmiesNumber(player);
+				int selectedArmies = reinforcementView.askArmiesNumber(player);				
 				map.addArmiesFromHand(countryNumber, selectedArmies);
 				map.getPhase().setAction(player.getName() + " reinforced " + selectedArmies + " army in " + map.countries.get(countryNumber-1).getName() + "\n");
 			}
@@ -74,8 +74,8 @@ public class Human extends ConcreteStrategy implements Strategy {
 			/* Attacker conquered the country */
 			if(conquered) {
 				int movingArmies = attackView.askMovingArmies(attackerCtry.getArmyNumber());
-				map.addArmiesToCountry(attackerCtry.getNumber(), -movingArmies);
-				map.addArmiesToCountry(defenderCtry.getNumber(), movingArmies);
+				map.addArmiesToCountry(attackerCtry, -movingArmies);
+				map.addArmiesToCountry(defenderCtry, movingArmies);
 				
 				if(!player.gotCard) {
 					player.getOneCard();
@@ -124,13 +124,7 @@ public class Human extends ConcreteStrategy implements Strategy {
 		
 		/* Getting number of armies to send */
 		int selectedArmies = fortificationView.askArmiesNumber(player, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
-		
-		/* Updating armies */
-		map.addArmiesToCountry(originCountryId, -selectedArmies);
-		map.addArmiesToCountry(destinationCountryId, selectedArmies);
-		
-		map.getPhase().setAction(player.getName() + " fortified " + selectedArmies + " army from " +
-				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
+		player.fortificationMove(origin, destination, selectedArmies);
 	}
 
 	/**

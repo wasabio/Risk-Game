@@ -405,15 +405,14 @@ public class Map extends Observable
 		
 		return true;
 	}
-
+	
 	/**
 	 * Add armies to a specific country by its id 
-	 * @param ctryId Country id
+	 * @param origin Country id
 	 * @param armiesNumber Armies number to add
 	 */
-	public void addArmiesToCountry(int ctryId, int armiesNumber) 
+	public void addArmiesToCountry(Country c, int armiesNumber) 
 	{
-		Country c = countries.get(ctryId-1);
 		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
 		
 		setChanged();
