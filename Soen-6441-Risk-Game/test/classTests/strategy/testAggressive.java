@@ -85,8 +85,8 @@ public class testAggressive {
 		p1.ownedCountries.add(cty3);
 		Aggressive a = new Aggressive();
 		a.setPlayer(p1);
-		System.out.println(p1.getStrongestCountry());
-		System.out.println(a.getSecondStrongestCountry(p1.getStrongestCountry()));
+		//System.out.println(p1.getStrongestCountry());
+		//System.out.println(a.getSecondStrongestCountry(p1.getStrongestCountry()));
 		/*
 		
 		// Attacker XOR Defender wins

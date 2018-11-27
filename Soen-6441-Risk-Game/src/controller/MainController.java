@@ -38,6 +38,8 @@ public class MainController
 		case 2:
 			new MapEditorController();
 			break;
+		case 3:
+			new TournamentController();
 		}
 	}
 

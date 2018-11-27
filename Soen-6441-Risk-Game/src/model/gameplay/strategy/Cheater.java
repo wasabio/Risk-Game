@@ -1,6 +1,6 @@
 package model.gameplay.strategy;
 
-public class Cheater implements Strategy {
+public class Cheater extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void reinforce() {

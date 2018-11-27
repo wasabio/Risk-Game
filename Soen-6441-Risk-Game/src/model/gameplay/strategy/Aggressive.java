@@ -3,6 +3,8 @@ package model.gameplay.strategy;
 import java.util.ArrayList;
 
 import model.map.Country;
+import view.gameplay.StartUpView;
+import model.utilities.Random;
 
 public class Aggressive extends ConcreteStrategy implements Strategy {
 
@@ -68,7 +70,7 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 	 * @param first	the strongest country
 	 * @return The 2nd strongest country connected to the strongest one.
 	 */
-	public Country getSecondStrongestCountry(Country first) {
+	private Country getSecondStrongestCountry(Country first) {
 		ArrayList<Country> closed = new ArrayList<Country>();
 		ArrayList<Country> open = new ArrayList<Country>();
 		Country current = first;

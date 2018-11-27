@@ -83,4 +83,28 @@ public class MapSelectionView extends View
 	{
 		return mapName;
 	}
+	
+	/**
+	 * Ask player strategies
+	 */
+	public int askStrategy(int nb) 
+	{
+		System.out.println("Choose a strategy for player " + nb + ": ");
+		System.out.println("1 - Human");
+		System.out.println("2 - Aggressive computer");
+		System.out.println("3 - Benevolent computer");
+		System.out.println("4 - Random computer");
+		System.out.println("5 - Cheater computer");
+		int strat;
+		boolean correctValue;
+		
+		do 
+		{
+			strat = getInteger();
+			correctValue = isValueCorrect(strat, 1, 5);
+		}
+		while(!correctValue);
+		
+		return strat;
+	}
 }

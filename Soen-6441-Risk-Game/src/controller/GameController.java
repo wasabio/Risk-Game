@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import view.common.MapSelectionView;
-import view.gameplay.FortificationView;
-import view.gameplay.AttackView;
 import view.gameplay.CardExchangeView;
 import view.gameplay.MapView;
 import view.gameplay.PhaseView;
-import view.gameplay.StartUpView;
 import view.gameplay.WinnerView;
 import view.gameplay.WorldDominationView;
 import model.gameplay.Phase;
 import model.gameplay.Player;
-import model.map.Country;
+import model.gameplay.strategy.Aggressive;
+import model.gameplay.strategy.Benevolent;
+import model.gameplay.strategy.Cheater;
+import model.gameplay.strategy.Human;
+import model.gameplay.strategy.Random;
 import model.map.Map;
 	
 /**
@@ -52,7 +53,6 @@ public class GameController
 			map.addObserver(worldDomiView);
 			map.addObserver(mapView);
 			
-			setUp();
 			execute();
 		} 
 		catch (IOException e) 
@@ -67,6 +67,7 @@ public class GameController
 	 */
 	private void execute() throws IOException
 	{
+		setUp();
 		startUpPhase();
 		
 		do 
@@ -98,7 +99,29 @@ public class GameController
 	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
 		int playerNumber = mapSelectionView.print();
-		map.setPlayers(playerNumber); 
+		map.setPlayers(playerNumber);
+		
+		for(Player p : map.players) {
+			int strat = mapSelectionView.askStrategy(p.getNumber());
+			
+			switch(strat) {
+				case 1:
+					p.setStrategy(new Human());
+					break;
+				case 2:
+					p.setStrategy(new Aggressive());
+					break;
+				case 3:
+					p.setStrategy(new Benevolent());
+					break;
+				case 4:
+					p.setStrategy(new Random());
+					break;
+				case 5:
+					p.setStrategy(new Cheater());
+					break;
+			}
+		}
 		
 		String mapFilePath = mapSelectionView.selectMap();		
 		map.load(mapFilePath);
@@ -112,7 +135,6 @@ public class GameController
 	 */
 	private void startUpPhase()
 	{
-		StartUpView startUpView = new StartUpView();
 		map.distributeCountries(); /* Randomly split the countries between the players */
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
@@ -129,10 +151,7 @@ public class GameController
 				} 
 				else 
 				{
-					phase.setPhase("Start up phase",p);
-					int ctryId = startUpView.askCountry(p);
-					phase.setAction(p.getName() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
-					map.addArmiesFromHand(ctryId, 1);
+					p.placeOneArmy();
 				}
 			}
 		}while(remainingPlayers.size() != 0);

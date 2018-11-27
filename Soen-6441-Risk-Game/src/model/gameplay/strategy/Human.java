@@ -6,6 +6,7 @@ import model.map.Map;
 import view.gameplay.AttackView;
 import view.gameplay.FortificationView;
 import view.gameplay.ReinforcementView;
+import view.gameplay.StartUpView;
 
 /**
  * A concrete Strategy that implements human strategy operation
@@ -166,5 +167,17 @@ public class Human extends ConcreteStrategy implements Strategy {
 		}while(!canBeAttacked);
 		
 		return defenderCtry;
+	}
+	
+	/**
+	 * Method to place a country during the startup phase.
+	 */
+	@Override
+	public void placeOneArmy() {
+		map.getPhase().setPhase("Start up phase", player);
+		StartUpView startUpView = new StartUpView();
+		int ctryId = startUpView.askCountry(player);
+		map.getPhase().setAction(player.getName() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
+		map.addArmiesFromHand(ctryId, 1);		
 	}
 }

@@ -1,6 +1,6 @@
 package model.gameplay.strategy;
 
-public class Benevolent implements Strategy {
+public class Benevolent extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void reinforce() {

@@ -78,6 +78,7 @@ public class Player extends Observable
     public void setStrategy(Strategy strategy) {
         this.strategy = strategy;
 		((ConcreteStrategy) strategy).setPlayer(this);
+		this.setMap(map);
     }
 
 	
@@ -164,6 +165,7 @@ public class Player extends Observable
 	 */
 	public boolean allOutAttack(Country attackerCtry, Country defenderCtry) 
 	{
+		System.out.println(attackerCtry + " " + defenderCtry);
 		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 
 		do {
@@ -431,5 +433,9 @@ public class Player extends Observable
 	
 	public void fortify() {
 		strategy.fortify();
+	}
+
+	public void placeOneArmy() {
+		strategy.placeOneArmy();
 	}
 }

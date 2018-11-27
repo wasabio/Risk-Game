@@ -17,7 +17,12 @@ public interface Strategy {
 	void reinforce();
 
 	/**
-	 * Method to fortify
+	 * Method to fortify.
 	 */
 	void fortify();
+
+	/**
+	 * Method to place a country during the startup phase.
+	 */
+	void placeOneArmy();
 }

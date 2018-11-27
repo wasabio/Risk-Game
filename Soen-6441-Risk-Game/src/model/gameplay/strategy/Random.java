@@ -1,6 +1,6 @@
 package model.gameplay.strategy;
 
-public class Random implements Strategy {
+public class Random extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void reinforce() {
