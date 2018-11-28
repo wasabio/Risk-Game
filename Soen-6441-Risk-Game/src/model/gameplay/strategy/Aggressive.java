@@ -3,8 +3,6 @@ package model.gameplay.strategy;
 import java.util.ArrayList;
 
 import model.map.Country;
-import view.gameplay.StartUpView;
-import model.utilities.Rng;
 
 public class Aggressive extends ConcreteStrategy implements Strategy {
 
@@ -33,12 +31,13 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 
 			if(attacker != null) {
 				Country defender = attacker.getEnnemyNeighbor();
-				
+				if(defender == null)	return;
 				player.allOutAttack(attacker, defender);
 				boolean conquered = player.conquestMove(attacker, defender, attacker.getArmyNumber() - 1);
 				if(conquered)	attacker = defender;
 			}
 		}while(attacker.canAttack());
+		
 	}
 
 	/**
@@ -48,6 +47,8 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 	 */
 	@Override
 	public void fortify() {
+		map.getPhase().setPhase("Fortification phase", player);
+
 		Country destination = player.getStrongestCountry();
 		if(destination.getArmyNumber() == 1 || player.ownedCountries.size() <= 1)	return;
 		
@@ -55,7 +56,6 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 		if(origin == null) return;
 		
 		if(destination.getArmyNumber() == 1)	destination = getACountryThatHasEnnemyNeighbor();
-		
 		player.fortificationMove(origin, destination, (origin.getArmyNumber()-1));
 	}
 
@@ -92,7 +92,10 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 			
 			closed.add(current);
 			
-			if(current != first && current.getArmyNumber() > max)	second = current;
+			if(current != first && current.getArmyNumber() > max) {
+				second = current;
+				max = second.getArmyNumber();
+			}
 		}
 		
 		return second;		

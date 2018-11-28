@@ -168,7 +168,6 @@ public class Player extends Observable
 	 */
 	public boolean allOutAttack(Country attackerCtry, Country defenderCtry) 
 	{
-		System.out.println(attackerCtry + " " + defenderCtry);
 		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 
 		do {

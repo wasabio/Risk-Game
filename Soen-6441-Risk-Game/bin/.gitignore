@@ -1,4 +1,7 @@
-/model/
-/controller/
-/view/
 /classTests/
+/controller/
+/gameConsoleTest/
+/mapEditorTest/
+/model/
+/testSuites/
+/view/
