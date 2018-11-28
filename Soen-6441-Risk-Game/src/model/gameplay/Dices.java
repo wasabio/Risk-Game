@@ -3,7 +3,7 @@ package model.gameplay;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
-import model.utilities.Random;
+import model.utilities.Rng;
 /**
  * The class for the main functions of dices
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen 
@@ -105,6 +105,6 @@ public class Dices {
 	 * @return the 1~6 number
 	 */
 	private int rollADice() {
-		return Random.getRandomInt(1, 6);
+		return Rng.getRandomInt(1, 6);
 	}
 }

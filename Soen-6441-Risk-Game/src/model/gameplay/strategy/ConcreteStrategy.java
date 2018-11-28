@@ -3,7 +3,7 @@ package model.gameplay.strategy;
 import model.gameplay.Player;
 import model.map.Country;
 import model.map.Map;
-import model.utilities.Random;
+import model.utilities.Rng;
 
 public abstract class ConcreteStrategy implements Strategy {
 
@@ -24,7 +24,7 @@ public abstract class ConcreteStrategy implements Strategy {
 	@Override
 	public void placeOneArmy() {
 		map.getPhase().setPhase("Start up phase", player);
-		int randomIndex = Random.getRandomInt(0, player.ownedCountries.size()-1);
+		int randomIndex = Rng.getRandomInt(0, player.ownedCountries.size()-1);
 		Country randomCountry = player.ownedCountries.get(randomIndex);
 		
 		map.getPhase().setAction(player.getName() + " added 1 army in " + randomCountry.getName() + "\n");

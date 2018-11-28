@@ -10,7 +10,7 @@ import model.gameplay.strategy.ConcreteStrategy;
 import model.gameplay.strategy.Strategy;
 import model.map.Country;
 import model.map.Map;
-import model.utilities.Random;
+import model.utilities.Rng;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
@@ -273,7 +273,7 @@ public class Player extends Observable
 	 * get one type of the card
 	 */
 	public void getOneCard() {		
-		switch(Random.getRandomInt(1, 3)) {
+		switch(Rng.getRandomInt(1, 3)) {
 		case 1:
 			cards.add(Card.artillery);
 			break;
@@ -414,7 +414,7 @@ public class Player extends Observable
 	 * @return the strongest country.
 	 */
 	public Country getStrongestCountry() {
-		if(ownedCountries == null || ownedCountries.size() ==0)	
+		if(ownedCountries == null || ownedCountries.size() == 0)	
 			return null;
 		
 		Country strongest = ownedCountries.get(0);
@@ -425,6 +425,23 @@ public class Player extends Observable
 		return strongest;
 	}
 
+	/**
+	 * to get the country with the lest army number of the player
+	 * @return the weakest country
+	 */
+	public Country getWeakestCountry() {
+		if(ownedCountries == null || ownedCountries.size() == 0)
+			return null;
+		Country weakest = ownedCountries.get(0);
+		
+		for(Country c : ownedCountries)
+		{
+			if(c.getArmyNumber() < weakest.getArmyNumber()) weakest = c;
+		}
+		
+		return weakest;
+	}
+	
 	public void reinforce() {
 		strategy.reinforce();
 	}

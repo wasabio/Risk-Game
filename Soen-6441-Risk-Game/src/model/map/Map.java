@@ -12,7 +12,7 @@ import java.util.StringTokenizer;
 import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.gameplay.strategy.Human;
-import model.utilities.Random;
+import model.utilities.Rng;
 import model.utilities.StringAnalyzer;
 
 /**
@@ -376,7 +376,7 @@ public class Map extends Observable
 			{
 				if(freeCountries.size() > 0) 
 				{
-					int i = Random.getRandomInt(0, freeCountries.size()-1); //Random assignment
+					int i = Rng.getRandomInt(0, freeCountries.size()-1); //Random assignment
 					Country c = freeCountries.remove(i);
 					c.setPlayer(p);
 					c.setArmyNumber(1);
