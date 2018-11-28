@@ -412,7 +412,7 @@ public class Player extends Observable
 	 * @return the strongest country.
 	 */
 	public Country getStrongestCountry() {
-		if(ownedCountries == null || ownedCountries.size() ==0)	
+		if(ownedCountries == null || ownedCountries.size() == 0)	
 			return null;
 		
 		Country strongest = ownedCountries.get(0);
@@ -423,6 +423,23 @@ public class Player extends Observable
 		return strongest;
 	}
 
+	/**
+	 * to get the country with the lest army number of the player
+	 * @return the weakest country
+	 */
+	public Country getWeakestCountry() {
+		if(ownedCountries == null || ownedCountries.size() == 0)
+			return null;
+		Country weakest = ownedCountries.get(0);
+		
+		for(Country c : ownedCountries)
+		{
+			if(c.getArmyNumber() < weakest.getArmyNumber()) weakest = c;
+		}
+		
+		return weakest;
+	}
+	
 	public void reinforce() {
 		strategy.reinforce();
 	}
