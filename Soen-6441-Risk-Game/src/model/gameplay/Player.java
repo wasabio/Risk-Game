@@ -10,7 +10,7 @@ import model.gameplay.strategy.ConcreteStrategy;
 import model.gameplay.strategy.Strategy;
 import model.map.Country;
 import model.map.Map;
-import model.utilities.Random;
+import model.utilities.Rng;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
@@ -274,7 +274,7 @@ public class Player extends Observable
 	 * get one type of the card
 	 */
 	public void getOneCard() {		
-		switch(Random.getRandomInt(1, 3)) {
+		switch(Rng.getRandomInt(1, 3)) {
 		case 1:
 			cards.add(Card.artillery);
 			break;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import model.map.Country;
 import view.gameplay.StartUpView;
-import model.utilities.Random;
+import model.utilities.Rng;
 
 public class Aggressive extends ConcreteStrategy implements Strategy {
 
