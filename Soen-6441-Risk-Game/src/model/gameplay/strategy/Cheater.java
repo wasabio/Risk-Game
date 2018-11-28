@@ -6,23 +6,21 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void reinforce() {
-		// TODO Auto-generated method stub
 		map.getPhase().setPhase("Reinforcement phase", player);
 		
-			if(player.ownedCountries == null || player.ownedCountries.size() == 0);
-			else {
-				for(Country c : player.ownedCountries) 
-				{
-					int army = c.getArmyNumber() * 2;
-					c.setArmyNumber(army);
-				}
+		if(player.ownedCountries != null && player.ownedCountries.size() != 0) {
+			for(Country c : player.ownedCountries) 
+			{
+				int army = c.getArmyNumber() * 2;
+				c.setArmyNumber(army);
 			}
-			
+		}		
 	}
 
 	@Override
 	public void attack() {
-		// TODO Auto-generated method stub
+		map.getPhase().setPhase("Attack phase", player);
+		
 		for(Country c : player.ownedCountries) {
 			for(Country neighbor : c.neighbors)
 			{
@@ -37,7 +35,8 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void fortify() {
-		// TODO Auto-generated method stub
+		map.getPhase().setPhase("Fortification phase", player);
+		
 		for(Country c : player.ownedCountries)
 			for( Country neighbor : c.neighbors)
 			{
