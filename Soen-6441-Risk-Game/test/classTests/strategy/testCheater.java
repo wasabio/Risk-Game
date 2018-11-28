@@ -13,6 +13,11 @@ import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 
+/**
+ * this test case is to test the cheater pattern
+ * @author Yueshuai
+ *
+ */
 public class testCheater {
 
 	Continent con1,con2;
