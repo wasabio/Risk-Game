@@ -86,5 +86,41 @@ public class testCheater {
 		assertEquals(6,cty3.getArmyNumber());
 		assertEquals(4,cty4.getArmyNumber());
 	}
+	
+	@Test
+	public void testAttack() {
+		p1.ownedCountries.add(cty1);
+		cty1.setPlayer(p1);
+		
+		p2.ownedCountries.add(cty2);
+		cty2.setPlayer(p2);
+		p2.ownedCountries.add(cty3);
+		cty3.setPlayer(p2);
+		p2.ownedCountries.add(cty4);
+		cty4.setPlayer(p2);
+		
+		cty1.linkTo(cty3);
+		cty3.linkTo(cty1);
+		
+		cty1.linkTo(cty2);
+		cty2.linkTo(cty1);
+		
+		cty2.linkTo(cty4);
+		cty4.linkTo(cty2);
+		
+		Phase phase  = new Phase();
+		map.setPhase(phase);
+		
+		assertTrue(p1.owns(cty1.getNumber()));
+		assertFalse(p1.owns(cty2.getNumber()));
+		assertFalse(p1.owns(cty3.getNumber()));
+		assertFalse(p1.owns(cty4.getNumber()));
+		
+		p1.attack();
+		assertTrue(p1.owns(cty1.getNumber()));
+		assertTrue(p1.owns(cty2.getNumber()));
+		assertTrue(p1.owns(cty3.getNumber()));
+		assertFalse(p1.owns(cty4.getNumber()));
+	}
 
 }
