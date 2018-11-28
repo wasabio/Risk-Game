@@ -56,7 +56,6 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 		if(origin == null) return;
 		
 		if(destination.getArmyNumber() == 1)	destination = getACountryThatHasEnnemyNeighbor();
-		getSecondStrongestCountry(destination);
 		player.fortificationMove(origin, destination, (origin.getArmyNumber()-1));
 	}
 
