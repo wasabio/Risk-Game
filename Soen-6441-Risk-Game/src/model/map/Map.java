@@ -36,7 +36,7 @@ public class Map extends Observable
 	private String author;
 	private boolean warn;
 	private int playerNumber;
-	private Phase phase = new Phase();
+	private Phase phase;
 	private static int cardBonus = 0;
 	
 	/**
@@ -539,5 +539,13 @@ public class Map extends Observable
 	 */
 	public Phase getPhase() {
 		return phase;
+	}
+	
+	/**
+	 * set the player's current phase
+	 * @aparam phase Set the phase
+	 */
+	public void setPhase(Phase phase) {
+		this.phase = phase;
 	}
 }

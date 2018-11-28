@@ -132,14 +132,17 @@ public class Player extends Observable
 	 * @param attacker The attacker country.
 	 * @param defender The defender country.
 	 * @param armies The number of armies to move.
+	 * @return boolean saying if the attacker conquered the defender territory.
 	 */
-	public void conquestMove(Country attacker, Country defender, int armies) {
+	public boolean conquestMove(Country attacker, Country defender, int armies) {
 		if(defender.getArmyNumber() == 0) {
 			map.addArmiesToCountry(attacker, -armies);
 			map.addArmiesToCountry(defender, armies);
 			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") conquered " + defender.getName() + " and moved " + armies + " armies\n");
+			return true;
 		} else {
 			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") failed to conquer " + defender.getName() + " (" + defender.getPlayer().getName() + ")\n");
+			return false;
 		}
 	}
 	
