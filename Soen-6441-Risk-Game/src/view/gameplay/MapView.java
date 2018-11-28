@@ -74,10 +74,8 @@ public class MapView extends View implements Observer
 			
 			for(Country ctry : c.countries) 
 			{
-				System.out.println(p + " et " + ctry.getPlayer());
-				if(p == ctry.getPlayer())	text += "<font color='red'>" + ctry.getPlayer().getName() + " - " + ctry.getNumber() + "  </font>";
-				else	text += ctry.getPlayer().getName() + " - " + ctry.getNumber() + "  ";
-				text += ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ";
+				text += ctry.getPlayer().getName() + " - " + ctry.getNumber() + "  " + ctry.getName() + " (" + ctry.getArmyNumber() + ") --> ";
+				
 				for(int i = 0; i < ctry.neighbors.size(); i++) {
 					text += ctry.neighbors.get(i).getName();
 					if(i != (ctry.neighbors.size() - 1)) 
@@ -91,7 +89,7 @@ public class MapView extends View implements Observer
 		}
 		text += "</html>";
 		JLabel label = new JLabel(text);
-	    Font f = new Font(Font.SERIF, Font.PLAIN, 20);
+	    Font f = new Font("Cosmic Sans MS", Font.PLAIN, 20);
 	    label.setFont(f);
 		label.setFont(label.getFont().deriveFont(60));
 		container.removeAll();
