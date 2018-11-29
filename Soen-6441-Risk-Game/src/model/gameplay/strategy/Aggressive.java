@@ -4,6 +4,11 @@ import java.util.ArrayList;
 
 import model.map.Country;
 
+/**
+ * This class is for the aggressive AI player 
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class Aggressive extends ConcreteStrategy implements Strategy {
 
 	/**
@@ -22,6 +27,9 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 		player.reinforcementMove(strongestCountry, maxArmies);
 	}
 
+	/**
+	 * This method will let the aggressive AI to choose the country with the strongest army to attack enemy
+	 */
 	@Override
 	public void attack() {
 		Country attacker = player.getStrongestCountry();
@@ -59,6 +67,10 @@ public class Aggressive extends ConcreteStrategy implements Strategy {
 		player.fortificationMove(origin, destination, (origin.getArmyNumber()-1));
 	}
 
+	/**
+	 * the method to get the enemy neighbors
+	 * @return null if the method can't get any enemy neighbors
+	 */
 	private Country getACountryThatHasEnnemyNeighbor() {
 		for(Country c : player.ownedCountries) {
 			if(c.getEnnemyNeighbor() != null)	return c;
