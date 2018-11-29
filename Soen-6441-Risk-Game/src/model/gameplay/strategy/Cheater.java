@@ -23,11 +23,10 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 	@Override
 	public void attack() {		
 		ListIterator<Country> i = player.ownedCountries.listIterator();
-		
+		map.getPhase().setPhase("Attack phase", player);
+
 		while (i.hasNext()) 
 		{
-			map.getPhase().setPhase("Attack phase", player);
-
 			Country c = i.next();
 			for(Country neighbor : c.neighbors)
 			{
@@ -39,6 +38,7 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 					neighbor.setPlayer(player);
 					map.addArmiesToCountry(neighbor, (-neighbor.getArmyNumber() + 1));	//Setting army number to 1
 					map.getPhase().setAction(map.getPhase().getAction() + c.getName() + "(" + player.getName() + ") conquered " + neighbor.getName() + " and moved 1 army\n");
+					map.getPhase().setPhase("Attack phase", player);
 				}
 			}
 		}
