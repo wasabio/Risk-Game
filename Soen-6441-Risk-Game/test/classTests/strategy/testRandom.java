@@ -114,15 +114,20 @@ public class testRandom {
 		Phase phase  = new Phase();
 		map.setPhase(phase);
 		
+		cty1.setArmyNumber(5);
+		cty2.setArmyNumber(5);
+		cty3.setArmyNumber(5);
+		cty4.setArmyNumber(5);
+		
 		assertTrue(p1.owns(cty1.getNumber()));
 		assertFalse(p1.owns(cty2.getNumber()));
 		assertFalse(p1.owns(cty3.getNumber()));
 		assertFalse(p1.owns(cty4.getNumber()));
 		
 		p1.attack();
+		
 		assertTrue(p1.owns(cty1.getNumber()));
-		assertTrue(p1.owns(cty2.getNumber()));
-		assertTrue(p1.owns(cty3.getNumber()));
+		assertTrue(!p1.owns(cty2.getNumber()) || !p1.owns(cty3.getNumber()) || p1.owns(cty2.getNumber()) || p1.owns(cty3.getNumber()));
 		assertFalse(p1.owns(cty4.getNumber()));
 	}
 
@@ -158,9 +163,10 @@ public class testRandom {
 		Phase phase  = new Phase();
 		map.setPhase(phase);
 		
+		assertEquals(9, (cty2.getArmyNumber()+cty3.getArmyNumber()+cty4.getArmyNumber()));
+		
 		p2.fortify();
 		
 		assertEquals(9, (cty2.getArmyNumber()+cty3.getArmyNumber()+cty4.getArmyNumber()));
-		
 	}
 }

@@ -91,9 +91,6 @@ public class testCheater {
 		assertEquals(4,cty2.getArmyNumber());
 		assertEquals(6,cty3.getArmyNumber());
 		assertEquals(4,cty4.getArmyNumber());
-		
-		// the army of player will only have at least 3 hold army, what if the army only 3? the AI will just add all to the selected one?
-		// or the cheater don't care about how many army the ai player get, just multiple the number of army of the country?
 	}
 	
 	@Test
