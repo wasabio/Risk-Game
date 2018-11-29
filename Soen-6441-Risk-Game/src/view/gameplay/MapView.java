@@ -23,7 +23,14 @@ import view.common.View;
  */
 public class MapView extends View implements Observer 
 {	
+	/**
+	 * the frame of the map
+	 */
 	private static Frame aFrame = new Frame("Map");
+	
+	/**
+	 * the Jpanel container for the map view
+	 */
 	private JPanel container;
 	
 	/**

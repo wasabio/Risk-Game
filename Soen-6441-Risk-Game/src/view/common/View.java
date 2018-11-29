@@ -3,19 +3,20 @@ package view.common;
 import java.util.Scanner;
 
 /**
- * 
  * The class is to show the inputed integers for the user and check the input integer is correct to the program or not.
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public abstract class View 
 {
-	
+	/**
+	 * scan the input that the user just input
+	 */
 	private static Scanner input;
 	
 	/**
 	 * The method to get the input integer.
 	 * It also checks the input integer is correct or not. It is not correct, it will print a notice message to the user.
-	 * @return Returning the next steo texts if there are texts.
+	 * @return Returning the next step texts if there are texts.
 	 */
 	protected int getInteger() 
 	{

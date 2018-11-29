@@ -8,6 +8,10 @@ import java.util.Stack;
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class MapChecker {
+	
+	/**
+	 * the map data that need to check
+	 */
 	private Map map;
 	
 	/**

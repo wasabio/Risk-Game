@@ -25,18 +25,69 @@ import model.utilities.StringAnalyzer;
  */
 public class Map extends Observable 
 {
+	/**
+	 * the list of continents that the map has
+	 */
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
+	
+	/**
+	 * the list of countries that the map has
+	 */
 	public ArrayList<Country> countries = new ArrayList<Country>();
+	
+	/**
+	 * the list of players that the map has
+	 */
 	public ArrayList<Player> players = new ArrayList<Player>();
+	
+	/**
+	 * the name of the map
+	 */
 	private String name;
+	
+	/**
+	 * the file path of the map
+	 */
 	private String mapFilePath;
+	
+	/**
+	 * the image file path of the map
+	 */
 	private String imageFilePath;
+	
+	/**
+	 * the wrap data of the map
+	 */
 	private boolean wrap;
+	
+	/**
+	 * the scroll data in the map
+	 */
 	private String scroll;
+	
+	/**
+	 * the author of the map
+	 */
 	private String author;
+	
+	/**
+	 * the data of warn in the map
+	 */
 	private boolean warn;
+	
+	/**
+	 * the number of the player in the map
+	 */
 	private int playerNumber;
+	
+	/**
+	 * the phase state of the map
+	 */
 	private Phase phase;
+	
+	/**
+	 * the card bonus when conquer a country
+	 */
 	private static int cardBonus = 0;
 	
 	/**
@@ -458,7 +509,6 @@ public class Map extends Observable
 	public Country getCountry(int ctryId) {
 		return countries.get(ctryId-1);
 	}
-
 
 	/**
 	 * The method is to calculate the country number that the current player owned.

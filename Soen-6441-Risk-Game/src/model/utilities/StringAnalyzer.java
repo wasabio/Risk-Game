@@ -10,7 +10,6 @@ import java.io.File;
  */
 public class StringAnalyzer 
 {
-	
 	/**
 	 * The method is to read the contents of .map files.
 	 * 

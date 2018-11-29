@@ -7,6 +7,7 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Rng {
+	
 	/**
 	 * The method is to get the random integer.
 	 * @param min The minimum number of the index with int type.
