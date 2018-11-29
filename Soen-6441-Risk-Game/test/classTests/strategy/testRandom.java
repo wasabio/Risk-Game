@@ -1,14 +1,12 @@
 package classTests.strategy;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.gameplay.strategy.Random;
-import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -25,7 +23,9 @@ public class testRandom {
 	Player p1,p2;
 	Map map = new Map();
 	@Before
-	public void Before() {
+	public void Before() 
+	{
+		
 		con1 = new Continent("",3);
 		con2 = new Continent("",4);
 		cty1 = new Country("");
@@ -83,12 +83,13 @@ public class testRandom {
 		//test the number of armies before random reinforce
 		assertEquals(16,cty1.getArmyNumber()+cty2.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies());
 		assertEquals(10,p1.getArmies());
+		
 		p1.reinforce();
 		
 		assertEquals(16,(cty1.getArmyNumber()+cty2.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies()));	
 		assertEquals(20,p2.getArmies());		
 	}
-	/*
+	
 	@Test
 	public void testAttack() {
 		p1.ownedCountries.add(cty1);
@@ -123,6 +124,43 @@ public class testRandom {
 		assertTrue(p1.owns(cty2.getNumber()));
 		assertTrue(p1.owns(cty3.getNumber()));
 		assertFalse(p1.owns(cty4.getNumber()));
-	}*/
+	}
 
+	@Test
+	public void testFortify() 
+	{
+		p1.ownedCountries.add(cty1);
+		cty1.setPlayer(p1);
+		
+		p2.ownedCountries.add(cty2);
+		cty2.setPlayer(p2);
+		
+		p2.ownedCountries.add(cty3);
+		cty3.setPlayer(p2);
+		
+		p2.ownedCountries.add(cty4);
+		cty4.setPlayer(p2);
+		
+		cty1.linkTo(cty3);
+		cty3.linkTo(cty1);
+		
+		cty1.linkTo(cty2);
+		cty2.linkTo(cty1);
+		
+		cty2.linkTo(cty4);
+		cty4.linkTo(cty2);
+		
+		cty1.setArmyNumber(2);
+		cty2.setArmyNumber(5);
+		cty3.setArmyNumber(2);
+		cty4.setArmyNumber(2);
+		
+		Phase phase  = new Phase();
+		map.setPhase(phase);
+		
+		p2.fortify();
+		
+		assertEquals(9, (cty2.getArmyNumber()+cty3.getArmyNumber()+cty4.getArmyNumber()));
+		
+	}
 }
