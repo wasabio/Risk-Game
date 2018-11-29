@@ -67,7 +67,7 @@ public class GameController
 	 */
 	public GameController()
 	{
-		try 
+		try
 		{
 			map = new Map();
 			map.clear();

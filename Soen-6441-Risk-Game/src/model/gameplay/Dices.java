@@ -81,26 +81,28 @@ public class Dices {
 	 * The roll function to check both player use the dice and compare it
 	 */
 	public void roll() {
+		String result = "\n";
+		
 		if(attDicesNumber == 0 && defDicesNumber == 0) {	/* All-out mode */
 			attDicesNumber = attackerMaxDices;
 			defDicesNumber = defenderMaxDices;
 		}
-		System.out.print("attacker rolled : ");
+		
+		result += "Attacker rolled: ";
 		/* Rolling attacker dices */
 		for(int dice = 1; dice <= attDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.print(a + " ");
+			result += a + " ";
 			attackerDices.add(a);
 		}
 		
-		System.out.print("Defender rolled: ");
+		result += "/ Defender rolled: ";
 		/* Rolling defender dices */
 		for(int dice = 1; dice <= defDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.print(a+" ");
+			result += a + " ";
 			defenderDices.add(a);
 		}
-		
 		
 		/* Comparing dice results */
 		while(attackerDices.size() != 0 && defenderDices.size() != 0) {
@@ -110,6 +112,8 @@ public class Dices {
 			if(defDice >= attDice)	attackerLoss++;	
 			else	defenderLoss++;
 		}
+		result += "\nAttacker loss: " + attackerLoss + " / Defender loss: " + defenderLoss;
+		System.out.println(result);
 	}
 	
 	/**

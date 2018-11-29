@@ -17,7 +17,7 @@ public class AttackView extends View {
 	 */
 	public int chooseAttackerCountry(Player p) 
 	{
-		System.out.println("Enter the attacker country number (0 to skip): ");
+		System.out.println("\nEnter the attacker country number (0 to skip): ");
 		
 		int country_number;
 		boolean correctValue;
