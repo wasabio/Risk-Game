@@ -15,7 +15,7 @@ public class Random extends ConcreteStrategy implements Strategy {
 		
 		int randomArmy = Rng.getRandomInt(1, player.getArmies());
 		int randomCtyIndex = Rng.getRandomInt(0, player.ownedCountries.size()-1);
-		player.reinforcementMove(map.countries.get(randomCtyIndex), randomArmy);
+		player.reinforcementMove(player.ownedCountries.get(randomCtyIndex), randomArmy);
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class Random extends ConcreteStrategy implements Strategy {
 		do {
 			map.getPhase().setPhase("attack phase", player);
 
-			int attack = Rng.getRandomInt(0, 2);	//Chance to attack 66%
+			int attack = Rng.getRandomInt(0, 3);	//Chance to attack 75%
 			if(attack == 0 || attacker.canAttack() == false)	 return;
 			
 			Country defender = attacker.getEnnemyNeighbor();
@@ -49,6 +49,10 @@ public class Random extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void fortify() {
-		
+		/* Choosing random country that can be origin */
+		ArrayList<Country> potentialOrigins = new ArrayList<Country>();	//Looking for potential attackers
+		for(Country c : player.ownedCountries) {
+			//if(c.canAttack())	potentialAttackers.add(c);
+		}
 	}
 }
