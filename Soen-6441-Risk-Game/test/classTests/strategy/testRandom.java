@@ -85,10 +85,10 @@ public class testRandom {
 		assertEquals(10,p1.getArmies());
 		p1.reinforce();
 		
-		assertEquals(18,(cty1.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies()));
-		//assertEquals(10,p1.getArmies());
+		assertEquals(14,(cty1.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies()));
+		
 		assertEquals(20,p2.getArmies());
-		//assertEquals(2,cty2.getArmyNumber());
+
 		
 	}
 	/*
