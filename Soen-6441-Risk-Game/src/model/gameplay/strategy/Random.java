@@ -10,12 +10,8 @@ public class Random extends ConcreteStrategy implements Strategy {
 	public void reinforce() {
 		map.getPhase().setPhase("Reinforcement phase", player);
 		int randomArmy = Rng.getRandomInt(0, player.getArmies());
-		
-		int randomCtyIndex = Rng.getRandomInt(0, map.countries.size()-1); //use loop to find the a random country that belongs to the player
-		while(map.getCountry(randomCtyIndex).getPlayer() != player)
-		{
-			randomCtyIndex = Rng.getRandomInt(0, map.countries.size()-1);
-		}
+		int randomCtyIndex = Rng.getRandomInt(0, player.ownedCountries.size()-1);
+
 		player.reinforcementMove(map.getCountry(randomCtyIndex), randomArmy);
 	}
 

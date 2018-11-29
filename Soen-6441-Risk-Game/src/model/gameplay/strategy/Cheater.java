@@ -9,27 +9,25 @@ import model.map.Country;
 public class Cheater extends ConcreteStrategy implements Strategy {
 
 	@Override
-	public void reinforce() {
-		map.getPhase().setPhase("Reinforcement phase", player);
-		
+	public void reinforce() {		
 		if(player.ownedCountries != null && player.ownedCountries.size() != 0) {
 			for(Country c : player.ownedCountries) 
 			{
-				int army = c.getArmyNumber() * 2;
-				c.setArmyNumber(army);
+				map.getPhase().setPhase("Reinforcement phase", player);
 				map.getPhase().setAction(player.getName() + " reinforced " + c.getArmyNumber() + " army in " + c.getName() + "\n");		
+				map.addArmiesToCountry(c, c.getArmyNumber()); 	//Multiplied by 2
 			}
 		}
 	}
 
 	@Override
-	public void attack() {
-		map.getPhase().setPhase("Attack phase", player);
-		
+	public void attack() {		
 		ListIterator<Country> i = player.ownedCountries.listIterator();
 		
 		while (i.hasNext()) 
 		{
+			map.getPhase().setPhase("Attack phase", player);
+
 			Country c = i.next();
 			for(Country neighbor : c.neighbors)
 			{
@@ -49,18 +47,13 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 	@Override
 	public void fortify() {
 		map.getPhase().setPhase("Fortification phase", player);
-		/*
+
 		for(Country c : player.ownedCountries) {
-			for( Country neighbor : c.neighbors)
-			{
-				if( neighbor.getPlayer() != player)
-				{
-					int army = c.getArmyNumber() * 2;
-					c.setArmyNumber(army);
-					break;
-				}
+			if(c.getEnnemyNeighbor() != null) {
+				map.getPhase().setAction(player.getName() + " reinforced " + c.getArmyNumber() + " army in " + c.getName() + "\n");		
+				map.addArmiesToCountry(c, c.getArmyNumber()); 	//Multiplied by 2
 			}
-		}*/
+		}
 	}
 
 }
