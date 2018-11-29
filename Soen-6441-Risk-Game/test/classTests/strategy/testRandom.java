@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
-import model.gameplay.strategy.Cheater;
+import model.gameplay.strategy.Random;
 import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
@@ -32,8 +32,8 @@ public class testRandom {
 		cty2 = new Country("");
 		cty3 = new Country("");
 		cty4 = new Country("");
-		p1 = new Player(1, 5, map, new Cheater());
-		p2 = new Player(2, 3, map, new Cheater());
+		p1 = new Player(1, 5, map, new Random());
+		p2 = new Player(2, 3, map, new Random());
 		map.continents.add(con1);
 		map.continents.add(con2);
 		map.countries.add(cty1);
@@ -83,12 +83,14 @@ public class testRandom {
 		//test the number of armies before random reinforce
 		assertEquals(14,cty1.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies());
 		assertEquals(26,cty2.getArmyNumber()+cty4.getArmyNumber()+p2.getArmies());
+		
 		assertEquals(10,p1.getArmies());
 		assertEquals(20,p2.getArmies());
-		assertEquals(10,p1.getArmies());
 		assertEquals(1,cty1.getArmyNumber());
-		assertEquals(1,cty3.getArmyNumber());
+		assertEquals(3,cty3.getArmyNumber());
+		
 		p1.reinforce();
+		
 		assertEquals(18,cty1.getArmyNumber()+cty3.getArmyNumber()+p1.getArmies());
 		assertEquals(10,p1.getArmies());
 		assertEquals(20,p2.getArmies());
