@@ -117,7 +117,7 @@ public class Human extends ConcreteStrategy implements Strategy {
 			destinationCountryId = fortificationView.chooseDestinationCountry(player);
 			
 			destination = map.countries.get(destinationCountryId-1);
-			 connected = destination.isConnectedTo(origin);
+			 connected = origin.isConnectedTo(destination);
 			if(!connected)	fortificationView.errorNotConnectedCountries();
 		}while(!connected);
 			

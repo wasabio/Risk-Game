@@ -68,7 +68,6 @@ public class testIsConnectedTo {
 		cty3.linkTo(cty2);
 		cty3.linkTo(cty4);
 		cty4.linkTo(cty3);
-		
 	}
 	/**
 	 * test when origin and destination countries are connected

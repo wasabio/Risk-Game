@@ -49,10 +49,27 @@ public class Random extends ConcreteStrategy implements Strategy {
 
 	@Override
 	public void fortify() {
-		/* Choosing random country that can be origin */
-		ArrayList<Country> potentialOrigins = new ArrayList<Country>();	//Looking for potential attackers
-		for(Country c : player.ownedCountries) {
-			//if(c.canAttack())	potentialAttackers.add(c);
+		/* Choosing random country that can be fortified */
+		ArrayList<Country> potentialDestinations = new ArrayList<Country>();	//Looking for potential attackers
+		for(Country destination : player.ownedCountries) {
+			for(Country origin : destination.neighbors) {
+				if(origin.isConnectedTo(destination) && origin.getArmyNumber() >= 2 && !potentialDestinations.contains(destination)) {
+					potentialDestinations.add(destination);
+				}
+			}			
+		}
+		if(potentialDestinations.size() == 0)	return;
+		
+		int randomDestIndex = Rng.getRandomInt(0, potentialDestinations.size()-1);
+		Country randomDest = potentialDestinations.get(randomDestIndex);
+		
+		/* finding the origin */
+		for(Country origin : player.ownedCountries) {
+			if(origin.isConnectedTo(randomDest) && origin.getArmyNumber() >= 2) {
+				int armies = Rng.getRandomInt(1, origin.getArmyNumber()-1);
+				player.fortificationMove(origin, randomDest, armies);
+				return;
+			}
 		}
 	}
 }
