@@ -10,13 +10,45 @@ import model.utilities.Rng;
  *
  */
 public class Dices {
+	
+	/**
+	 * a list of several or one dice for the attacker player
+	 */
 	private PriorityQueue<Integer> attackerDices = new PriorityQueue<Integer>(Collections.reverseOrder());
+	
+	/**
+	 * a list of several or one dice for the defender player
+	 */
 	private PriorityQueue<Integer> defenderDices = new PriorityQueue<Integer>(Collections.reverseOrder());
+	
+	/**
+	 * the number of the attacker's max dice number
+	 */
 	private int attackerMaxDices;
+	
+	/**
+	 * the number of the defender's max dice number
+	 */
 	private int defenderMaxDices;
+	
+	/**
+	 * the total number that the dice gets from the attacker
+	 */
 	private int attDicesNumber = 0;
+	
+	/**
+	 * the total number that the dice gets from the defender
+	 */
 	private int defDicesNumber = 0;
+	
+	/**
+	 * show the attacker loss
+	 */
 	private int attackerLoss = 0;
+	
+	/**
+	 * show the defender loss
+	 */
 	private int defenderLoss = 0;
 	
 	/**

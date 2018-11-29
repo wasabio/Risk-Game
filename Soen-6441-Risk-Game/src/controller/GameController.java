@@ -26,12 +26,40 @@ import model.map.Map;
  */
 public class GameController 
 {
+	
+	/**
+	 * The total data of a map, the game map of the game
+	 */
 	private Map map;
+	
+	/**
+	 * data of phase changes, 4 kind of phases included
+	 */
 	private Phase phase;
+	
+	/**
+	 * the data of map view that shows the map to the users
+	 */
 	private MapView mapView;
+	
+	/**
+	 * the data that should show in the phase view to the users
+	 */
 	private PhaseView phaseView;
+	
+	/**
+	 * data of the world domination view, it shows the data of players in the map who owned the most country and army
+	 */
 	private WorldDominationView worldDomiView;
+	
+	/**
+	 * the player who wins the game
+	 */
 	private Player winner;
+	
+	/**
+	 * the data for card exchange view, it shows how many and what kind of the card of a player has
+	 */
 	private CardExchangeView cardExchangeView;
 
 	/**

@@ -18,12 +18,40 @@ import model.utilities.Rng;
  */
 public class Player extends Observable
 {
+	
+	/**
+	 * the number of players
+	 */
 	private int number;
+	
+	/**
+	 * The number of armies that a player holds
+	 */
 	private int armies;
+	
+	/**
+	 * what kind of strategies of the AI player has
+	 */
 	private Strategy strategy;
+	
+	/**
+	 * the map information
+	 */
 	private Map map;
+	
+	/**
+	 * whether a player got the card or not
+	 */
 	public boolean gotCard = false;
+	
+	/**
+	 * list of countries of a player has
+	 */
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
+	
+	/**
+	 * list of cards that a player has
+	 */
 	public ArrayList<Card> cards = new ArrayList<Card>();
 	
 	/**
@@ -39,6 +67,10 @@ public class Player extends Observable
         setMap(map);
 	}
 	
+	/**
+	 * set the map
+	 * @param map the game map
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 		((ConcreteStrategy) strategy).setMap(map);
@@ -81,7 +113,6 @@ public class Player extends Observable
 		this.setMap(map);
     }
 
-	
 	/**
 	 * get method for the armies
 	 * @return current armies number of the player
@@ -441,19 +472,31 @@ public class Player extends Observable
 		
 		return weakest;
 	}
-	
+
+	/**
+	 * the reinforce strategy
+	 */
 	public void reinforce() {
 		strategy.reinforce();
 	}
 	
+	/**
+	 * the attack strategy
+	 */
 	public void attack() {
 		strategy.attack();
 	}
 	
+	/**
+	 * the fortify strategy
+	 */
 	public void fortify() {
 		strategy.fortify();
 	}
 
+	/**
+	 * strategy to place one army
+	 */
 	public void placeOneArmy() {
 		strategy.placeOneArmy();
 	}
