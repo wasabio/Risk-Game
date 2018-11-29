@@ -1,5 +1,8 @@
 package model.gameplay.strategy;
 
+import java.util.ArrayList;
+
+import model.gameplay.Dices;
 import model.map.Country;
 import model.map.Map;
 import model.utilities.Rng;
@@ -12,24 +15,41 @@ public class Random extends ConcreteStrategy implements Strategy {
 		
 		int randomArmy = Rng.getRandomInt(0, player.getArmies());
 		int randomCtyIndex = Rng.getRandomInt(0, player.ownedCountries.size()-1);
-
-		player.reinforcementMove(map.getCountry(randomCtyIndex), randomArmy);
+		
+		player.reinforcementMove(map.countries.get(randomCtyIndex), randomArmy);
 	}
 
 	@Override
 	public void attack() {
-		map.getPhase().setPhase("attack phase", player);
+		/* Choosing random attacker */
+		ArrayList<Country> potentialAttackers = new ArrayList<Country>();	//Looking for potential attackers
+		for(Country c : player.ownedCountries) {
+			if(c.canAttack())	potentialAttackers.add(c);
+		}
+		if(potentialAttackers.size() == 0) {
+			map.getPhase().setPhase("attack phase", player);
+			return;
+		}
 		
-		int attackCty = Rng.getRandomInt(0, player.ownedCountries.size()-1);
-		Country attacker = player.ownedCountries.get(attackCty);
+		int attackerIndex = Rng.getRandomInt(0, potentialAttackers.size()-1);
+		Country attacker = potentialAttackers.get(attackerIndex);
 		
-		int defendCty = Rng.getRandomInt(0, map.countries.size()-1);
-		
+		do {
+			map.getPhase().setPhase("attack phase", player);
+
+			int attack = Rng.getRandomInt(0, 2);	//Chance to attack 66%
+			if(attack == 0 || attacker.canAttack() == false)	 return;
+			
+			Country defender = attacker.getEnnemyNeighbor();
+			
+			player.classicAttack(attacker, defender, new Dices(attacker.getArmyNumber(), defender.getArmyNumber()));
+			boolean conquered = player.conquestMove(attacker, defender, attacker.getArmyNumber() - 1);
+			if(conquered)	attacker = defender;
+		}while(true);		
 	}
 
 	@Override
 	public void fortify() {
 		
 	}
-
 }
