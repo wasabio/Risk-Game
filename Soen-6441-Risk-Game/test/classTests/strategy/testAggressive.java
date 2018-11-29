@@ -71,47 +71,6 @@ public class testAggressive {
 		map.countries.add(cty4);
 	}
 	
-	/**
-	 * test the all out method
-	 */
-	@Test
-	public void testValidAttackAllOutMode() {
-		cty1.linkTo(cty2);
-		cty2.linkTo(cty1);
-		cty3.linkTo(cty2);
-		cty2.linkTo(cty3);
-		cty3.linkTo(cty1);
-		cty1.linkTo(cty3);
-		
-		cty1.setArmyNumber(2);
-		cty2.setArmyNumber(2);
-		cty3.setArmyNumber(2);
-		
-		cty1.setPlayer(p1);
-		cty2.setPlayer(p2);
-		cty3.setPlayer(p1);
-		
-		p1.ownedCountries.add(cty1);
-		p2.ownedCountries.add(cty2);
-		p1.ownedCountries.add(cty3);
-		
-		//System.out.println(p1.getStrongestCountry());
-		//System.out.println(a.getSecondStrongestCountry(p1.getStrongestCountry()));
-		/*
-		
-		// Attacker XOR Defender wins
-		assertTrue(cty1.getArmyNumber() == 1 || cty2.getArmyNumber() == 0);
-		assertFalse(cty1.getArmyNumber() == 1 && cty2.getArmyNumber() == 0);
-		
-		if(cty1.getArmyNumber() == 1) {	//Defender wins
-			assertEquals(cty1.getPlayer(), p1);
-			assertEquals(cty2.getPlayer(), p2);
-		} else {						//Attacker wins : he conquers the country
-			assertEquals(cty1.getPlayer(), p1);
-			assertEquals(cty2.getPlayer(), p1);
-		}*/
-	}
-	
 	@Test
 	public void testReinforceStrongestCountry() 
 	{
@@ -197,6 +156,7 @@ public class testAggressive {
 		p1.ownedCountries.add(cty3);
 		
 		p1.attack();
+		
 		assertEquals(5,cty1.getArmyNumber());
 		assertNotNull(p1.allOutAttack(cty3, cty2));
 		assertFalse(p1.allOutAttack(cty3, cty1));
@@ -225,6 +185,7 @@ public class testAggressive {
 		p1.ownedCountries.add(cty3);
 		
 		p1.fortify();
+		
 		assertEquals(54,cty3.getArmyNumber());
 		assertEquals(1, cty1.getArmyNumber());
 	}
