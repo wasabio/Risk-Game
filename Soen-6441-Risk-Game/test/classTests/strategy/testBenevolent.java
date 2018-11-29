@@ -8,19 +8,20 @@ import org.junit.Test;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
-import model.gameplay.strategy.Human;
+import model.gameplay.strategy.Benevolent;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
 import model.gameplay.Dices;
 
-public class testHuman {
-
+public class testBenevolent 
+{
 	Continent con1,con2;
 	Country cty1,cty2,cty3,cty4;
 	Player p1,p2;
 	Map map = new Map();
 	Dices dice = new Dices(0, 0);
+	
 	@Before
 	public void Before() 
 	{
@@ -30,8 +31,8 @@ public class testHuman {
 		cty2 = new Country("");
 		cty3 = new Country("");
 		cty4 = new Country("");
-		p1 = new Player(1, 5, map, new Human());
-		p2 = new Player(2, 3, map, new Human());
+		p1 = new Player(1, 5, map, new Benevolent());
+		p2 = new Player(2, 3, map, new Benevolent());
 		map.continents.add(con1);
 		map.continents.add(con2);
 		map.countries.add(cty1);
@@ -52,11 +53,11 @@ public class testHuman {
 		p1.ownedCountries.add(cty1);
 		cty1.setPlayer(p1);
 		
-		p1.ownedCountries.add(cty3);
-		cty3.setPlayer(p1);
-		
 		p1.ownedCountries.add(cty2);
 		cty2.setPlayer(p1);
+		
+		p1.ownedCountries.add(cty3);
+		cty3.setPlayer(p1);
 		
 		p2.ownedCountries.add(cty4);
 		cty4.setPlayer(p2);
@@ -84,27 +85,25 @@ public class testHuman {
 		assertEquals(4,cty4.getArmyNumber());
 		
 		p1.setArmies(3);
+		p1.reinforce();
 		
-		map.addArmiesFromHand(cty1, 3);
-		
-		assertEquals(4,cty1.getArmyNumber());
-		assertEquals(2,cty2.getArmyNumber());
+		assertEquals(3,cty1.getArmyNumber());
+		assertEquals(3,cty2.getArmyNumber());
 		assertEquals(3,cty3.getArmyNumber());
 		assertEquals(4,cty4.getArmyNumber());
-		
 	}
 	
 	@Test
-	public void testAttack() 
-	{	
+	public void testAttack() {
+		
 		p1.ownedCountries.add(cty1);
 		cty1.setPlayer(p1);
 		
-		p1.ownedCountries.add(cty3);
-		cty3.setPlayer(p1);
-		
 		p1.ownedCountries.add(cty2);
 		cty2.setPlayer(p1);
+		
+		p1.ownedCountries.add(cty3);
+		cty3.setPlayer(p1);
 		
 		p2.ownedCountries.add(cty4);
 		cty4.setPlayer(p2);
@@ -119,29 +118,37 @@ public class testHuman {
 		cty2.linkTo(cty4);
 		
 		cty1.setArmyNumber(1);
-		cty2.setArmyNumber(5);
+		cty2.setArmyNumber(2);
 		cty3.setArmyNumber(3);
-		cty4.setArmyNumber(1);
+		cty4.setArmyNumber(4);
 		
 		Phase phase  = new Phase();
 		map.setPhase(phase);
 		
-		p1.allOutAttack(cty2, cty4);
+		assertEquals(1,cty1.getArmyNumber());
+		assertEquals(2,cty2.getArmyNumber());
+		assertEquals(3,cty3.getArmyNumber());
+		assertEquals(4,cty4.getArmyNumber());
 		
-		assertTrue(cty2.getArmyNumber() == 1 || cty4.getArmyNumber() == 0);
+		p1.attack();
+		
+		assertEquals(1,cty1.getArmyNumber());
+		assertEquals(2,cty2.getArmyNumber());
+		assertEquals(3,cty3.getArmyNumber());
+		assertEquals(4,cty4.getArmyNumber());
 	}
 	
 	@Test
-	public void testFortify() 
-	{	
+	public void testFortify() {
+		
 		p1.ownedCountries.add(cty1);
 		cty1.setPlayer(p1);
 		
-		p1.ownedCountries.add(cty3);
-		cty3.setPlayer(p1);
-		
 		p1.ownedCountries.add(cty2);
 		cty2.setPlayer(p1);
+		
+		p1.ownedCountries.add(cty3);
+		cty3.setPlayer(p1);
 		
 		p2.ownedCountries.add(cty4);
 		cty4.setPlayer(p2);
@@ -155,15 +162,25 @@ public class testHuman {
 		cty4.linkTo(cty2);
 		cty2.linkTo(cty4);
 		
-		cty1.setArmyNumber(3);
-		cty2.setArmyNumber(2);
+		cty1.setArmyNumber(1);
+		cty2.setArmyNumber(6);
 		cty3.setArmyNumber(3);
-		cty4.setArmyNumber(1);
+		cty4.setArmyNumber(4);
 		
 		Phase phase  = new Phase();
 		map.setPhase(phase);
 		
-		p1.fortificationMove(cty1, cty3, 2);
-		assertEquals(5,cty3.getArmyNumber());
+		assertEquals(1,cty1.getArmyNumber());
+		assertEquals(6,cty2.getArmyNumber());
+		assertEquals(3,cty3.getArmyNumber());
+		assertEquals(4,cty4.getArmyNumber());
+		
+		p1.fortify();
+		
+		assertEquals(4,cty1.getArmyNumber());
+		assertEquals(3,cty2.getArmyNumber());
+		assertEquals(3,cty3.getArmyNumber());
+		assertEquals(4,cty4.getArmyNumber());
 	}
+	
 }
