@@ -109,4 +109,24 @@ public class MapSelectionView extends View
 		
 		return strat;
 	}
+	
+	/**
+	 * Ask the number of maps
+	 */
+	public int askMapNumber()
+	{
+		System.out.println("Choose the number of maps (1 to 5):");
+
+		int nb;
+		boolean correctValue;
+		
+		do 
+		{
+			nb = getInteger();
+			correctValue = isValueCorrect(nb, 1, 5);
+		}
+		while(!correctValue);
+		
+		return nb;
+	}
 }

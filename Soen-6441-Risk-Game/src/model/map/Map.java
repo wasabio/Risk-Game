@@ -464,6 +464,8 @@ public class Map extends Observable
 	 */
 	public void addArmiesToCountry(Country c, int armiesNumber) 
 	{
+		if(armiesNumber == 0) return;
+		
 		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
 		
 		setChanged();
@@ -476,6 +478,8 @@ public class Map extends Observable
 	 * @param armiesNumber Number of armies to add.
 	 */
 	public void addArmiesFromHand(int countryNumber, int armiesNumber) {
+		if(armiesNumber == 0) return;
+		
 		Country c = countries.get(countryNumber-1);
 		Player p = c.getPlayer();
 		
@@ -492,6 +496,8 @@ public class Map extends Observable
 	 * @param armiesNumber Number of armies to add.
 	 */
 	public void addArmiesFromHand(Country c, int armiesNumber) {
+		if(armiesNumber == 0) return;
+		
 		Player p = c.getPlayer();
 		
 		p.setArmies(p.getArmies() - armiesNumber);

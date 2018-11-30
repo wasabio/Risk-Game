@@ -15,7 +15,8 @@ public class Benevolent extends ConcreteStrategy implements Strategy {
 	}
 
 	@Override
-	public void attack() {
+	public void attack() 
+	{
 		map.getPhase().setPhase("Attack phase", player);
 	}
 

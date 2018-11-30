@@ -33,5 +33,7 @@ import gameConsoleTest.testTrade;
 				testMapFileSyntax.class,
 				testMapValidation.class,
 				testTrade.class})
-public class TestSuiteGameConsole {
+public class TestSuiteGameConsole 
+{
+	
 }
