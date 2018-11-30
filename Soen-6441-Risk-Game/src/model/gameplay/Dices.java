@@ -85,19 +85,14 @@ public class Dices {
 			attDicesNumber = attackerMaxDices;
 			defDicesNumber = defenderMaxDices;
 		}
-		System.out.print("attacker rolled : ");
 		/* Rolling attacker dices */
 		for(int dice = 1; dice <= attDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.print(a + " ");
 			attackerDices.add(a);
 		}
-		
-		System.out.print("Defender rolled: ");
 		/* Rolling defender dices */
 		for(int dice = 1; dice <= defDicesNumber; dice++) {
 			int a = rollADice();
-			System.out.print(a+" ");
 			defenderDices.add(a);
 		}
 		
