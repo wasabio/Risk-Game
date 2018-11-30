@@ -208,7 +208,7 @@ public class Map extends Observable
 				{
 					throw new IOException("Invalid continent line: " + line);
 				}
-				this.continents.add(new Continent(cname, cbonus));
+				this.continents.add(new Continent(cname.toLowerCase(), cbonus));
 			}
 		}
 	}
@@ -229,7 +229,7 @@ public class Map extends Observable
 			}
 			if (!line.trim().equals("")) 
 			{
-				parseCountryLine(line);
+				parseCountryLine(line.toLowerCase());
 			}
 		}
 		
@@ -272,12 +272,12 @@ public class Map extends Observable
 		{
 			StringTokenizer st = new StringTokenizer(line, ",");
 			Country ctry = new Country();
-			ctry.setName(st.nextToken().trim());
+			ctry.setName(st.nextToken().trim().toLowerCase());
 			ctry.setCenter(Integer.parseInt(st.nextToken().trim()), Integer.parseInt(st.nextToken().trim()));
 
 			if (st.hasMoreTokens()) 
 			{
-				String name = st.nextToken().trim();
+				String name = st.nextToken().trim().toLowerCase();
 				ctry.setContinent(findContinent(name));
 				if ((ctry.getName() == null) || (ctry.getName().length() < 0)) 
 				{

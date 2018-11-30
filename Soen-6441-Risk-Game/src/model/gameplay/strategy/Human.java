@@ -31,8 +31,9 @@ public class Human extends ConcreteStrategy implements Strategy {
 			if(countryNumber == 0) {	//Trading menu
 				int combination = reinforcementView.askCardsToTrade(player);
 				if(player.trade(combination)) {
-					player.setArmies(player.getArmies() + Map.getCardBonus());
-					map.getPhase().setAction(player.getName() + " traded cards and got " + Map.getCardBonus() + " new armies\n");
+					int cardBonus = Map.getCardBonus();
+					player.setArmies(player.getArmies() + cardBonus);
+					map.getPhase().setAction(player.getName() + " traded cards and got " + cardBonus + " new armies\n");
 				} else {
 					reinforcementView.errorTraiding();
 				}
