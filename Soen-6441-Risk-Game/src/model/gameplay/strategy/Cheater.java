@@ -6,8 +6,16 @@ import java.util.ListIterator;
 import model.gameplay.Player;
 import model.map.Country;
 
+/**
+ * the class dealing with Cheater AI functions
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class Cheater extends ConcreteStrategy implements Strategy {
 
+	/**
+	 * The reinforce Strategy of Cheater AI
+	 */
 	@Override
 	public void reinforce() {		
 		if(player.ownedCountries != null && player.ownedCountries.size() != 0) {
@@ -20,6 +28,9 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 		}
 	}
 
+	/**
+	 * The attack Strategy of Cheater AI
+	 */
 	@Override
 	public void attack() {		
 		ListIterator<Country> i = player.ownedCountries.listIterator();
@@ -44,6 +55,9 @@ public class Cheater extends ConcreteStrategy implements Strategy {
 		}
 	}
 
+	/**
+	 * The fortify Strategy of Cheater AI
+	 */
 	@Override
 	public void fortify() {
 		map.getPhase().setPhase("Fortification phase", player);

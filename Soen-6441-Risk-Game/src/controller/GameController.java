@@ -92,7 +92,7 @@ public class GameController
 
 	/**
 	 * This method deals with phase steps and checks whether the game has a winner or not
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void execute() throws IOException
 	{
@@ -123,6 +123,7 @@ public class GameController
 	
 	/**
 	 * Set up the parameters of the game : number of players, types of players, map selection.
+	 * @throws IOException reject an error
 	 */
 	public void setUp() throws IOException  
 	{

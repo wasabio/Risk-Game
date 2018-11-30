@@ -10,11 +10,23 @@ import view.gameplay.StartUpView;
 
 /**
  * A concrete Strategy that implements human strategy operation
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  */
 public class Human extends ConcreteStrategy implements Strategy {
 	
+	/**
+	 * the reinforcementView data
+	 */
 	private ReinforcementView reinforcementView;
+	
+	/**
+	 * attackView data
+	 */
 	private AttackView attackView;
+	
+	/**
+	 * fortificationView data
+	 */
 	private FortificationView fortificationView;
 
 	/**
@@ -45,6 +57,9 @@ public class Human extends ConcreteStrategy implements Strategy {
 		}while(player.getArmies() > 0);
 	}
 
+	/**
+	 * the attack method for Human 
+	 */
 	@Override
 	public void attack() {
 		attackView = new AttackView();
@@ -99,6 +114,9 @@ public class Human extends ConcreteStrategy implements Strategy {
 		}while(player.canContinueAttacking() && attackView.continueAttacking());
 	}
 	
+	/**
+	 * the fortify method for human
+	 */
 	@Override
 	public void fortify() {
 		fortificationView = new FortificationView();

@@ -58,7 +58,7 @@ public class MapEditorController
 	
 	/**
 	 * The method is to execute the map editor and then manage the choice options to the players.
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void execute() throws IOException
 	{

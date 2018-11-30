@@ -7,8 +7,16 @@ import model.map.Country;
 import model.map.Map;
 import model.utilities.Rng;
 
+/**
+ * the class dealing with Random AI
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class Random extends ConcreteStrategy implements Strategy {
 
+	/**
+	 * the reinforce method of Random AI
+	 */
 	@Override
 	public void reinforce() {
 		map.getPhase().setPhase("Reinforcement phase", player);
@@ -18,6 +26,9 @@ public class Random extends ConcreteStrategy implements Strategy {
 		player.reinforcementMove(player.ownedCountries.get(randomCtyIndex), randomArmy);
 	}
 
+	/**
+	 * the attack method of Random AI
+	 */
 	@Override
 	public void attack() {
 		/* Choosing random attacker */
@@ -47,6 +58,9 @@ public class Random extends ConcreteStrategy implements Strategy {
 		}while(true);		
 	}
 
+	/**
+	 * the fortify method of Random AI
+	 */
 	@Override
 	public void fortify() {
 		/* Choosing random country that can be fortified */

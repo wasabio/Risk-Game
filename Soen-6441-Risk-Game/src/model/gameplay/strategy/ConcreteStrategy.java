@@ -5,15 +5,35 @@ import model.map.Country;
 import model.map.Map;
 import model.utilities.Rng;
 
+/**
+ * this class is for basic Strategy functions and let other classes to use it
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public abstract class ConcreteStrategy implements Strategy {
 
+	/**
+	 * the players of the game
+	 */
 	protected Player player;
+	
+	/**
+	 * the map of the game
+	 */
 	protected Map map;
 	
+	/**
+	 * setting the players
+	 * @param player the current player
+	 */
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
 	
+	/**
+	 * setting maps
+	 * @param map the map file
+	 */
 	public void setMap(Map map) {
 		this.map = map;
 	}
