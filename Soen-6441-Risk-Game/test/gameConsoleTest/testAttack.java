@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.gameplay.Dices;
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.gameplay.strategy.Human;
 import model.map.Continent;
@@ -26,7 +27,7 @@ public class testAttack {
 	static Country cty1, cty2, cty3, cty4;
 	static Continent con1;
 	static Map map;
-
+	static Phase phase;
 	/**
 	 * Set up the test environment of the test class
 	 */
@@ -73,6 +74,10 @@ public class testAttack {
 	 */
 	@Test
 	public void testValidAttackAllOutMode() {
+		
+		Phase phase  = new Phase();
+		map.setPhase(phase);
+		
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
 		
@@ -101,6 +106,10 @@ public class testAttack {
 	 */
 	@Test
 	public void testAttackNotConnected() {
+		
+		Phase phase  = new Phase();
+		map.setPhase(phase);
+		
 		cty3.setArmyNumber(12);
 		cty4.setArmyNumber(10);
 		
@@ -117,6 +126,10 @@ public class testAttack {
 	 */
 	@Test
 	public void testValidAttackClassicMode() {
+		
+		Phase phase  = new Phase();
+		map.setPhase(phase);
+		
 		cty1.setPlayer(p1);
 		cty2.setPlayer(p2);
 		cty1.linkTo(cty2);
