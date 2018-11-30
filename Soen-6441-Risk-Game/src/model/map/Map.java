@@ -118,7 +118,7 @@ public class Map extends Observable
 	/**
 	 * 	 * To load and check if the map file has the good syntax.
 	 * @param in The string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadMapSection(LineNumberReader in) throws IOException 
 	{
@@ -176,7 +176,7 @@ public class Map extends Observable
 	/**
 	 * To load and check if the continent's section of the map file is correct.
 	 * @param in The continent string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadContinents(LineNumberReader in) throws IOException 
 	{
@@ -216,7 +216,7 @@ public class Map extends Observable
 	/**
 	 * To load and check if the territorie's section of the map file is correct.
 	 * @param in The country string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadCountries(LineNumberReader in) throws IOException 
 	{
@@ -246,7 +246,7 @@ public class Map extends Observable
 	 * The method is to find the specific country and its information
 	 * @param name The specific country name in string type
 	 * @return Returning to the current country in country type if the condition is correct, otherwise print incorrect map file with the current country name
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private Country findCountry(String name) throws IOException 
 	{
@@ -264,7 +264,7 @@ public class Map extends Observable
 	 * The method is to parse the neighbors of the current country with separated by ",".
 	 * It also will check some conditions like the current country is exist or not and the correctness of the coordinates (x,y)
 	 * @param line This is the string line of neighbors of the current country
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void parseCountryLine(String line) throws IOException 
 	{
@@ -326,7 +326,7 @@ public class Map extends Observable
 	 * @param in The string line number that need to be read 
 	 * @param section The part of the string in the map file that is selected as the target
 	 * @return Returning the LineNumberReader type "in" while the read file string is not equal to the head
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private int reachSection(LineNumberReader in, String section) throws IOException 
 	{

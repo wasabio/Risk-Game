@@ -22,6 +22,11 @@ import view.gameplay.PhaseView;
 import view.gameplay.WinnerView;
 import view.gameplay.WorldDominationView;
 
+/**
+ * this method is for the control of the Tournament mode
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class TournamentController {
 	/**
 	 * The current map of the game
@@ -101,7 +106,7 @@ public class TournamentController {
 	
 	/**
 	 * This method deals with phase steps and checks whether the game has a winner or not
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void execute() throws IOException
 	{
@@ -157,6 +162,7 @@ public class TournamentController {
 	
 	/**
 	 * Set up the parameters of the tournament : number of players, types of players, maps selection.
+	 * @throws IOException reject an error
 	 */
 	public void setUp() throws IOException  
 	{
@@ -208,7 +214,7 @@ public class TournamentController {
 	 * This method deals with deploying players and armies on the map when the game just start.
 	 * The deployment of each player with countries is randomly deployed.
 	 * The deployment will end until every country have an owner.
-	 * @throws IOException
+	 * @throws IOException shows the error
 	 */
 	private void startUpPhase()
 	{

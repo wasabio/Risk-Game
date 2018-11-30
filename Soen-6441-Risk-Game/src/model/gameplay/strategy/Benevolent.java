@@ -2,8 +2,16 @@ package model.gameplay.strategy;
 
 import model.map.Country;
 
+/**
+ * the class dealing with Benevolent AI functions
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
+ *
+ */
 public class Benevolent extends ConcreteStrategy implements Strategy {
 
+	/**
+	 * The reinforce Strategy of Benevolent AI
+	 */
 	@Override
 	public void reinforce() {
 		do
@@ -14,12 +22,18 @@ public class Benevolent extends ConcreteStrategy implements Strategy {
 		}while(player.getArmies() > 0);
 	}
 
+	/**
+	 * The attack Strategy of Benevolent AI
+	 */
 	@Override
 	public void attack() 
 	{
 		map.getPhase().setPhase("Attack phase", player);
 	}
 
+	/**
+	 * The fortify Strategy of Benevolent AI
+	 */
 	@Override
 	public void fortify() {
 		map.getPhase().setPhase("Fortification phase", player);

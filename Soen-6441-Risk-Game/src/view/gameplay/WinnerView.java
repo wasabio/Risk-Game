@@ -19,6 +19,12 @@ public class WinnerView {
 		print(new_winner);
 	}
 
+	/**
+	 * the view to show the winners
+	 * @param winners winners in different games
+	 * @param new_gamesNumber the number of games played
+	 * @param new_mapNumber maps that played
+	 */
 	public WinnerView(ArrayList<String> winners, int new_gamesNumber, int new_mapNumber) {
 		System.out.println("\nTournament results :");
 		int nbLine = new_gamesNumber * new_mapNumber;
