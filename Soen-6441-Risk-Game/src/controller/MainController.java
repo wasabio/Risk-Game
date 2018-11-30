@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.IOException;
+
 import view.common.MainMenuView;
 
 /**
@@ -17,15 +19,20 @@ public class MainController
 	 */
 	public static void main(String[] args) 
 	{
-		mainMenu();
+		try {
+			mainMenu();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * This function creates the main menu view that is displayed to the user. It also 
 	 * controls the execution flow of the main menu and dispatch the work to other
 	 * controllers, depending on the user's choice.
+	 * @throws IOException 
 	 */
-	public static void mainMenu() 
+	public static void mainMenu() throws IOException 
 	{
 		MainMenuView mainMenu = new MainMenuView();
 		int choice = mainMenu.print();
@@ -36,7 +43,9 @@ public class MainController
 			new GameController();
 			break;
 		case 2:
-			new TournamentController();
+			TournamentController tournament = new TournamentController();
+			tournament.setUp();
+			tournament.execute();
 			break;
 		case 3:
 			new MapEditorController();
