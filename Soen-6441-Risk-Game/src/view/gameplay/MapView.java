@@ -56,7 +56,7 @@ public class MapView extends View implements Observer
 
 	/**
 	 * The method is to print the information in a type of order for the map and showing to the user
-	 * @param map The map file that had been selected and will show to the user
+	 * @param o The map file that had been selected and will show to the user
 	 */
 	private void print(Map o) 
 	{	    

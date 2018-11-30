@@ -58,6 +58,8 @@ public class Player extends Observable
 	 * The Constructor method of player
 	 * @param new_number new number of countries
 	 * @param new_armies new number of armies
+	 * @param map the map
+	 * @param new_strategy the strategy
 	 */
 	public Player(int new_number, int new_armies, Map map, Strategy new_strategy) 
 	{
@@ -227,10 +229,10 @@ public class Player extends Observable
 	
 	/**
 	 * This class will compute a battle. It rolls the dice, computing the result, and resolve the loss of both sides.
-	 * @param map
-	 * @param dices
-	 * @param attackerCtry
-	 * @param defenderCtry
+	 * @param map the map
+	 * @param dices the dices
+	 * @param attackerCtry attacker country
+	 * @param defenderCtry defender country
 	 */
 	private void battle(Map map, Dices dices, Country attackerCtry, Country defenderCtry) {
 		dices.roll();
@@ -431,6 +433,7 @@ public class Player extends Observable
 	/**
 	 * Check if a player can continue to attack during the attack phase. At least one
 	 * of its own countries must be able to launch an attack.
+	 * @return boolean if we can continue  attacking
 	 */
 	public boolean canContinueAttacking() {
 		for(Country c : this.ownedCountries) {

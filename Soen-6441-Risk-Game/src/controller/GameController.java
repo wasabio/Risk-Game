@@ -161,7 +161,6 @@ public class GameController
 	 * This method deals with deploying players and armies on the map when the game just start.
 	 * The deployment of each player with countries is randomly deployed.
 	 * The deployment will end until every country have an owner.
-	 * @throws IOException
 	 */
 	private void startUpPhase()
 	{

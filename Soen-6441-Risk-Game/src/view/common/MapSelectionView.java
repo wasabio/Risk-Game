@@ -23,6 +23,7 @@ public class MapSelectionView extends View
 	
 	/**
 	 * The method is to let the user to select 2 ~ x players for the game.
+	 * @param maxPlayers the max players
 	 * @return Returning the player number that was inputed if the value not right.
 	 */
 	public int print(int maxPlayers) 
@@ -89,6 +90,8 @@ public class MapSelectionView extends View
 	
 	/**
 	 * Ask player strategies
+	 * @param nb the number
+	 * @return the number of strategy
 	 */
 	public int askStrategy(int nb) 
 	{
@@ -113,7 +116,9 @@ public class MapSelectionView extends View
 	
 	/**
 	 * Ask player strategies for tournament
-	 * @param possibleStrategies 
+	 * @param nb the number
+	 * @param possibleStrategies the strategoes
+	 * @return the number of strategy
 	 */
 	public int askTournamentStrategy(int nb, HashMap<Integer, String> possibleStrategies) 
 	{
@@ -138,6 +143,7 @@ public class MapSelectionView extends View
 	
 	/**
 	 * Ask the number of maps
+	 * @return the map number
 	 */
 	public int askMapNumber()
 	{
@@ -158,6 +164,7 @@ public class MapSelectionView extends View
 
 	/**
 	 * Ask the number of games to play for tournament
+	 * @return the game number
 	 */
 	public int askGameNumber() {
 		System.out.println("Choose the number of games to play on each map (1 to 5):");
@@ -177,6 +184,7 @@ public class MapSelectionView extends View
 
 	/**
 	 * Ask the maximum number of turns for each game
+	 * @return the game turn
 	 */
 	public int askGameMaxTurns() {
 		System.out.println("Choose the maximum number of turns of each game (10 to 50):");

@@ -30,7 +30,7 @@ public class MainController
 	 * This function creates the main menu view that is displayed to the user. It also 
 	 * controls the execution flow of the main menu and dispatch the work to other
 	 * controllers, depending on the user's choice.
-	 * @throws IOException 
+	 * @throws IOException the exception 
 	 */
 	public static void mainMenu() throws IOException 
 	{

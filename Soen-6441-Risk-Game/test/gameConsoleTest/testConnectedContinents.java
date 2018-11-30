@@ -152,7 +152,7 @@ public class testConnectedContinents
 	/**
 	 * test when a continent is not a connected subgraph
 	 * countries 1,3 in continent 1
-	 * countries 2,4 in continent 2 but 2 & 4 not connected
+	 * countries 2,4 in continent 2 but 2 and 4 not connected
 	 */
 	@Test  
 	public void testNotConnectedSubgraph() 

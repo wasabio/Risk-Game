@@ -379,6 +379,7 @@ public class Map extends Observable
 	
 	/**
 	 * Return card bonus and increase it by 5 each time a player receives this bonus
+	 * @return the card bonus
 	 */
 	public static int getCardBonus() {
 		cardBonus += 5;
@@ -460,7 +461,7 @@ public class Map extends Observable
 	
 	/**
 	 * Add armies to a specific country by its id 
-	 * @param origin Country id
+	 * @param c Country id
 	 * @param armiesNumber Armies number to add
 	 */
 	public void addArmiesToCountry(Country c, int armiesNumber) 
@@ -603,7 +604,7 @@ public class Map extends Observable
 	
 	/**
 	 * set the player's current phase
-	 * @aparam phase Set the phase
+	 * @param phase Set the phase
 	 */
 	public void setPhase(Phase phase) {
 		this.phase = phase;

@@ -152,7 +152,7 @@ public class MapEditor extends Observable
 	/**
 	 * Find and return a continent giving a name. In case is does not exist, return null
 	 * 
-	 * @param The input continent name
+	 * @param name The input continent name
 	 * @return Returning continent type if the continent is found, otherwise return null
 	 */
 	private Continent findContinent(String name) 

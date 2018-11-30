@@ -124,7 +124,7 @@ public class TournamentController {
 
 	/**
 	 * To set winners
-	 * @param set winners
+	 * @param winners set winners
 	 */
 	public void setWinners(ArrayList<String> winners) {
 		this.winners = winners;
@@ -132,7 +132,7 @@ public class TournamentController {
 
 	/**
 	 * To get number of players
-	 * @return	number of players
+	 * @return number of players
 	 */
 	public int getPlayerNumber() {
 		return playerNumber;
@@ -140,7 +140,7 @@ public class TournamentController {
 
 	/**
 	 * set number of players
-	 * @param number of players
+	 * @param playerNumber number of players
 	 */
 	public void setPlayerNumber(int playerNumber) {
 		this.playerNumber = playerNumber;
@@ -148,7 +148,7 @@ public class TournamentController {
 
 	/**
 	 * get players
-	 * @return
+	 * @return the players
 	 */
 	public ArrayList<Player> getPlayers() {
 		return players;
@@ -156,7 +156,7 @@ public class TournamentController {
 
 	/**
 	 * set number of players
-	 * @param number of players
+	 * @param players number of players
 	 */
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
@@ -172,7 +172,7 @@ public class TournamentController {
 	
 	/**
 	 * set maps path
-	 * @param maps path
+	 * @param maps maps path
 	 */
 	public void setMaps(ArrayList<String> maps) {
 		this.maps = maps;
@@ -188,7 +188,7 @@ public class TournamentController {
 
 	/**
 	 * set number of games
-	 * @param number of games
+	 * @param gamesNumber number of games
 	 */
 	public void setGamesNumber(int gamesNumber) {
 		this.gamesNumber = gamesNumber;
@@ -204,7 +204,7 @@ public class TournamentController {
 
 	/**
 	 * set maximum turns
-	 * @param maximum turns
+	 * @param maximumTurns maximum turns
 	 */
 	public void setMaximumTurns(int maximumTurns) {
 		this.maximumTurns = maximumTurns;
@@ -220,7 +220,7 @@ public class TournamentController {
 
 	/**
 	 * set phase
-	 * @param phase
+	 * @param phase the phase
 	 */
 	public void setPhase(Phase phase) {
 		this.phase = phase;
@@ -236,7 +236,7 @@ public class TournamentController {
 
 	/**
 	 * set map
-	 * @param map
+	 * @param map the map
 	 */
 	public void setMap(Map map) {
 		this.map = map;
@@ -332,7 +332,6 @@ public class TournamentController {
 	 * This method deals with deploying players and armies on the map when the game just start.
 	 * The deployment of each player with countries is randomly deployed.
 	 * The deployment will end until every country have an owner.
-	 * @throws IOException shows the error
 	 */
 	private void startUpPhase()
 	{
@@ -409,7 +408,7 @@ public class TournamentController {
 	
 	/**
 	 * To load a clean map
-	 * @param path
+	 * @param path the path
 	 */
 	private void loadMap(String path) {
 		try {
