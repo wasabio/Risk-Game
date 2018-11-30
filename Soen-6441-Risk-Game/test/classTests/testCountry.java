@@ -14,6 +14,9 @@ import model.map.Country;
  */
 public class testCountry {
 
+	/**
+	 * the Country c
+	 */
 	Country c;
 	
 	/**

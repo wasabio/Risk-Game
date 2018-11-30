@@ -17,7 +17,11 @@ import model.map.Map;
  */
 public class testPlayer {
 
+	/**
+	 * the Player data
+	 */
 	Player p;
+	
 	/**
 	 * set the new value of player
 	 */
