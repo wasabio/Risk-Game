@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.gameplay.strategy.Human;
 import model.map.Continent;
@@ -16,12 +17,13 @@ import model.map.Map;
  * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
-public class testIsConnectedTo {
+public class testFortification {
 
 	Continent con1;
 	Country cty1,cty2,cty3,cty4;
 	Player p1,p2;
 	Map map = new Map();
+	Phase phase = new Phase();
 	/**
 	 * initiate continents, countries, players,
 	 * put countries into 2 continents
@@ -29,6 +31,7 @@ public class testIsConnectedTo {
 	 */
 	@Before
 	public void before() {
+		map.setPhase(phase);
 		con1 = new Continent("",3);
 		cty1 = new Country("");
 		cty2 = new Country("");
@@ -75,6 +78,9 @@ public class testIsConnectedTo {
 	@Test
 	public void testConnected() {
 		assertTrue(cty3.isConnectedTo(cty4));
+		p1.fortificationMove(cty3, cty4, 2);
+		assertEquals(cty3.getArmyNumber(), 1);
+		assertEquals(cty4.getArmyNumber(), 6);
 	}
 	/**
 	 * test when origin and destination countries are not connected
@@ -83,5 +89,4 @@ public class testIsConnectedTo {
 	public void testNotConnected() {
 		assertFalse(cty1.isConnectedTo(cty4));
 	}
-
 }

@@ -22,7 +22,8 @@ import classTests.testStringAnalyzer;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({	testContinent.class,
+@SuiteClasses({	TestSuiteStrategy.class,
+				testContinent.class,
 				testCountry.class,
 				testDices.class,
 				testFileHandler.class,

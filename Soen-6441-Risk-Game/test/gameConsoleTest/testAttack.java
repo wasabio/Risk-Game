@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -80,14 +83,22 @@ public class testAttack {
 		
 		cty1.linkTo(cty2);
 		cty2.linkTo(cty1);
+		cty3.linkTo(cty2);
+		cty2.linkTo(cty3);
+		cty3.linkTo(cty4);
+		cty4.linkTo(cty3);
 		
 		cty1.setArmyNumber(2);
 		cty2.setArmyNumber(2);
+		cty3.setArmyNumber(2);
+		cty4.setArmyNumber(2);
 		
 		cty1.setPlayer(p1);
 		cty2.setPlayer(p2);
+		cty3.setPlayer(p1);
+		cty4.setPlayer(p1);
 		
-		p1.allOutAttack(cty1, cty2);
+		boolean conquered = p1.allOutAttack(cty1, cty2);
 		// Attacker XOR Defender wins
 		assertTrue(cty1.getArmyNumber() == 1 || cty2.getArmyNumber() == 0);
 		assertFalse(cty1.getArmyNumber() == 1 && cty2.getArmyNumber() == 0);
@@ -98,6 +109,25 @@ public class testAttack {
 		} else {						//Attacker wins : he conquers the country
 			assertEquals(cty1.getPlayer(), p1);
 			assertEquals(cty2.getPlayer(), p1);
+			if(conquered) {
+				Method method = null;
+				// Set conquer method to public with reflection
+				try {
+					method = Player.class.getDeclaredMethod("conquer", new Class[] {Country.class});
+				} catch(Exception e1) {
+					e1.printStackTrace();
+				}
+				method.setAccessible(true);
+				try {
+					method.invoke(p1, cty2);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				p1.conquestMove(cty1, cty2, 2);
+			}
+			assertEquals(cty1.getPlayer(), p1);
+			assertEquals(cty2.getPlayer(), p1);
+			assertTrue(map.isOwned());
 		}
 	}
 	

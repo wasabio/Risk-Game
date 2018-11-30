@@ -8,7 +8,6 @@ import org.junit.Test;
 import model.gameplay.Phase;
 import model.gameplay.Player;
 import model.gameplay.strategy.Cheater;
-import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
