@@ -14,13 +14,41 @@ import model.map.Country;
 import model.map.Map;
 import model.gameplay.Dices;
 
+/**
+ * The class for testing functions of Human class
+ * @author skyba
+ *
+ */
 public class testHuman {
 
+	/**
+	 * the initial data of Continents con1,con2
+	 */
 	Continent con1,con2;
+	
+	/**
+	 * the initial data of Countries cty1,cty2,cty3,cty4
+	 */
 	Country cty1,cty2,cty3,cty4;
+	
+	/**
+	 * the initial data of player p1, p2
+	 */
 	Player p1,p2;
+	
+	/**
+	 * the initial data of map file
+	 */
 	Map map = new Map();
+	
+	/**
+	 * the initial data of dice
+	 */
 	Dices dice = new Dices(0, 0);
+	
+	/**
+	 * the method for inputing initial data for testing
+	 */
 	@Before
 	public void Before() 
 	{
@@ -46,6 +74,9 @@ public class testHuman {
 		map.players.add(p2);
 	}
 	
+	/**
+	 * the method for testing reinforce function of Human class
+	 */
 	@Test
 	public void testReinforce() {
 		
@@ -94,6 +125,9 @@ public class testHuman {
 		
 	}
 	
+	/**
+	 * the method for testing attack function of Human class
+	 */
 	@Test
 	public void testAttack() 
 	{	
@@ -131,6 +165,9 @@ public class testHuman {
 		assertTrue(cty2.getArmyNumber() == 1 || cty4.getArmyNumber() == 0);
 	}
 	
+	/**
+	 * the method for testing the fortify function for human class
+	 */
 	@Test
 	public void testFortify() 
 	{	

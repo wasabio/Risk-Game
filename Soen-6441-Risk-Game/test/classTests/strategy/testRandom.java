@@ -12,16 +12,35 @@ import model.map.Country;
 import model.map.Map;
 
 /**
- * this test case is to test the random pattern
+ * this test case is to test the random strategy
  * @author Yueshuai
  *
  */
 public class testRandom {
 
+	/**
+	 * the initial data of Continents con1,con2
+	 */
 	Continent con1,con2;
+	
+	/**
+	 * the initial data of countries cty1,cty2,cty3,cty4
+	 */
 	Country cty1,cty2,cty3,cty4;
+	
+	/**
+	 * the initial data of Players p1,p2
+	 */
 	Player p1,p2;
+	
+	/**
+	 * the initial data of map file
+	 */
 	Map map = new Map();
+	
+	/**
+	 * the method for inputing initial data for testing
+	 */
 	@Before
 	public void Before() 
 	{
@@ -50,6 +69,7 @@ public class testRandom {
 		p1.setArmies(10);
 		p2.setArmies(20);
 	}
+	
 	/**
 	 * test the ramdom reinforcement when player takes the whole continent
 	 */
@@ -90,6 +110,9 @@ public class testRandom {
 		assertEquals(20,p2.getArmies());		
 	}
 	
+	/**
+	 * testing the attack method for random AI
+	 */
 	@Test
 	public void testAttack() {
 		p1.ownedCountries.add(cty1);
@@ -131,6 +154,9 @@ public class testRandom {
 		assertFalse(p1.owns(cty4.getNumber()));
 	}
 
+	/**
+	 * testing the fortify function of random AI
+	 */
 	@Test
 	public void testFortify() 
 	{

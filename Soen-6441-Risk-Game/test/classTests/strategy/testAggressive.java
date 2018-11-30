@@ -21,12 +21,36 @@ import model.map.Country;
 import model.map.Map;
 import model.gameplay.Phase;
 
+/**
+ * This class is for testing functions of the Aggressive AI
+ * @author skyba
+ *
+ */
 public class testAggressive {
 
+	/**
+	 * initial players p1 and p2
+	 */
 	static Player p1, p2;
+	
+	/**
+	 * initial countries cty1, cty2, cty3, cty4;
+	 */
 	static Country cty1, cty2, cty3, cty4;
+	
+	/**
+	 * initial Continent con1, con2
+	 */
 	static Continent con1, con2;
+	
+	/**
+	 * initial map file
+	 */
 	static Map map;
+	
+	/**
+	 * initial phase state
+	 */
 	static Phase phase;
 	
 	/**
@@ -49,12 +73,9 @@ public class testAggressive {
 		con2 = new Continent("",3);
 	}
 	
-	/*/**
-	 * initiating 3 continents, 5 countries, country 1,4,5 is in continent 1, country 2 in continent 2
-	 * country 3 in continent 3
-	*/
+	
 	/**
-	 * The test method for adding countries and continents
+	 * The test method for adding data to test the functions
 	 */
 	@Before 
 	public void before() 
@@ -71,6 +92,9 @@ public class testAggressive {
 		map.countries.add(cty4);
 	}
 	
+	/**
+	 * method for testing reinforcing for countries
+	 */
 	@Test
 	public void testReinforceStrongestCountry() 
 	{
@@ -101,6 +125,9 @@ public class testAggressive {
 		assertSame(cty3, p1.getStrongestCountry());
 	}
 	
+	/**
+	 * testing Reinforcing the country that has enemy neighbor
+	 */
 	@Test
 	public void testReinforceHasEnemyNeighborCountry()
 	{
@@ -133,6 +160,9 @@ public class testAggressive {
 		assertSame(5, cty1.getArmyNumber());
 	}
 	
+	/**
+	 * method for testing attacking of aggressive AI
+	 */
 	@Test
 	public void testAttack() 
 	{
@@ -162,6 +192,9 @@ public class testAggressive {
 		assertFalse(p1.allOutAttack(cty3, cty1));
 	}
 	
+	/**
+	 * the method for testing fortify method of aggressive AI
+	 */
 	@Test
 	public void testFortify() 
 	{

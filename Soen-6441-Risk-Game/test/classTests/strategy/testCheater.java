@@ -20,10 +20,29 @@ import model.map.Map;
  */
 public class testCheater {
 
+	/**
+	 * the initial data of continent con1,con2
+	 */
 	Continent con1,con2;
+	
+	/**
+	 * the initial data of countries cty1,cty2,cty3,cty4
+	 */
 	Country cty1,cty2,cty3,cty4;
+	
+	/**
+	 * the initial data of Player p1,p2
+	 */
 	Player p1,p2;
+	
+	/**
+	 * the initial data of map file
+	 */
 	Map map = new Map();
+	
+	/**
+	 * the method for inputing the innitial data for testing
+	 */
 	@Before
 	public void Before() {
 		con1 = new Continent("",3);
@@ -47,6 +66,10 @@ public class testCheater {
 		map.players.add(p1);
 		map.players.add(p2);
 	}
+	
+	/**
+	 * the method for testing reinforce of cheater AI
+	 */
 	@Test
 	public void testReinforce() {
 		
@@ -93,6 +116,9 @@ public class testCheater {
 		assertEquals(4,cty4.getArmyNumber());
 	}
 	
+	/**
+	 * the method for testing attack of cheater AI
+	 */
 	@Test
 	public void testAttack() {
 		p1.ownedCountries.add(cty1);
@@ -134,6 +160,9 @@ public class testCheater {
 		
 	}
 
+	/**
+	 * the method for testing fortify of cheater AI
+	 */
 	@Test
 	public void testFortify() 
 	{

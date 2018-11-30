@@ -14,14 +14,41 @@ import model.map.Country;
 import model.map.Map;
 import model.gameplay.Dices;
 
+/**
+ * The class for testing functions of benevolent AI
+ * @author skyba
+ *
+ */
 public class testBenevolent 
 {
+	/**
+	 * initial Continents con1,con2
+	 */
 	Continent con1,con2;
+	
+	/**
+	 * initial Countries cty1,cty2,cty3,cty4;
+	 */
 	Country cty1,cty2,cty3,cty4;
+	
+	/**
+	 * initial players p1,p2
+	 */
 	Player p1,p2;
+	
+	/**
+	 * initial map data
+	 */
 	Map map = new Map();
+	
+	/**
+	 * initial dice for attacker and defender
+	 */
 	Dices dice = new Dices(0, 0);
 	
+	/**
+	 * The test method for adding data to test the functions
+	 */
 	@Before
 	public void Before() 
 	{
@@ -47,6 +74,9 @@ public class testBenevolent
 		map.players.add(p2);
 	}
 	
+	/**
+	 * the method for testing the reinforce of the benevolent AI
+	 */
 	@Test
 	public void testReinforce() {
 		
@@ -93,6 +123,9 @@ public class testBenevolent
 		assertEquals(4,cty4.getArmyNumber());
 	}
 	
+	/**
+	 * the method for testing attack method for benevolent AI
+	 */
 	@Test
 	public void testAttack() {
 		
@@ -138,6 +171,9 @@ public class testBenevolent
 		assertEquals(4,cty4.getArmyNumber());
 	}
 	
+	/**
+	 * the method for testing the fortify of the benevolent AI
+	 */
 	@Test
 	public void testFortify() {
 		
