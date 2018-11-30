@@ -1,5 +1,7 @@
 package view.gameplay;
 
+import java.util.ArrayList;
+
 import model.gameplay.Player;
 
 /**
@@ -15,6 +17,17 @@ public class WinnerView {
 	 */
 	public WinnerView(Player new_winner) {
 		print(new_winner);
+	}
+
+	public WinnerView(ArrayList<String> winners, int new_gamesNumber, int new_mapNumber) {
+		System.out.println("\nTournament results :");
+		int nbLine = new_gamesNumber * new_mapNumber;
+		
+		for(int i = 0; i < nbLine; i++) {
+			int game = ((i%new_mapNumber)+1);
+			int map = ((i)/new_gamesNumber+1);
+			System.out.println("Game " + game + ", Map " + map + " : " + winners.get(i));
+		}
 	}
 
 	/**

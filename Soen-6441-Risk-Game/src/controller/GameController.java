@@ -127,7 +127,7 @@ public class GameController
 	public void setUp() throws IOException  
 	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
-		int playerNumber = mapSelectionView.print();
+		int playerNumber = mapSelectionView.print(6);
 		map.setPlayers(playerNumber);
 		
 		for(Player p : map.players) {

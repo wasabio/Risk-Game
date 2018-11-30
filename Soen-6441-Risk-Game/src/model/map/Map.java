@@ -95,6 +95,7 @@ public class Map extends Observable
 	 */
 	public Map() {
 		Country.Counter = 0;
+		Map.cardBonus = 0;
 	}
 	
 	/**
@@ -395,7 +396,7 @@ public class Map extends Observable
 	 *  case 6 with 20 army each player, 
 	 *  others Return 0; 
 	 */	
-	private int getInitialArmiesNumber() 
+	public int getInitialArmiesNumber() 
 	{
 		switch(this.playerNumber) 
 		{
@@ -569,6 +570,9 @@ public class Map extends Observable
 	{
 		Country.Counter = 0;
 		Map.cardBonus = 0;
+		for(Player p : this.players)	p.clear();
+		countries.clear();
+		continents.clear();
 	}
 
 	/**

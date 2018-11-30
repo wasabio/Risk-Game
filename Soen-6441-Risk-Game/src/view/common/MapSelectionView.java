@@ -3,6 +3,7 @@ package view.common;
 import java.awt.Component;
 import java.awt.HeadlessException;
 import java.io.File;
+import java.util.HashMap;
 
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
@@ -21,19 +22,19 @@ public class MapSelectionView extends View
 	private String mapName;
 	
 	/**
-	 * The method is to let the user to select 2 ~ 6 players for the game.
+	 * The method is to let the user to select 2 ~ x players for the game.
 	 * @return Returning the player number that was inputed if the value not right.
 	 */
-	public int print() 
+	public int print(int maxPlayers) 
 	{
-		System.out.println("Choose the number of players (2-6): ");
+		System.out.println("Choose the number of players (2-" + maxPlayers + "): ");
 		int player_num;
 		boolean correctValue;
 		
 		do 
 		{
 			player_num = getInteger();
-			correctValue = isValueCorrect(player_num, 2, 6);
+			correctValue = isValueCorrect(player_num, 2, maxPlayers);
 		}
 		while(!correctValue);
 		
@@ -111,6 +112,31 @@ public class MapSelectionView extends View
 	}
 	
 	/**
+	 * Ask player strategies for tournament
+	 * @param possibleStrategies 
+	 */
+	public int askTournamentStrategy(int nb, HashMap<Integer, String> possibleStrategies) 
+	{
+		System.out.println("Choose a strategy for player " + nb + ": ");
+		for(int i = 1; i <= 4; i++) {
+			if(possibleStrategies.get(i) != null)	System.out.println(i + " - " + possibleStrategies.get(i) + " computer");
+		}
+		
+		int strat;
+		boolean correctValue;
+		
+		do 
+		{
+			strat = getInteger();
+			correctValue = possibleStrategies.containsKey(strat);
+			if(!correctValue)	System.out.println("Strategy already choosen.");
+		}
+		while(!correctValue);
+		
+		return strat;
+	}
+	
+	/**
 	 * Ask the number of maps
 	 */
 	public int askMapNumber()
@@ -124,6 +150,44 @@ public class MapSelectionView extends View
 		{
 			nb = getInteger();
 			correctValue = isValueCorrect(nb, 1, 5);
+		}
+		while(!correctValue);
+		
+		return nb;
+	}
+
+	/**
+	 * Ask the number of games to play for tournament
+	 */
+	public int askGameNumber() {
+		System.out.println("Choose the number of games to play on each map (1 to 5):");
+
+		int nb;
+		boolean correctValue;
+		
+		do 
+		{
+			nb = getInteger();
+			correctValue = isValueCorrect(nb, 1, 5);
+		}
+		while(!correctValue);
+		
+		return nb;
+	}
+
+	/**
+	 * Ask the maximum number of turns for each game
+	 */
+	public int askGameMaxTurns() {
+		System.out.println("Choose the maximum number of turns of each game (10 to 50):");
+
+		int nb;
+		boolean correctValue;
+		
+		do 
+		{
+			nb = getInteger();
+			correctValue = isValueCorrect(nb, 10, 50);
 		}
 		while(!correctValue);
 		

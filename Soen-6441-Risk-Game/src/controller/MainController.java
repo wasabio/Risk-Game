@@ -36,10 +36,11 @@ public class MainController
 			new GameController();
 			break;
 		case 2:
-			new MapEditorController();
+			new TournamentController();
 			break;
 		case 3:
-			new TournamentController();
+			new MapEditorController();
+			break;
 		}
 	}
 

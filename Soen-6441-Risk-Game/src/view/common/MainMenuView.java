@@ -16,20 +16,19 @@ public class MainMenuView extends View
 	 * If input other input except 1 and 2, it will re ask the user with choosing 1 or 2. 
 	 */
 	public int print() 
-	{
-		int choice = 1;
-		
+	{	
 		System.out.println("*****    Welcome in the Risk Game of team 14    *****");
 		System.out.println();
 		System.out.println("Choose an option by entering the number :");
-		System.out.println("1 - Play");
-		System.out.println("2 - Map Editor");
+		System.out.println("1 - Play a single game");
+		System.out.println("2 - Play a tournament");
+		System.out.println("3 - Map Editor");
 		
 		do
 		{
-			choice = getInteger();
+			int choice = getInteger();
 			
-			if(isValueCorrect(choice, 1, 2))
+			if(isValueCorrect(choice, 1, 3))
 			{
 				return choice;
 			}

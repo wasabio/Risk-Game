@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-import model.gameplay.Player;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -60,9 +59,7 @@ public class MapView extends View implements Observer
 	 * @param map The map file that had been selected and will show to the user
 	 */
 	private void print(Map o) 
-	{
-		Player p = o.getPhase().getPlayer();
-	    
+	{	    
 		String text = "<html>";
 		text += "          World map - " + o.getPlayerNumber() + " players<br/>";
 		text += "*****************************************<br/>";
