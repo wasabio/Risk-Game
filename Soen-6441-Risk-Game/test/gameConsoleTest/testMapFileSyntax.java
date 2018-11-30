@@ -47,6 +47,4 @@ public class testMapFileSyntax
 
 		in = new LineNumberReader(new FileReader(mapFilePath));
 	}
-	
-	
 }

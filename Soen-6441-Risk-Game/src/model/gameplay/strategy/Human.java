@@ -65,9 +65,18 @@ public class Human extends ConcreteStrategy implements Strategy {
 				conquered = player.allOutAttack(attackerCtry, defenderCtry);
 			}
 			else {			//Classic
+				String name = defenderCtry.getPlayer().getName();
+				String defenderName = name.substring(0, name.length() - 3);
 				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
 				int attackerDices = attackView.askAttackerDices(player, dices.getAttackerMaxDices());
-				int defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
+				int defenderDices = 1;
+				
+				if(!defenderName.equals("Human")) {
+					defenderDices = dices.getDefenderMaxDices();
+				} else {
+					defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
+				}
+				
 				dices.setDicesNumber(attackerDices, defenderDices);
 
 				conquered = player.classicAttack(attackerCtry, defenderCtry, dices);
