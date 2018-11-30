@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import model.gameplay.Phase;
@@ -11,7 +12,9 @@ import model.gameplay.strategy.Benevolent;
 import model.gameplay.strategy.Cheater;
 import model.gameplay.strategy.Human;
 import model.gameplay.strategy.Random;
+import model.map.Country;
 import model.map.Map;
+import model.map.MapChecker;
 import view.common.MapSelectionView;
 import view.gameplay.CardExchangeView;
 import view.gameplay.MapView;
@@ -26,9 +29,34 @@ public class TournamentController {
 	private Map map;
 	
 	/**
+	 * To store the winners of each game
+	 */
+	private ArrayList<String> winners = new ArrayList<String>();
+	
+	/**
+	 * Player number
+	 */
+	private int playerNumber;
+	
+	/**
+	 * The players of the tournament
+	 */
+	private ArrayList<Player> players = new ArrayList<Player>();
+	
+	/**
 	 * The maps selected for the tournament
 	 */
-	private ArrayList<Map> maps;
+	private ArrayList<String> maps = new ArrayList<String>();
+	
+	/**
+	 * Number of games played on each map
+	 */
+	private int gamesNumber;
+	
+	/**
+	 * Maximum number of turns for each game
+	 */
+	private int maximumTurns;
 	
 	/**
 	 * data of phase changes, 4 kind of phases included
@@ -51,11 +79,6 @@ public class TournamentController {
 	private WorldDominationView worldDomiView;
 	
 	/**
-	 * the player who wins the game
-	 */
-	private Player winner;
-	
-	/**
 	 * the data for card exchange view, it shows how many and what kind of the card of a player has
 	 */
 	private CardExchangeView cardExchangeView;
@@ -67,19 +90,7 @@ public class TournamentController {
 	{
 		try 
 		{
-			map = new Map();
-			map.clear();
-			phase = new Phase();
-			map.setPhase(phase);
-			mapView = new MapView();
-			phaseView = new PhaseView();
-			worldDomiView = new WorldDominationView();
-			cardExchangeView = new CardExchangeView();
-			phase.addObserver(phaseView);
-			phase.addObserver(cardExchangeView);
-			map.addObserver(worldDomiView);
-			map.addObserver(mapView);
-			
+			initMap();
 			execute();
 		} 
 		catch (IOException e) 
@@ -95,10 +106,35 @@ public class TournamentController {
 	private void execute() throws IOException
 	{
 		setUp();
+		for(String currentMap : maps) {
+			for(int game = 1; game <= gamesNumber; game++) {
+				initMap();
+				loadMap(currentMap);
+
+				Player winner = playOneGame();
+				if(winner == null)	winners.add("Draw");
+				else	winners.add(winner.getName());
+			}
+		}
+		
+		new WinnerView(winners, gamesNumber, maps.size());
+	}
+	
+
+	/**
+	 * To play one game
+	 * @return the winner
+	 */
+	private Player playOneGame() {
+		Country.Counter = map.countries.size();
+		Player winner = null;
+		int turn = 0;
+		
 		startUpPhase();
 		
-		do 
+		do
 		{
+			turn++;
 			for(Player p : map.players) 
 			{
 				if(p.ownedCountries.size() > 0)
@@ -114,9 +150,9 @@ public class TournamentController {
 					fortificationPhase(p);
 				}
 			}
-		}while(!map.isOwned()); /* When map is owned, end of the game */
+		}while(!map.isOwned() && turn < maximumTurns); /* When map is owned, end of the game */
 		
-		new WinnerView(winner);
+		return winner;
 	}
 	
 	/**
@@ -125,39 +161,47 @@ public class TournamentController {
 	public void setUp() throws IOException  
 	{
 		MapSelectionView mapSelectionView = new MapSelectionView();
-		int playerNumber = mapSelectionView.print();
+		playerNumber = mapSelectionView.print(4);	//4 max players
 		map.setPlayers(playerNumber);
+		HashMap<Integer, String> possibleStrategies = new HashMap<Integer, String>();
+		possibleStrategies.put(1, "Aggressive");
+		possibleStrategies.put(2, "Benevolent");
+		possibleStrategies.put(3, "Random");
+		possibleStrategies.put(4, "Cheater");
 		
 		for(Player p : map.players) {
-			int strat = mapSelectionView.askStrategy(p.getNumber());
+			int strat = mapSelectionView.askTournamentStrategy(p.getNumber(), possibleStrategies);
 			
 			switch(strat) {
 				case 1:
-					p.setStrategy(new Human());
-					break;
-				case 2:
 					p.setStrategy(new Aggressive());
 					break;
-				case 3:
+				case 2:
 					p.setStrategy(new Benevolent());
 					break;
-				case 4:
+				case 3:
 					p.setStrategy(new Random());
 					break;
-				case 5:
+				case 4:
 					p.setStrategy(new Cheater());
 					break;
 			}
+			possibleStrategies.remove(strat);
 		}
+		players = map.players;	//Memorizing players of the tournament
 		
 		int mapNumber = mapSelectionView.askMapNumber();
 		
 		for(int i = 1; i <= mapNumber; i++) {
 			String mapFilePath = mapSelectionView.selectMap();
 			Map map = new Map();
-			map.load(mapFilePath);
-			maps.add(map);
+			map.setPlayers(playerNumber);
+			map.load(mapFilePath);	//Check if map is correct
+			maps.add(mapFilePath);
 		}
+		
+		gamesNumber = mapSelectionView.askGameNumber();
+		maximumTurns = mapSelectionView.askGameMaxTurns();
 	}
 
 	/**
@@ -168,14 +212,13 @@ public class TournamentController {
 	 */
 	private void startUpPhase()
 	{
-		map = maps.remove(0);
 		map.distributeCountries(); /* Randomly split the countries between the players */
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
 		do 
 		{
 			Iterator<Player> i = remainingPlayers.iterator();
-
+			
 			while (i.hasNext()) 
 			{
 				Player p = i.next();
@@ -220,5 +263,43 @@ public class TournamentController {
 	private void fortificationPhase(Player p) 
 	{
 		p.fortify();
-	}	
+	}
+	
+	/**
+	 * To create / reset the map 
+	 */
+	private void initMap() {
+		map = new Map();
+		map.clear();
+		phase = new Phase();
+		map.setPhase(phase);
+		mapView = new MapView();
+		phaseView = new PhaseView();
+		worldDomiView = new WorldDominationView();
+		cardExchangeView = new CardExchangeView();
+		phase.addObserver(phaseView);
+		phase.addObserver(cardExchangeView);
+		map.addObserver(worldDomiView);
+		map.addObserver(mapView);
+	}
+	
+	/**
+	 * To load a clean map
+	 * @param path
+	 */
+	private void loadMap(String path) {
+		try {
+			for(Player p : players)	p.clear();
+			map.players = players;
+			map.setPlayerNumber(playerNumber);
+			for(Player p : map.players) {
+				p.setMap(map);
+				p.setArmies(map.getInitialArmiesNumber());
+			}
+			map.setPlayerNumber(map.players.size());
+			map.load(path);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

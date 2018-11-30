@@ -275,7 +275,7 @@ public class Player extends Observable
 	
 	/**
 	 * get the total army of each player
-	 * @return total army number of eaach player
+	 * @return total army number of each player
 	 */
 	public int getTotalArmy() {
 		int totalArmy = 0;
@@ -499,5 +499,15 @@ public class Player extends Observable
 	 */
 	public void placeOneArmy() {
 		strategy.placeOneArmy();
+	}
+	
+	/**
+	 * To clear players
+	 */
+	public void clear() {
+		ownedCountries.clear();
+		armies = map.getInitialArmiesNumber();
+		gotCard = false;
+		cards.clear();
 	}
 }
