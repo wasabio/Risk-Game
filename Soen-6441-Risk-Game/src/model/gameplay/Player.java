@@ -6,9 +6,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Observable;
 
+import model.gameplay.strategy.ConcreteStrategy;
+import model.gameplay.strategy.Strategy;
 import model.map.Country;
 import model.map.Map;
-import model.utilities.Random;
+import model.utilities.Rng;
 
 /**
  * This class is dealing with each player's data changes like owned countries, armies, and cards
@@ -16,10 +18,40 @@ import model.utilities.Random;
  */
 public class Player extends Observable
 {
+	
+	/**
+	 * the number of players
+	 */
 	private int number;
+	
+	/**
+	 * The number of armies that a player holds
+	 */
 	private int armies;
+	
+	/**
+	 * what kind of strategies of the AI player has
+	 */
+	private Strategy strategy;
+	
+	/**
+	 * the map information
+	 */
+	private Map map;
+	
+	/**
+	 * whether a player got the card or not
+	 */
 	public boolean gotCard = false;
+	
+	/**
+	 * list of countries of a player has
+	 */
 	public ArrayList<Country> ownedCountries = new ArrayList<Country>();
+	
+	/**
+	 * list of cards that a player has
+	 */
 	public ArrayList<Card> cards = new ArrayList<Card>();
 	
 	/**
@@ -27,10 +59,21 @@ public class Player extends Observable
 	 * @param new_number new number of countries
 	 * @param new_armies new number of armies
 	 */
-	public Player(int new_number, int new_armies) 
+	public Player(int new_number, int new_armies, Map map, Strategy new_strategy) 
 	{
 		setNumber(new_number);
 		setArmies(new_armies);
+		setStrategy(new_strategy);
+        setMap(map);
+	}
+	
+	/**
+	 * set the map
+	 * @param map the game map
+	 */
+	public void setMap(Map map) {
+		this.map = map;
+		((ConcreteStrategy) strategy).setMap(map);
 	}
 
 	/**
@@ -51,6 +94,25 @@ public class Player extends Observable
 		this.number = number;
 	}
 	
+	/**
+	 * get player name
+	 * @return return player name
+	 */
+	public String getName() 
+	{
+		return (strategy.getClass().getSimpleName() + " " + getNumber());
+	}
+	
+	/**
+     * Plugs in a specific strategy to be used
+     * @param strategy the strategy of the player
+     */
+    public void setStrategy(Strategy strategy) {
+        this.strategy = strategy;
+		((ConcreteStrategy) strategy).setPlayer(this);
+		this.setMap(map);
+    }
+
 	/**
 	 * get method for the armies
 	 * @return current armies number of the player
@@ -87,50 +149,80 @@ public class Player extends Observable
 	}
 	
 	/**
-	 * This method will process to reinforce a player's country
-	 * @param map the map
-	 * @param countryNumber the selected country
-	 * @param selectedArmies the number of armies to add
+	 * To execute a reinforcement move. It moves the armies and update the action.
+	 * @param country The country to reinforce.
+	 * @param armies The number of armies to add.
 	 */
-	public void reinforcement(Map map, int countryNumber, int selectedArmies) 
-	{
-		map.addArmiesFromHand(countryNumber, selectedArmies);
+	public void reinforcementMove(Country country, int armies) {
+		map.addArmiesFromHand(country, armies);
+		map.getPhase().setAction(this.getName() + " reinforced " + armies + " army in " + country.getName() + "\n");		
+	}
+	
+	/**
+	 * To execute a conquest move after an attack. It moves the armies and update the action.
+	 * @param attacker The attacker country.
+	 * @param defender The defender country.
+	 * @param armies The number of armies to move.
+	 * @return boolean saying if the attacker conquered the defender territory.
+	 */
+	public boolean conquestMove(Country attacker, Country defender, int armies) {
+		if(defender.getArmyNumber() == 0) {
+			map.addArmiesToCountry(attacker, -armies);
+			map.addArmiesToCountry(defender, armies);
+			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") conquered " + defender.getName() + " and moved " + armies + " armies\n");
+			return true;
+		} else {
+			map.getPhase().setAction(map.getPhase().getAction() + attacker.getName() + "(" + this.getName() + ") failed to conquer " + defender.getName() + " (" + defender.getPlayer().getName() + ")\n");
+			return false;
+		}
+	}
+	
+	/**
+	 * To execute a fortification move. It moves the armies and update the action.
+	 * @param origin Origin country.
+	 * @param destination Destination country.
+	 * @param armies The number of armies to move.
+	 */
+	public void fortificationMove(Country origin, Country destination, int armies) {
+		map.addArmiesToCountry(origin, -armies);
+		map.addArmiesToCountry(destination, armies);
+		
+		map.getPhase().setAction(this.getName() + " fortified " + armies + " army from " +
+				origin.getName()+" to "+ destination.getName() + "\n");		
 	}
 	
 	/**
 	 * This method will process the all-out attack mode.
-	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
+	 * @return boolean Tell if the defender country has been conquered
 	 */
-	public void attack(Map map, Country attackerCtry, Country defenderCtry) 
+	public boolean allOutAttack(Country attackerCtry, Country defenderCtry) 
 	{
-		do{
+		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
+
+		do {
 			Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
 			battle(map, dices, attackerCtry, defenderCtry);
+			
+			if(conquer(defenderCtry))	return true;		// Trying to conquer the country
 
-			/* Resolving battle result : conquering a country */
-			if(defenderCtry.getArmyNumber() == 0) {
-				conquer(defenderCtry);
-				return;
-			}
 		}while(attackerCtry.getArmyNumber() > 1);	// Continue until no attack is possible
+		
+		return false;
 	}
 
 	/**
 	 * This method will process the classic attack mode. The players provide their dices.
-	 * @param map The map
 	 * @param attackerCtry Country attacking
 	 * @param defenderCtry Country defending
 	 * @param dices Dices selected by the players
+	 * @return boolean Tell if the defender country has been conquered
 	 */
-	public void attack(Map map, Country attackerCtry, Country defenderCtry, Dices dices) {
+	public boolean classicAttack(Country attackerCtry, Country defenderCtry, Dices dices) {
+		map.getPhase().setAction(attackerCtry.getName() + "("+ this.getName()+ ") attacked " + defenderCtry.getName() + "(" + defenderCtry.getPlayer().getName() + ")\n");
 		battle(map, dices, attackerCtry, defenderCtry);
-		
-		/* Resolving battle result : conquering a country */
-		if(defenderCtry.getArmyNumber() == 0) {
-			conquer(defenderCtry);			
-		}
+		return conquer(defenderCtry);		// Trying to conquer the country	
 	}
 	
 	/**
@@ -143,33 +235,25 @@ public class Player extends Observable
 	private void battle(Map map, Dices dices, Country attackerCtry, Country defenderCtry) {
 		dices.roll();
 		/* Resolving loss in both armies */
-		map.addArmiesToCountry(attackerCtry.getNumber(), -dices.getAttackerLoss());
-		map.addArmiesToCountry(defenderCtry.getNumber(), -dices.getDefenderLoss());
-	}
-	
-	/**
-	 * fortification phase function
-	 * @param map map data
-	 * @param originCountryId first chosen Country
-	 * @param destinationCountryId second chosen Country
-	 * @param selectedArmies army number selected to attack
-	 */
-	public void fortification(Map map, int originCountryId, int destinationCountryId, int selectedArmies)
-	{
-		map.addArmiesToCountry(originCountryId, -selectedArmies);
-		map.addArmiesToCountry(destinationCountryId, selectedArmies);
+		map.addArmiesToCountry(attackerCtry, -dices.getAttackerLoss());
+		map.addArmiesToCountry(defenderCtry, -dices.getDefenderLoss());
 	}
 	
 	/**
 	 * To conquer a country
 	 * @param c the country to conquer
+	 * @return boolean True if the country has been conquered, false otherwise
 	 */
-	private void conquer(Country c)
+	private boolean conquer(Country c)
 	{
-		Player defender = c.getPlayer();
-		defender.ownedCountries.remove(c);
-		this.ownedCountries.add(c);
-		c.setPlayer(this);
+		if(c.getArmyNumber() == 0) {
+			Player defender = c.getPlayer();
+			defender.ownedCountries.remove(c);
+			this.ownedCountries.add(c);
+			c.setPlayer(this);
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -191,7 +275,7 @@ public class Player extends Observable
 	
 	/**
 	 * get the total army of each player
-	 * @return total army number of eaach player
+	 * @return total army number of each player
 	 */
 	public int getTotalArmy() {
 		int totalArmy = 0;
@@ -220,7 +304,7 @@ public class Player extends Observable
 	 * get one type of the card
 	 */
 	public void getOneCard() {		
-		switch(Random.getRandomInt(1, 3)) {
+		switch(Rng.getRandomInt(1, 3)) {
 		case 1:
 			cards.add(Card.artillery);
 			break;
@@ -354,5 +438,76 @@ public class Player extends Observable
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * To get the country with the biggest army number of the player.
+	 * @return the strongest country.
+	 */
+	public Country getStrongestCountry() {
+		if(ownedCountries == null || ownedCountries.size() == 0)	
+			return null;
+		
+		Country strongest = ownedCountries.get(0);
+		
+		for(Country c : ownedCountries)
+			if(c.getArmyNumber() > strongest.getArmyNumber()) strongest = c;
+		
+		return strongest;
+	}
+
+	/**
+	 * to get the country with the lest army number of the player
+	 * @return the weakest country
+	 */
+	public Country getWeakestCountry() {
+		if(ownedCountries == null || ownedCountries.size() == 0)
+			return null;
+		Country weakest = ownedCountries.get(0);
+		
+		for(Country c : ownedCountries)
+		{
+			if(c.getArmyNumber() < weakest.getArmyNumber()) weakest = c;
+		}
+		
+		return weakest;
+	}
+
+	/**
+	 * the reinforce strategy
+	 */
+	public void reinforce() {
+		strategy.reinforce();
+	}
+	
+	/**
+	 * the attack strategy
+	 */
+	public void attack() {
+		strategy.attack();
+	}
+	
+	/**
+	 * the fortify strategy
+	 */
+	public void fortify() {
+		strategy.fortify();
+	}
+
+	/**
+	 * strategy to place one army
+	 */
+	public void placeOneArmy() {
+		strategy.placeOneArmy();
+	}
+	
+	/**
+	 * To clear players
+	 */
+	public void clear() {
+		ownedCountries.clear();
+		armies = map.getInitialArmiesNumber();
+		gotCard = false;
+		cards.clear();
 	}
 }

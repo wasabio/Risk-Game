@@ -5,19 +5,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import view.common.MapSelectionView;
-import view.gameplay.FortificationView;
-import view.gameplay.AttackView;
 import view.gameplay.CardExchangeView;
 import view.gameplay.MapView;
 import view.gameplay.PhaseView;
-import view.gameplay.ReinforcementView;
-import view.gameplay.StartUpView;
 import view.gameplay.WinnerView;
 import view.gameplay.WorldDominationView;
-import model.gameplay.Dices;
 import model.gameplay.Phase;
 import model.gameplay.Player;
-import model.map.Country;
+import model.gameplay.strategy.Aggressive;
+import model.gameplay.strategy.Benevolent;
+import model.gameplay.strategy.Cheater;
+import model.gameplay.strategy.Human;
+import model.gameplay.strategy.Random;
 import model.map.Map;
 	
 /**
@@ -27,34 +26,56 @@ import model.map.Map;
  */
 public class GameController 
 {
+	
+	/**
+	 * The total data of a map, the game map of the game
+	 */
 	private Map map;
+	
+	/**
+	 * data of phase changes, 4 kind of phases included
+	 */
 	private Phase phase;
+	
+	/**
+	 * the data of map view that shows the map to the users
+	 */
 	private MapView mapView;
+	
+	/**
+	 * the data that should show in the phase view to the users
+	 */
 	private PhaseView phaseView;
-	private ReinforcementView reinforcementView;
-	private AttackView attackView;
-	private FortificationView fortificationView;
+	
+	/**
+	 * data of the world domination view, it shows the data of players in the map who owned the most country and army
+	 */
 	private WorldDominationView worldDomiView;
+	
+	/**
+	 * the player who wins the game
+	 */
 	private Player winner;
+	
+	/**
+	 * the data for card exchange view, it shows how many and what kind of the card of a player has
+	 */
 	private CardExchangeView cardExchangeView;
-	private int cardBonus = 5;
 
 	/**
 	 * This is a constructor method for GameController
 	 */
 	public GameController()
 	{
-		try 
+		try
 		{
 			map = new Map();
 			map.clear();
 			phase = new Phase();
+			map.setPhase(phase);
 			mapView = new MapView();
 			phaseView = new PhaseView();
 			worldDomiView = new WorldDominationView();
-			reinforcementView = new ReinforcementView();
-			attackView = new AttackView();
-			fortificationView = new FortificationView();
 			cardExchangeView = new CardExchangeView();
 			phase.addObserver(phaseView);
 			phase.addObserver(cardExchangeView);
@@ -71,21 +92,23 @@ public class GameController
 
 	/**
 	 * This method deals with phase steps and checks whether the game has a winner or not
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void execute() throws IOException
-	{	
+	{
+		setUp();
 		startUpPhase();
 		
 		do 
 		{
 			for(Player p : map.players) 
 			{
-				if(p.ownedCountries.size() > 0) 
+				if(p.ownedCountries.size() > 0)
 				{
 					reinforcementPhase(p);
+					attackPhase(p);
 					
-					if(attackPhase(p) != 0) {
+					if(map.isOwned()) {
 						winner = p;
 						break;
 					}
@@ -97,6 +120,42 @@ public class GameController
 		
 		new WinnerView(winner);
 	}
+	
+	/**
+	 * Set up the parameters of the game : number of players, types of players, map selection.
+	 * @throws IOException reject an error
+	 */
+	public void setUp() throws IOException  
+	{
+		MapSelectionView mapSelectionView = new MapSelectionView();
+		int playerNumber = mapSelectionView.print(6);
+		map.setPlayers(playerNumber);
+		
+		for(Player p : map.players) {
+			int strat = mapSelectionView.askStrategy(p.getNumber());
+			
+			switch(strat) {
+				case 1:
+					p.setStrategy(new Human());
+					break;
+				case 2:
+					p.setStrategy(new Aggressive());
+					break;
+				case 3:
+					p.setStrategy(new Benevolent());
+					break;
+				case 4:
+					p.setStrategy(new Random());
+					break;
+				case 5:
+					p.setStrategy(new Cheater());
+					break;
+			}
+		}
+		
+		String mapFilePath = mapSelectionView.selectMap();		
+		map.load(mapFilePath);
+	}
 
 	/**
 	 * This method deals with deploying players and armies on the map when the game just start.
@@ -104,15 +163,8 @@ public class GameController
 	 * The deployment will end until every country have an owner.
 	 * @throws IOException
 	 */
-	private void startUpPhase() throws IOException 
+	private void startUpPhase()
 	{
-		MapSelectionView mapSelectionView = new MapSelectionView();
-		StartUpView startUpView = new StartUpView();
-		int playerNumber = mapSelectionView.print();
-		map.setPlayers(playerNumber); 
-		
-		String mapFilePath = mapSelectionView.selectMap();		
-		map.load(mapFilePath);
 		map.distributeCountries(); /* Randomly split the countries between the players */
 		ArrayList<Player> remainingPlayers = new ArrayList<Player>(map.players);
 		
@@ -129,10 +181,7 @@ public class GameController
 				} 
 				else 
 				{
-					phase.setPhase("Start up phase",p);
-					int ctryId = startUpView.askCountry(p);
-					phase.setAction("P" + p.getNumber() + " added 1 army in " + map.countries.get(ctryId-1).getName() + "\n");
-					map.addArmiesFromHand(ctryId, 1);
+					p.placeOneArmy();
 				}
 			}
 		}while(remainingPlayers.size() != 0);
@@ -146,104 +195,17 @@ public class GameController
 	{
 		int armyNum = map.calculateArmyNum(p);
 		p.setArmies(armyNum);
-		
-		do 
-		{
-			phase.setPhase("Reinforcement phase", p);
-			int countryNumber = reinforcementView.askCountry(p);
-			if(countryNumber == 0) {
-				int combination = reinforcementView.askCardsToTrade(p);
-				if(p.trade(combination)) {
-					p.setArmies(p.getArmies() + cardBonus);
-					phase.setAction("P" + p.getNumber() + " traded cards and got " + cardBonus + " new armies\n");
-					cardBonus += 5;
-				} else {
-					reinforcementView.errorTraiding();
-				}
-			} else {
-				int selectedArmies = reinforcementView.askArmiesNumber(p);
-				p.reinforcement(map, countryNumber, selectedArmies);
-				phase.setAction("P" + p.getNumber() + " reinforced " + selectedArmies + " army in " + map.countries.get(countryNumber-1).getName() + "\n");
-			}
-		}while(p.getArmies() > 0);
+		p.reinforce();
 	}
 	
 	/**
 	 * This method collects all the inputs in the attack phase by calling views. The player can choose origin and destination, and armies number.
 	 * Origin and destination countries must be connected.
 	 * @param p The current player that is in the fortificationPhase
-	 * @return Return an integer corresponding to the winner's id.
 	 */
-	private int attackPhase(Player p) 
+	private void attackPhase(Player p) 
 	{
-		do {
-			phase.setPhase("Attack phase", p);
-			/* Getting attacker country */
-			boolean canAttack;
-			int	attackerCountryId;
-			Country attackerCtry;
-			do 
-			{
-				attackerCountryId = attackView.chooseAttackerCountry(p);
-				if(attackerCountryId == 0) return 0;	/* 0 to skip */
-				
-				attackerCtry = map.countries.get(attackerCountryId-1);
-				canAttack = attackerCtry.canAttack(); /* Check if the selected country can attack another country */
-				if(!canAttack)	attackView.errorCannotAttack();
-			}while(!canAttack);
-			
-			/* Getting attacked country */
-			boolean canBeAttacked;
-			int defenderCountryId;
-			Country defenderCtry;
-			do 
-			{
-				defenderCountryId = attackView.chooseAttackedCountry(p);
-				defenderCtry = map.countries.get(defenderCountryId-1);
-				canBeAttacked = defenderCtry.canBeAttackedBy(attackerCtry);
-				if(!canBeAttacked)	attackView.errorCannotBeAttackedBy(attackerCtry);
-			}while(!canBeAttacked);
-			
-			/* Getting attack mode : all-out or classic */
-			phase.setAction(attackerCtry.getName() + "(P"+ p.getNumber()+ ") attacked " + map.countries.get(defenderCtry.getNumber()-1).getName() + "(P" + defenderCtry.getPlayer().getNumber() + ")\n");
-
-			if(attackView.askAttackMode() == 1) //All-out
-			{
-				p.attack(map, attackerCtry, defenderCtry);
-			}
-			else {			//Classic
-				Dices dices = new Dices(attackerCtry.getArmyNumber(), defenderCtry.getArmyNumber());
-				int attackerDices = attackView.askAttackerDices(p, dices.getAttackerMaxDices());
-				int defenderDices = attackView.askDefenderDices(defenderCtry.getPlayer(), dices.getDefenderMaxDices());
-				dices.setDicesNumber(attackerDices, defenderDices);
-				
-				p.attack(map, attackerCtry, defenderCtry, dices);
-			}
-			
-			/* Attacker conquered the country */
-			if(defenderCtry.getPlayer() == p) {
-				int movingArmies = attackView.askMovingArmies(attackerCtry.getArmyNumber());
-				map.addArmiesToCountry(attackerCtry.getNumber(), -movingArmies);
-				map.addArmiesToCountry(defenderCtry.getNumber(), movingArmies);
-				
-				if(p.gotCard == false) {
-					p.getOneCard();
-					p.gotCard = true;
-				}
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") conquered " + defenderCtry.getName() + " and moved " + movingArmies + " armies\n");
-			} else {
-				phase.setAction(phase.getAction() + attackerCtry.getName() + "(P" + p.getNumber() + ") failed to conquer " + defenderCtry.getName() + " (P" + defenderCtry.getPlayer().getNumber() + ")\n");
-			}
-			
-			// Checking winning conditions
-			if(map.isOwned()) {
-				return map.countries.get(0).getPlayer().getNumber();
-			}
-		}while(p.canContinueAttacking() && attackView.continueAttacking());
-		
-		p.gotCard = false;
-		
-		return 0;
+		p.attack();
 	}
 
 	/**
@@ -253,42 +215,6 @@ public class GameController
 	 */
 	private void fortificationPhase(Player p) 
 	{
-		phase.setPhase("Fortification phase", p);
-		/* Getting origin country */
-		boolean canSendTroops;
-		int	originCountryId;
-		Country origin;
-		do 
-		{
-			originCountryId = fortificationView.chooseOriginCountry(p); /* Select a valid country owned by the current player */
-			if(originCountryId == 0) return;	/* 0 to skip */
-			
-			origin = map.countries.get(originCountryId-1);
-			canSendTroops = origin.canSendTroopsToAlly(); /* Check if the selected country can send troops */
-			if(!canSendTroops)	fortificationView.errorSendingTroops();
-		}while(!canSendTroops);
-		
-		/* Getting attacked country */
-		boolean connected;
-		int destinationCountryId;
-		Country destination;
-		do 
-		{
-			destinationCountryId = fortificationView.chooseDestinationCountry(p);
-			
-			destination = map.countries.get(destinationCountryId-1);
-			 connected = destination.isConnectedTo(origin);
-			if(!connected)	fortificationView.errorNotConnectedCountries();
-		}while(!connected);
-			
-		Country c = map.countries.get(originCountryId-1);
-		
-		/* Getting number of armies to send */
-		int selectedArmies = fortificationView.askArmiesNumber(p, c.getArmyNumber()-1);	/* User has to let at least 1 army on the origin country */
-		
-		/* Updating armies */
-		p.fortification(map, originCountryId, destinationCountryId, selectedArmies);
-		phase.setAction("p"+p.getNumber()+" fortified "+ selectedArmies+" army from "+
-				map.countries.get(originCountryId-1).getName()+" to "+map.countries.get(destinationCountryId-1).getName()+"\n");
+		p.fortify();
 	}	
 }

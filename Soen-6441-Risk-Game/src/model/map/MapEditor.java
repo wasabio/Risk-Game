@@ -14,6 +14,9 @@ import java.util.Observable;
  */
 public class MapEditor extends Observable
 {
+	/**
+	 * the map data that for the map editor to edit 
+	 */
 	public Map map;
 
 	/**

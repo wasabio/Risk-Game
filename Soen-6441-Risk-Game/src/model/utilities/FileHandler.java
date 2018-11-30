@@ -14,7 +14,6 @@ import java.io.IOException;
  */
 public class FileHandler 
 {
-	//QA
 	/**
 	 * The method is to read the selected file and check whether the file can be open or read.
 	 * If the file cannot be open or read, print error messages and the file name.

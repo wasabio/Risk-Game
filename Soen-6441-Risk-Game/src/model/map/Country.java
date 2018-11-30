@@ -12,18 +12,59 @@ import model.gameplay.Player;
  */
 public class Country extends Observable 
 {
-	
+	/**
+	 * the name of the country
+	 */
 	private String name;
+	
+	/**
+	 * the number of the countries that the map has
+	 */
 	private int number;
+	
+	/**
+	 * the continent that the country belongs
+	 */
 	private Continent continent;
+	
+	/**
+	 * the x coordinate of the country
+	 */
 	private int xLocation;
+	
+	/**
+	 * The y coordinate of the country
+	 */
 	private int yLocation;
+	
+	/**
+	 * the player that owned the country
+	 */
 	private Player player;
+	
+	/**
+	 * the army number in a country
+	 */
 	private int armyNumber;
+	
+	/**
+	 * the country has reached to which country
+	 */
 	public boolean hasReached;
+	
+	/**
+	 * the list of neighbors of a country
+	 */
 	public ArrayList<Country> neighbors = new ArrayList<Country>();
+	
+	/**
+	 * list of neighbor names of the country
+	 */
 	public ArrayList<String> neighborsNames = new ArrayList<String>();
 	
+	/**
+	 * the counter of the country
+	 */
 	public static int Counter = 0;
 	
 	/**
@@ -306,18 +347,23 @@ public class Country extends Observable
 	 * @return If the country can attack
 	 */
 	public boolean canAttack() {
-		if(armyNumber > 1)
+		return (armyNumber > 1 && getEnnemyNeighbor() != null) ?	true : false;
+	}
+	
+	/**
+	 * method to get neighbors that is enemy
+	 * @return return to neighbor list type
+	 */
+	public Country getEnnemyNeighbor() {
+		for(Country neighbor : neighbors)
 		{
-			for(Country neighbor : neighbors)
+			if(neighbor.getPlayer() != this.player) //Enemy country
 			{
-				if(neighbor.getPlayer() != this.player) //Enemy country
-				{
-					return true;
-				}
+				return neighbor;
 			}
 		}
-			
-		return false;
+		
+		return null;
 	}
 
 	/**

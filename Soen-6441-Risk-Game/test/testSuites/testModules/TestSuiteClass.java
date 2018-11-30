@@ -9,6 +9,7 @@ import classTests.testCountry;
 import classTests.testDices;
 import classTests.testFileHandler;
 import classTests.testMap;
+import classTests.testMapChecker;
 import classTests.testMapEditor;
 import classTests.testPhase;
 import classTests.testPlayer;
@@ -22,11 +23,13 @@ import classTests.testStringAnalyzer;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({	testContinent.class,
+@SuiteClasses({	TestSuiteStrategy.class,
+				testContinent.class,
 				testCountry.class,
 				testDices.class,
 				testFileHandler.class,
 				testMap.class,
+				testMapChecker.class,
 				testMapEditor.class,
 				testPhase.class,
 				testPlayer.class,

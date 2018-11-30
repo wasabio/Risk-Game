@@ -26,6 +26,6 @@ public class PhaseView extends View implements Observer {
 	 */
 	private void print(Phase o) {
 		System.out.print("\n"+o.getAction()+"\n");
-		System.out.print("** P"+ o.getPlayer().getNumber() + " " + o.getPhase() +" ** ");
+		System.out.print("** "+ o.getPlayer().getName() + " " + o.getPhase() +" ** ");
 	}
 }

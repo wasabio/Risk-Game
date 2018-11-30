@@ -17,7 +17,14 @@ import org.junit.rules.ExpectedException;
  */
 public class testFileHandler 
 {
+	/**
+	 * the file path of the map
+	 */
 	String mapFilePath;
+	
+	/**
+	 * the LineNumberReader
+	 */
 	LineNumberReader in;
 	 
 	@Rule

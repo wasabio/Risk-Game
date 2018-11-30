@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -17,9 +18,9 @@ import model.map.Map;
  */
 public class testCalculateArmyNum 
 {
-
-	Player p1 = new Player(1,5);
-	Player p2 = new Player(2,5);
+	Map map = new Map();
+	Player p1 = new Player(1, 5, map, new Human());
+	Player p2 = new Player(2, 5, map, new Human());
 	Country cty1= new Country("London");
 	Country cty2 = new Country("Beijing");
 	Country cty3 = new Country("Paris");
@@ -28,7 +29,7 @@ public class testCalculateArmyNum
 	Continent con1 = new Continent("",7);
 	Continent con2 = new Continent("",4);
 	Continent con3 = new Continent("",6);
-	Map map = new Map();
+	
 	
 	/*/**
 	 * initiating 3 continents, 5 countries, country 1,4,5 is in continent 1, country 2 in continent 2

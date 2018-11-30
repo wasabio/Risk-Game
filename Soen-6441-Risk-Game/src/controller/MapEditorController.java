@@ -15,9 +15,24 @@ import view.mapEditor.MapEditorView;
  */
 public class MapEditorController 
 {
+	/**
+	 * the data of map editor that include the changing of a map and edit it.
+	 */
 	private MapEditor mapEditor;
+	
+	/**
+	 * the data of map editor view that shows map editor options
+	 */
 	private MapEditorView mapEditorView;
+	
+	/**
+	 * the data of editor menu view that can show the editor menu
+	 */
 	private EditorMenuView editorMenuView;
+	
+	/**
+	 * the data of edit view that show the edit option
+	 */
 	private EditView editView;
 
 	/**
@@ -43,7 +58,7 @@ public class MapEditorController
 	
 	/**
 	 * The method is to execute the map editor and then manage the choice options to the players.
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void execute() throws IOException
 	{

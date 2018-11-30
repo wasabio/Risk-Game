@@ -6,6 +6,7 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Test;
 
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -25,8 +26,8 @@ public class testContinent {
 	Country cty2 = new Country();
 	Country cty3 = new Country();
 	
-	Player p1 = new Player(0, 1);
-	Player p2 = new Player(0, 1);
+	Player p1 = new Player(0, 1, map, new Human());
+	Player p2 = new Player(0, 1, map, new Human());
 	
 	/**
 	 * test the get owner method

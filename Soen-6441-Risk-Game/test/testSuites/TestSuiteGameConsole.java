@@ -10,10 +10,12 @@ import gameConsoleTest.testCalculateArmyNum;
 import gameConsoleTest.testCanSendTroopsToAlly;
 import gameConsoleTest.testCheckConnectedMap;
 import gameConsoleTest.testCheckNoEmptyContinent;
+import gameConsoleTest.testConnectedContinents;
 import gameConsoleTest.testDistributeCountries;
-import gameConsoleTest.testIsConnectedTo;
+import gameConsoleTest.testFortification;
 import gameConsoleTest.testMapFileSyntax;
 import gameConsoleTest.testMapValidation;
+import gameConsoleTest.testTournament;
 import gameConsoleTest.testTrade;
 
 /**
@@ -28,10 +30,14 @@ import gameConsoleTest.testTrade;
 				testCanSendTroopsToAlly.class,
 				testCheckConnectedMap.class,
 				testCheckNoEmptyContinent.class,
+				testConnectedContinents.class,
 				testDistributeCountries.class,
-				testIsConnectedTo.class,
+				testFortification.class,
 				testMapFileSyntax.class,
 				testMapValidation.class,
+				testTournament.class,
 				testTrade.class})
-public class TestSuiteGameConsole {
+public class TestSuiteGameConsole 
+{
+	
 }

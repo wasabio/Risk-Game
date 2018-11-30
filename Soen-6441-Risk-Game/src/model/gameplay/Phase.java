@@ -9,8 +9,20 @@ import java.util.Observable;
  *
  */
 public class Phase extends Observable{
+	
+	/**
+	 * 4 kind of phase names
+	 */
 	String phase;
+	
+	/**
+	 * The current player
+	 */
 	Player p;
+	
+	/**
+	 * the action that did in the phase
+	 */
 	String action="";
 
 	/**

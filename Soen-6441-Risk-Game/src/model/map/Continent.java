@@ -11,8 +11,19 @@ import model.gameplay.Player;
 */
 public class Continent 
 {
+	/**
+	 * The continent name
+	 */
 	private String name;
+	
+	/**
+	 * the extra armies that a player can get when conquer a continent
+	 */
 	private int extraArmies;
+	
+	/**
+	 * list of countries in a continent
+	 */
 	public ArrayList<Country> countries = new ArrayList<Country>();
 	
 	/**

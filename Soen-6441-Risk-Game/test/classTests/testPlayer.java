@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import model.gameplay.Player;
+import model.gameplay.strategy.Human;
 import model.map.Continent;
 import model.map.Country;
 import model.map.Map;
@@ -16,13 +17,17 @@ import model.map.Map;
  */
 public class testPlayer {
 
+	/**
+	 * the Player data
+	 */
 	Player p;
+	
 	/**
 	 * set the new value of player
 	 */
 	@Before()
 	public void Before(){
-		p = new Player(1,2);
+		p = new Player(1, 2, new Map(), new Human());
 		p.setArmies(6);
 		p.setNumber(3);
 	}
@@ -40,7 +45,7 @@ public class testPlayer {
 	 */
 	@Test
 	public void testGetNumber() {
-		assertEquals(3,p.getNumber());
+		assertEquals(3, p.getNumber());
 	}
 	
 	/**
@@ -58,7 +63,7 @@ public class testPlayer {
 	@Test
 	public void testOwns() {
 		Map map = new Map();
-		Player p2 = new Player(2,3);
+		Player p2 = new Player(2, 3, new Map(), new Human());
 		Country c1 = new Country();
 		Country c2 = new Country();
 		Continent con = new Continent("",2);

@@ -27,7 +27,7 @@ public class CardExchangeView extends View implements Observer
 	 */
 	public void print(Phase phase) {
 		if(phase.getPhase().equals("Reinforcement phase")) {
-			System.out.println("Your cards : " + phase.getPlayer().getCards());
+			System.out.println("\nYour cards : " + phase.getPlayer().getCards());
 		}
 	}
 }

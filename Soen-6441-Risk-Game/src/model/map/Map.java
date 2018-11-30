@@ -6,14 +6,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Observable;
-import java.util.Stack;
 import java.util.StringTokenizer;
 
 import model.gameplay.Phase;
 import model.gameplay.Player;
-import model.utilities.Random;
+import model.gameplay.strategy.Human;
+import model.utilities.Rng;
 import model.utilities.StringAnalyzer;
 
 /**
@@ -26,24 +25,77 @@ import model.utilities.StringAnalyzer;
  */
 public class Map extends Observable 
 {
+	/**
+	 * the list of continents that the map has
+	 */
 	public ArrayList<Continent> continents = new ArrayList<Continent>();
+	
+	/**
+	 * the list of countries that the map has
+	 */
 	public ArrayList<Country> countries = new ArrayList<Country>();
+	
+	/**
+	 * the list of players that the map has
+	 */
 	public ArrayList<Player> players = new ArrayList<Player>();
+	
+	/**
+	 * the name of the map
+	 */
 	private String name;
+	
+	/**
+	 * the file path of the map
+	 */
 	private String mapFilePath;
+	
+	/**
+	 * the image file path of the map
+	 */
 	private String imageFilePath;
+	
+	/**
+	 * the wrap data of the map
+	 */
 	private boolean wrap;
+	
+	/**
+	 * the scroll data in the map
+	 */
 	private String scroll;
+	
+	/**
+	 * the author of the map
+	 */
 	private String author;
+	
+	/**
+	 * the data of warn in the map
+	 */
 	private boolean warn;
+	
+	/**
+	 * the number of the player in the map
+	 */
 	private int playerNumber;
-	private Phase phase = new Phase();
+	
+	/**
+	 * the phase state of the map
+	 */
+	private Phase phase;
+	
+	/**
+	 * the card bonus when conquer a country
+	 */
+	private static int cardBonus = 0;
 	
 	/**
 	 * Map constructor 
 	 */
 	public Map() {
 		Country.Counter = 0;
+		Map.cardBonus = 0;
 	}
 	
 	/**
@@ -66,7 +118,7 @@ public class Map extends Observable
 	/**
 	 * 	 * To load and check if the map file has the good syntax.
 	 * @param in The string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadMapSection(LineNumberReader in) throws IOException 
 	{
@@ -124,7 +176,7 @@ public class Map extends Observable
 	/**
 	 * To load and check if the continent's section of the map file is correct.
 	 * @param in The continent string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadContinents(LineNumberReader in) throws IOException 
 	{
@@ -156,7 +208,7 @@ public class Map extends Observable
 				{
 					throw new IOException("Invalid continent line: " + line);
 				}
-				this.continents.add(new Continent(cname, cbonus));
+				this.continents.add(new Continent(cname.toLowerCase(), cbonus));
 			}
 		}
 	}
@@ -164,7 +216,7 @@ public class Map extends Observable
 	/**
 	 * To load and check if the territorie's section of the map file is correct.
 	 * @param in The country string type in the map file that need to be read
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void loadCountries(LineNumberReader in) throws IOException 
 	{
@@ -177,7 +229,7 @@ public class Map extends Observable
 			}
 			if (!line.trim().equals("")) 
 			{
-				parseCountryLine(line);
+				parseCountryLine(line.toLowerCase());
 			}
 		}
 		
@@ -194,7 +246,7 @@ public class Map extends Observable
 	 * The method is to find the specific country and its information
 	 * @param name The specific country name in string type
 	 * @return Returning to the current country in country type if the condition is correct, otherwise print incorrect map file with the current country name
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private Country findCountry(String name) throws IOException 
 	{
@@ -212,7 +264,7 @@ public class Map extends Observable
 	 * The method is to parse the neighbors of the current country with separated by ",".
 	 * It also will check some conditions like the current country is exist or not and the correctness of the coordinates (x,y)
 	 * @param line This is the string line of neighbors of the current country
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private void parseCountryLine(String line) throws IOException 
 	{
@@ -220,12 +272,12 @@ public class Map extends Observable
 		{
 			StringTokenizer st = new StringTokenizer(line, ",");
 			Country ctry = new Country();
-			ctry.setName(st.nextToken().trim());
+			ctry.setName(st.nextToken().trim().toLowerCase());
 			ctry.setCenter(Integer.parseInt(st.nextToken().trim()), Integer.parseInt(st.nextToken().trim()));
 
 			if (st.hasMoreTokens()) 
 			{
-				String name = st.nextToken().trim();
+				String name = st.nextToken().trim().toLowerCase();
 				ctry.setContinent(findContinent(name));
 				if ((ctry.getName() == null) || (ctry.getName().length() < 0)) 
 				{
@@ -274,7 +326,7 @@ public class Map extends Observable
 	 * @param in The string line number that need to be read 
 	 * @param section The part of the string in the map file that is selected as the target
 	 * @return Returning the LineNumberReader type "in" while the read file string is not equal to the head
-	 * @throws IOException
+	 * @throws IOException reject an error
 	 */
 	private int reachSection(LineNumberReader in, String section) throws IOException 
 	{
@@ -321,10 +373,18 @@ public class Map extends Observable
 		
 		for(int i = 1; i <= playerNumber; i++) 
 		{
-			players.add(new Player(i, armiesNumber));
+			players.add(new Player(i, armiesNumber, this, new Human()));
 		}
 	}
-
+	
+	/**
+	 * Return card bonus and increase it by 5 each time a player receives this bonus
+	 */
+	public static int getCardBonus() {
+		cardBonus += 5;
+		return cardBonus;
+	}
+	
 	/**
 	 * The method is to generate initial number of armies for each player when the game start
 	 * It also includes the condition for different player number with different initial armies number for each player
@@ -336,7 +396,7 @@ public class Map extends Observable
 	 *  case 6 with 20 army each player, 
 	 *  others Return 0; 
 	 */	
-	private int getInitialArmiesNumber() 
+	public int getInitialArmiesNumber() 
 	{
 		switch(this.playerNumber) 
 		{
@@ -368,7 +428,7 @@ public class Map extends Observable
 			{
 				if(freeCountries.size() > 0) 
 				{
-					int i = Random.getRandomInt(0, freeCountries.size()-1); //Random assignment
+					int i = Rng.getRandomInt(0, freeCountries.size()-1); //Random assignment
 					Country c = freeCountries.remove(i);
 					c.setPlayer(p);
 					c.setArmyNumber(1);
@@ -397,15 +457,16 @@ public class Map extends Observable
 		
 		return true;
 	}
-
+	
 	/**
 	 * Add armies to a specific country by its id 
-	 * @param ctryId Country id
+	 * @param origin Country id
 	 * @param armiesNumber Armies number to add
 	 */
-	public void addArmiesToCountry(int ctryId, int armiesNumber) 
+	public void addArmiesToCountry(Country c, int armiesNumber) 
 	{
-		Country c = countries.get(ctryId-1);
+		if(armiesNumber == 0) return;
+		
 		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
 		
 		setChanged();
@@ -414,11 +475,30 @@ public class Map extends Observable
 	
 	/**
 	 * Add armies to a country, and reduces the number of army in player's hand.
-	 * @param countryNumber Country id
-	 * @param armiesNumber Number of armies to add
+	 * @param countryNumber Country id.
+	 * @param armiesNumber Number of armies to add.
 	 */
 	public void addArmiesFromHand(int countryNumber, int armiesNumber) {
+		if(armiesNumber == 0) return;
+		
 		Country c = countries.get(countryNumber-1);
+		Player p = c.getPlayer();
+		
+		p.setArmies(p.getArmies() - armiesNumber);
+		c.setArmyNumber(c.getArmyNumber() + armiesNumber);
+		
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	/**
+	 * Add armies to a country, and reduces the number of army in player's hand.
+	 * @param c The country that receives the armies.
+	 * @param armiesNumber Number of armies to add.
+	 */
+	public void addArmiesFromHand(Country c, int armiesNumber) {
+		if(armiesNumber == 0) return;
+		
 		Player p = c.getPlayer();
 		
 		p.setArmies(p.getArmies() - armiesNumber);
@@ -436,7 +516,6 @@ public class Map extends Observable
 	public Country getCountry(int ctryId) {
 		return countries.get(ctryId-1);
 	}
-
 
 	/**
 	 * The method is to calculate the country number that the current player owned.
@@ -490,6 +569,10 @@ public class Map extends Observable
 	public void clear() 
 	{
 		Country.Counter = 0;
+		Map.cardBonus = 0;
+		for(Player p : this.players)	p.clear();
+		countries.clear();
+		continents.clear();
 	}
 
 	/**
@@ -514,7 +597,15 @@ public class Map extends Observable
 	 * get the player's current phase
 	 * @return print out the phase and player state
 	 */
-	public String getPhase() {
-		return (phase.getAction() +"\n"+phase.getPhase()+" P"+phase.getPlayer().getNumber()+" ");
+	public Phase getPhase() {
+		return phase;
+	}
+	
+	/**
+	 * set the player's current phase
+	 * @aparam phase Set the phase
+	 */
+	public void setPhase(Phase phase) {
+		this.phase = phase;
 	}
 }
