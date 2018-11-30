@@ -13,7 +13,7 @@ import model.map.Map;
 
 /**
  * this test case is to test the random strategy
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testRandom {

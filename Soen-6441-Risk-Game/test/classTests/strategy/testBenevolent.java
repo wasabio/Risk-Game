@@ -15,7 +15,7 @@ import model.gameplay.Dices;
 
 /**
  * The class for testing functions of benevolent AI
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testBenevolent 

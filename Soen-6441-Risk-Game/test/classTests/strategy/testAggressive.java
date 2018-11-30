@@ -18,7 +18,7 @@ import model.gameplay.Phase;
 
 /**
  * This class is for testing functions of the Aggressive AI
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testAggressive {

@@ -11,7 +11,7 @@ import classTests.testStringAnalyzer;
 
 /**
  * This test suite tests the utilities module
- * @author Yann-PC
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

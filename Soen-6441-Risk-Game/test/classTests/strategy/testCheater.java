@@ -14,7 +14,7 @@ import model.map.Map;
 
 /**
  * this test case is to test the cheater pattern
- * @author Yueshuai
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testCheater {

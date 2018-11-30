@@ -19,7 +19,7 @@ import classTests.testStringAnalyzer;
 
 /**
  * This test suite tests all the implementation classes
- * @author Yann-PC
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

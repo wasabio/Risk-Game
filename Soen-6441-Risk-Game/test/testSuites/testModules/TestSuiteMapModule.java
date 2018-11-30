@@ -11,7 +11,7 @@ import classTests.testMapEditor;
 
 /**
  * This test suite tests the map module
- * @author Yann-PC
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 @RunWith(Suite.class)

@@ -16,7 +16,7 @@ import model.gameplay.Dices;
 
 /**
  * The class for testing functions of Human class
- * @author skyba
+ * @author Yann Kerichard, Yueshuai Jiang, Che-Shao Chen
  *
  */
 public class testHuman {
