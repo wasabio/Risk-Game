@@ -10,11 +10,9 @@ import model.gameplay.Player;
 import model.gameplay.strategy.Aggressive;
 import model.gameplay.strategy.Benevolent;
 import model.gameplay.strategy.Cheater;
-import model.gameplay.strategy.Human;
 import model.gameplay.strategy.Random;
 import model.map.Country;
 import model.map.Map;
-import model.map.MapChecker;
 import view.common.MapSelectionView;
 import view.gameplay.CardExchangeView;
 import view.gameplay.MapView;
@@ -88,24 +86,15 @@ public class TournamentController {
 	 */
 	public TournamentController()
 	{
-		try 
-		{
-			initMap();
-			execute();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+		initMap();
 	}
 	
 	/**
 	 * This method deals with phase steps and checks whether the game has a winner or not
 	 * @throws IOException
 	 */
-	private void execute() throws IOException
+	public void execute() throws IOException
 	{
-		setUp();
 		for(String currentMap : maps) {
 			for(int game = 1; game <= gamesNumber; game++) {
 				initMap();
@@ -120,6 +109,133 @@ public class TournamentController {
 		new WinnerView(winners, gamesNumber, maps.size());
 	}
 	
+	/**
+	 * To get winners
+	 * @return	list of winners
+	 */
+	public ArrayList<String> getWinners() {
+		return winners;
+	}
+
+	/**
+	 * To set winners
+	 * @param set winners
+	 */
+	public void setWinners(ArrayList<String> winners) {
+		this.winners = winners;
+	}
+
+	/**
+	 * To get number of players
+	 * @return	number of players
+	 */
+	public int getPlayerNumber() {
+		return playerNumber;
+	}
+
+	/**
+	 * set number of players
+	 * @param number of players
+	 */
+	public void setPlayerNumber(int playerNumber) {
+		this.playerNumber = playerNumber;
+	}
+
+	/**
+	 * get players
+	 * @return
+	 */
+	public ArrayList<Player> getPlayers() {
+		return players;
+	}
+
+	/**
+	 * set number of players
+	 * @param number of players
+	 */
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
+	}
+
+	/**
+	 * get maps
+	 * @return maps
+	 */
+	public ArrayList<String> getMaps() {
+		return maps;
+	}
+	
+	/**
+	 * set maps path
+	 * @param maps path
+	 */
+	public void setMaps(ArrayList<String> maps) {
+		this.maps = maps;
+	}
+
+	/**
+	 * get games number
+	 * @return number of games
+	 */
+	public int getGamesNumber() {
+		return gamesNumber;
+	}
+
+	/**
+	 * set number of games
+	 * @param number of games
+	 */
+	public void setGamesNumber(int gamesNumber) {
+		this.gamesNumber = gamesNumber;
+	}
+
+	/**
+	 * get maximum turns
+	 * @return maximum turns
+	 */
+	public int getMaximumTurns() {
+		return maximumTurns;
+	}
+
+	/**
+	 * set maximum turns
+	 * @param maximum turns
+	 */
+	public void setMaximumTurns(int maximumTurns) {
+		this.maximumTurns = maximumTurns;
+	}
+
+	/**
+	 * get phase
+	 * @return phase
+	 */
+	public Phase getPhase() {
+		return phase;
+	}
+
+	/**
+	 * set phase
+	 * @param phase
+	 */
+	public void setPhase(Phase phase) {
+		this.phase = phase;
+	}
+	
+	/**
+	 * get map
+	 * @return map
+	 */
+	public Map getMap() {
+		return map;
+	}
+
+	/**
+	 * set map
+	 * @param map
+	 */
+	public void setMap(Map map) {
+		this.map = map;
+	}
 
 	/**
 	 * To play one game
@@ -135,6 +251,8 @@ public class TournamentController {
 		do
 		{
 			turn++;
+			System.out.println("\n - TURN " + turn + " -");
+
 			for(Player p : map.players) 
 			{
 				if(p.ownedCountries.size() > 0)
@@ -268,7 +386,7 @@ public class TournamentController {
 	/**
 	 * To create / reset the map 
 	 */
-	private void initMap() {
+	public void initMap() {
 		map = new Map();
 		map.clear();
 		phase = new Phase();
