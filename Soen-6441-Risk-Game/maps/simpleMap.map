@@ -1,23 +1,24 @@
 [Map]
-image=world.bmp
+image=simpleMap.bmp
 warn=yes
 author=Team 14
 scroll=horizontal
 wrap=no
 
 [Continents]
-North America=5
-South America=2
-Africa=3
+north america=5
+south america=2
+africa=3
 
 [Territories]
-Alaska,70,126,North America,Quebec,Ontario,Venezuela
-Ontario,199,167,North America,Alaska,Madagascar
-Quebec,253,166,North America,Alaska,Venezuela
+alaska,0,0,north america,quebec,ontario,venezuela
+ontario,0,0,north america,alaska,madagascar
+quebec,0,0,north america,alaska,venezuela,Test
+Test,0,0,north america,quebec
 
-Venezuela,259,303,South America,Peru,Quebec,Alaska
-Peru,262,349,South America,Venezuela,North Africa
+venezuela,0,0,south america,peru,quebec,alaska
+peru,0,0,south america,venezuela,north africa
 
-North Africa,420,264,Africa,South Africa,Peru
-South Africa,483,371,Africa,North Africa,Madagascar
-Madagascar,536,361,Africa,South Africa,Ontario
+north africa,0,0,africa,south africa,peru
+south africa,0,0,africa,north africa,madagascar
+madagascar,0,0,africa,south africa,ontario
