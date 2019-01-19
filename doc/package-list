@@ -1,8 +1,0 @@
-GameConsoleTest
-controller
-model.gameplay
-model.map
-model.utilities
-view.common
-view.gameplay
-view.mapEditor
